@@ -20,12 +20,11 @@ import javafx.scene.shape.Circle;
 import com.super_x.view.HomePage;
 import com.super_x.view.RolePage;
 
-
 /** Shared dashboard navigation used by every driver-facing screen. */
 public final class DriverNavigation {
-        private static final String GREEN = "#014B3A";
-        private static final String LIGHT_GREEN = "#075F49";
-        private static final String BORDER = "#075F49";
+    private static final String GREEN = "#014B3A";
+    private static final String LIGHT_GREEN = "#075F49";
+    private static final String BORDER = "#075F49";
 
     private DriverNavigation() {
     }
@@ -39,10 +38,10 @@ public final class DriverNavigation {
         sidebar.setPadding(new Insets(18, 18, 18, 18));
         sidebar.setSpacing(10);
         sidebar.setStyle(
-        "-fx-background-color: " + GREEN + ";" +
-        "-fx-border-color: " + BORDER + ";" +
-        "-fx-border-width: 0 1 0 0;"
-        
+                "-fx-background-color: " + GREEN + ";" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-width: 0 1 0 0;"
+
         );
 
         // =========================================================
@@ -52,10 +51,7 @@ public final class DriverNavigation {
         ImageView logo = new ImageView(
                 new Image(
                         DriverNavigation.class.getResourceAsStream(
-                                "/assets/icons/EcoloadLogodriver.png"
-                        )
-                )
-        );
+                                "/assets/icons/EcoloadLogodriver.png")));
 
         logo.setFitWidth(225);
         logo.setPreserveRatio(true);
@@ -66,7 +62,6 @@ public final class DriverNavigation {
 
         logoBox.setPadding(new Insets(5, 0, 0, 0));
 
-
         VBox menu = new VBox(0);
         menu.getChildren().addAll(
                 menuButton("▦", "Dashboard", activePage),
@@ -75,9 +70,7 @@ public final class DriverNavigation {
                 menuButton("↶", "Trip History", activePage),
                 menuButton("☆", "Ratings", activePage),
                 menuButton("♧", "Support", activePage),
-                truckWalaButton()
-        );
-                
+                truckWalaButton(activePage));
 
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
@@ -89,42 +82,39 @@ public final class DriverNavigation {
         logout.setCursor(Cursor.HAND);
 
         logout.setStyle(
-    "-fx-background-color: rgb(234, 63, 63);" +
-    "-fx-text-fill: #ffffff;" +
-    "-fx-font-size: 14px;" +
-    "-fx-font-weight: bold;" +
-    "-fx-alignment: CENTER_LEFT;" +
-    "-fx-padding: 12px 18px;" +
-    "-fx-background-radius: 8px;" +
-    "-fx-cursor: hand;"
-        );
+                "-fx-background-color: rgb(234, 63, 63);" +
+                        "-fx-text-fill: #ffffff;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-alignment: CENTER_LEFT;" +
+                        "-fx-padding: 12px 18px;" +
+                        "-fx-background-radius: 8px;" +
+                        "-fx-cursor: hand;");
 
         logout.setOnMouseEntered(e -> logout.setStyle(
-    "-fx-background-color: #ff0000;" +
-    "-fx-text-fill: #ffffff;" +
-    "-fx-font-size: 14px;" +
-    "-fx-font-weight: bold;" +
-    "-fx-alignment: CENTER_LEFT;" +
-    "-fx-padding: 12px 18px;" +
-    "-fx-background-radius: 8px;" +
-    "-fx-cursor: hand;"
-        ));
+                "-fx-background-color: #ff0000;" +
+                        "-fx-text-fill: #ffffff;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-alignment: CENTER_LEFT;" +
+                        "-fx-padding: 12px 18px;" +
+                        "-fx-background-radius: 8px;" +
+                        "-fx-cursor: hand;"));
 
         logout.setOnMouseExited(e -> logout.setStyle(
-    "-fx-background-color: rgb(234, 64, 64);" +
-    "-fx-text-fill: #ffffff;" +
-    "-fx-font-size: 14px;" +
-    "-fx-font-weight: bold;" +
-    "-fx-alignment: CENTER_LEFT;" +
-    "-fx-padding: 12px 18px;" +
-    "-fx-background-radius: 8px;" +
-    "-fx-cursor: hand;"
-        ));
+                "-fx-background-color: rgb(234, 64, 64);" +
+                        "-fx-text-fill: #ffffff;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-alignment: CENTER_LEFT;" +
+                        "-fx-padding: 12px 18px;" +
+                        "-fx-background-radius: 8px;" +
+                        "-fx-cursor: hand;"));
 
         logout.setOnAction(event -> HomePage.homeStage.setScene(new RolePage().getRolePageScene()));
 
-                sidebar.getChildren().addAll(logoBox, menu, spacer, logout);
-                return sidebar;
+        sidebar.getChildren().addAll(logoBox, menu, spacer, logout);
+        return sidebar;
     }
 
     public static HBox createNavbar() {
@@ -146,10 +136,10 @@ public final class DriverNavigation {
 
         header.setSpacing(20);
 
-       header.setStyle(
-        "-fx-background-color: #F8FAFC;" +
-        "-fx-border-color: #E2E8F0;" +
-        "-fx-border-width: 0 0 1 0;");
+        header.setStyle(
+                "-fx-background-color: #F8FAFC;" +
+                        "-fx-border-color: #E2E8F0;" +
+                        "-fx-border-width: 0 0 1 0;");
         // =========================================================
         // WELCOME TEXT
         // =========================================================
@@ -158,8 +148,8 @@ public final class DriverNavigation {
 
         welcome.setStyle(
                 "-fx-font-size: 22px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #014B3A;");
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #014B3A;");
 
         // =========================================================
         // SPACER
@@ -178,17 +168,15 @@ public final class DriverNavigation {
         Label number = new Label("MH 12 AB 4567");
 
         number.setStyle(
-        "-fx-font-size: 14px;" +
-        "-fx-font-weight: bold;" +
-        "-fx-text-fill: #014B3A;"
-        );
+                "-fx-font-size: 14px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #014B3A;");
 
         Label vehicleName = new Label("Carry Truck");
 
         vehicleName.setStyle(
-        "-fx-font-size: 12px;" +
-        "-fx-text-fill: #64748B;"
-        );
+                "-fx-font-size: 12px;" +
+                        "-fx-text-fill: #64748B;");
 
         VBox vehicle = new VBox(2);
         vehicle.setAlignment(Pos.CENTER_RIGHT);
@@ -294,31 +282,30 @@ public final class DriverNavigation {
 
         String normalStyle = selected
                 ? "-fx-background-color: #075F49;" +
-                "-fx-background-radius: 10;"
+                        "-fx-background-radius: 10;"
                 : "-fx-background-color: transparent;" +
-                "-fx-background-radius: 12;";
+                        "-fx-background-radius: 12;";
 
         button.setStyle(normalStyle);
 
         button.setOnMouseEntered(event -> {
 
-                button.setStyle(
-                        "-fx-background-color: " + LIGHT_GREEN + ";" +
-                        "-fx-text-fill: white;" +
-                        "-fx-background-radius: 12;"
-                );
+            button.setStyle(
+                    "-fx-background-color: " + LIGHT_GREEN + ";" +
+                            "-fx-text-fill: white;" +
+                            "-fx-background-radius: 12;");
         });
 
         button.setOnMouseExited(event -> {
 
-                button.setStyle(normalStyle);
+            button.setStyle(normalStyle);
 
         });
 
         button.setOnAction(event -> navigate(text));
 
         return button;
-        }
+    }
 
     private static HBox menuGraphic(String icon, String text, boolean selected) {
 
@@ -326,54 +313,73 @@ public final class DriverNavigation {
 
         iconLabel.setStyle(
                 "-fx-font-size: 23px;" +
-                "-fx-text-fill: #FFFFFF;"
-        );
+                        "-fx-text-fill: #FFFFFF;");
 
         Label textLabel = new Label(text);
 
         textLabel.setStyle(
                 "-fx-font-size: 16px;" +
-                "-fx-font-weight: " + (selected ? "bold" : "normal") + ";" +
-                "-fx-text-fill: #FFFFFF;"
-        );
+                        "-fx-font-weight: " + (selected ? "bold" : "normal") + ";" +
+                        "-fx-text-fill: #FFFFFF;");
 
         return new HBox(15, iconLabel, textLabel);
-        }
+    }
 
-        private static Button truckWalaButton() {
+    private static Button truckWalaButton(String activePage) {
 
         Button button = new Button();
-        button.setGraphic(menuGraphic("🎵", "Truck Wala", false));
+
+        boolean selected = "Truck Wala".equals(activePage);
+
+        button.setGraphic(
+                menuGraphic("🎵", "Truck Wala", selected));
 
         button.setAlignment(Pos.CENTER_LEFT);
         button.setPadding(new Insets(10, 16, 10, 18));
         button.setMaxWidth(Double.MAX_VALUE);
         button.setCursor(Cursor.HAND);
 
-        String normalStyle =
-                "-fx-background-color: transparent;" +
+        String normalStyle = selected
+                ? "-fx-background-color: #075F49;" +
+                        "-fx-background-radius: 12;"
+                : "-fx-background-color: transparent;" +
+                        "-fx-background-radius: 12;";
+
+        String hoverStyle = "-fx-background-color: #0A7057;" +
                 "-fx-background-radius: 12;";
 
         button.setStyle(normalStyle);
 
         button.setOnMouseEntered(event -> {
-                button.setStyle(
-                        "-fx-background-color: #075F49;" +
-                        "-fx-background-radius: 12;"
-                );
+            button.setStyle(hoverStyle);
         });
 
         button.setOnMouseExited(event -> {
-                button.setStyle(normalStyle);
+            button.setStyle(normalStyle);
         });
 
-        TruckWala truckWala = new TruckWala();
-        button.setOnAction(event -> 
-                HomePage.homeStage.setScene(truckWala.getTruckWalaScene())
-        );
+        // Open Truck Wala
+        button.setOnAction(event -> {
+
+            System.out.println("Truck Wala clicked!");
+
+            try {
+
+                TruckWala truckWala = new TruckWala();
+
+                Scene scene = truckWala.getTruckWalaScene();
+
+                HomePage.homeStage.setScene(scene);
+
+                System.out.println("Truck Wala scene opened!");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         return button;
-        }
+    }
 
     private static void navigate(String page) {
         Scene scene = switch (page) {

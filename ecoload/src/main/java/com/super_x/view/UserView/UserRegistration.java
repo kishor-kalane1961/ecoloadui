@@ -36,8 +36,7 @@ public class UserRegistration {
         BorderPane root = new BorderPane();
 
         root.setStyle(
-                "-fx-background-color: " + BG + ";"
-        );
+                "-fx-background-color: " + BG + ";");
 
         // =====================================================
         // MAIN CARD
@@ -50,10 +49,9 @@ public class UserRegistration {
 
         card.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 20;" +
-                "-fx-border-radius: 20;" +
-                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 25, 0.15, 0, 5);"
-        );
+                        "-fx-background-radius: 20;" +
+                        "-fx-border-radius: 20;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 25, 0.15, 0, 5);");
 
         // =====================================================
         // LEFT SIDE
@@ -78,16 +76,14 @@ public class UserRegistration {
         StackPane wrapper = new StackPane(card);
 
         wrapper.setPadding(
-                new Insets(25)
-        );
+                new Insets(25));
 
         root.setCenter(wrapper);
 
         return new Scene(
                 root,
                 1536,
-                750
-        );
+                750);
     }
 
     // =========================================================
@@ -104,9 +100,7 @@ public class UserRegistration {
 
         Image image = new Image(
                 getClass().getResourceAsStream(
-                        "/assets/images/registration.png"
-                )
-        );
+                        "/assets/images/registration.png"));
 
         ImageView imageView = new ImageView(image);
 
@@ -127,11 +121,10 @@ public class UserRegistration {
         imageBox.setMaxHeight(250);
 
         imageBox.setStyle(
-                "-fx-background-color: transparent;"
-        );
+                "-fx-background-color: transparent;");
 
         imageBox.getChildren().add(imageView);
-        
+
         left.getChildren().add(imageBox);
 
         return left;
@@ -146,13 +139,11 @@ public class UserRegistration {
         BorderPane right = new BorderPane();
 
         right.setPadding(
-                new Insets(28, 35, 20, 35)
-        );
+                new Insets(28, 35, 20, 35));
 
         right.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 0 20 20 0;"
-        );
+                        "-fx-background-radius: 0 20 20 0;");
 
         // =====================================================
         // TOP
@@ -160,39 +151,30 @@ public class UserRegistration {
 
         VBox header = new VBox(5);
 
-        Label title =
-                new Label("Create your Account");
+        Label title = new Label("Create your Account");
 
         title.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        27
-                )
-        );
+                        27));
 
         title.setTextFill(
-                Color.web("#151917")
-        );
+                Color.web("#151917"));
 
-        Label subtitle =
-                new Label(
-                        "Create your business account with EcoLoad "
-                        + "and access our premium logistics network."
-                );
+        Label subtitle = new Label(
+                "Create your business account with EcoLoad "
+                        + "and access our premium logistics network.");
 
         subtitle.setFont(
-                Font.font("System", 13)
-        );
+                Font.font("System", 13));
 
         subtitle.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         header.getChildren().addAll(
                 title,
-                subtitle
-        );
+                subtitle);
 
         right.setTop(header);
 
@@ -200,20 +182,16 @@ public class UserRegistration {
         // CENTER FORM
         // =====================================================
 
-        GridPane form =
-                createFormGrid();
+        GridPane form = createFormGrid();
 
-        VBox center =
-                new VBox(form);
+        VBox center = new VBox(form);
 
         VBox.setVgrow(
                 form,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         center.setPadding(
-                new Insets(16, 0, 5, 0)
-        );
+                new Insets(16, 0, 5, 0));
 
         right.setCenter(center);
 
@@ -221,8 +199,7 @@ public class UserRegistration {
         // BOTTOM
         // =====================================================
 
-        VBox bottom =
-                createBottomSection();
+        VBox bottom = createBottomSection();
 
         right.setBottom(bottom);
 
@@ -235,178 +212,142 @@ public class UserRegistration {
 
     private GridPane createFormGrid() {
 
-        GridPane grid =
-                new GridPane();
+        GridPane grid = new GridPane();
 
         grid.setHgap(25);
         grid.setVgap(9);
 
-        ColumnConstraints col1 =
-                new ColumnConstraints();
+        ColumnConstraints col1 = new ColumnConstraints();
 
         col1.setPercentWidth(50);
 
-        ColumnConstraints col2 =
-                new ColumnConstraints();
+        ColumnConstraints col2 = new ColumnConstraints();
 
         col2.setPercentWidth(50);
 
         grid.getColumnConstraints().addAll(
                 col1,
-                col2
-        );
+                col2);
 
         // =====================================================
         // ROW 1
         // =====================================================
 
-        TextField company =
-                createField(
-                        "▦",
-                        "e.g. Green Express Logistics"
-                );
+        TextField company = createField(
+                "▦",
+                "e.g. Green Express Logistics");
 
         grid.add(
                 fieldGroup(
                         "Company/Individual Name",
-                        company
-                ),
+                        company),
                 0,
-                0
-        );
+                0);
 
         // PHONE
-        TextField phone =
-                createField(
-                        "☎",
-                        "98765 43210"
-                );
+        TextField phone = createField(
+                "☎",
+                "98765 43210");
 
-        TextField code =
-                new TextField("+91");
+        TextField code = new TextField("+91");
 
         code.setPrefWidth(75);
         code.setPrefHeight(44);
 
         styleInput(code);
 
-        HBox phoneBox =
-                new HBox(8);
+        HBox phoneBox = new HBox(8);
 
         HBox.setHgrow(
                 phone,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         phoneBox.getChildren().addAll(
                 code,
-                phone
-        );
+                phone);
 
         grid.add(
                 fieldGroup(
                         "Phone Number",
-                        phoneBox
-                ),
+                        phoneBox),
                 1,
-                0
-        );
+                0);
 
         // =====================================================
         // ROW 2
         // =====================================================
 
-        TextField email =
-                createField(
-                        "✉",
-                        "contact@company.com"
-                );
+        TextField email = createField(
+                "✉",
+                "contact@company.com");
 
         grid.add(
                 fieldGroup(
                         "Email Address",
-                        email
-                ),
+                        email),
                 0,
-                1
-        );
+                1);
 
-        TextField gst =
-                createField(
-                        "▣",
-                        "22AAAAA0000A1Z5"
-                );
+        TextField gst = createField(
+                "▣",
+                "22AAAAA0000A1Z5");
 
         grid.add(
                 fieldGroup(
                         "GST Number (Optional)",
-                        gst
-                ),
+                        gst),
                 1,
-                1
-        );
+                1);
 
         // =====================================================
         // ROW 3
         // =====================================================
 
-        ComboBox<String> businessType =
-                new ComboBox<>();
+        ComboBox<String> businessType = new ComboBox<>();
 
         businessType.getItems().addAll(
                 "Transport Company",
                 "Logistics Company",
                 "Fleet Owner",
                 "Individual Transporter",
-                "Other"
-        );
+                "Other");
 
         businessType.setPromptText(
-                "Select business type"
-        );
+                "Select business type");
 
         businessType.setPrefHeight(44);
 
         businessType.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         styleComboBox(businessType);
 
         grid.add(
                 fieldGroup(
                         "Business Type",
-                        businessType
-                ),
+                        businessType),
                 0,
-                2
-        );
+                2);
 
-        TextField license =
-                createField(
-                        "▣",
-                        "LIC-99002233"
-                );
+        TextField license = createField(
+                "▣",
+                "LIC-99002233");
 
         grid.add(
                 fieldGroup(
                         "Business License Number",
-                        license
-                ),
+                        license),
                 1,
-                2
-        );
+                2);
 
         // =====================================================
         // ROW 4
         // =====================================================
 
-        TextArea address =
-                new TextArea();
+        TextArea address = new TextArea();
 
         address.setPromptText(
-                "Full business address"
-        );
+                "Full business address");
 
         address.setPrefHeight(70);
 
@@ -417,113 +358,86 @@ public class UserRegistration {
         grid.add(
                 fieldGroup(
                         "Company Address",
-                        address
-                ),
+                        address),
                 0,
-                3
-        );
+                3);
 
         // RIGHT CITY STATE
-        VBox location =
-                new VBox(8);
+        VBox location = new VBox(8);
 
-        HBox cityState =
-                new HBox(10);
+        HBox cityState = new HBox(10);
 
-        TextField city =
-                createSimpleField("City");
+        TextField city = createSimpleField("City");
 
-        TextField state =
-                createSimpleField("State");
+        TextField state = createSimpleField("State");
 
         HBox.setHgrow(
                 city,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 state,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         cityState.getChildren().addAll(
                 city,
-                state
-        );
+                state);
 
-        TextField pin =
-                createField(
-                        "⌖",
-                        "110001"
-                );
+        TextField pin = createField(
+                "⌖",
+                "110001");
 
         location.getChildren().addAll(
                 cityState,
-                pin
-        );
+                pin);
 
         grid.add(
                 fieldGroup(
                         "City                         State",
-                        location
-                ),
+                        location),
                 1,
-                3
-        );
+                3);
 
         // =====================================================
         // ROW 5
         // =====================================================
 
-        VBox upload =
-                createUploadBox();
+        VBox upload = createUploadBox();
 
         grid.add(
                 fieldGroup(
                         "Business License / GST Certificate",
-                        upload
-                ),
+                        upload),
                 0,
-                4
-        );
+                4);
 
         // PASSWORD
-        HBox passwords =
-                new HBox(10);
+        HBox passwords = new HBox(10);
 
-        PasswordField password =
-                createPasswordField(
-                        "Password"
-                );
+        PasswordField password = createPasswordField(
+                "Password");
 
-        PasswordField confirm =
-                createPasswordField(
-                        "Confirm Password"
-                );
+        PasswordField confirm = createPasswordField(
+                "Confirm Password");
 
         HBox.setHgrow(
                 password,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 confirm,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         passwords.getChildren().addAll(
                 password,
-                confirm
-        );
+                confirm);
 
         grid.add(
                 fieldGroup(
                         "Password                  Confirm Password",
-                        passwords
-                ),
+                        passwords),
                 1,
-                4
-        );
+                4);
 
         return grid;
     }
@@ -534,79 +448,67 @@ public class UserRegistration {
 
     private VBox createBottomSection() {
 
-        VBox bottom =
-                new VBox(8);
+        VBox bottom = new VBox(8);
 
         // =====================================================
         // TERMS
         // =====================================================
 
-        HBox terms =
-                new HBox(8);
+        HBox terms = new HBox(8);
 
         terms.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
-        CheckBox check =
-                new CheckBox();
+        CheckBox check = new CheckBox();
 
-        Label termsText =
-                new Label(
-                        "I agree to the Terms & Conditions "
-                        + "and Privacy Policy of EcoLoad Logistics."
-                );
+        Label termsText = new Label(
+                "I agree to the Terms & Conditions "
+                        + "and Privacy Policy of EcoLoad Logistics.");
 
         termsText.setFont(
-                Font.font("System", 12)
-        );
+                Font.font("System", 12));
 
         termsText.setTextFill(
-                Color.web("#555D59")
-        );
+                Color.web("#555D59"));
 
         terms.getChildren().addAll(
                 check,
-                termsText
-        );
+                termsText);
 
         // =====================================================
         // BUTTON
         // =====================================================
 
-        Button create =new Button("Create Account     →");
+        Button create = new Button("Create Account     →");
 
         create.setPrefHeight(47);
 
         create.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         create.setStyle(
-        "-fx-background-color: linear-gradient(to right, #22C55E, #087A3E);" +
-        "-fx-text-fill: white;" +
-        "-fx-font-size: 15px;" +
-        "-fx-font-weight: bold;" +
-        "-fx-background-radius: 11;" +
-        "-fx-cursor: hand;"
-        );
+                "-fx-background-color: linear-gradient(to right, #22C55E, #087A3E);" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 15px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 11;" +
+                        "-fx-cursor: hand;");
         create.setOnAction(e -> {
 
-        // Check Terms & Conditions
-        if (!check.isSelected()) {
+            // Check Terms & Conditions
+            if (!check.isSelected()) {
 
                 showAlert(
                         Alert.AlertType.WARNING,
                         "Terms Required",
-                        "Please accept the Terms & Conditions."
-                );
+                        "Please accept the Terms & Conditions.");
 
                 return;
-        }
+            }
 
-        // Open next page
-        UserDashboard dashboard = new UserDashboard();
-        HomePage.homeStage.setScene(dashboard.getTransporterDashboardScene());
+            // Open next page
+            UserDashboard dashboard = new UserDashboard();
+            HomePage.homeStage.setScene(dashboard.getTransporterDashboardScene());
 
         });
 
@@ -614,28 +516,22 @@ public class UserRegistration {
         // LOGIN
         // =====================================================
 
-        HBox login =
-                new HBox(5);
+        HBox login = new HBox(5);
 
         login.setAlignment(
-                Pos.CENTER
-        );
+                Pos.CENTER);
 
-        Label already =
-                new Label(
-                        "Already have an account?"
-                );
+        Label already = new Label(
+                "Already have an account?");
 
         already.setFont(
-                Font.font("System", 13)
-        );
+                Font.font("System", 13));
 
         already.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         Hyperlink loginLink = new Hyperlink("Login here");
-        loginLink.setOnAction(e->{
+        loginLink.setOnAction(e -> {
             Login login1 = new Login();
             HomePage.homeStage.setScene(login1.getScene());
         });
@@ -644,24 +540,19 @@ public class UserRegistration {
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        13
-                )
-        );
+                        13));
 
         loginLink.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
         login.getChildren().addAll(
                 already,
-                loginLink
-        );
+                loginLink);
 
         bottom.getChildren().addAll(
                 terms,
                 create,
-                login
-        );
+                login);
 
         return bottom;
     }
@@ -674,27 +565,21 @@ public class UserRegistration {
             String labelText,
             javafx.scene.Node field) {
 
-        Label label =
-                new Label(labelText);
+        Label label = new Label(labelText);
 
         label.setFont(
                 Font.font(
                         "System",
-                        12
-                )
-        );
+                        12));
 
         label.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        VBox box =
-                new VBox(4);
+        VBox box = new VBox(4);
 
         box.getChildren().addAll(
                 label,
-                field
-        );
+                field);
 
         return box;
     }
@@ -707,12 +592,10 @@ public class UserRegistration {
             String icon,
             String prompt) {
 
-        TextField field =
-                new TextField();
+        TextField field = new TextField();
 
         field.setPromptText(
-                icon + "   " + prompt
-        );
+                icon + "   " + prompt);
 
         field.setPrefHeight(44);
 
@@ -728,8 +611,7 @@ public class UserRegistration {
     private TextField createSimpleField(
             String prompt) {
 
-        TextField field =
-                new TextField();
+        TextField field = new TextField();
 
         field.setPromptText(prompt);
 
@@ -747,8 +629,7 @@ public class UserRegistration {
     private PasswordField createPasswordField(
             String prompt) {
 
-        PasswordField field =
-                new PasswordField();
+        PasswordField field = new PasswordField();
 
         field.setPromptText(prompt);
 
@@ -767,14 +648,13 @@ public class UserRegistration {
 
         field.setStyle(
                 "-fx-background-color: #F8FAF9;" +
-                "-fx-border-color: #CDE8D5;" +
-                "-fx-border-width: 1;" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;" +
-                "-fx-padding: 0 12;" +
-                "-fx-font-size: 13px;" +
-                "-fx-text-fill: #17251D;"
-        );
+                        "-fx-border-color: #CDE8D5;" +
+                        "-fx-border-width: 1;" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-padding: 0 12;" +
+                        "-fx-font-size: 13px;" +
+                        "-fx-text-fill: #17251D;");
     }
 
     // =========================================================
@@ -786,13 +666,12 @@ public class UserRegistration {
 
         area.setStyle(
                 "-fx-control-inner-background: " + INPUT + ";" +
-                "-fx-background-color: " + INPUT + ";" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;" +
-                "-fx-padding: 8;" +
-                "-fx-font-size: 13px;"
-        );
+                        "-fx-background-color: " + INPUT + ";" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-padding: 8;" +
+                        "-fx-font-size: 13px;");
     }
 
     // =========================================================
@@ -804,11 +683,10 @@ public class UserRegistration {
 
         combo.setStyle(
                 "-fx-background-color: " + INPUT + ";" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;" +
-                "-fx-font-size: 13px;"
-        );
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-font-size: 13px;");
     }
 
     // =========================================================
@@ -817,76 +695,59 @@ public class UserRegistration {
 
     private VBox createUploadBox() {
 
-        VBox box =
-                new VBox(2);
+        VBox box = new VBox(2);
 
         box.setAlignment(
-                Pos.CENTER
-        );
+                Pos.CENTER);
 
         box.setPrefHeight(70);
 
         box.setStyle(
-        "-fx-background-color: #F0FDF4;" +
-        "-fx-border-color: #9AD8AE;" +
-        "-fx-border-width: 2;" +
-        "-fx-border-style: dashed;" +
-        "-fx-border-radius: 9;" +
-        "-fx-background-radius: 9;" +
-        "-fx-cursor: hand;"
-        );
+                "-fx-background-color: #F0FDF4;" +
+                        "-fx-border-color: #9AD8AE;" +
+                        "-fx-border-width: 2;" +
+                        "-fx-border-style: dashed;" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-cursor: hand;");
 
-        Label icon =
-                new Label("☁");
+        Label icon = new Label("☁");
 
         icon.setFont(
-                Font.font(23)
-        );
+                Font.font(23));
 
         icon.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        Label text =
-                new Label(
-                        "Drag & drop or browse"
-                );
+        Label text = new Label(
+                "Drag & drop or browse");
 
         text.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
-        Label formats =
-                new Label(
-                        "PDF, PNG, JPG  •  MAX 5MB"
-                );
+        Label formats = new Label(
+                "PDF, PNG, JPG  •  MAX 5MB");
 
         formats.setFont(
-                Font.font("System", 9)
-        );
+                Font.font("System", 9));
 
         formats.setTextFill(
-                Color.web("#999F9B")
-        );
+                Color.web("#999F9B"));
 
         box.getChildren().addAll(
                 icon,
                 text,
-                formats
-        );
+                formats);
 
         box.setOnMouseClicked(e -> {
 
-            FileChooser chooser =
-                    new FileChooser();
+            FileChooser chooser = new FileChooser();
 
             chooser.setTitle(
-                    "Select Business Document"
-            );
+                    "Select Business Document");
 
             chooser.getExtensionFilters().add(
                     new FileChooser.ExtensionFilter(
@@ -894,24 +755,18 @@ public class UserRegistration {
                             "*.pdf",
                             "*.png",
                             "*.jpg",
-                            "*.jpeg"
-                    )
-            );
+                            "*.jpeg"));
 
-            File file =
-                    chooser.showOpenDialog(
-                            box.getScene().getWindow()
-                    );
+            File file = chooser.showOpenDialog(
+                    box.getScene().getWindow());
 
             if (file != null) {
 
                 text.setText(
-                        file.getName()
-                );
+                        file.getName());
 
                 text.setTextFill(
-                        Color.web(GREEN)
-                );
+                        Color.web(GREEN));
             }
         });
 
@@ -927,8 +782,7 @@ public class UserRegistration {
             String title,
             String message) {
 
-        Alert alert =
-                new Alert(type);
+        Alert alert = new Alert(type);
 
         alert.setTitle(title);
         alert.setHeaderText(null);

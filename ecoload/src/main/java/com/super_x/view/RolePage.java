@@ -49,7 +49,8 @@ public class RolePage {
         VBox content = new VBox(40);
         content.setAlignment(Pos.TOP_CENTER);
         content.setPadding(new Insets(40));
-        content.setStyle("-fx-background-color: rgba(255,255,255,0.85); -fx-background-radius: 28; -fx-border-radius: 28; -fx-border-color: rgba(34, 197, 94, 0.25); -fx-border-width: 1;");
+        content.setStyle(
+                "-fx-background-color: rgba(255,255,255,0.85); -fx-background-radius: 28; -fx-border-radius: 28; -fx-border-color: rgba(34, 197, 94, 0.25); -fx-border-width: 1;");
 
         // Title
         Label title = new Label("Continue As");
@@ -76,9 +77,8 @@ public class RolePage {
 
         // Driver card and Transporter card will be added here
         cards.getChildren().addAll(
-        createDriverCard(),
-        createTransporterCard()
-        );
+                createDriverCard(),
+                createTransporterCard());
 
         content.getChildren().addAll(heading, cards);
         root.getChildren().addAll(softGlow1, softGlow2, softGlow3, softGlow4, content);
@@ -95,7 +95,8 @@ public class RolePage {
         card.setPadding(new Insets(25));
         card.setPrefSize(430, 560);
 
-        card.setStyle("-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius:24; -fx-border-radius:24; -fx-border-color: rgba(34, 197, 94, 0.18); -fx-border-width: 1;");
+        card.setStyle(
+                "-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius:24; -fx-border-radius:24; -fx-border-color: rgba(34, 197, 94, 0.18); -fx-border-width: 1;");
 
         DropShadow shadow = new DropShadow();
         shadow.setRadius(22);
@@ -113,8 +114,7 @@ public class RolePage {
         });
 
         ImageView image = new ImageView(
-            new Image("assets\\images\\driver.png")
-        );
+                new Image("assets\\images\\driver.png"));
 
         image.setFitWidth(340);
         image.setFitHeight(200);
@@ -130,10 +130,9 @@ public class RolePage {
         VBox features = new VBox(12);
 
         features.getChildren().addAll(
-            createFeature("Find delivery jobs near you"),
-            createFeature("Haul packages and earn money"),
-            createFeature("Track earnings and history")
-        );
+                createFeature("Find delivery jobs near you"),
+                createFeature("Haul packages and earn money"),
+                createFeature("Track earnings and history"));
 
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
@@ -142,44 +141,44 @@ public class RolePage {
         btn.setPrefWidth(330);
         btn.setPrefHeight(50);
 
-        btn.setOnAction(e->{
+        btn.setOnAction(e -> {
             DriverRegistration driverRegistration = new DriverRegistration();
             HomePage.homeStage.setScene(driverRegistration.getDriverRegistrationScene());
         });
 
         btn.setStyle("""
-            -fx-background-color:#16a34a;
-            -fx-background-radius:16;
-            -fx-text-fill:white;
-            -fx-font-size:16;
-            -fx-font-weight:bold;
-            """);
-
-        btn.setOnMouseEntered(e ->{
-            btn.setTranslateY(-6);
-            btn.setStyle("""
-                -fx-background-color:#059669;
-                -fx-background-radius:16;
-                -fx-text-fill:white;
-                -fx-font-size:16;
-                -fx-font-weight:bold;
-                """);
-        });
-
-        btn.setOnMouseExited(e ->{
-            btn.setTranslateY(0);
-            btn.setStyle("""
                 -fx-background-color:#16a34a;
                 -fx-background-radius:16;
                 -fx-text-fill:white;
                 -fx-font-size:16;
                 -fx-font-weight:bold;
                 """);
+
+        btn.setOnMouseEntered(e -> {
+            btn.setStyle("""
+                    -fx-background-color:#059669;
+                    -fx-background-radius:16;
+                    -fx-text-fill:white;
+                    -fx-font-size:16;
+                    -fx-font-weight:bold;
+                    -fx-cursor:hand
+                    """);
         });
 
-        card.getChildren().addAll(image,title,subtitle,features,spacer,btn);
+        btn.setOnMouseExited(e -> {
+            btn.setStyle("""
+                    -fx-background-color:#16a34a;
+                    -fx-background-radius:16;
+                    -fx-text-fill:white;
+                    -fx-font-size:16;
+                    -fx-font-weight:bold;
+                    """);
+        });
+
+        card.getChildren().addAll(image, title, subtitle, features, spacer, btn);
         return card;
     }
+
     private HBox createFeature(String text) {
 
         Label icon = new Label("✔");
@@ -203,6 +202,7 @@ public class RolePage {
 
         return row;
     }
+
     private VBox createTransporterCard() {
 
         VBox card = new VBox(15);
@@ -211,12 +211,12 @@ public class RolePage {
         card.setPrefSize(430, 560);
 
         card.setStyle("""
-            -fx-background-color: rgba(255,255,255,0.95);
-            -fx-background-radius:24;
-            -fx-border-radius:24;
-            -fx-border-color: rgba(16, 185, 129, 0.16);
-            -fx-border-width: 1;
-            """);
+                -fx-background-color: rgba(255,255,255,0.95);
+                -fx-background-radius:24;
+                -fx-border-radius:24;
+                -fx-border-color: rgba(16, 185, 129, 0.16);
+                -fx-border-width: 1;
+                """);
 
         DropShadow shadow = new DropShadow();
         shadow.setRadius(22);
@@ -234,8 +234,7 @@ public class RolePage {
         });
 
         ImageView image = new ImageView(
-                new Image("assets\\images\\transpoter.jpeg")
-        );
+                new Image("assets\\images\\transpoter.jpeg"));
 
         image.setFitWidth(340);
         image.setFitHeight(200);
@@ -269,32 +268,31 @@ public class RolePage {
         btn.setPrefWidth(330);
         btn.setPrefHeight(50);
 
-        btn.setOnAction(e->{
+        btn.setOnAction(e -> {
             UserRegistration registration = new UserRegistration();
             HomePage.homeStage.setScene(registration.getTransporterRegistrationScene());
 
         });
 
-        btn.setOnMouseEntered(e ->{
-            btn.setTranslateY(-8);
+        btn.setOnMouseEntered(e -> {
             btn.setStyle("""
-                -fx-background-color: #EA580C;
-                -fx-background-radius:12;
-                -fx-text-fill:white;
-                -fx-font-size:16;
-                -fx-font-weight:bold;
-            """);
+                        -fx-background-color: #EA580C;
+                        -fx-background-radius:12;
+                        -fx-text-fill:white;
+                        -fx-font-size:16;
+                        -fx-font-weight:bold;
+                        -fx-cursor:hand
+                    """);
         });
 
-        btn.setOnMouseExited(e ->{
-            btn.setTranslateY(0);   
+        btn.setOnMouseExited(e -> {
             btn.setStyle("""
-              -fx-background-color:#F97316;
-              -fx-background-radius:12;
-              -fx-text-fill:white;
-             -fx-font-size:16;
-             -fx-font-weight:bold;
-             """);
+                     -fx-background-color:#F97316;
+                     -fx-background-radius:12;
+                     -fx-text-fill:white;
+                    -fx-font-size:16;
+                    -fx-font-weight:bold;
+                    """);
         });
 
         btn.setStyle("""
@@ -305,9 +303,10 @@ public class RolePage {
                 -fx-font-weight:bold;
                 """);
 
-        card.getChildren().addAll(image,title,subtitle,features,spacer,btn);
+        card.getChildren().addAll(image, title, subtitle, features, spacer, btn);
         return card;
     }
+
     private HBox createOrangeFeature(String text) {
 
         Label icon = new Label("✔");

@@ -27,6 +27,7 @@ import javafx.stage.FileChooser;
 public class DriverRegistration {
 
     private Scene driverRegistrationScene;
+
     public Scene getDriverRegistrationScene() {
         StackPane root = new StackPane();
         root.setStyle("-fx-background-color: linear-gradient(to bottom right, #eef7ec 0%, #d9eddb 45%, #b3d9aa 100%);");
@@ -47,7 +48,8 @@ public class DriverRegistration {
         card.setAlignment(Pos.CENTER);
         card.setPadding(new Insets(30));
         card.setMaxWidth(1550);
-        card.setStyle("-fx-background-color: rgba(255,255,255,0.88);-fx-effect: dropshadow(gaussian, rgba(34, 197, 94, 0.18), 35, 0, 0, 18);");
+        card.setStyle(
+                "-fx-background-color: rgba(255,255,255,0.88);-fx-effect: dropshadow(gaussian, rgba(34, 197, 94, 0.18), 35, 0, 0, 18);");
 
         HBox page = new HBox(32);
         page.setAlignment(Pos.CENTER);
@@ -124,12 +126,12 @@ public class DriverRegistration {
         sectionSubtitle.setFont(Font.font("Arial", 15));
         sectionSubtitle.setTextFill(Color.web("#475569"));
 
-        VBox fullNameField = createLabeledTextField("Full Name", "Johnathan Doe");
+        VBox fullNameField = createLabeledTextField("Full Name", "Your Name");
 
         HBox row1 = new HBox(16);
         row1.setAlignment(Pos.CENTER_LEFT);
-        VBox phoneField = createLabeledTextField("Phone Number", "+1 (555) 000-0000");
-        VBox emailField = createLabeledTextField("Email Address", "john@ecoload.com");
+        VBox phoneField = createLabeledTextField("Phone Number", "+91 (555) 000-0000");
+        VBox emailField = createLabeledTextField("Email Address", "kishor@ecoload.com");
         HBox.setHgrow(phoneField, Priority.ALWAYS);
         HBox.setHgrow(emailField, Priority.ALWAYS);
         row1.getChildren().addAll(phoneField, emailField);
@@ -143,7 +145,8 @@ public class DriverRegistration {
         VBox uploadBox = new VBox(14);
         uploadBox.setPadding(new Insets(20));
         uploadBox.setAlignment(Pos.CENTER);
-        uploadBox.setStyle("-fx-border-color: rgba(16, 185, 129, 0.4); -fx-border-style: dashed; -fx-border-radius: 16; -fx-background-color: rgba(16, 185, 129, 0.06); -fx-background-radius: 16;");
+        uploadBox.setStyle(
+                "-fx-border-color: rgba(16, 185, 129, 0.4); -fx-border-style: dashed; -fx-border-radius: 16; -fx-background-color: rgba(16, 185, 129, 0.06); -fx-background-radius: 16;");
         uploadBox.setCursor(Cursor.HAND);
 
         Label uploadLabel = new Label("Drag and drop your document here or Browse");
@@ -157,9 +160,8 @@ public class DriverRegistration {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload License Document");
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Document Files", "*.pdf", "*.jpg", "*.jpeg", "*.png"),
-            new FileChooser.ExtensionFilter("All Files", "*.*")
-        );
+                new FileChooser.ExtensionFilter("Document Files", "*.pdf", "*.jpg", "*.jpeg", "*.png"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
 
         uploadBox.setOnMouseClicked(event -> {
             java.io.File selectedFile = fileChooser.showOpenDialog(null);
@@ -184,19 +186,22 @@ public class DriverRegistration {
         createBtn.setPrefHeight(52);
         createBtn.setMaxWidth(Double.MAX_VALUE);
         createBtn.setDefaultButton(true);
-        createBtn.setOnAction(e->{
+        createBtn.setOnAction(e -> {
             VehicleRegistration vehicleRegistration = new VehicleRegistration();
             HomePage.homeStage.setScene(vehicleRegistration.getVehicleRegistrationScene());
         });
-        createBtn.setStyle("-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 16;");
-        createBtn.setOnMouseEntered(e -> createBtn.setStyle("-fx-background-color: #065f46; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 16;"));
-        createBtn.setOnMouseExited(e -> createBtn.setStyle("-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 16;"));
+        createBtn.setStyle(
+                "-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 16;");
+        createBtn.setOnMouseEntered(e -> createBtn.setStyle(
+                "-fx-background-color: #065f46; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 16;-fx-cursor:hand"));
+        createBtn.setOnMouseExited(e -> createBtn.setStyle(
+                "-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 16;"));
 
         Label loginLabel = new Label("Already have an account?");
         loginLabel.setFont(Font.font("Arial", 13));
         loginLabel.setTextFill(Color.web("#475569"));
         Hyperlink loginLink = new Hyperlink("Login");
-        loginLink.setOnAction(e->{
+        loginLink.setOnAction(e -> {
             Login login = new Login();
             HomePage.homeStage.setScene(login.getScene());
         });
@@ -208,7 +213,8 @@ public class DriverRegistration {
         HBox loginBox = new HBox(5, loginLabel, loginLink);
         loginBox.setAlignment(Pos.CENTER);
 
-        rightPanel.getChildren().addAll(sectionTitle, sectionSubtitle, fullNameField, row1, licenseField, uploadField, passwordRow, createBtn, loginBox);
+        rightPanel.getChildren().addAll(sectionTitle, sectionSubtitle, fullNameField, row1, licenseField, uploadField,
+                passwordRow, createBtn, loginBox);
 
         page.getChildren().addAll(leftPanel, rightPanel);
         card.getChildren().addAll(page);
@@ -228,12 +234,14 @@ public class DriverRegistration {
         TextField field = new TextField();
         field.setPromptText(placeholder);
         field.setPrefHeight(48);
-        field.setStyle("-fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
+        field.setStyle(
+                "-fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
 
         VBox inputBox = new VBox(6, label, field);
         inputBox.setAlignment(Pos.TOP_LEFT);
         return inputBox;
     }
+
     private VBox createLabeledPasswordFieldWithEye(String labelText) {
         Label label = new Label(labelText);
         label.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 13));
@@ -242,12 +250,14 @@ public class DriverRegistration {
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText(labelText);
         passwordField.setPrefHeight(48);
-        passwordField.setStyle("-fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
+        passwordField.setStyle(
+                "-fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
 
         TextField visibleField = new TextField();
         visibleField.setPromptText(labelText);
         visibleField.setPrefHeight(48);
-        visibleField.setStyle("-fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
+        visibleField.setStyle(
+                "-fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
         visibleField.setVisible(false);
         visibleField.setManaged(false);
 
@@ -278,4 +288,3 @@ public class DriverRegistration {
         return inputBox;
     }
 }
-

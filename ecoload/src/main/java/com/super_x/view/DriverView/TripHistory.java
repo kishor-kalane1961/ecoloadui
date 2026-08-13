@@ -80,7 +80,7 @@ public class TripHistory {
         root.setLeft(sidebar);
         root.setCenter(mainContent);
 
-        tripHistoryScene = new Scene(root,1536,750);
+        tripHistoryScene = new Scene(root, 1536, 750);
         updateTable();
         return tripHistoryScene;
     }
@@ -91,7 +91,7 @@ public class TripHistory {
 
     private VBox createMainContent() {
         VBox page = new VBox(18);
-        //page.setPadding(new Insets(0,0,10,0));
+        // page.setPadding(new Insets(0,0,10,0));
 
         page.setMaxWidth(
                 Double.MAX_VALUE);
@@ -119,9 +119,9 @@ public class TripHistory {
                 tableSection,
                 pagination);
 
-        page.setPadding(new Insets(20,20,20,20));
+        page.setPadding(new Insets(20, 20, 20, 20));
 
-         VBox main = new VBox(header,page);
+        VBox main = new VBox(header, page);
 
         return main;
     }
@@ -132,7 +132,7 @@ public class TripHistory {
 
     private HBox createHeader() {
         return DriverNavigation.createNavbar();
-       
+
     }
 
     // =========================================================
@@ -1375,17 +1375,17 @@ public class TripHistory {
                 "840 KM",
                 57400,
                 "Completed");
-        }
-        // =========================================================
-        // GET TRIPS FOR DASHBOARD
-        // =========================================================
+    }
+    // =========================================================
+    // GET TRIPS FOR DASHBOARD
+    // =========================================================
 
-        public List<Trip> getAllTrips() {
+    public List<Trip> getAllTrips() {
 
-                loadTripData();
+        loadTripData();
 
-                return allTrips;
-        }
+        return allTrips;
+    }
 
     private void addTrip(
             String id,
@@ -1438,16 +1438,16 @@ public class TripHistory {
 
     public static class Trip {
 
-        public  String tripId;
-        public  LocalDate dateValue;
-        public  String origin;
-        public  String destination;
-        public  String route;
-        public  String vehicle;
-        public  String cargo;
-        public  String distance;
-        public  int earnings;
-        public  String status;
+        public String tripId;
+        public LocalDate dateValue;
+        public String origin;
+        public String destination;
+        public String route;
+        public String vehicle;
+        public String cargo;
+        public String distance;
+        public int earnings;
+        public String status;
 
         Trip(
                 String tripId,
