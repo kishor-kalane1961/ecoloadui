@@ -214,6 +214,11 @@ startBtn.setOnMouseEntered(e -> {
     getStartedScale.playFromStart();
 });
 
+startBtn.setOnAction(e->{
+    RolePage rolePage = new RolePage();
+    homeStage.setScene(rolePage.getRolePageScene());
+});
+
 startBtn.setOnMouseExited(e -> {
     getStartedScale.setToX(1.0);
     getStartedScale.setToY(1.0);

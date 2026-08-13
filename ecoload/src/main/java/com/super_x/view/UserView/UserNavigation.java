@@ -468,7 +468,7 @@ public final class UserNavigation {
                 break;
 
                 case "Review":
-                scene = new UserPlaceholder(page).getScene();
+                scene = new Ratings().getRatingsPageScene();
                 break;
 
                 case "Support":
