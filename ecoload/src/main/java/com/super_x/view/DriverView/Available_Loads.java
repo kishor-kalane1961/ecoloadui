@@ -28,7 +28,7 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import com.super_x.*;
+import com.super_x.view.HomePage;
 
 /** Available-loads screen for the EcoLoad driver application. */
 public class Available_Loads {
@@ -319,7 +319,7 @@ public class Available_Loads {
         });
         AcceptLoad acceptLoad = new AcceptLoad();
         accept.setOnAction(e -> {
-            acceptLoad.show(Main.myStage);
+            acceptLoad.show(HomePage.homeStage);
             if (acceptLoad.isLoadAccepted()) {
                 System.out.println("Load accepted!");
             } else {

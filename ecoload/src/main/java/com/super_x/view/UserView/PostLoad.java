@@ -119,8 +119,6 @@ public class PostLoad {
     // =========================================================
     // BUTTONS
     // =========================================================
-
-    private Button postLoadButton;
     private Button draftButton;
     private Button cancelButton;
 
@@ -133,7 +131,7 @@ public class PostLoad {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
             "MM/dd/yyyy HH:mm");
 
-// =========================================================
+    // =========================================================
     // CONSTRUCTOR
     // =========================================================
 
@@ -145,16 +143,15 @@ public class PostLoad {
 
     public Scene getpostloadScene() {
 
-        BorderPane root =
-                new BorderPane();
+        BorderPane root = new BorderPane();
 
         root.setStyle(
                 "-fx-background-color: " + PAGE_BG + ";");
 
+        // =========================================================
+        // MAIN CONTENT
+        // =========================================================
 
-        
-
-        // Main content
         VBox mainContent = createMainContent();
 
         ScrollPane scrollPane = new ScrollPane(mainContent);
@@ -168,262 +165,36 @@ public class PostLoad {
                 ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         scrollPane.setStyle(
-                "-fx-background-color: transparent;"
-                        + "-fx-background: transparent;");
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;");
 
+        root.setTop(UserNavigation.createNavbar());
 
         root.setCenter(scrollPane);
 
-<<<<<<< HEAD
-        BorderPane mainroot = new BorderPane();
-        mainroot.setCenter(root);
-        mainroot.setLeft(UserNavigation.createSidebar("PostLoad"));
+        // =========================================================
+        // MAIN ROOT WITH SIDEBAR
+        // =========================================================
 
-        postloadScene = new Scene(mainroot, 1536, 750);
-=======
-        postloadScene =
-                new Scene(
-                        root,
-                        1420,
-                        750
-                );
->>>>>>> 6c90eb9fea9b6b00e7669ab6d4af6a2f0be85f8a
+        BorderPane mainroot = new BorderPane();
+
+        mainroot.setLeft(
+                UserNavigation.createSidebar("PostLoad"));
+
+        mainroot.setCenter(root);
+
+        // =========================================================
+        // CREATE ONLY ONE SCENE
+        // =========================================================
+
+        postloadScene = new Scene(
+                mainroot,
+                1536,
+                750);
 
         return postloadScene;
     }
 
-    // =========================================================
-    // HEADER
-    // =========================================================
-
-    private HBox createHeader() {
-
-        HBox header =
-                new HBox();
-
-        header.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
-        header.setPadding(
-                new Insets(
-                        10,
-                        35,
-                        10,
-                        38
-                )
-        );
-
-        header.setPrefHeight(62);
-
-        header.setStyle(
-                "-fx-background-color: white;"
-                + "-fx-border-color: #E6E8E6;"
-                + "-fx-border-width: 0 0 1 0;"
-        );
-
-        // -----------------------------------------------------
-        // PLUS ICON
-        // -----------------------------------------------------
-
-        Label plus =
-                new Label("+");
-
-        plus.setAlignment(
-                Pos.CENTER
-        );
-
-        plus.setPrefSize(
-                20,
-                20
-        );
-
-        plus.setStyle(
-                "-fx-border-color: " + GREEN + ";"
-                + "-fx-border-width: 2;"
-                + "-fx-border-radius: 50;"
-                + "-fx-background-radius: 50;"
-                + "-fx-text-fill: " + GREEN + ";"
-                + "-fx-font-size: 15px;"
-                + "-fx-font-weight: bold;"
-        );
-
-        // -----------------------------------------------------
-        // TITLE
-        // -----------------------------------------------------
-
-        Label title =
-                new Label(
-                        "Post New Shipment"
-                );
-
-        title.setFont(
-                Font.font(
-                        "System",
-                        FontWeight.BOLD,
-                        21
-                )
-        );
-
-        title.setTextFill(
-                Color.web(GREEN)
-        );
-
-        HBox titleBox =
-                new HBox(
-                        12,
-                        plus,
-                        title
-                );
-
-        titleBox.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
-        // -----------------------------------------------------
-        // SPACER
-        // -----------------------------------------------------
-
-        Region spacer =
-                new Region();
-
-        HBox.setHgrow(
-                spacer,
-                Priority.ALWAYS
-        );
-
-        // -----------------------------------------------------
-        // NOTIFICATION
-        // -----------------------------------------------------
-
-        Label notification =
-                new Label("♧");
-
-        notification.setFont(
-                Font.font(
-                        "System",
-                        25
-                )
-        );
-
-        notification.setTextFill(
-                Color.web("#444944")
-        );
-
-        // -----------------------------------------------------
-        // SETTINGS
-        // -----------------------------------------------------
-
-        Label settings =
-                new Label("⚙");
-
-        settings.setFont(
-                Font.font(
-                        "System",
-                        23
-                )
-        );
-
-        settings.setTextFill(
-                Color.web("#444944")
-        );
-
-        // -----------------------------------------------------
-        // COMPANY
-        // -----------------------------------------------------
-
-        Label company =
-                new Label(
-                        "Reliance Ind."
-                );
-
-        company.setFont(
-                Font.font(
-                        "System",
-                        FontWeight.BOLD,
-                        13
-                )
-        );
-
-        company.setTextFill(
-                Color.web("#222522")
-        );
-
-        Label premium =
-                new Label(
-                        "PREMIUM MEMBER"
-                );
-
-        premium.setFont(
-                Font.font(
-                        "System",
-                        8
-                )
-        );
-
-        premium.setTextFill(
-                Color.web("#777B77")
-        );
-
-        VBox companyBox =
-                new VBox(
-                        1,
-                        company,
-                        premium
-                );
-
-        companyBox.setAlignment(
-                Pos.CENTER_RIGHT
-        );
-
-        // -----------------------------------------------------
-        // AVATAR
-        // -----------------------------------------------------
-
-        Label avatar =
-                new Label("R");
-
-        avatar.setAlignment(
-                Pos.CENTER
-        );
-
-        avatar.setPrefSize(
-                36,
-                36
-        );
-
-        avatar.setStyle(
-                "-fx-background-color: #E7ECE7;"
-                + "-fx-background-radius: 50;"
-                + "-fx-border-color: " + GREEN + ";"
-                + "-fx-border-radius: 50;"
-                + "-fx-border-width: 1;"
-                + "-fx-text-fill: " + GREEN + ";"
-                + "-fx-font-size: 15px;"
-                + "-fx-font-weight: bold;"
-        );
-
-        HBox right =
-                new HBox(
-                        22,
-                        notification,
-                        settings,
-                        companyBox,
-                        avatar
-                );
-
-        right.setAlignment(
-                Pos.CENTER_RIGHT
-        );
-
-        header.getChildren().addAll(
-                titleBox,
-                spacer,
-                right
-        );
-
-        return header;
-    }
 
     // =========================================================
     // MAIN CONTENT
@@ -1096,28 +867,20 @@ public class PostLoad {
         // -----------------------------------------------------
         // POST LOAD
         // -----------------------------------------------------
-        
-       Button postLoadButton =
-        new Button(
-                "Post Load  🚀"
-        );
 
-<<<<<<< HEAD
+        Button postLoadButton = new Button(
+                "Post Load  🚀");
+
         postLoadButton = new Button(
                 "Post Load  🚀");
-=======
-postLoadButton.setOnAction(
+        postLoadButton.setOnAction(
                 event -> {
 
-                    TermsAndConditions terms =
-                            new TermsAndConditions(
-                                    this::handlePostLoad
-                            );
+                    TermsAndConditions terms = new TermsAndConditions(
+                            this::handlePostLoad);
 
                     terms.show();
-                }
-        );
->>>>>>> 6c90eb9fea9b6b00e7669ab6d4af6a2f0be85f8a
+                });
 
         postLoadButton.setMaxWidth(
                 Double.MAX_VALUE);
@@ -1134,15 +897,10 @@ postLoadButton.setOnAction(
         setPrimaryButtonStyle(
                 postLoadButton);
 
-<<<<<<< HEAD
-        postLoadButton.setOnAction(
-                event -> handlePostLoad());
-=======
         // postLoadButton.setOnAction(
-        //         event ->
-        //                 handlePostLoad()
+        // event ->
+        // handlePostLoad()
         // );
->>>>>>> 6c90eb9fea9b6b00e7669ab6d4af6a2f0be85f8a
 
         // -----------------------------------------------------
         // DRAFT
