@@ -1065,32 +1065,6 @@ public class UserDashboard {
         );
 
 
-        Button bidsButton =
-                new Button("Manage Bids");
-
-
-        bidsButton.setPrefHeight(40);
-
-        bidsButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
-
-        HBox.setHgrow(
-                bidsButton,
-                Priority.ALWAYS
-        );
-
-
-        bidsButton.setStyle(
-                "-fx-background-color: " +
-                        GREEN + ";" +
-                "-fx-background-radius: 20;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-size: 13px;" +
-                "-fx-font-weight: bold;"
-        );
-
-
         // =====================================================
         // BUTTON ACTIONS
         // =====================================================
@@ -1112,26 +1086,8 @@ public class UserDashboard {
         });
 
 
-        bidsButton.setOnAction(event -> {
-
-            System.out.println(
-                    "Managing bids for: " +
-                    from + " → " + to
-            );
-
-            Scene scene =
-                    new UserPlaceholder(
-                            "Manage Bids"
-                    ).getScene();
-
-            HomePage.homeStage.setScene(scene);
-            HomePage.homeStage.show();
-        });
-
-
-        buttons.getChildren().addAll(
-                detailsButton,
-                bidsButton
+        buttons.getChildren().add(
+                detailsButton
         );
 
 
