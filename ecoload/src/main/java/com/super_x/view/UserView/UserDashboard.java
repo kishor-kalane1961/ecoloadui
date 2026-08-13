@@ -202,17 +202,6 @@ public class UserDashboard {
         );
 
 
-        stats.add(
-                createStatCard(
-                        "₹",
-                        "Monthly Revenue",
-                        "₹1,22,000",
-                        true
-                ),
-                3,
-                0
-        );
-
 
         // =====================================================
         // ACTION BUTTONS
