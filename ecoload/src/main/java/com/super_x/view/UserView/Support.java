@@ -50,8 +50,7 @@ public class Support {
     // TICKETS
     // =========================================================
 
-    private final List<SupportTicket> submittedTickets =
-            new ArrayList<>();
+    private final List<SupportTicket> submittedTickets = new ArrayList<>();
 
     private VBox ticketsContainer;
 
@@ -96,8 +95,7 @@ public class Support {
                 String status,
                 String createdAt,
                 String updatedAt,
-                List<TimelineEvent> timeline
-        ) {
+                List<TimelineEvent> timeline) {
 
             this.id = id;
             this.issueType = issueType;
@@ -126,8 +124,7 @@ public class Support {
                 String title,
                 String description,
                 String time,
-                boolean completed
-        ) {
+                boolean completed) {
 
             this.title = title;
             this.description = description;
@@ -145,16 +142,14 @@ public class Support {
         BorderPane root = new BorderPane();
 
         root.setStyle(
-                "-fx-background-color: " + BG + ";"
-        );
+                "-fx-background-color: " + BG + ";");
 
         // =====================================================
         // SIDEBAR
         // =====================================================
 
         root.setLeft(
-                UserNavigation.createSidebar("Support")
-        );
+                UserNavigation.createSidebar("Support"));
 
         // =====================================================
         // PAGE CONTENT
@@ -165,15 +160,13 @@ public class Support {
         pageContent.setFillWidth(true);
 
         pageContent.setStyle(
-                "-fx-background-color: " + PAGE_BG + ";"
-        );
+                "-fx-background-color: " + PAGE_BG + ";");
 
         // =====================================================
         // NAVBAR
         // =====================================================
 
-        HBox navbar =
-                UserNavigation.createNavbar();
+        HBox navbar = UserNavigation.createNavbar();
 
         // =====================================================
         // MAIN CONTENT
@@ -186,84 +179,68 @@ public class Support {
                         18,
                         24,
                         35,
-                        24
-                )
-        );
+                        24));
 
         main.setFillWidth(true);
 
         main.setStyle(
-                "-fx-background-color: " + PAGE_BG + ";"
-        );
+                "-fx-background-color: " + PAGE_BG + ";");
 
         // =====================================================
         // HEADER
         // =====================================================
 
-        VBox header =
-                createPageHeader();
+        VBox header = createPageHeader();
 
         // =====================================================
         // CREATE TICKET + RIGHT SIDE
         // =====================================================
 
-        HBox content =
-                new HBox(18);
+        HBox content = new HBox(18);
 
         content.setFillHeight(true);
 
-        VBox ticketCard =
-                createTicketCard();
+        VBox ticketCard = createTicketCard();
 
-        VBox rightColumn =
-                new VBox(12);
+        VBox rightColumn = new VBox(12);
 
-        VBox faqCard =
-                createFAQCard();
+        VBox faqCard = createFAQCard();
 
-        VBox contactCard =
-                createContactCard();
+        VBox contactCard = createContactCard();
 
         rightColumn.getChildren().addAll(
                 faqCard,
-                contactCard
-        );
+                contactCard);
 
         HBox.setHgrow(
                 ticketCard,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 rightColumn,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         content.getChildren().addAll(
                 ticketCard,
-                rightColumn
-        );
+                rightColumn);
 
         // =====================================================
         // SUBMITTED TICKETS
         // =====================================================
 
-        VBox submittedSection =
-                createSubmittedTicketsSection();
+        VBox submittedSection = createSubmittedTicketsSection();
 
         // =====================================================
         // INFORMATION
         // =====================================================
 
-        HBox informationBar =
-                createInformationBar();
+        HBox informationBar = createInformationBar();
 
         // =====================================================
         // SECURITY
         // =====================================================
 
-        HBox securityBar =
-                createSecurityBar();
+        HBox securityBar = createSecurityBar();
 
         // =====================================================
         // ADD MAIN CONTENT
@@ -274,8 +251,7 @@ public class Support {
                 content,
                 submittedSection,
                 informationBar,
-                securityBar
-        );
+                securityBar);
 
         // =====================================================
         // PAGE CONTENT
@@ -283,34 +259,29 @@ public class Support {
 
         pageContent.getChildren().addAll(
                 navbar,
-                main
-        );
+                main);
 
         // =====================================================
         // FULL CENTER SCROLL PANE
         // =====================================================
 
-        ScrollPane scrollPane =
-                new ScrollPane(pageContent);
+        ScrollPane scrollPane = new ScrollPane(pageContent);
 
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(false);
 
         scrollPane.setHbarPolicy(
-                ScrollPane.ScrollBarPolicy.NEVER
-        );
+                ScrollPane.ScrollBarPolicy.NEVER);
 
         scrollPane.setVbarPolicy(
-                ScrollPane.ScrollBarPolicy.AS_NEEDED
-        );
+                ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         scrollPane.setPannable(true);
 
         scrollPane.setStyle(
                 "-fx-background-color: " + PAGE_BG + ";" +
-                "-fx-background: " + PAGE_BG + ";" +
-                "-fx-border-color: transparent;"
-        );
+                        "-fx-background: " + PAGE_BG + ";" +
+                        "-fx-border-color: transparent;");
 
         // =====================================================
         // ROOT CENTER
@@ -322,12 +293,10 @@ public class Support {
         // SCENE
         // =====================================================
 
-        supportScene =
-                new Scene(
-                        root,
-                        1536,
-                        750
-                );
+        supportScene = new Scene(
+                root,
+                1536,
+                750);
 
         return supportScene;
     }
@@ -338,45 +307,34 @@ public class Support {
 
     private VBox createPageHeader() {
 
-        Label title =
-                new Label(
-                        "Support Center"
-                );
+        Label title = new Label(
+                "Support Center");
 
         title.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        23
-                )
-        );
+                        23));
 
         title.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        Label subtitle =
-                new Label(
-                        "Need help with your shipments, vehicles, "
-                                + "or trips? Our support team is ready to assist you."
-                );
+        Label subtitle = new Label(
+                "Need help with your shipments, vehicles, "
+                        + "or trips? Our support team is ready to assist you.");
 
         subtitle.setFont(
                 Font.font(
                         "Arial",
-                        12
-                )
-        );
+                        12));
 
         subtitle.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         return new VBox(
                 3,
                 title,
-                subtitle
-        );
+                subtitle);
     }
 
     // =========================================================
@@ -385,98 +343,76 @@ public class Support {
 
     private VBox createTicketCard() {
 
-        VBox card =
-                new VBox(9);
+        VBox card = new VBox(9);
 
         card.setPadding(
-                new Insets(18)
-        );
+                new Insets(18));
 
         card.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 16;" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 16;"
-        );
+                        "-fx-background-radius: 16;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 16;");
 
         // =====================================================
         // TITLE
         // =====================================================
 
-        Label icon =
-                new Label("▣");
+        Label icon = new Label("▣");
 
         icon.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        19
-                )
-        );
+                        19));
 
         icon.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        StackPane iconBox =
-                new StackPane(icon);
+        StackPane iconBox = new StackPane(icon);
 
         iconBox.setPrefSize(
                 34,
-                34
-        );
+                34);
 
         iconBox.setMaxSize(
                 34,
-                34
-        );
+                34);
 
         iconBox.setStyle(
                 "-fx-background-color: " +
-                LIGHT_GREEN +
-                ";" +
-                "-fx-background-radius: 9;"
-        );
+                        LIGHT_GREEN +
+                        ";" +
+                        "-fx-background-radius: 9;");
 
-        Label title =
-                new Label(
-                        "Create Support Ticket"
-                );
+        Label title = new Label(
+                "Create Support Ticket");
 
         title.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        16
-                )
-        );
+                        16));
 
         title.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        HBox cardTitle =
-                new HBox(
-                        10,
-                        iconBox,
-                        title
-                );
+        HBox cardTitle = new HBox(
+                10,
+                iconBox,
+                title);
 
         cardTitle.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         // =====================================================
         // ISSUE TYPE
         // =====================================================
 
-        Label issueLabel =
-                createFieldLabel(
-                        "Issue Type"
-                );
+        Label issueLabel = createFieldLabel(
+                "Issue Type");
 
-        issueType =
-                new ComboBox<>();
+        issueType = new ComboBox<>();
 
         issueType.getItems().addAll(
                 "Technical Issue",
@@ -488,356 +424,272 @@ public class Support {
                 "Load Assignment Issue",
                 "Document Issue",
                 "Account Issue",
-                "Other"
-        );
+                "Other");
 
         issueType.setValue(
-                "Technical Issue"
-        );
+                "Technical Issue");
 
         issueType.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         issueType.setPrefHeight(
-                38
-        );
+                38);
 
         styleControl(issueType);
 
-        VBox issueBox =
-                new VBox(
-                        4,
-                        issueLabel,
-                        issueType
-                );
+        VBox issueBox = new VBox(
+                4,
+                issueLabel,
+                issueType);
 
         // =====================================================
         // PRIORITY
         // =====================================================
 
-        Label priorityLabel =
-                createFieldLabel(
-                        "Priority"
-                );
+        Label priorityLabel = createFieldLabel(
+                "Priority");
 
-        ToggleGroup priorityGroup =
-                new ToggleGroup();
+        ToggleGroup priorityGroup = new ToggleGroup();
 
-        low =
-                createRadioButton(
-                        "Low",
-                        priorityGroup
-                );
+        low = createRadioButton(
+                "Low",
+                priorityGroup);
 
-        medium =
-                createRadioButton(
-                        "Medium",
-                        priorityGroup
-                );
+        medium = createRadioButton(
+                "Medium",
+                priorityGroup);
 
-        high =
-                createRadioButton(
-                        "High",
-                        priorityGroup
-                );
+        high = createRadioButton(
+                "High",
+                priorityGroup);
 
         medium.setSelected(true);
 
-        HBox priorityBox =
-                new HBox(
-                        10,
-                        low,
-                        medium,
-                        high
-                );
+        HBox priorityBox = new HBox(
+                10,
+                low,
+                medium,
+                high);
 
         priorityBox.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
-        VBox priorityContainer =
-                new VBox(
-                        6,
-                        priorityLabel,
-                        priorityBox
-                );
+        VBox priorityContainer = new VBox(
+                6,
+                priorityLabel,
+                priorityBox);
 
-        HBox issuePriority =
-                new HBox(
-                        16,
-                        issueBox,
-                        priorityContainer
-                );
+        HBox issuePriority = new HBox(
+                16,
+                issueBox,
+                priorityContainer);
 
         HBox.setHgrow(
                 issueBox,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 priorityContainer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         // =====================================================
         // SUBJECT
         // =====================================================
 
-        Label subjectLabel =
-                createFieldLabel(
-                        "Subject"
-                );
+        Label subjectLabel = createFieldLabel(
+                "Subject");
 
-        subjectField =
-                new TextField();
+        subjectField = new TextField();
 
         subjectField.setPromptText(
-                "Brief summary of the issue"
-        );
+                "Brief summary of the issue");
 
         subjectField.setPrefHeight(
-                38
-        );
+                38);
 
         styleControl(subjectField);
 
-        VBox subjectBox =
-                new VBox(
-                        4,
-                        subjectLabel,
-                        subjectField
-                );
+        VBox subjectBox = new VBox(
+                4,
+                subjectLabel,
+                subjectField);
 
         // =====================================================
         // DESCRIPTION
         // =====================================================
 
-        Label descriptionLabel =
-                createFieldLabel(
-                        "Description"
-                );
+        Label descriptionLabel = createFieldLabel(
+                "Description");
 
-        descriptionArea =
-                new TextArea();
+        descriptionArea = new TextArea();
 
         descriptionArea.setPromptText(
                 "Provide shipment ID, vehicle number, "
-                        + "trip details, and as much information as possible..."
-        );
+                        + "trip details, and as much information as possible...");
 
         descriptionArea.setWrapText(true);
 
         descriptionArea.setPrefHeight(
-                75
-        );
+                75);
 
         descriptionArea.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;" +
-                "-fx-font-size: 13px;"
-        );
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-font-size: 13px;");
 
-        VBox descriptionBox =
-                new VBox(
-                        4,
-                        descriptionLabel,
-                        descriptionArea
-                );
+        VBox descriptionBox = new VBox(
+                4,
+                descriptionLabel,
+                descriptionArea);
 
         // =====================================================
         // ATTACHMENT
         // =====================================================
 
-        Label attachmentTitle =
-                createFieldLabel(
-                        "Attachments"
-                );
+        Label attachmentTitle = createFieldLabel(
+                "Attachments");
 
-        Button uploadButton =
-                new Button();
+        Button uploadButton = new Button();
 
         uploadButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         uploadButton.setPrefHeight(
-                110
-        );
+                110);
 
         uploadButton.setMinHeight(
-                110
-        );
+                110);
 
         uploadButton.setCursor(
-                Cursor.HAND
-        );
+                Cursor.HAND);
 
-        attachmentLabel =
-                new Label(
-                        "☁   Drag & Drop files here\n" +
-                        "PDF, PNG, JPG (Max 5MB)"
-                );
+        attachmentLabel = new Label(
+                "☁   Drag & Drop files here\n" +
+                        "PDF, PNG, JPG (Max 5MB)");
 
         attachmentLabel.setTextAlignment(
-                javafx.scene.text.TextAlignment.CENTER
-        );
+                javafx.scene.text.TextAlignment.CENTER);
 
         attachmentLabel.setAlignment(
-                Pos.CENTER
-        );
+                Pos.CENTER);
 
         attachmentLabel.setFont(
                 Font.font(
                         "Arial",
-                        12
-                )
-        );
+                        12));
 
         attachmentLabel.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
         uploadButton.setGraphic(
-                attachmentLabel
-        );
+                attachmentLabel);
 
         uploadButton.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-border-color: #BFC8C1;" +
-                "-fx-border-style: dashed;" +
-                "-fx-border-width: 1.5;" +
-                "-fx-border-radius: 10;" +
-                "-fx-background-radius: 10;"
-        );
+                        "-fx-border-color: #BFC8C1;" +
+                        "-fx-border-style: dashed;" +
+                        "-fx-border-width: 1.5;" +
+                        "-fx-border-radius: 10;" +
+                        "-fx-background-radius: 10;");
 
         uploadButton.setOnAction(
-                e -> chooseAttachment()
-        );
+                e -> chooseAttachment());
 
-        VBox attachmentBox =
-                new VBox(
-                        4,
-                        attachmentTitle,
-                        uploadButton
-                );
+        VBox attachmentBox = new VBox(
+                4,
+                attachmentTitle,
+                uploadButton);
 
         // =====================================================
         // RESET
         // =====================================================
 
-        Button reset =
-                new Button(
-                        "Reset"
-                );
+        Button reset = new Button(
+                "Reset");
 
         reset.setPrefWidth(
-                95
-        );
+                95);
 
         reset.setPrefHeight(
-                38
-        );
+                38);
 
         reset.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         reset.setCursor(
-                Cursor.HAND
-        );
+                Cursor.HAND);
 
         reset.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-text-fill: " + TEXT + ";" +
-                "-fx-border-color: #CDD5CF;" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;"
-        );
+                        "-fx-text-fill: " + TEXT + ";" +
+                        "-fx-border-color: #CDD5CF;" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;");
 
         reset.setOnAction(
-                e -> resetForm()
-        );
+                e -> resetForm());
 
         // =====================================================
         // SUBMIT
         // =====================================================
 
-        Button submit =
-                new Button(
-                        "Submit Ticket"
-                );
+        Button submit = new Button(
+                "Submit Ticket");
 
         submit.setPrefHeight(
-                38
-        );
+                38);
 
         submit.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         submit.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         submit.setTextFill(
-                Color.WHITE
-        );
+                Color.WHITE);
 
         submit.setCursor(
-                Cursor.HAND
-        );
+                Cursor.HAND);
 
         submit.setStyle(
                 "-fx-background-color: " +
-                GREEN +
-                ";" +
-                "-fx-background-radius: 9;"
-        );
+                        GREEN +
+                        ";" +
+                        "-fx-background-radius: 9;");
 
         submit.setOnMouseEntered(
                 e -> submit.setStyle(
                         "-fx-background-color: " +
-                        DARK_GREEN +
-                        ";" +
-                        "-fx-background-radius: 9;"
-                )
-        );
+                                DARK_GREEN +
+                                ";" +
+                                "-fx-background-radius: 9;"));
 
         submit.setOnMouseExited(
                 e -> submit.setStyle(
                         "-fx-background-color: " +
-                        GREEN +
-                        ";" +
-                        "-fx-background-radius: 9;"
-                )
-        );
+                                GREEN +
+                                ";" +
+                                "-fx-background-radius: 9;"));
 
         submit.setOnAction(
-                e -> submitTicket()
-        );
+                e -> submitTicket());
 
         HBox.setHgrow(
                 submit,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
-        HBox buttons =
-                new HBox(
-                        12,
-                        reset,
-                        submit
-                );
+        HBox buttons = new HBox(
+                12,
+                reset,
+                submit);
 
         // =====================================================
         // ADD CONTENT
@@ -849,8 +701,7 @@ public class Support {
                 subjectBox,
                 descriptionBox,
                 attachmentBox,
-                buttons
-        );
+                buttons);
 
         return card;
     }
@@ -861,60 +712,45 @@ public class Support {
 
     private VBox createSubmittedTicketsSection() {
 
-        VBox section =
-                new VBox(12);
+        VBox section = new VBox(12);
 
         section.setFillWidth(true);
 
-        Label title =
-                new Label(
-                        "My Recent Support Tickets"
-                );
+        Label title = new Label(
+                "My Recent Support Tickets");
 
         title.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        20
-                )
-        );
+                        20));
 
         title.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        Label subtitle =
-                new Label(
-                        "Click any ticket to view the actions taken by the support team."
-                );
+        Label subtitle = new Label(
+                "Click any ticket to view the actions taken by the support team.");
 
         subtitle.setFont(
                 Font.font(
                         "Arial",
-                        12
-                )
-        );
+                        12));
 
         subtitle.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
-        VBox heading =
-                new VBox(
-                        2,
-                        title,
-                        subtitle
-                );
+        VBox heading = new VBox(
+                2,
+                title,
+                subtitle);
 
-        ticketsContainer =
-                new VBox(10);
+        ticketsContainer = new VBox(10);
 
         refreshTicketList();
 
         section.getChildren().addAll(
                 heading,
-                ticketsContainer
-        );
+                ticketsContainer);
 
         return section;
     }
@@ -934,8 +770,7 @@ public class Support {
         for (SupportTicket ticket : submittedTickets) {
 
             ticketsContainer.getChildren().add(
-                    createTicketRow(ticket)
-            );
+                    createTicketRow(ticket));
         }
     }
 
@@ -944,33 +779,26 @@ public class Support {
     // =========================================================
 
     private HBox createTicketRow(
-            SupportTicket ticket
-    ) {
+            SupportTicket ticket) {
 
-        HBox card =
-                new HBox(16);
+        HBox card = new HBox(16);
 
         card.setPadding(
-                new Insets(16, 18, 16, 18)
-        );
+                new Insets(16, 18, 16, 18));
 
         card.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         card.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
-        String normalStyle =
-                "-fx-background-color: white;" +
+        String normalStyle = "-fx-background-color: white;" +
                 "-fx-border-color: " + BORDER + ";" +
                 "-fx-border-radius: 14;" +
                 "-fx-background-radius: 14;" +
                 "-fx-cursor: hand;";
 
-        String hoverStyle =
-                "-fx-background-color: #FBFFFC;" +
+        String hoverStyle = "-fx-background-color: #FBFFFC;" +
                 "-fx-border-color: " + GREEN + ";" +
                 "-fx-border-width: 1.5;" +
                 "-fx-border-radius: 14;" +
@@ -983,212 +811,163 @@ public class Support {
         // TICKET ICON
         // =====================================================
 
-        Label ticketIcon =
-                new Label("▣");
+        Label ticketIcon = new Label("▣");
 
         ticketIcon.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        19
-                )
-        );
+                        19));
 
         ticketIcon.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        StackPane iconBox =
-                new StackPane(
-                        ticketIcon
-                );
+        StackPane iconBox = new StackPane(
+                ticketIcon);
 
         iconBox.setPrefSize(
                 42,
-                42
-        );
+                42);
 
         iconBox.setMaxSize(
                 42,
-                42
-        );
+                42);
 
         iconBox.setStyle(
                 "-fx-background-color: " +
-                LIGHT_GREEN +
-                ";" +
-                "-fx-background-radius: 11;"
-        );
+                        LIGHT_GREEN +
+                        ";" +
+                        "-fx-background-radius: 11;");
 
         // =====================================================
         // MAIN DETAILS
         // =====================================================
 
-        VBox details =
-                new VBox(5);
+        VBox details = new VBox(5);
 
-        HBox topLine =
-                new HBox(10);
+        HBox topLine = new HBox(10);
 
-        Label id =
-                new Label(ticket.id);
+        Label id = new Label(ticket.id);
 
         id.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         id.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        Label issue =
-                new Label(ticket.issueType);
+        Label issue = new Label(ticket.issueType);
 
         issue.setFont(
                 Font.font(
                         "Arial",
-                        11
-                )
-        );
+                        11));
 
         issue.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         topLine.getChildren().addAll(
                 id,
-                issue
-        );
+                issue);
 
-        Label subject =
-                new Label(
-                        ticket.subject
-                );
+        Label subject = new Label(
+                ticket.subject);
 
         subject.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        15
-                )
-        );
+                        15));
 
         subject.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        Label dates =
-                new Label(
-                        "Created: " +
+        Label dates = new Label(
+                "Created: " +
                         ticket.createdAt +
                         "    •    Updated: " +
-                        ticket.updatedAt
-                );
+                        ticket.updatedAt);
 
         dates.setFont(
                 Font.font(
                         "Arial",
-                        11
-                )
-        );
+                        11));
 
         dates.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         details.getChildren().addAll(
                 topLine,
                 subject,
-                dates
-        );
+                dates);
 
         HBox.setHgrow(
                 details,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         // =====================================================
         // STATUS
         // =====================================================
 
-        Label status =
-                new Label(
-                        "● " + ticket.status
-                );
+        Label status = new Label(
+                "● " + ticket.status);
 
         status.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         status.setTextFill(
-                getStatusColor(ticket.status)
-        );
+                getStatusColor(ticket.status));
 
         // =====================================================
         // ARROW
         // =====================================================
 
-        Label arrow =
-                new Label(
-                        "View Timeline  →"
-                );
+        Label arrow = new Label(
+                "View Timeline  →");
 
         arrow.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         arrow.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        VBox right =
-                new VBox(
-                        10,
-                        status,
-                        arrow
-                );
+        VBox right = new VBox(
+                10,
+                status,
+                arrow);
 
         right.setAlignment(
-                Pos.CENTER_RIGHT
-        );
+                Pos.CENTER_RIGHT);
 
         card.getChildren().addAll(
                 iconBox,
                 details,
-                right
-        );
+                right);
 
         // =====================================================
         // CLICK
         // =====================================================
 
         card.setOnMouseClicked(
-                e -> showTicketTimeline(ticket)
-        );
+                e -> showTicketTimeline(ticket));
 
         // =====================================================
         // HOVER
         // =====================================================
 
         card.setOnMouseEntered(
-                e -> card.setStyle(hoverStyle)
-        );
+                e -> card.setStyle(hoverStyle));
 
         card.setOnMouseExited(
-                e -> card.setStyle(normalStyle)
-        );
+                e -> card.setStyle(normalStyle));
 
         return card;
     }
@@ -1198,8 +977,7 @@ public class Support {
     // =========================================================
 
     private Color getStatusColor(
-            String status
-    ) {
+            String status) {
 
         switch (status) {
 
@@ -1222,26 +1000,21 @@ public class Support {
     // =========================================================
 
     private void showTicketTimeline(
-            SupportTicket ticket
-    ) {
+            SupportTicket ticket) {
 
-        VBox timelinePage =
-                createTimelinePage(ticket);
+        VBox timelinePage = createTimelinePage(ticket);
 
         if (ticketsContainer == null) {
             return;
         }
 
-        VBox parent =
-                (VBox) ticketsContainer.getParent();
+        VBox parent = (VBox) ticketsContainer.getParent();
 
         parent.getChildren().remove(
-                ticketsContainer
-        );
+                ticketsContainer);
 
         parent.getChildren().add(
-                timelinePage
-        );
+                timelinePage);
     }
 
     // =========================================================
@@ -1249,283 +1022,211 @@ public class Support {
     // =========================================================
 
     private VBox createTimelinePage(
-            SupportTicket ticket
-    ) {
+            SupportTicket ticket) {
 
-        VBox container =
-                new VBox(16);
+        VBox container = new VBox(16);
 
         container.setPadding(
-                new Insets(4, 0, 8, 0)
-        );
+                new Insets(4, 0, 8, 0));
 
         // =====================================================
         // BACK BUTTON
         // =====================================================
 
-        Button back =
-                new Button(
-                        "←  Back to My Tickets"
-                );
+        Button back = new Button(
+                "←  Back to My Tickets");
 
         back.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        13
-                )
-        );
+                        13));
 
         back.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
         back.setCursor(
-                Cursor.HAND
-        );
+                Cursor.HAND);
 
         back.setStyle(
                 "-fx-background-color: transparent;" +
-                "-fx-padding: 4 0 4 0;"
-        );
+                        "-fx-padding: 4 0 4 0;");
 
         back.setOnAction(
-                e -> showTicketListAgain(container)
-        );
+                e -> showTicketListAgain(container));
 
         // =====================================================
         // TICKET HEADER
         // =====================================================
 
-        VBox header =
-                new VBox(7);
+        VBox header = new VBox(7);
 
-        Label ticketId =
-                new Label(
-                        ticket.id
-                );
+        Label ticketId = new Label(
+                ticket.id);
 
         ticketId.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        13
-                )
-        );
+                        13));
 
         ticketId.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        Label subject =
-                new Label(
-                        ticket.subject
-                );
+        Label subject = new Label(
+                ticket.subject);
 
         subject.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        22
-                )
-        );
+                        22));
 
         subject.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        HBox statusRow =
-                new HBox(14);
+        HBox statusRow = new HBox(14);
 
         statusRow.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
-        Label status =
-                new Label(
-                        "● " + ticket.status
-                );
+        Label status = new Label(
+                "● " + ticket.status);
 
         status.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         status.setTextFill(
-                getStatusColor(ticket.status)
-        );
+                getStatusColor(ticket.status));
 
-        Label priority =
-                new Label(
-                        "Priority: " +
-                        ticket.priority
-                );
+        Label priority = new Label(
+                "Priority: " +
+                        ticket.priority);
 
         priority.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         priority.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        Label issue =
-                new Label(
-                        ticket.issueType
-                );
+        Label issue = new Label(
+                ticket.issueType);
 
         issue.setFont(
                 Font.font(
                         "Arial",
-                        12
-                )
-        );
+                        12));
 
         issue.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         statusRow.getChildren().addAll(
                 status,
                 priority,
-                issue
-        );
+                issue);
 
         header.getChildren().addAll(
                 ticketId,
                 subject,
-                statusRow
-        );
+                statusRow);
 
         // =====================================================
         // DESCRIPTION CARD
         // =====================================================
 
-        VBox descriptionCard =
-                new VBox(7);
+        VBox descriptionCard = new VBox(7);
 
         descriptionCard.setPadding(
-                new Insets(18)
-        );
+                new Insets(18));
 
         descriptionCard.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 14;" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 14;"
-        );
+                        "-fx-background-radius: 14;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 14;");
 
-        Label descriptionTitle =
-                new Label(
-                        "Issue Description"
-                );
+        Label descriptionTitle = new Label(
+                "Issue Description");
 
         descriptionTitle.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        14
-                )
-        );
+                        14));
 
         descriptionTitle.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        Label description =
-                new Label(
-                        ticket.description
-                );
+        Label description = new Label(
+                ticket.description);
 
         description.setWrapText(true);
 
         description.setFont(
                 Font.font(
                         "Arial",
-                        13
-                )
-        );
+                        13));
 
         description.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         descriptionCard.getChildren().addAll(
                 descriptionTitle,
-                description
-        );
+                description);
 
         // =====================================================
         // TIMELINE CARD
         // =====================================================
 
-        VBox timelineCard =
-                new VBox(0);
+        VBox timelineCard = new VBox(0);
 
         timelineCard.setPadding(
-                new Insets(22)
-        );
+                new Insets(22));
 
         timelineCard.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 16;" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 16;"
-        );
+                        "-fx-background-radius: 16;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 16;");
 
-        Label timelineTitle =
-                new Label(
-                        "Support Action Timeline"
-                );
+        Label timelineTitle = new Label(
+                "Support Action Timeline");
 
         timelineTitle.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        19
-                )
-        );
+                        19));
 
         timelineTitle.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
         timelineCard.getChildren().add(
-                timelineTitle
-        );
+                timelineTitle);
 
-        for (int i = 0;
-             i < ticket.timeline.size();
-             i++) {
+        for (int i = 0; i < ticket.timeline.size(); i++) {
 
-            TimelineEvent event =
-                    ticket.timeline.get(i);
+            TimelineEvent event = ticket.timeline.get(i);
 
-            boolean last =
-                    i ==
-                    ticket.timeline.size() - 1;
+            boolean last = i == ticket.timeline.size() - 1;
 
             timelineCard.getChildren().add(
                     createTimelineEvent(
                             event,
-                            last
-                    )
-            );
+                            last));
         }
 
         container.getChildren().addAll(
                 back,
                 header,
                 descriptionCard,
-                timelineCard
-        );
+                timelineCard);
 
         return container;
     }
@@ -1536,87 +1237,70 @@ public class Support {
 
     private HBox createTimelineEvent(
             TimelineEvent event,
-            boolean last
-    ) {
+            boolean last) {
 
-        HBox row =
-                new HBox(15);
+        HBox row = new HBox(15);
 
         row.setPadding(
                 new Insets(
                         18,
                         8,
                         last ? 5 : 18,
-                        8
-                )
-        );
+                        8));
 
         // =====================================================
         // DOT + LINE
         // =====================================================
 
-        VBox indicator =
-                new VBox();
+        VBox indicator = new VBox();
 
         indicator.setAlignment(
-                Pos.TOP_CENTER
-        );
+                Pos.TOP_CENTER);
 
-        StackPane dot =
-                new StackPane();
+        StackPane dot = new StackPane();
 
         dot.setPrefSize(
                 22,
-                22
-        );
+                22);
 
         dot.setMaxSize(
                 22,
-                22
-        );
+                22);
 
-        Label dotLabel =
-                new Label(
-                        event.completed
-                                ? "✓"
-                                : "○"
-                );
+        Label dotLabel = new Label(
+                event.completed
+                        ? "✓"
+                        : "○");
 
         dotLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         dotLabel.setTextFill(
                 event.completed
                         ? Color.WHITE
-                        : Color.web(MUTED)
-        );
+                        : Color.web(MUTED));
 
         dot.setStyle(
                 event.completed
                         ? "-fx-background-color: " +
-                          GREEN +
-                          ";" +
-                          "-fx-background-radius: 50%;"
+                                GREEN +
+                                ";" +
+                                "-fx-background-radius: 50%;"
                         : "-fx-background-color: #EEF2EF;" +
-                          "-fx-border-color: #B9C4BD;" +
-                          "-fx-border-radius: 50%;"
-        );
+                                "-fx-border-color: #B9C4BD;" +
+                                "-fx-border-radius: 50%;");
 
         dot.getChildren().add(
-                dotLabel
-        );
+                dotLabel);
 
         indicator.getChildren().add(dot);
 
         if (!last) {
 
-            Region line =
-                    new Region();
+            Region line = new Region();
 
             line.setPrefWidth(2);
 
@@ -1629,95 +1313,73 @@ public class Support {
             line.setStyle(
                     event.completed
                             ? "-fx-background-color: #B9DEC7;"
-                            : "-fx-background-color: #DDE4DF;"
-            );
+                            : "-fx-background-color: #DDE4DF;");
 
             indicator.getChildren().add(
-                    line
-            );
+                    line);
         }
 
         // =====================================================
         // EVENT CONTENT
         // =====================================================
 
-        VBox content =
-                new VBox(5);
+        VBox content = new VBox(5);
 
-        Label title =
-                new Label(
-                        event.title
-                );
+        Label title = new Label(
+                event.title);
 
         title.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        14
-                )
-        );
+                        14));
 
         title.setTextFill(
                 event.completed
                         ? Color.web(TEXT)
-                        : Color.web(MUTED)
-        );
+                        : Color.web(MUTED));
 
-        Label description =
-                new Label(
-                        event.description
-                );
+        Label description = new Label(
+                event.description);
 
         description.setWrapText(true);
 
         description.setFont(
                 Font.font(
                         "Arial",
-                        12
-                )
-        );
+                        12));
 
         description.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
-        Label time =
-                new Label(
-                        event.time
-                );
+        Label time = new Label(
+                event.time);
 
         time.setFont(
                 Font.font(
                         "Arial",
-                        11
-                )
-        );
+                        11));
 
         time.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
         content.getChildren().addAll(
                 title,
-                description
-        );
+                description);
 
         if (!event.time.isEmpty()) {
 
             content.getChildren().add(
-                    time
-            );
+                    time);
         }
 
         HBox.setHgrow(
                 content,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         row.getChildren().addAll(
                 indicator,
-                content
-        );
+                content);
 
         return row;
     }
@@ -1727,30 +1389,23 @@ public class Support {
     // =========================================================
 
     private void showTicketListAgain(
-            VBox timelineContainer
-    ) {
+            VBox timelineContainer) {
 
-        VBox parent =
-                (VBox) timelineContainer.getParent();
+        VBox parent = (VBox) timelineContainer.getParent();
 
-        int index =
-                parent.getChildren().indexOf(
-                        timelineContainer
-                );
+        int index = parent.getChildren().indexOf(
+                timelineContainer);
 
         parent.getChildren().remove(
-                timelineContainer
-        );
+                timelineContainer);
 
-        ticketsContainer =
-                new VBox(10);
+        ticketsContainer = new VBox(10);
 
         refreshTicketList();
 
         parent.getChildren().add(
                 index,
-                ticketsContainer
-        );
+                ticketsContainer);
     }
 
     // =========================================================
@@ -1776,10 +1431,7 @@ public class Support {
                                 "Payment issue submitted",
                                 "Support team is reviewing the payment issue.",
                                 "12:05 PM",
-                                false
-                        )
-                )
-        );
+                                false)));
 
         submittedTickets.add(
                 new SupportTicket(
@@ -1796,10 +1448,7 @@ public class Support {
                                 "Trip status verification",
                                 "Support team is checking the trip record.",
                                 "04:30 PM",
-                                false
-                        )
-                )
-        );
+                                false)));
 
         submittedTickets.add(
                 new SupportTicket(
@@ -1812,9 +1461,7 @@ public class Support {
                         "Resolved",
                         "11 Aug 2026 • 11:10 AM",
                         "11 Aug 2026 • 03:25 PM",
-                        createResolvedTimeline()
-                )
-        );
+                        createResolvedTimeline()));
 
         submittedTickets.add(
                 new SupportTicket(
@@ -1827,9 +1474,7 @@ public class Support {
                         "Resolved",
                         "10 Aug 2026 • 09:40 AM",
                         "10 Aug 2026 • 01:15 PM",
-                        createResolvedTechnicalTimeline()
-                )
-        );
+                        createResolvedTechnicalTimeline()));
     }
 
     // =========================================================
@@ -1840,47 +1485,37 @@ public class Support {
             String lastTitle,
             String lastDescription,
             String lastTime,
-            boolean completed
-    ) {
+            boolean completed) {
 
-        List<TimelineEvent> events =
-                new ArrayList<>();
+        List<TimelineEvent> events = new ArrayList<>();
 
         events.add(
                 new TimelineEvent(
                         "Ticket Submitted",
                         "You submitted the support ticket.",
                         "10:20 AM",
-                        true
-                )
-        );
+                        true));
 
         events.add(
                 new TimelineEvent(
                         "Ticket Assigned",
                         "Ticket assigned to the EcoLoad support team.",
                         "10:45 AM",
-                        true
-                )
-        );
+                        true));
 
         events.add(
                 new TimelineEvent(
                         "Under Review",
                         "Support team started reviewing the issue.",
                         "11:15 AM",
-                        true
-                )
-        );
+                        true));
 
         events.add(
                 new TimelineEvent(
                         lastTitle,
                         lastDescription,
                         lastTime,
-                        completed
-                )
-        );
+                        completed));
 
         return events;
     }
@@ -1891,44 +1526,35 @@ public class Support {
 
     private List<TimelineEvent> createResolvedTimeline() {
 
-        List<TimelineEvent> events =
-                new ArrayList<>();
+        List<TimelineEvent> events = new ArrayList<>();
 
         events.add(
                 new TimelineEvent(
                         "Ticket Submitted",
                         "You submitted the document issue.",
                         "11:10 AM",
-                        true
-                )
-        );
+                        true));
 
         events.add(
                 new TimelineEvent(
                         "Ticket Assigned",
                         "Ticket assigned to the support team.",
                         "11:30 AM",
-                        true
-                )
-        );
+                        true));
 
         events.add(
                 new TimelineEvent(
                         "Under Review",
                         "Support team checked the document upload issue.",
                         "12:15 PM",
-                        true
-                )
-        );
+                        true));
 
         events.add(
                 new TimelineEvent(
                         "Resolution Provided",
                         "The document upload issue was resolved.",
                         "03:25 PM",
-                        true
-                )
-        );
+                        true));
 
         return events;
     }
@@ -1939,44 +1565,35 @@ public class Support {
 
     private List<TimelineEvent> createResolvedTechnicalTimeline() {
 
-        List<TimelineEvent> events =
-                new ArrayList<>();
+        List<TimelineEvent> events = new ArrayList<>();
 
         events.add(
                 new TimelineEvent(
                         "Ticket Submitted",
                         "You reported the dashboard loading issue.",
                         "09:40 AM",
-                        true
-                )
-        );
+                        true));
 
         events.add(
                 new TimelineEvent(
                         "Ticket Assigned",
                         "Ticket assigned to the technical support team.",
                         "10:05 AM",
-                        true
-                )
-        );
+                        true));
 
         events.add(
                 new TimelineEvent(
                         "Technical Investigation",
                         "The technical team investigated the reported issue.",
                         "11:00 AM",
-                        true
-                )
-        );
+                        true));
 
         events.add(
                 new TimelineEvent(
                         "Issue Resolved",
                         "The dashboard loading issue was resolved.",
                         "01:15 PM",
-                        true
-                )
-        );
+                        true));
 
         return events;
     }
@@ -1987,76 +1604,59 @@ public class Support {
 
     private VBox createFAQCard() {
 
-        VBox card =
-                new VBox(12);
+        VBox card = new VBox(12);
 
         card.setPadding(
-                new Insets(16)
-        );
+                new Insets(16));
 
         card.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 16;" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 16;"
-        );
+                        "-fx-background-radius: 16;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 16;");
 
-        Label title =
-                new Label(
-                        "Frequently Asked Questions"
-                );
+        Label title = new Label(
+                "Frequently Asked Questions");
 
         title.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        16
-                )
-        );
+                        16));
 
         title.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        VBox faq1 =
-                createFAQ(
-                        "How do I accept a shipment?",
-                        "Go to the Available Loads or Shipments section "
-                                + "from the sidebar. Review the shipment details, "
-                                + "pickup location, delivery location, and payment "
-                                + "information before accepting the shipment."
-                );
+        VBox faq1 = createFAQ(
+                "How do I accept a shipment?",
+                "Go to the Available Loads or Shipments section "
+                        + "from the sidebar. Review the shipment details, "
+                        + "pickup location, delivery location, and payment "
+                        + "information before accepting the shipment.");
 
-        VBox faq2 =
-                createFAQ(
-                        "How do I update shipment status?",
-                        "Open your active shipment and select the relevant "
-                                + "status option such as Picked Up, In Transit, "
-                                + "or Delivered."
-                );
+        VBox faq2 = createFAQ(
+                "How do I update shipment status?",
+                "Open your active shipment and select the relevant "
+                        + "status option such as Picked Up, In Transit, "
+                        + "or Delivered.");
 
-        VBox faq3 =
-                createFAQ(
-                        "When will I receive my payment?",
-                        "Payments are generally processed after successful "
-                                + "shipment completion and verification."
-                );
+        VBox faq3 = createFAQ(
+                "When will I receive my payment?",
+                "Payments are generally processed after successful "
+                        + "shipment completion and verification.");
 
-        VBox faq4 =
-                createFAQ(
-                        "What should I do if I have a vehicle problem?",
-                        "If your vehicle develops a problem during an active "
-                                + "shipment, contact support immediately and "
-                                + "provide your shipment ID and vehicle number."
-                );
+        VBox faq4 = createFAQ(
+                "What should I do if I have a vehicle problem?",
+                "If your vehicle develops a problem during an active "
+                        + "shipment, contact support immediately and "
+                        + "provide your shipment ID and vehicle number.");
 
         card.getChildren().addAll(
                 title,
                 faq1,
                 faq2,
                 faq3,
-                faq4
-        );
+                faq4);
 
         return card;
     }
@@ -2067,97 +1667,74 @@ public class Support {
 
     private VBox createFAQ(
             String question,
-            String answer
-    ) {
+            String answer) {
 
-        VBox box =
-                new VBox();
+        VBox box = new VBox();
 
         box.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 10;" +
-                "-fx-background-radius: 10;"
-        );
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 10;" +
+                        "-fx-background-radius: 10;");
 
-        Button questionButton =
-                new Button(
-                        question + "   ⌄"
-                );
+        Button questionButton = new Button(
+                question + "   ⌄");
 
         questionButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         questionButton.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         questionButton.setPrefHeight(
-                36
-        );
+                36);
 
         questionButton.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         questionButton.setStyle(
                 "-fx-background-color: transparent;" +
-                "-fx-text-fill: " + TEXT + ";"
-        );
+                        "-fx-text-fill: " + TEXT + ";");
 
-        Label answerLabel =
-                new Label(answer);
+        Label answerLabel = new Label(answer);
 
         answerLabel.setWrapText(true);
 
         answerLabel.setFont(
                 Font.font(
                         "Arial",
-                        11
-                )
-        );
+                        11));
 
         answerLabel.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         answerLabel.setPadding(
                 new Insets(
                         2,
                         10,
                         10,
-                        10
-                )
-        );
+                        10));
 
-        VBox answerBox =
-                new VBox(
-                        answerLabel
-                );
+        VBox answerBox = new VBox(
+                answerLabel);
 
         box.getChildren().add(
-                questionButton
-        );
+                questionButton);
 
         questionButton.setOnAction(
                 e -> {
 
-                    if (
-                            box.getChildren()
-                                    .contains(answerBox)
-                    ) {
+                    if (box.getChildren()
+                            .contains(answerBox)) {
 
                         box.getChildren()
                                 .remove(answerBox);
 
                         questionButton.setText(
-                                question + "   ⌄"
-                        );
+                                question + "   ⌄");
 
                     } else {
 
@@ -2165,11 +1742,9 @@ public class Support {
                                 .add(answerBox);
 
                         questionButton.setText(
-                                question + "   ⌃"
-                        );
+                                question + "   ⌃");
                     }
-                }
-        );
+                });
 
         return box;
     }
@@ -2180,275 +1755,202 @@ public class Support {
 
     private VBox createContactCard() {
 
-        VBox card =
-                new VBox(10);
+        VBox card = new VBox(10);
 
         card.setPadding(
-                new Insets(16)
-        );
+                new Insets(16));
 
         card.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 16;" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 16;"
-        );
+                        "-fx-background-radius: 16;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 16;");
 
-        Label title =
-                new Label(
-                        "Other Ways To Contact"
-                );
+        Label title = new Label(
+                "Other Ways To Contact");
 
         title.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        16
-                )
-        );
+                        16));
 
         title.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        Label phoneIcon =
-                new Label("☎");
+        Label phoneIcon = new Label("☎");
 
         phoneIcon.setFont(
                 Font.font(
                         "Arial",
-                        17
-                )
-        );
+                        17));
 
         phoneIcon.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        StackPane phoneCircle =
-                new StackPane(
-                        phoneIcon
-                );
+        StackPane phoneCircle = new StackPane(
+                phoneIcon);
 
         phoneCircle.setPrefSize(
                 36,
-                36
-        );
+                36);
 
         phoneCircle.setMaxSize(
                 36,
-                36
-        );
+                36);
 
         phoneCircle.setStyle(
                 "-fx-background-color: " +
-                LIGHT_GREEN +
-                ";" +
-                "-fx-background-radius: 50;"
-        );
+                        LIGHT_GREEN +
+                        ";" +
+                        "-fx-background-radius: 50;");
 
-        Label phoneTitle =
-                new Label(
-                        "SUPPORT PHONE"
-                );
+        Label phoneTitle = new Label(
+                "SUPPORT PHONE");
 
         phoneTitle.setFont(
                 Font.font(
                         "Arial",
-                        10
-                )
-        );
+                        10));
 
         phoneTitle.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
-        Label phone =
-                new Label(
-                        "1800-123-4567"
-                );
+        Label phone = new Label(
+                "1800-123-4567");
 
         phone.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        14
-                )
-        );
+                        14));
 
         phone.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        VBox phoneText =
-                new VBox(
-                        2,
-                        phoneTitle,
-                        phone
-                );
+        VBox phoneText = new VBox(
+                2,
+                phoneTitle,
+                phone);
 
-        HBox phoneRow =
-                new HBox(
-                        12,
-                        phoneCircle,
-                        phoneText
-                );
+        HBox phoneRow = new HBox(
+                12,
+                phoneCircle,
+                phoneText);
 
         phoneRow.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         // =====================================================
         // EMAIL
         // =====================================================
 
-        Label emailIcon =
-                new Label("✉");
+        Label emailIcon = new Label("✉");
 
         emailIcon.setFont(
                 Font.font(
                         "Arial",
-                        17
-                )
-        );
+                        17));
 
         emailIcon.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        StackPane emailCircle =
-                new StackPane(
-                        emailIcon
-                );
+        StackPane emailCircle = new StackPane(
+                emailIcon);
 
         emailCircle.setPrefSize(
                 36,
-                36
-        );
+                36);
 
         emailCircle.setMaxSize(
                 36,
-                36
-        );
+                36);
 
         emailCircle.setStyle(
                 "-fx-background-color: #EEF1F0;" +
-                "-fx-background-radius: 50;"
-        );
+                        "-fx-background-radius: 50;");
 
-        Label emailTitle =
-                new Label(
-                        "EMAIL ADDRESS"
-                );
+        Label emailTitle = new Label(
+                "EMAIL ADDRESS");
 
         emailTitle.setFont(
                 Font.font(
                         "Arial",
-                        10
-                )
-        );
+                        10));
 
         emailTitle.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
-        Label email =
-                new Label(
-                        "support@ecoload.com"
-                );
+        Label email = new Label(
+                "support@ecoload.com");
 
         email.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        13
-                )
-        );
+                        13));
 
         email.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        VBox emailText =
-                new VBox(
-                        2,
-                        emailTitle,
-                        email
-                );
+        VBox emailText = new VBox(
+                2,
+                emailTitle,
+                email);
 
-        HBox emailRow =
-                new HBox(
-                        12,
-                        emailCircle,
-                        emailText
-                );
+        HBox emailRow = new HBox(
+                12,
+                emailCircle,
+                emailText);
 
         emailRow.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
-        Separator separator =
-                new Separator();
+        Separator separator = new Separator();
 
-        Button chat =
-                new Button(
-                        "▣   Chat Bot"
-                );
+        Button chat = new Button(
+                "▣   Chat Bot");
 
         chat.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         chat.setPrefHeight(
-                38
-        );
+                38);
 
         chat.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         chat.setTextFill(
-                Color.WHITE
-        );
+                Color.WHITE);
 
         chat.setCursor(
-                Cursor.HAND
-        );
+                Cursor.HAND);
 
         chat.setStyle(
                 "-fx-background-color: " +
-                DARK_GREEN +
-                ";" +
-                "-fx-background-radius: 9;"
-        );
+                        DARK_GREEN +
+                        ";" +
+                        "-fx-background-radius: 9;");
 
         chat.setOnAction(
                 e -> showAlert(
                         "ChatBot",
-                        "ChatBot will be available soon."
-                )
-        );
+                        "ChatBot will be available soon."));
 
-        Label response =
-                new Label(
-                        "Response time: Usually within 2-4 hours"
-                );
+        Label response = new Label(
+                "Response time: Usually within 2-4 hours");
 
         response.setFont(
                 Font.font(
                         "Arial",
                         FontPosture.ITALIC,
-                        11
-                )
-        );
+                        11));
 
         response.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         card.getChildren().addAll(
                 title,
@@ -2456,8 +1958,7 @@ public class Support {
                 emailRow,
                 separator,
                 chat,
-                response
-        );
+                response);
 
         return card;
     }
@@ -2468,67 +1969,52 @@ public class Support {
 
     private HBox createInformationBar() {
 
-        Label icon =
-                new Label("ⓘ");
+        Label icon = new Label("ⓘ");
 
         icon.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        20
-                )
-        );
+                        20));
 
         icon.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        Label text =
-                new Label(
-                        "Our support team usually replies within a few hours. "
-                                + "Please have your Shipment ID, Vehicle Number, "
-                                + "or Trip ID ready for faster resolution."
-                );
+        Label text = new Label(
+                "Our support team usually replies within a few hours. "
+                        + "Please have your Shipment ID, Vehicle Number, "
+                        + "or Trip ID ready for faster resolution.");
 
         text.setWrapText(true);
 
         text.setFont(
                 Font.font(
                         "Arial",
-                        12
-                )
-        );
+                        12));
 
         text.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
-        HBox bar =
-                new HBox(
-                        12,
-                        icon,
-                        text
-                );
+        HBox bar = new HBox(
+                12,
+                icon,
+                text);
 
         bar.setPadding(
                 new Insets(
                         10,
                         14,
                         10,
-                        14
-                )
-        );
+                        14));
 
         bar.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         bar.setStyle(
                 "-fx-background-color: #F4FBF6;" +
-                "-fx-border-color: #C8E2D0;" +
-                "-fx-border-radius: 14;" +
-                "-fx-background-radius: 14;"
-        );
+                        "-fx-border-color: #C8E2D0;" +
+                        "-fx-border-radius: 14;" +
+                        "-fx-background-radius: 14;");
 
         return bar;
     }
@@ -2539,67 +2025,52 @@ public class Support {
 
     private HBox createSecurityBar() {
 
-        Label icon =
-                new Label("⬟");
+        Label icon = new Label("⬟");
 
         icon.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        18
-                )
-        );
+                        18));
 
         icon.setTextFill(
-                Color.web("#3267C7")
-        );
+                Color.web("#3267C7"));
 
-        Label text =
-                new Label(
-                        "Security Alert: Never share your password, OTP, "
-                                + "banking PIN, or payment credentials with anyone, "
-                                + "including EcoLoad support staff."
-                );
+        Label text = new Label(
+                "Security Alert: Never share your password, OTP, "
+                        + "banking PIN, or payment credentials with anyone, "
+                        + "including EcoLoad support staff.");
 
         text.setWrapText(true);
 
         text.setFont(
                 Font.font(
                         "Arial",
-                        13
-                )
-        );
+                        13));
 
         text.setTextFill(
-                Color.web("#304D87")
-        );
+                Color.web("#304D87"));
 
-        HBox bar =
-                new HBox(
-                        12,
-                        icon,
-                        text
-                );
+        HBox bar = new HBox(
+                12,
+                icon,
+                text);
 
         bar.setPadding(
                 new Insets(
                         10,
                         14,
                         10,
-                        14
-                )
-        );
+                        14));
 
         bar.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         bar.setStyle(
                 "-fx-background-color: #F0F6FF;" +
-                "-fx-border-color: #C7DAF5;" +
-                "-fx-border-radius: 14;" +
-                "-fx-background-radius: 14;"
-        );
+                        "-fx-border-color: #C7DAF5;" +
+                        "-fx-border-radius: 14;" +
+                        "-fx-background-radius: 14;");
 
         return bar;
     }
@@ -2609,23 +2080,18 @@ public class Support {
     // =========================================================
 
     private Label createFieldLabel(
-            String text
-    ) {
+            String text) {
 
-        Label label =
-                new Label(text);
+        Label label = new Label(text);
 
         label.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        13
-                )
-        );
+                        13));
 
         label.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
         return label;
     }
@@ -2636,26 +2102,20 @@ public class Support {
 
     private RadioButton createRadioButton(
             String text,
-            ToggleGroup group
-    ) {
+            ToggleGroup group) {
 
-        RadioButton radio =
-                new RadioButton(text);
+        RadioButton radio = new RadioButton(text);
 
         radio.setToggleGroup(
-                group
-        );
+                group);
 
         radio.setFont(
                 Font.font(
                         "Arial",
-                        13
-                )
-        );
+                        13));
 
         radio.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
         return radio;
     }
@@ -2665,16 +2125,14 @@ public class Support {
     // =========================================================
 
     private void styleControl(
-            Control control
-    ) {
+            Control control) {
 
         control.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 10;" +
-                "-fx-background-radius: 10;" +
-                "-fx-font-size: 14px;"
-        );
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 10;" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-font-size: 14px;");
     }
 
     // =========================================================
@@ -2683,12 +2141,10 @@ public class Support {
 
     private void chooseAttachment() {
 
-        FileChooser chooser =
-                new FileChooser();
+        FileChooser chooser = new FileChooser();
 
         chooser.setTitle(
-                "Select Attachment"
-        );
+                "Select Attachment");
 
         chooser.getExtensionFilters()
                 .add(
@@ -2697,37 +2153,29 @@ public class Support {
                                 "*.pdf",
                                 "*.png",
                                 "*.jpg",
-                                "*.jpeg"
-                        )
-                );
+                                "*.jpeg"));
 
-        File file =
-                chooser.showOpenDialog(
-                        null
-                );
+        File file = chooser.showOpenDialog(
+                null);
 
         if (file == null) {
             return;
         }
 
-        long size =
-                file.length();
+        long size = file.length();
 
         // 5 MB
-        if (size >
-                5 * 1024 * 1024) {
+        if (size > 5 * 1024 * 1024) {
 
             showAlert(
                     "File Too Large",
-                    "Please select a file smaller than 5 MB."
-            );
+                    "Please select a file smaller than 5 MB.");
 
             return;
         }
 
         attachmentLabel.setText(
-                "✓  " + file.getName()
-        );
+                "✓  " + file.getName());
     }
 
     // =========================================================
@@ -2737,12 +2185,10 @@ public class Support {
     private void resetForm() {
 
         issueType.setValue(
-                "Technical Issue"
-        );
+                "Technical Issue");
 
         medium.setSelected(
-                true
-        );
+                true);
 
         subjectField.clear();
 
@@ -2750,8 +2196,7 @@ public class Support {
 
         attachmentLabel.setText(
                 "☁   Drag & Drop files here\n" +
-                "PDF, PNG, JPG (Max 5MB)"
-        );
+                        "PDF, PNG, JPG (Max 5MB)");
     }
 
     // =========================================================
@@ -2760,30 +2205,24 @@ public class Support {
 
     private void submitTicket() {
 
-        if (
-                subjectField.getText()
-                        .trim()
-                        .isEmpty()
-        ) {
+        if (subjectField.getText()
+                .trim()
+                .isEmpty()) {
 
             showAlert(
                     "Missing Subject",
-                    "Please enter the subject of your issue."
-            );
+                    "Please enter the subject of your issue.");
 
             return;
         }
 
-        if (
-                descriptionArea.getText()
-                        .trim()
-                        .isEmpty()
-        ) {
+        if (descriptionArea.getText()
+                .trim()
+                .isEmpty()) {
 
             showAlert(
                     "Missing Description",
-                    "Please describe your issue."
-            );
+                    "Please describe your issue.");
 
             return;
         }
@@ -2807,68 +2246,54 @@ public class Support {
         // CREATE NEW TICKET
         // =====================================================
 
-        int nextNumber =
-                1025 + submittedTickets.size();
+        int nextNumber = 1025 + submittedTickets.size();
 
-        String ticketId =
-                "#EL-" + nextNumber;
+        String ticketId = "#EL-" + nextNumber;
 
-        List<TimelineEvent> timeline =
-                new ArrayList<>();
+        List<TimelineEvent> timeline = new ArrayList<>();
 
         timeline.add(
                 new TimelineEvent(
                         "Ticket Submitted",
                         "You submitted the support ticket.",
                         "Just now",
-                        true
-                )
-        );
+                        true));
 
         timeline.add(
                 new TimelineEvent(
                         "Ticket Assigned",
                         "Your ticket has been assigned to the EcoLoad support team.",
                         "",
-                        false
-                )
-        );
+                        false));
 
         timeline.add(
                 new TimelineEvent(
                         "Under Review",
                         "Support team will review your issue.",
                         "",
-                        false
-                )
-        );
+                        false));
 
         timeline.add(
                 new TimelineEvent(
                         "Resolution Pending",
                         "Waiting for support team action.",
                         "",
-                        false
-                )
-        );
+                        false));
 
-        SupportTicket ticket =
-                new SupportTicket(
-                        ticketId,
-                        issueType.getValue(),
-                        priority,
-                        subjectField.getText().trim(),
-                        descriptionArea.getText().trim(),
-                        "Open",
-                        "13 Aug 2026 • Just now",
-                        "13 Aug 2026 • Just now",
-                        timeline
-                );
+        SupportTicket ticket = new SupportTicket(
+                ticketId,
+                issueType.getValue(),
+                priority,
+                subjectField.getText().trim(),
+                descriptionArea.getText().trim(),
+                "Open",
+                "13 Aug 2026 • Just now",
+                "13 Aug 2026 • Just now",
+                timeline);
 
         submittedTickets.add(
                 0,
-                ticket
-        );
+                ticket);
 
         refreshTicketList();
 
@@ -2878,8 +2303,7 @@ public class Support {
                         + "Ticket ID: "
                         + ticketId
                         + "\n"
-                        + "Status: Open"
-        );
+                        + "Status: Open");
 
         resetForm();
     }
@@ -2890,25 +2314,19 @@ public class Support {
 
     private void showAlert(
             String title,
-            String message
-    ) {
+            String message) {
 
-        Alert alert =
-                new Alert(
-                        Alert.AlertType.INFORMATION
-                );
+        Alert alert = new Alert(
+                Alert.AlertType.INFORMATION);
 
         alert.setTitle(
-                title
-        );
+                title);
 
         alert.setHeaderText(
-                null
-        );
+                null);
 
         alert.setContentText(
-                message
-        );
+                message);
 
         alert.showAndWait();
     }

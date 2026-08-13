@@ -21,1810 +21,1794 @@ import javafx.stage.FileChooser;
 
 public class Profile {
 
-        private Scene MyPrfileScen;
+    private Scene MyPrfileScen;
 
-        // Colors
-        private static final String GREEN = "#0B6B1F";
-        private static final String GREEN_HOVER = "#075817";
-        private static final String LIGHT_GREEN = "#EAF4EA";
-        private static final String PAGE = "#F7F9F7";
-        private static final String WHITE = "#FFFFFF";
-        private static final String BORDER = "#DCE3DE";
-        private static final String DARK = "#17221B";
-        private static final String MUTED = "#66736B";
-        private static final String RED = "#C62828";
-        private static final String LIGHT_RED = "#FFF3F3";
-        private final String BG = "#e6f1e8";
+    // Colors
+    private static final String GREEN = "#0B6B1F";
+    private static final String GREEN_HOVER = "#075817";
+    private static final String LIGHT_GREEN = "#EAF4EA";
+    private static final String PAGE = "#F7F9F7";
+    private static final String WHITE = "#FFFFFF";
+    private static final String BORDER = "#DCE3DE";
+    private static final String DARK = "#17221B";
+    private static final String MUTED = "#66736B";
+    private static final String RED = "#C62828";
+    private static final String LIGHT_RED = "#FFF3F3";
+    private final String BG = "#e6f1e8";
 
-        // Profile fields
-        private TextField fullName;
-        private TextField email;
-        private TextField mobile;
-        private TextField dob;
-        private TextArea address;
+    // Profile fields
+    private TextField fullName;
+    private TextField email;
+    private TextField mobile;
+    private TextField dob;
+    private TextArea address;
 
-        // Vehicle fields
-        private TextField vehicleModel;
-        private TextField registration;
-        private TextField vehicleType;
-        private TextField payload;
+    // Vehicle fields
+    private TextField vehicleModel;
+    private TextField registration;
+    private TextField vehicleType;
+    private TextField payload;
 
-        private RadioButton diesel;
-        private RadioButton evHybrid;
+    private RadioButton diesel;
+    private RadioButton evHybrid;
 
-        // Header/profile
-        private Label profileName;
-        private Label activeStatus;
+    // Header/profile
+    private Label profileName;
+    private Label activeStatus;
 
-        private ImageView profileImage;
+    private ImageView profileImage;
 
-        // Original values
-        private String oldName;
-        private String oldEmail;
-        private String oldMobile;
-        private String oldDob;
-        private String oldAddress;
+    // Original values
+    private String oldName;
+    private String oldEmail;
+    private String oldMobile;
+    private String oldDob;
+    private String oldAddress;
 
-        private String oldVehicleModel;
-        private String oldRegistration;
-        private String oldVehicleType;
-        private String oldPayload;
-        private String oldFuel;
+    private String oldVehicleModel;
+    private String oldRegistration;
+    private String oldVehicleType;
+    private String oldPayload;
+    private String oldFuel;
 
-        private final List<DocumentData> documents = new ArrayList<>();
+    private final List<DocumentData> documents = new ArrayList<>();
+
+    // =========================================================
+    // PROFILE PAGE SCENE
+    // =========================================================
+
+    public Scene getMyProfile() {
 
         // =========================================================
-        // PROFILE PAGE SCENE
+        // MAIN ROOT
         // =========================================================
 
-        public Scene getMyProfile() {
+        BorderPane root = new BorderPane();
 
-                // =========================================================
-                // MAIN ROOT
-                // =========================================================
+        root.setStyle(
+                "-fx-background-color: " + BG + ";");
 
-                BorderPane root = new BorderPane();
+        // =========================================================
+        // LEFT SIDEBAR
+        // =========================================================
 
-                root.setStyle(
-                                "-fx-background-color: " + BG + ";");
+        root.setLeft(
+                DriverNavigation.createSidebar("Profile"));
 
-                // =========================================================
-                // LEFT SIDEBAR
-                // =========================================================
+        // =========================================================
+        // NAVBAR
+        // =========================================================
 
-                root.setLeft(
-                                DriverNavigation.createSidebar("Profile"));
-
-                // =========================================================
-                // NAVBAR
-                // =========================================================
-
-                HBox navbar = DriverNavigation.createNavbar();
-
-                // =========================================================
-                // MAIN CONTENT
-                // =========================================================
-
-                ScrollPane scroll = new ScrollPane(
-                                createMainContent());
-
-                scroll.setFitToWidth(true);
-
-                scroll.setHbarPolicy(
-                                ScrollPane.ScrollBarPolicy.NEVER);
-
-                scroll.setVbarPolicy(
-                                ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-                scroll.setStyle(
-                                "-fx-background-color: " + PAGE + ";" +
-                                                "-fx-background: " + PAGE + ";" +
-                                                "-fx-border-color: transparent;");
-
-                // =========================================================
-                // CENTER AREA
-                // NAVBAR + SCROLL PANE
-                // =========================================================
-
-                VBox centerContent = new VBox();
-
-                centerContent.getChildren().addAll(
-                                navbar,
-                                scroll);
-
-                VBox.setVgrow(
-                                scroll,
-                                Priority.ALWAYS);
-
-                // =========================================================
-                // SET CENTER
-                // =========================================================
-
-                root.setCenter(
-                                centerContent);
-
-                // =========================================================
-                // CREATE SCENE
-                // =========================================================
-
-                if (MyPrfileScen == null) {
-
-                        MyPrfileScen = new Scene(
-                                        root,
-                                        1536,
-                                        750);
-                }
-
-                return MyPrfileScen;
-        }
+        HBox navbar = DriverNavigation.createNavbar();
 
         // =========================================================
         // MAIN CONTENT
         // =========================================================
 
-        private VBox createMainContent() {
+        ScrollPane scroll = new ScrollPane(
+                createMainContent());
 
-                VBox content = new VBox(22);
+        scroll.setFitToWidth(true);
 
-                content.setPadding(
-                                new Insets(28, 35, 40, 35));
+        scroll.setHbarPolicy(
+                ScrollPane.ScrollBarPolicy.NEVER);
 
-                content.setFillWidth(true);
+        scroll.setVbarPolicy(
+                ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-                content.getChildren().addAll(
-                                createProfileSection(),
-                                createStatistics(),
-                                createInformationArea(),
-                                createDocumentsSection(),
-                                createAccountActions());
-
-                return content;
-        }
+        scroll.setStyle(
+                "-fx-background-color: " + PAGE + ";" +
+                        "-fx-background: " + PAGE + ";" +
+                        "-fx-border-color: transparent;");
 
         // =========================================================
-        // PROFILE SECTION
+        // CENTER AREA
+        // NAVBAR + SCROLL PANE
         // =========================================================
 
-        private VBox createProfileSection() {
+        VBox centerContent = new VBox();
 
-                VBox card = new VBox();
+        centerContent.getChildren().addAll(
+                navbar,
+                scroll);
 
-                card.setPadding(
-                                new Insets(10));
+        VBox.setVgrow(
+                scroll,
+                Priority.ALWAYS);
 
-                card.setStyle(
-                                "-fx-background-color: white;" +
-                                                "-fx-background-radius: 18;" +
-                                                "-fx-border-color: " + BORDER + ";" +
-                                                "-fx-border-radius: 18;");
+        // =========================================================
+        // SET CENTER
+        // =========================================================
 
-                StackPane avatar = createLargeAvatar();
+        root.setCenter(
+                centerContent);
 
-                profileName = label(
-                                "Kishor Kalane",
-                                27,
-                                DARK,
-                                true);
+        // =========================================================
+        // CREATE SCENE
+        // =========================================================
 
-                Label verified = label(
-                                "✓  Verified Driver",
-                                13,
-                                GREEN,
-                                true);
+        if (MyPrfileScen == null) {
 
-                verified.setStyle(
-                                "-fx-background-color: " + LIGHT_GREEN + ";" +
-                                                "-fx-text-fill: " + GREEN + ";" +
-                                                "-fx-font-size: 13px;" +
-                                                "-fx-font-weight: bold;" +
-                                                "-fx-background-radius: 15;" +
-                                                "-fx-padding: 7 13;");
-
-                Label id = label(
-                                "ID: DRV-2025-1001",
-                                13,
-                                MUTED,
-                                false);
-
-                Circle greenCircle = new Circle(
-                                5,
-                                Color.web(GREEN));
-
-                activeStatus = label(
-                                "Active",
-                                13,
-                                GREEN,
-                                true);
-
-                HBox status = new HBox(
-                                7,
-                                greenCircle,
-                                activeStatus);
-
-                VBox info = new VBox(
-                                3,
-                                profileName,
-                                verified,
-                                id,
-                                status);
-
-                info.setAlignment(
-                                Pos.CENTER_LEFT);
-
-                HBox profile = new HBox(
-                                5,
-                                avatar,
-                                info);
-
-                profile.setAlignment(
-                                Pos.CENTER_LEFT);
-
-                Region spacer = new Region();
-
-                HBox.setHgrow(
-                                spacer,
-                                Priority.ALWAYS);
-
-                Button save = greenButton(
-                                "Save Changes");
-
-                Button cancel = normalButton(
-                                "Cancel");
-
-                Button password = outlineButton(
-                                "Change Password");
-
-                save.setOnAction(
-                                e -> saveChanges());
-
-                cancel.setOnAction(
-                                e -> cancelChanges());
-
-                password.setOnAction(
-                                e -> changePassword());
-
-                HBox buttons = new HBox(
-                                10,
-                                save,
-                                cancel,
-                                password);
-
-                buttons.setAlignment(
-                                Pos.CENTER_RIGHT);
-
-                HBox top = new HBox(
-                                profile,
-                                spacer,
-                                buttons);
-
-                top.setAlignment(
-                                Pos.CENTER_LEFT);
-
-                card.getChildren().add(top);
-
-                return card;
+            MyPrfileScen = new Scene(
+                    root,
+                    1536,
+                    750);
         }
 
-        private StackPane createLargeAvatar() {
+        return MyPrfileScen;
+    }
 
-                final double SIZE = 90;
+    // =========================================================
+    // MAIN CONTENT
+    // =========================================================
 
-                // =========================================================
-                // BACKGROUND
-                // =========================================================
+    private VBox createMainContent() {
 
-                Circle background = new Circle(
-                        SIZE / 2,
-                        Color.web("#DCEADF")
-                );
+        VBox content = new VBox(22);
 
-                // =========================================================
-                // INITIALS
-                // =========================================================
+        content.setPadding(
+                new Insets(28, 35, 40, 35));
 
-                Label initials = label(
-                        "KK",
-                        30,
+        content.setFillWidth(true);
+
+        content.getChildren().addAll(
+                createProfileSection(),
+                createStatistics(),
+                createInformationArea(),
+                createDocumentsSection(),
+                createAccountActions());
+
+        return content;
+    }
+
+    // =========================================================
+    // PROFILE SECTION
+    // =========================================================
+
+    private VBox createProfileSection() {
+
+        VBox card = new VBox();
+
+        card.setPadding(
+                new Insets(10));
+
+        card.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 18;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 18;");
+
+        StackPane avatar = createLargeAvatar();
+
+        profileName = label(
+                "Kishor Kalane",
+                27,
+                DARK,
+                true);
+
+        Label verified = label(
+                "✓  Verified Driver",
+                13,
+                GREEN,
+                true);
+
+        verified.setStyle(
+                "-fx-background-color: " + LIGHT_GREEN + ";" +
+                        "-fx-text-fill: " + GREEN + ";" +
+                        "-fx-font-size: 13px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 15;" +
+                        "-fx-padding: 7 13;");
+
+        Label id = label(
+                "ID: DRV-2025-1001",
+                13,
+                MUTED,
+                false);
+
+        Circle greenCircle = new Circle(
+                5,
+                Color.web(GREEN));
+
+        activeStatus = label(
+                "Active",
+                13,
+                GREEN,
+                true);
+
+        HBox status = new HBox(
+                7,
+                greenCircle,
+                activeStatus);
+
+        VBox info = new VBox(
+                3,
+                profileName,
+                verified,
+                id,
+                status);
+
+        info.setAlignment(
+                Pos.CENTER_LEFT);
+
+        HBox profile = new HBox(
+                5,
+                avatar,
+                info);
+
+        profile.setAlignment(
+                Pos.CENTER_LEFT);
+
+        Region spacer = new Region();
+
+        HBox.setHgrow(
+                spacer,
+                Priority.ALWAYS);
+
+        Button save = greenButton(
+                "Save Changes");
+
+        Button cancel = normalButton(
+                "Cancel");
+
+        Button password = outlineButton(
+                "Change Password");
+
+        save.setOnAction(
+                e -> saveChanges());
+
+        cancel.setOnAction(
+                e -> cancelChanges());
+
+        password.setOnAction(
+                e -> changePassword());
+
+        HBox buttons = new HBox(
+                10,
+                save,
+                cancel,
+                password);
+
+        buttons.setAlignment(
+                Pos.CENTER_RIGHT);
+
+        HBox top = new HBox(
+                profile,
+                spacer,
+                buttons);
+
+        top.setAlignment(
+                Pos.CENTER_LEFT);
+
+        card.getChildren().add(top);
+
+        return card;
+    }
+
+    private StackPane createLargeAvatar() {
+
+        final double SIZE = 90;
+
+        // =========================================================
+        // BACKGROUND
+        // =========================================================
+
+        Circle background = new Circle(
+                SIZE / 2,
+                Color.web("#DCEADF"));
+
+        // =========================================================
+        // INITIALS
+        // =========================================================
+
+        Label initials = label(
+                "KK",
+                30,
+                GREEN,
+                true);
+
+        // =========================================================
+        // PROFILE IMAGE
+        // =========================================================
+
+        profileImage = new ImageView();
+
+        profileImage.setFitWidth(SIZE);
+        profileImage.setFitHeight(SIZE);
+
+        // Keep image proportions
+        profileImage.setPreserveRatio(true);
+        profileImage.setSmooth(true);
+
+        // =========================================================
+        // CIRCULAR CLIP
+        // =========================================================
+
+        Circle clip = new Circle(
+                SIZE / 2,
+                SIZE / 2,
+                SIZE / 2);
+
+        profileImage.setClip(clip);
+
+        // Initially show initials
+        profileImage.setVisible(false);
+
+        // =========================================================
+        // IMAGE CONTAINER
+        // =========================================================
+
+        StackPane imageContainer = new StackPane(
+                background,
+                initials,
+                profileImage);
+
+        imageContainer.setPrefSize(SIZE, SIZE);
+        imageContainer.setMinSize(SIZE, SIZE);
+        imageContainer.setMaxSize(SIZE, SIZE);
+
+        imageContainer.setCursor(Cursor.HAND);
+
+        imageContainer.setOnMouseClicked(
+                e -> chooseImage());
+
+        // =========================================================
+        // CAMERA BUTTON
+        // =========================================================
+
+        Circle cameraCircle = new Circle(
+                17,
+                Color.web(GREEN));
+
+        Label camera = label(
+                "📷",
+                10,
+                WHITE,
+                false);
+
+        StackPane cameraButton = new StackPane(
+                cameraCircle,
+                camera);
+
+        cameraButton.setPrefSize(34, 34);
+        cameraButton.setMinSize(34, 34);
+        cameraButton.setMaxSize(34, 34);
+
+        cameraButton.setCursor(Cursor.HAND);
+
+        cameraButton.setOnMouseClicked(
+                e -> chooseImage());
+
+        // =========================================================
+        // FINAL AVATAR
+        // =========================================================
+
+        StackPane result = new StackPane(
+                imageContainer,
+                cameraButton);
+
+        result.setPrefSize(SIZE, SIZE);
+        result.setMinSize(SIZE, SIZE);
+        result.setMaxSize(SIZE, SIZE);
+
+        StackPane.setAlignment(
+                cameraButton,
+                Pos.BOTTOM_RIGHT);
+
+        return result;
+    }
+
+    private void chooseImage() {
+
+        FileChooser chooser = new FileChooser();
+
+        chooser.setTitle("Select Profile Photo");
+
+        chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter(
+                        "Image Files",
+                        "*.png",
+                        "*.jpg",
+                        "*.jpeg"));
+
+        File file = chooser.showOpenDialog(
+                HomePage.homeStage);
+
+        if (file == null) {
+            return;
+        }
+
+        Image image = new Image(
+                file.toURI().toString());
+
+        profileImage.setImage(image);
+
+        profileImage.setVisible(true);
+    }
+
+    // =========================================================
+    // STATISTICS
+    // =========================================================
+
+    private HBox createStatistics() {
+
+        HBox cards = new HBox(18);
+
+        cards.getChildren().addAll(
+                statistic(
+                        "DRIVER SINCE",
+                        "Jan 2021",
+                        "Member since"),
+                statistic(
+                        "COMPLETED TRIPS",
+                        "1,248",
+                        "Successfully completed"),
+                statistic(
+                        "AVERAGE RATING",
+                        "4.9 ★",
+                        "Driver rating"),
+                statistic(
+                        "TOTAL EARNINGS",
+                        "₹14.2L",
+                        "Lifetime earnings"));
+
+        return cards;
+    }
+
+    private VBox statistic(
+            String title,
+            String value,
+            String description) {
+
+        VBox card = new VBox(
+                10,
+                label(
+                        title,
+                        12,
+                        MUTED,
+                        false),
+                label(
+                        value,
+                        26,
+                        DARK,
+                        true),
+                label(
+                        description,
+                        12,
+                        MUTED,
+                        false));
+
+        card.setPadding(
+                new Insets(18));
+
+        card.setPrefHeight(125);
+
+        HBox.setHgrow(
+                card,
+                Priority.ALWAYS);
+
+        card.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 16;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 16;");
+
+        // Hover
+        card.setOnMouseEntered(e -> card.setStyle(
+                "-fx-background-color: " + LIGHT_GREEN + ";" +
+                        "-fx-background-radius: 16;" +
+                        "-fx-border-color: " + GREEN + ";" +
+                        "-fx-border-radius: 16;" +
+                        "-fx-border-width: 1.5;"));
+
+        card.setOnMouseExited(e -> card.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 16;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 16;"));
+
+        return card;
+    }
+
+    // =========================================================
+    // PERSONAL + VEHICLE
+    // =========================================================
+
+    private HBox createInformationArea() {
+
+        VBox personal = createPersonalCard();
+
+        VBox vehicle = createVehicleCard();
+
+        HBox box = new HBox(
+                20,
+                personal,
+                vehicle);
+
+        HBox.setHgrow(
+                personal,
+                Priority.ALWAYS);
+
+        HBox.setHgrow(
+                vehicle,
+                Priority.ALWAYS);
+
+        return box;
+    }
+
+    private VBox createPersonalCard() {
+
+        VBox card = createCard();
+
+        fullName = textField(
+                "Kishor Kalane");
+
+        email = textField(
+                "kishor.k@ecoload.com");
+
+        mobile = textField(
+                "+91 98765 43210");
+
+        dob = textField(
+                "12 May 1985");
+
+        address = new TextArea(
+                "Apt 402, Green Valley Towers, Outer Ring\n" +
+                        "Road, Bengaluru, Karnataka - 560064");
+
+        address.setWrapText(true);
+        address.setPrefRowCount(3);
+
+        styleTextArea(address);
+
+        GridPane grid = new GridPane();
+
+        grid.setHgap(15);
+        grid.setVgap(14);
+
+        addField(
+                grid,
+                "Full Name",
+                fullName,
+                0,
+                0);
+
+        addField(
+                grid,
+                "Email ID",
+                email,
+                1,
+                0);
+
+        addField(
+                grid,
+                "Mobile Number",
+                mobile,
+                0,
+                1);
+
+        addField(
+                grid,
+                "Date of Birth",
+                dob,
+                1,
+                1);
+
+        grid.add(
+                fieldBox(
+                        "Residential Address",
+                        address),
+                0,
+                2,
+                2,
+                1);
+
+        ColumnConstraints c1 = new ColumnConstraints();
+
+        ColumnConstraints c2 = new ColumnConstraints();
+
+        c1.setPercentWidth(50);
+        c2.setPercentWidth(50);
+
+        c1.setHgrow(Priority.ALWAYS);
+        c2.setHgrow(Priority.ALWAYS);
+
+        grid.getColumnConstraints().addAll(
+                c1,
+                c2);
+
+        card.getChildren().addAll(
+                sectionTitle(
+                        "Personal Information"),
+                grid);
+
+        saveOriginalPersonal();
+
+        return card;
+    }
+
+    private VBox createVehicleCard() {
+
+        VBox card = createCard();
+
+        vehicleModel = textField(
+                "Tata Ultra T.11");
+
+        registration = textField(
+                "KA-01-MG-4592");
+
+        vehicleType = textField(
+                "Heavy Duty Truck");
+
+        payload = textField(
+                "7 Metric Tons");
+
+        GridPane grid = new GridPane();
+
+        grid.setHgap(15);
+        grid.setVgap(14);
+
+        addField(
+                grid,
+                "Vehicle Model",
+                vehicleModel,
+                0,
+                0);
+
+        addField(
+                grid,
+                "Registration Number",
+                registration,
+                1,
+                0);
+
+        addField(
+                grid,
+                "Vehicle Type",
+                vehicleType,
+                0,
+                1);
+
+        addField(
+                grid,
+                "Payload Capacity",
+                payload,
+                1,
+                1);
+
+        diesel = new RadioButton(
+                "Diesel");
+
+        evHybrid = new RadioButton(
+                "EV / Hybrid");
+
+        ToggleGroup group = new ToggleGroup();
+
+        diesel.setToggleGroup(group);
+        evHybrid.setToggleGroup(group);
+
+        diesel.setSelected(true);
+
+        VBox fuel = new VBox(
+                7,
+                label(
+                        "Fuel Type",
+                        12,
+                        MUTED,
+                        false),
+                new HBox(
+                        20,
+                        diesel,
+                        evHybrid));
+
+        grid.add(
+                fuel,
+                0,
+                2,
+                2,
+                1);
+
+        VBox primary = new VBox(
+                5,
+                label(
+                        "Primary Vehicle",
+                        12,
+                        MUTED,
+                        false),
+                label(
+                        "🚚  Tata Ultra T.11",
+                        14,
+                        DARK,
+                        true),
+                label(
+                        "✓ Fleet Linked - Verified",
+                        12,
                         GREEN,
-                        true
-                );
+                        true));
 
-                // =========================================================
-                // PROFILE IMAGE
-                // =========================================================
+        grid.add(
+                primary,
+                0,
+                3,
+                2,
+                1);
 
-                profileImage = new ImageView();
+        card.getChildren().addAll(
+                sectionTitle(
+                        "Vehicle Details"),
+                grid);
 
-                profileImage.setFitWidth(SIZE);
-                profileImage.setFitHeight(SIZE);
+        saveOriginalVehicle();
 
-                // Keep image proportions
-                profileImage.setPreserveRatio(true);
-                profileImage.setSmooth(true);
+        return card;
+    }
 
-                // =========================================================
-                // CIRCULAR CLIP
-                // =========================================================
+    private VBox createDocumentsSection() {
 
-                Circle clip = new Circle(
-                        SIZE / 2,
-                        SIZE / 2,
-                        SIZE / 2
-                );
+        VBox section = new VBox(15);
 
-                profileImage.setClip(clip);
+        Label title = sectionTitle(
+                "Verified Documents");
 
-                // Initially show initials
-                profileImage.setVisible(false);
+        Button upload = outlineButton(
+                "＋ Upload New");
 
-                // =========================================================
-                // IMAGE CONTAINER
-                // =========================================================
+        upload.setOnAction(
+                e -> uploadDocument());
 
-                StackPane imageContainer = new StackPane(
-                        background,
-                        initials,
-                        profileImage
-                );
+        Region spacer = new Region();
 
-                imageContainer.setPrefSize(SIZE, SIZE);
-                imageContainer.setMinSize(SIZE, SIZE);
-                imageContainer.setMaxSize(SIZE, SIZE);
+        HBox.setHgrow(
+                spacer,
+                Priority.ALWAYS);
 
-                imageContainer.setCursor(Cursor.HAND);
+        HBox heading = new HBox(
+                title,
+                spacer,
+                upload);
 
-                imageContainer.setOnMouseClicked(
-                        e -> chooseImage()
-                );
+        heading.setAlignment(
+                Pos.CENTER_LEFT);
 
-                // =========================================================
-                // CAMERA BUTTON
-                // =========================================================
+        FlowPane flow = new FlowPane();
 
-                Circle cameraCircle = new Circle(
-                        17,
-                        Color.web(GREEN)
-                );
+        flow.setHgap(15);
+        flow.setVgap(15);
 
-                Label camera = label(
-                        "📷",
-                        10,
-                        WHITE,
-                        false
-                );
+        for (DocumentData d : documents) {
 
-                StackPane cameraButton = new StackPane(
-                        cameraCircle,
-                        camera
-                );
-
-                cameraButton.setPrefSize(34, 34);
-                cameraButton.setMinSize(34, 34);
-                cameraButton.setMaxSize(34, 34);
-
-                cameraButton.setCursor(Cursor.HAND);
-
-                cameraButton.setOnMouseClicked(
-                        e -> chooseImage()
-                );
-
-                // =========================================================
-                // FINAL AVATAR
-                // =========================================================
-
-                StackPane result = new StackPane(
-                        imageContainer,
-                        cameraButton
-                );
-
-                result.setPrefSize(SIZE, SIZE);
-                result.setMinSize(SIZE, SIZE);
-                result.setMaxSize(SIZE, SIZE);
-
-                StackPane.setAlignment(
-                        cameraButton,
-                        Pos.BOTTOM_RIGHT
-                );
-
-                return result;
+            flow.getChildren().add(
+                    documentCard(d));
         }
 
+        section.getChildren().addAll(
+                heading,
+                flow);
 
-        private void chooseImage() {
-
-                FileChooser chooser = new FileChooser();
-
-                chooser.setTitle("Select Profile Photo");
-
-                chooser.getExtensionFilters().add(
-                        new FileChooser.ExtensionFilter(
-                                "Image Files",
-                                "*.png",
-                                "*.jpg",
-                                "*.jpeg"
-                        )
-                );
-
-                File file = chooser.showOpenDialog(
-                        HomePage.homeStage
-                );
-
-                if (file == null) {
-                        return;
-                }
-
-                Image image = new Image(
-                        file.toURI().toString()
-                );
-
-                profileImage.setImage(image);
-
-                profileImage.setVisible(true);
-        }
-
-        // =========================================================
-        // STATISTICS
-        // =========================================================
-
-        private HBox createStatistics() {
-
-                HBox cards = new HBox(18);
-
-                cards.getChildren().addAll(
-                                statistic(
-                                                "DRIVER SINCE",
-                                                "Jan 2021",
-                                                "Member since"),
-                                statistic(
-                                                "COMPLETED TRIPS",
-                                                "1,248",
-                                                "Successfully completed"),
-                                statistic(
-                                                "AVERAGE RATING",
-                                                "4.9 ★",
-                                                "Driver rating"),
-                                statistic(
-                                                "TOTAL EARNINGS",
-                                                "₹14.2L",
-                                                "Lifetime earnings"));
-
-                return cards;
-        }
-
-        private VBox statistic(
-                        String title,
-                        String value,
-                        String description) {
-
-                VBox card = new VBox(
-                                10,
-                                label(
-                                                title,
-                                                12,
-                                                MUTED,
-                                                false),
-                                label(
-                                                value,
-                                                26,
-                                                DARK,
-                                                true),
-                                label(
-                                                description,
-                                                12,
-                                                MUTED,
-                                                false));
-
-                card.setPadding(
-                                new Insets(18));
-
-                card.setPrefHeight(125);
-
-                HBox.setHgrow(
-                                card,
-                                Priority.ALWAYS);
-
-                card.setStyle(
-                                "-fx-background-color: white;" +
-                                                "-fx-background-radius: 16;" +
-                                                "-fx-border-color: " + BORDER + ";" +
-                                                "-fx-border-radius: 16;");
-
-                // Hover
-                card.setOnMouseEntered(e -> card.setStyle(
-                                "-fx-background-color: " + LIGHT_GREEN + ";" +
-                                                "-fx-background-radius: 16;" +
-                                                "-fx-border-color: " + GREEN + ";" +
-                                                "-fx-border-radius: 16;" +
-                                                "-fx-border-width: 1.5;"));
-
-                card.setOnMouseExited(e -> card.setStyle(
-                                "-fx-background-color: white;" +
-                                                "-fx-background-radius: 16;" +
-                                                "-fx-border-color: " + BORDER + ";" +
-                                                "-fx-border-radius: 16;"));
-
-                return card;
-        }
+        return section;
+    }
 
-        // =========================================================
-        // PERSONAL + VEHICLE
-        // =========================================================
+    private VBox documentCard(
+            DocumentData d) {
 
-        private HBox createInformationArea() {
+        VBox card = createCard();
 
-                VBox personal = createPersonalCard();
+        card.setPrefWidth(285);
 
-                VBox vehicle = createVehicleCard();
+        Label icon = label(
+                "▤",
+                25,
+                GREEN,
+                false);
 
-                HBox box = new HBox(
-                                20,
-                                personal,
-                                vehicle);
+        Label name = label(
+                d.name,
+                15,
+                DARK,
+                true);
 
-                HBox.setHgrow(
-                                personal,
-                                Priority.ALWAYS);
+        Label verified = label(
+                "✓ " + d.status,
+                12,
+                GREEN,
+                true);
 
-                HBox.setHgrow(
-                                vehicle,
-                                Priority.ALWAYS);
+        Label validity = label(
+                d.validity,
+                12,
+                MUTED,
+                false);
 
-                return box;
-        }
+        VBox information = new VBox(
+                5,
+                name,
+                verified,
+                validity);
 
-        private VBox createPersonalCard() {
+        HBox top = new HBox(
+                12,
+                icon,
+                information);
 
-                VBox card = createCard();
+        top.setAlignment(
+                Pos.CENTER_LEFT);
+        top.setPrefHeight(90);
 
-                fullName = textField(
-                                "Kishor Kalane");
+        Separator line = new Separator();
 
-                email = textField(
-                                "kishor.k@ecoload.com");
+        Button view = smallButton(
+                "View");
 
-                mobile = textField(
-                                "+91 98765 43210");
+        Button download = smallButton(
+                "Download");
 
-                dob = textField(
-                                "12 May 1985");
+        Button more = smallButton(
+                "•••");
 
-                address = new TextArea(
-                                "Apt 402, Green Valley Towers, Outer Ring\n" +
-                                                "Road, Bengaluru, Karnataka - 560064");
+        view.setOnAction(
+                e -> viewDocument(d));
 
-                address.setWrapText(true);
-                address.setPrefRowCount(3);
+        download.setOnAction(
+                e -> downloadDocument(d));
 
-                styleTextArea(address);
+        more.setOnAction(
+                e -> documentActions(d, more));
 
-                GridPane grid = new GridPane();
+        HBox buttons = new HBox(
+                8,
+                view,
+                download,
+                more);
 
-                grid.setHgap(15);
-                grid.setVgap(14);
+        card.getChildren().addAll(
+                top,
+                line,
+                buttons);
 
-                addField(
-                                grid,
-                                "Full Name",
-                                fullName,
-                                0,
-                                0);
+        return card;
+    }
 
-                addField(
-                                grid,
-                                "Email ID",
-                                email,
-                                1,
-                                0);
+    // =========================================================
+    // UPLOAD
+    // =========================================================
 
-                addField(
-                                grid,
-                                "Mobile Number",
-                                mobile,
-                                0,
-                                1);
+    private void uploadDocument() {
 
-                addField(
-                                grid,
-                                "Date of Birth",
-                                dob,
-                                1,
-                                1);
+        Dialog<ButtonType> dialog = new Dialog<>();
 
-                grid.add(
-                                fieldBox(
-                                                "Residential Address",
-                                                address),
-                                0,
-                                2,
-                                2,
-                                1);
+        dialog.setTitle(
+                "Upload New Document");
 
-                ColumnConstraints c1 = new ColumnConstraints();
+        dialog.setHeaderText(
+                "Add a new verified document");
 
-                ColumnConstraints c2 = new ColumnConstraints();
-
-                c1.setPercentWidth(50);
-                c2.setPercentWidth(50);
+        ComboBox<String> type = new ComboBox<>(
+                FXCollections.observableArrayList(
+                        "Driving License",
+                        "RC Book",
+                        "Insurance",
+                        "Pollution Cert",
+                        "Other"));
 
-                c1.setHgrow(Priority.ALWAYS);
-                c2.setHgrow(Priority.ALWAYS);
-
-                grid.getColumnConstraints().addAll(
-                                c1,
-                                c2);
-
-                card.getChildren().addAll(
-                                sectionTitle(
-                                                "Personal Information"),
-                                grid);
-
-                saveOriginalPersonal();
-
-                return card;
-        }
-
-        private VBox createVehicleCard() {
-
-                VBox card = createCard();
-
-                vehicleModel = textField(
-                                "Tata Ultra T.11");
-
-                registration = textField(
-                                "KA-01-MG-4592");
-
-                vehicleType = textField(
-                                "Heavy Duty Truck");
-
-                payload = textField(
-                                "7 Metric Tons");
-
-                GridPane grid = new GridPane();
-
-                grid.setHgap(15);
-                grid.setVgap(14);
-
-                addField(
-                                grid,
-                                "Vehicle Model",
-                                vehicleModel,
-                                0,
-                                0);
-
-                addField(
-                                grid,
-                                "Registration Number",
-                                registration,
-                                1,
-                                0);
-
-                addField(
-                                grid,
-                                "Vehicle Type",
-                                vehicleType,
-                                0,
-                                1);
-
-                addField(
-                                grid,
-                                "Payload Capacity",
-                                payload,
-                                1,
-                                1);
-
-                diesel = new RadioButton(
-                                "Diesel");
-
-                evHybrid = new RadioButton(
-                                "EV / Hybrid");
+        type.getSelectionModel()
+                .selectFirst();
 
-                ToggleGroup group = new ToggleGroup();
-
-                diesel.setToggleGroup(group);
-                evHybrid.setToggleGroup(group);
-
-                diesel.setSelected(true);
+        TextField name = textField("");
 
-                VBox fuel = new VBox(
-                                7,
-                                label(
-                                                "Fuel Type",
-                                                12,
-                                                MUTED,
-                                                false),
-                                new HBox(
-                                                20,
-                                                diesel,
-                                                evHybrid));
+        name.setPromptText(
+                "Document name");
 
-                grid.add(
-                                fuel,
-                                0,
-                                2,
-                                2,
-                                1);
+        Label fileLabel = label(
+                "No file selected",
+                12,
+                MUTED,
+                false);
 
-                VBox primary = new VBox(
-                                5,
-                                label(
-                                                "Primary Vehicle",
-                                                12,
-                                                MUTED,
-                                                false),
-                                label(
-                                                "🚚  Tata Ultra T.11",
-                                                14,
-                                                DARK,
-                                                true),
-                                label(
-                                                "✓ Fleet Linked - Verified",
-                                                12,
-                                                GREEN,
-                                                true));
-
-                grid.add(
-                                primary,
-                                0,
-                                3,
-                                2,
-                                1);
-
-                card.getChildren().addAll(
-                                sectionTitle(
-                                                "Vehicle Details"),
-                                grid);
-
-                saveOriginalVehicle();
-
-                return card;
-        }
-
-        private VBox createDocumentsSection() {
-
-                VBox section = new VBox(15);
-
-                Label title = sectionTitle(
-                                "Verified Documents");
+        Button choose = new Button(
+                "Choose File");
 
-                Button upload = outlineButton(
-                                "＋ Upload New");
+        choose.setOnAction(e -> {
 
-                upload.setOnAction(
-                                e -> uploadDocument());
+            FileChooser chooser = new FileChooser();
 
-                Region spacer = new Region();
+            chooser.setTitle(
+                    "Select Document");
 
-                HBox.setHgrow(
-                                spacer,
-                                Priority.ALWAYS);
+            File file = chooser.showOpenDialog(
+                    null);
 
-                HBox heading = new HBox(
-                                title,
-                                spacer,
-                                upload);
-
-                heading.setAlignment(
-                                Pos.CENTER_LEFT);
+            if (file != null) {
 
-                FlowPane flow = new FlowPane();
-
-                flow.setHgap(15);
-                flow.setVgap(15);
+                fileLabel.setText(
+                        file.getName());
+            }
+        });
 
-                for (DocumentData d : documents) {
+        VBox content = new VBox(
+                12,
+                fieldBox(
+                        "Document Type",
+                        type),
+                fieldBox(
+                        "Document Name",
+                        name),
+                choose,
+                fileLabel);
 
-                        flow.getChildren().add(
-                                        documentCard(d));
-                }
+        content.setPadding(
+                new Insets(15));
 
-                section.getChildren().addAll(
-                                heading,
-                                flow);
+        dialog.getDialogPane()
+                .setContent(content);
 
-                return section;
-        }
+        ButtonType upload = new ButtonType(
+                "Upload",
+                ButtonBar.ButtonData.OK_DONE);
 
-        private VBox documentCard(
-                        DocumentData d) {
+        dialog.getDialogPane()
+                .getButtonTypes()
+                .addAll(
+                        upload,
+                        ButtonType.CANCEL);
 
-                VBox card = createCard();
+        dialog.showAndWait()
+                .ifPresent(result -> {
 
-                card.setPrefWidth(285);
+                    if (result == upload) {
 
-                Label icon = label(
-                                "▤",
-                                25,
-                                GREEN,
-                                false);
+                        if (name.getText()
+                                .trim()
+                                .isEmpty()) {
 
-                Label name = label(
-                                d.name,
-                                15,
-                                DARK,
-                                true);
+                            showError(
+                                    "Upload Error",
+                                    "Please enter document name.");
 
-                Label verified = label(
-                                "✓ " + d.status,
-                                12,
-                                GREEN,
-                                true);
-
-                Label validity = label(
-                                d.validity,
-                                12,
-                                MUTED,
-                                false);
-
-                VBox information = new VBox(
-                                5,
-                                name,
-                                verified,
-                                validity);
-
-                HBox top = new HBox(
-                                12,
-                                icon,
-                                information);
-
-                top.setAlignment(
-                                Pos.CENTER_LEFT);
-                top.setPrefHeight(90);
-
-                Separator line = new Separator();
-
-                Button view = smallButton(
-                                "View");
-
-                Button download = smallButton(
-                                "Download");
-
-                Button more = smallButton(
-                                "•••");
-
-                view.setOnAction(
-                                e -> viewDocument(d));
-
-                download.setOnAction(
-                                e -> downloadDocument(d));
-
-                more.setOnAction(
-                                e -> documentActions(d, more));
-
-                HBox buttons = new HBox(
-                                8,
-                                view,
-                                download,
-                                more);
-
-                card.getChildren().addAll(
-                                top,
-                                line,
-                                buttons);
-
-                return card;
-        }
-
-        // =========================================================
-        // UPLOAD
-        // =========================================================
-
-        private void uploadDocument() {
-
-                Dialog<ButtonType> dialog = new Dialog<>();
-
-                dialog.setTitle(
-                                "Upload New Document");
-
-                dialog.setHeaderText(
-                                "Add a new verified document");
-
-                ComboBox<String> type = new ComboBox<>(
-                                FXCollections.observableArrayList(
-                                                "Driving License",
-                                                "RC Book",
-                                                "Insurance",
-                                                "Pollution Cert",
-                                                "Other"));
-
-                type.getSelectionModel()
-                                .selectFirst();
-
-                TextField name = textField("");
-
-                name.setPromptText(
-                                "Document name");
-
-                Label fileLabel = label(
-                                "No file selected",
-                                12,
-                                MUTED,
-                                false);
-
-                Button choose = new Button(
-                                "Choose File");
-
-                choose.setOnAction(e -> {
-
-                        FileChooser chooser = new FileChooser();
-
-                        chooser.setTitle(
-                                        "Select Document");
-
-                        File file = chooser.showOpenDialog(
-                                        null);
-
-                        if (file != null) {
-
-                                fileLabel.setText(
-                                                file.getName());
+                            return;
                         }
+
+                        documents.add(
+                                new DocumentData(
+                                        name.getText(),
+                                        "Verified",
+                                        "Recently uploaded"));
+
+                        showInfo(
+                                "Upload Successful",
+                                "Document uploaded successfully.");
+                    }
                 });
+    }
 
-                VBox content = new VBox(
-                                12,
-                                fieldBox(
-                                                "Document Type",
-                                                type),
-                                fieldBox(
-                                                "Document Name",
-                                                name),
-                                choose,
-                                fileLabel);
+    // =========================================================
+    // DOCUMENT ACTIONS
+    // =========================================================
 
-                content.setPadding(
-                                new Insets(15));
+    private void viewDocument(
+            DocumentData d) {
 
-                dialog.getDialogPane()
-                                .setContent(content);
+        showInfo(
+                d.name,
+                "Document: " + d.name +
+                        "\nStatus: " + d.status +
+                        "\nValidity: " + d.validity +
+                        "\nDocument ID: DOC-" +
+                        Math.abs(
+                                d.name.hashCode()));
+    }
 
-                ButtonType upload = new ButtonType(
-                                "Upload",
-                                ButtonBar.ButtonData.OK_DONE);
+    private void downloadDocument(
+            DocumentData d) {
 
-                dialog.getDialogPane()
-                                .getButtonTypes()
-                                .addAll(
-                                                upload,
-                                                ButtonType.CANCEL);
+        showInfo(
+                "Download",
+                d.name +
+                        " download simulation completed.");
+    }
 
-                dialog.showAndWait()
-                                .ifPresent(result -> {
+    private void documentActions(
+            DocumentData d,
+            Button source) {
 
-                                        if (result == upload) {
+        ContextMenu menu = new ContextMenu();
 
-                                                if (name.getText()
-                                                                .trim()
-                                                                .isEmpty()) {
+        MenuItem view = new MenuItem(
+                "View Document");
 
-                                                        showError(
-                                                                        "Upload Error",
-                                                                        "Please enter document name.");
+        MenuItem download = new MenuItem(
+                "Download");
 
-                                                        return;
-                                                }
+        MenuItem replace = new MenuItem(
+                "Replace Document");
 
-                                                documents.add(
-                                                                new DocumentData(
-                                                                                name.getText(),
-                                                                                "Verified",
-                                                                                "Recently uploaded"));
+        view.setOnAction(
+                e -> viewDocument(d));
 
-                                                showInfo(
-                                                                "Upload Successful",
-                                                                "Document uploaded successfully.");
-                                        }
-                                });
+        download.setOnAction(
+                e -> downloadDocument(d));
+
+        replace.setOnAction(
+                e -> showInfo(
+                        "Replace Document",
+                        "Replace option selected for " +
+                                d.name));
+
+        menu.getItems().addAll(
+                view,
+                download,
+                replace);
+
+        menu.show(
+                source,
+                javafx.geometry.Side.BOTTOM,
+                0,
+                0);
+    }
+
+    // =========================================================
+    // ACCOUNT ACTIONS
+    // =========================================================
+
+    private VBox createAccountActions() {
+
+        VBox box = new VBox(12);
+
+        box.setPadding(
+                new Insets(20));
+
+        box.setStyle(
+                "-fx-background-color: " + LIGHT_RED + ";" +
+                        "-fx-background-radius: 16;" +
+                        "-fx-border-color: #E6B2B2;" +
+                        "-fx-border-radius: 16;");
+
+        Label title = label(
+                "Account Actions",
+                18,
+                RED,
+                true);
+
+        Label description = label(
+                "Manage your account visibility or request data deletion " +
+                        "from the EcoLoad network.",
+                13,
+                MUTED,
+                false);
+
+        Button deactivate = dangerOutlineButton(
+                "Deactivate Account");
+
+        Button delete = dangerButton(
+                "Delete Account");
+
+        deactivate.setOnAction(
+                e -> deactivateAccount());
+
+        delete.setOnAction(
+                e -> deleteAccount());
+
+        HBox buttons = new HBox(
+                10,
+                deactivate,
+                delete);
+
+        box.getChildren().addAll(
+                title,
+                description,
+                buttons);
+
+        return box;
+    }
+
+    private void deactivateAccount() {
+
+        Alert alert = new Alert(
+                Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(
+                "Deactivate Account");
+
+        alert.setHeaderText(
+                "Deactivate your account?");
+
+        alert.setContentText(
+                "Your EcoLoad driver account will become inactive.");
+
+        ButtonType deactivate = new ButtonType(
+                "Deactivate");
+
+        alert.getButtonTypes().setAll(
+                deactivate,
+                ButtonType.CANCEL);
+
+        alert.showAndWait()
+                .ifPresent(result -> {
+
+                    if (result == deactivate) {
+
+                        activeStatus.setText(
+                                "Inactive");
+
+                        activeStatus.setTextFill(
+                                Color.web(RED));
+
+                        showInfo(
+                                "Account Deactivated",
+                                "Your account is now inactive.");
+                    }
+                });
+    }
+
+    private void deleteAccount() {
+
+        Alert alert = new Alert(
+                Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(
+                "Delete Account");
+
+        alert.setHeaderText(
+                "Delete your EcoLoad account?");
+
+        alert.setContentText(
+                "This action cannot be undone.\n" +
+                        "This demo will not delete any real database data.");
+
+        ButtonType delete = new ButtonType(
+                "Delete Account");
+
+        alert.getButtonTypes().setAll(
+                delete,
+                ButtonType.CANCEL);
+
+        alert.showAndWait()
+                .ifPresent(result -> {
+
+                    if (result == delete) {
+
+                        showInfo(
+                                "Delete Request",
+                                "Account deletion request submitted.");
+                    }
+                });
+    }
+
+    // =========================================================
+    // SAVE / CANCEL
+    // =========================================================
+
+    private void saveOriginalPersonal() {
+
+        oldName = fullName.getText();
+        oldEmail = email.getText();
+        oldMobile = mobile.getText();
+        oldDob = dob.getText();
+        oldAddress = address.getText();
+    }
+
+    private void saveOriginalVehicle() {
+
+        oldVehicleModel = vehicleModel.getText();
+
+        oldRegistration = registration.getText();
+
+        oldVehicleType = vehicleType.getText();
+
+        oldPayload = payload.getText();
+
+        oldFuel = diesel.isSelected()
+                ? "Diesel"
+                : "EV / Hybrid";
+    }
+
+    private void saveChanges() {
+
+        if (fullName.getText()
+                .trim()
+                .isEmpty()) {
+
+            showError(
+                    "Validation",
+                    "Full Name cannot be empty.");
+
+            return;
         }
 
-        // =========================================================
-        // DOCUMENT ACTIONS
-        // =========================================================
+        if (!email.getText()
+                .contains("@")) {
 
-        private void viewDocument(
-                        DocumentData d) {
+            showError(
+                    "Validation",
+                    "Enter a valid Email ID.");
 
-                showInfo(
-                                d.name,
-                                "Document: " + d.name +
-                                                "\nStatus: " + d.status +
-                                                "\nValidity: " + d.validity +
-                                                "\nDocument ID: DOC-" +
-                                                Math.abs(
-                                                                d.name.hashCode()));
+            return;
         }
 
-        private void downloadDocument(
-                        DocumentData d) {
+        if (mobile.getText()
+                .trim()
+                .isEmpty()) {
 
-                showInfo(
-                                "Download",
-                                d.name +
-                                                " download simulation completed.");
+            showError(
+                    "Validation",
+                    "Mobile Number cannot be empty.");
+
+            return;
         }
 
-        private void documentActions(
-                        DocumentData d,
-                        Button source) {
+        oldName = fullName.getText();
+        oldEmail = email.getText();
+        oldMobile = mobile.getText();
+        oldDob = dob.getText();
+        oldAddress = address.getText();
 
-                ContextMenu menu = new ContextMenu();
+        oldVehicleModel = vehicleModel.getText();
 
-                MenuItem view = new MenuItem(
-                                "View Document");
+        oldRegistration = registration.getText();
 
-                MenuItem download = new MenuItem(
-                                "Download");
+        oldVehicleType = vehicleType.getText();
 
-                MenuItem replace = new MenuItem(
-                                "Replace Document");
+        oldPayload = payload.getText();
 
-                view.setOnAction(
-                                e -> viewDocument(d));
+        oldFuel = diesel.isSelected()
+                ? "Diesel"
+                : "EV / Hybrid";
 
-                download.setOnAction(
-                                e -> downloadDocument(d));
+        profileName.setText(
+                fullName.getText());
 
-                replace.setOnAction(
-                                e -> showInfo(
-                                                "Replace Document",
-                                                "Replace option selected for " +
-                                                                d.name));
+        showInfo(
+                "Success",
+                "Profile changes saved successfully.");
+    }
 
-                menu.getItems().addAll(
-                                view,
-                                download,
-                                replace);
+    private void cancelChanges() {
 
-                menu.show(
-                                source,
-                                javafx.geometry.Side.BOTTOM,
-                                0,
-                                0);
+        fullName.setText(oldName);
+        email.setText(oldEmail);
+        mobile.setText(oldMobile);
+        dob.setText(oldDob);
+        address.setText(oldAddress);
+
+        vehicleModel.setText(
+                oldVehicleModel);
+
+        registration.setText(
+                oldRegistration);
+
+        vehicleType.setText(
+                oldVehicleType);
+
+        payload.setText(
+                oldPayload);
+
+        if ("Diesel".equals(oldFuel)) {
+            diesel.setSelected(true);
+        } else {
+            evHybrid.setSelected(true);
         }
 
-        // =========================================================
-        // ACCOUNT ACTIONS
-        // =========================================================
+        profileName.setText(oldName);
 
-        private VBox createAccountActions() {
+        showInfo(
+                "Cancelled",
+                "Unsaved changes have been restored.");
+    }
 
-                VBox box = new VBox(12);
+    // =========================================================
+    // PASSWORD
+    // =========================================================
 
-                box.setPadding(
-                                new Insets(20));
+    private void changePassword() {
 
-                box.setStyle(
-                                "-fx-background-color: " + LIGHT_RED + ";" +
-                                                "-fx-background-radius: 16;" +
-                                                "-fx-border-color: #E6B2B2;" +
-                                                "-fx-border-radius: 16;");
+        Dialog<ButtonType> dialog = new Dialog<>();
 
-                Label title = label(
-                                "Account Actions",
-                                18,
-                                RED,
-                                true);
+        dialog.setTitle(
+                "Change Password");
 
-                Label description = label(
-                                "Manage your account visibility or request data deletion " +
-                                                "from the EcoLoad network.",
-                                13,
-                                MUTED,
-                                false);
+        dialog.setHeaderText(
+                "Change your password");
 
-                Button deactivate = dangerOutlineButton(
-                                "Deactivate Account");
+        PasswordField current = new PasswordField();
 
-                Button delete = dangerButton(
-                                "Delete Account");
+        current.setPromptText(
+                "Current Password");
 
-                deactivate.setOnAction(
-                                e -> deactivateAccount());
+        PasswordField newPassword = new PasswordField();
 
-                delete.setOnAction(
-                                e -> deleteAccount());
+        newPassword.setPromptText(
+                "New Password");
 
-                HBox buttons = new HBox(
-                                10,
-                                deactivate,
-                                delete);
+        PasswordField confirm = new PasswordField();
 
-                box.getChildren().addAll(
-                                title,
-                                description,
-                                buttons);
+        confirm.setPromptText(
+                "Confirm Password");
 
-                return box;
-        }
+        VBox content = new VBox(
+                12,
+                fieldBox(
+                        "Current Password",
+                        current),
+                fieldBox(
+                        "New Password",
+                        newPassword),
+                fieldBox(
+                        "Confirm Password",
+                        confirm));
 
-        private void deactivateAccount() {
+        content.setPadding(
+                new Insets(15));
 
-                Alert alert = new Alert(
-                                Alert.AlertType.CONFIRMATION);
+        dialog.getDialogPane()
+                .setContent(content);
 
-                alert.setTitle(
-                                "Deactivate Account");
+        ButtonType change = new ButtonType(
+                "Change Password",
+                ButtonBar.ButtonData.OK_DONE);
 
-                alert.setHeaderText(
-                                "Deactivate your account?");
+        dialog.getDialogPane()
+                .getButtonTypes()
+                .addAll(
+                        change,
+                        ButtonType.CANCEL);
 
-                alert.setContentText(
-                                "Your EcoLoad driver account will become inactive.");
+        dialog.showAndWait()
+                .ifPresent(result -> {
 
-                ButtonType deactivate = new ButtonType(
-                                "Deactivate");
+                    if (result == change) {
 
-                alert.getButtonTypes().setAll(
-                                deactivate,
-                                ButtonType.CANCEL);
+                        if (current.getText()
+                                .isEmpty()
+                                || newPassword.getText()
+                                        .isEmpty()
+                                || confirm.getText()
+                                        .isEmpty()) {
 
-                alert.showAndWait()
-                                .ifPresent(result -> {
+                            showError(
+                                    "Password Error",
+                                    "All password fields are required.");
 
-                                        if (result == deactivate) {
+                            return;
+                        }
 
-                                                activeStatus.setText(
-                                                                "Inactive");
+                        if (!newPassword.getText()
+                                .equals(
+                                        confirm.getText())) {
 
-                                                activeStatus.setTextFill(
-                                                                Color.web(RED));
+                            showError(
+                                    "Password Error",
+                                    "Passwords do not match.");
 
-                                                showInfo(
-                                                                "Account Deactivated",
-                                                                "Your account is now inactive.");
-                                        }
-                                });
-        }
+                            return;
+                        }
 
-        private void deleteAccount() {
+                        if (newPassword.getText()
+                                .length() < 6) {
 
-                Alert alert = new Alert(
-                                Alert.AlertType.CONFIRMATION);
+                            showError(
+                                    "Password Error",
+                                    "Password must contain at least 6 characters.");
 
-                alert.setTitle(
-                                "Delete Account");
+                            return;
+                        }
 
-                alert.setHeaderText(
-                                "Delete your EcoLoad account?");
-
-                alert.setContentText(
-                                "This action cannot be undone.\n" +
-                                                "This demo will not delete any real database data.");
-
-                ButtonType delete = new ButtonType(
-                                "Delete Account");
-
-                alert.getButtonTypes().setAll(
-                                delete,
-                                ButtonType.CANCEL);
-
-                alert.showAndWait()
-                                .ifPresent(result -> {
-
-                                        if (result == delete) {
-
-                                                showInfo(
-                                                                "Delete Request",
-                                                                "Account deletion request submitted.");
-                                        }
-                                });
-        }
-
-        // =========================================================
-        // SAVE / CANCEL
-        // =========================================================
-
-        private void saveOriginalPersonal() {
-
-                oldName = fullName.getText();
-                oldEmail = email.getText();
-                oldMobile = mobile.getText();
-                oldDob = dob.getText();
-                oldAddress = address.getText();
-        }
-
-        private void saveOriginalVehicle() {
-
-                oldVehicleModel = vehicleModel.getText();
-
-                oldRegistration = registration.getText();
-
-                oldVehicleType = vehicleType.getText();
-
-                oldPayload = payload.getText();
-
-                oldFuel = diesel.isSelected()
-                                ? "Diesel"
-                                : "EV / Hybrid";
-        }
-
-        private void saveChanges() {
-
-                if (fullName.getText()
-                                .trim()
-                                .isEmpty()) {
-
-                        showError(
-                                        "Validation",
-                                        "Full Name cannot be empty.");
-
-                        return;
-                }
-
-                if (!email.getText()
-                                .contains("@")) {
-
-                        showError(
-                                        "Validation",
-                                        "Enter a valid Email ID.");
-
-                        return;
-                }
-
-                if (mobile.getText()
-                                .trim()
-                                .isEmpty()) {
-
-                        showError(
-                                        "Validation",
-                                        "Mobile Number cannot be empty.");
-
-                        return;
-                }
-
-                oldName = fullName.getText();
-                oldEmail = email.getText();
-                oldMobile = mobile.getText();
-                oldDob = dob.getText();
-                oldAddress = address.getText();
-
-                oldVehicleModel = vehicleModel.getText();
-
-                oldRegistration = registration.getText();
-
-                oldVehicleType = vehicleType.getText();
-
-                oldPayload = payload.getText();
-
-                oldFuel = diesel.isSelected()
-                                ? "Diesel"
-                                : "EV / Hybrid";
-
-                profileName.setText(
-                                fullName.getText());
-
-                showInfo(
+                        showInfo(
                                 "Success",
-                                "Profile changes saved successfully.");
-        }
+                                "Password changed successfully.");
+                    }
+                });
+    }
 
-        private void cancelChanges() {
+    // =========================================================
+    // UI HELPERS
+    // =========================================================
 
-                fullName.setText(oldName);
-                email.setText(oldEmail);
-                mobile.setText(oldMobile);
-                dob.setText(oldDob);
-                address.setText(oldAddress);
+    private VBox createCard() {
 
-                vehicleModel.setText(
-                                oldVehicleModel);
+        VBox card = new VBox(15);
 
-                registration.setText(
-                                oldRegistration);
+        card.setPadding(
+                new Insets(20));
 
-                vehicleType.setText(
-                                oldVehicleType);
+        card.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 16;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 16;");
 
-                payload.setText(
-                                oldPayload);
+        return card;
+    }
 
-                if ("Diesel".equals(oldFuel)) {
-                        diesel.setSelected(true);
-                } else {
-                        evHybrid.setSelected(true);
-                }
+    private Label sectionTitle(
+            String text) {
 
-                profileName.setText(oldName);
+        return label(
+                text,
+                19,
+                DARK,
+                true);
+    }
 
-                showInfo(
-                                "Cancelled",
-                                "Unsaved changes have been restored.");
-        }
+    private Label label(
+            String text,
+            double size,
+            String color,
+            boolean bold) {
 
-        // =========================================================
-        // PASSWORD
-        // =========================================================
+        Label l = new Label(text);
 
-        private void changePassword() {
+        l.setStyle(
+                "-fx-font-size: " + size + "px;" +
+                        "-fx-text-fill: " + color + ";" +
+                        (bold
+                                ? "-fx-font-weight: bold;"
+                                : ""));
 
-                Dialog<ButtonType> dialog = new Dialog<>();
+        l.setWrapText(true);
 
-                dialog.setTitle(
-                                "Change Password");
+        return l;
+    }
 
-                dialog.setHeaderText(
-                                "Change your password");
+    private TextField textField(
+            String value) {
 
-                PasswordField current = new PasswordField();
+        TextField field = new TextField(value);
 
-                current.setPromptText(
-                                "Current Password");
+        field.setPrefHeight(40);
 
-                PasswordField newPassword = new PasswordField();
+        field.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-padding: 0 12;" +
+                        "-fx-font-size: 13px;" +
+                        "-fx-text-fill: " + DARK + ";");
 
-                newPassword.setPromptText(
-                                "New Password");
+        field.focusedProperty()
+                .addListener(
+                        (obs, oldValue, focused) -> {
 
-                PasswordField confirm = new PasswordField();
+                            if (focused) {
 
-                confirm.setPromptText(
-                                "Confirm Password");
-
-                VBox content = new VBox(
-                                12,
-                                fieldBox(
-                                                "Current Password",
-                                                current),
-                                fieldBox(
-                                                "New Password",
-                                                newPassword),
-                                fieldBox(
-                                                "Confirm Password",
-                                                confirm));
-
-                content.setPadding(
-                                new Insets(15));
-
-                dialog.getDialogPane()
-                                .setContent(content);
-
-                ButtonType change = new ButtonType(
-                                "Change Password",
-                                ButtonBar.ButtonData.OK_DONE);
-
-                dialog.getDialogPane()
-                                .getButtonTypes()
-                                .addAll(
-                                                change,
-                                                ButtonType.CANCEL);
-
-                dialog.showAndWait()
-                                .ifPresent(result -> {
-
-                                        if (result == change) {
-
-                                                if (current.getText()
-                                                                .isEmpty()
-                                                                || newPassword.getText()
-                                                                                .isEmpty()
-                                                                || confirm.getText()
-                                                                                .isEmpty()) {
-
-                                                        showError(
-                                                                        "Password Error",
-                                                                        "All password fields are required.");
-
-                                                        return;
-                                                }
-
-                                                if (!newPassword.getText()
-                                                                .equals(
-                                                                                confirm.getText())) {
-
-                                                        showError(
-                                                                        "Password Error",
-                                                                        "Passwords do not match.");
-
-                                                        return;
-                                                }
-
-                                                if (newPassword.getText()
-                                                                .length() < 6) {
-
-                                                        showError(
-                                                                        "Password Error",
-                                                                        "Password must contain at least 6 characters.");
-
-                                                        return;
-                                                }
-
-                                                showInfo(
-                                                                "Success",
-                                                                "Password changed successfully.");
-                                        }
-                                });
-        }
-
-        // =========================================================
-        // UI HELPERS
-        // =========================================================
-
-        private VBox createCard() {
-
-                VBox card = new VBox(15);
-
-                card.setPadding(
-                                new Insets(20));
-
-                card.setStyle(
-                                "-fx-background-color: white;" +
-                                                "-fx-background-radius: 16;" +
-                                                "-fx-border-color: " + BORDER + ";" +
-                                                "-fx-border-radius: 16;");
-
-                return card;
-        }
-
-        private Label sectionTitle(
-                        String text) {
-
-                return label(
-                                text,
-                                19,
-                                DARK,
-                                true);
-        }
-
-        private Label label(
-                        String text,
-                        double size,
-                        String color,
-                        boolean bold) {
-
-                Label l = new Label(text);
-
-                l.setStyle(
-                                "-fx-font-size: " + size + "px;" +
-                                                "-fx-text-fill: " + color + ";" +
-                                                (bold
-                                                                ? "-fx-font-weight: bold;"
-                                                                : ""));
-
-                l.setWrapText(true);
-
-                return l;
-        }
-
-        private TextField textField(
-                        String value) {
-
-                TextField field = new TextField(value);
-
-                field.setPrefHeight(40);
-
-                field.setStyle(
-                                "-fx-background-color: white;" +
-                                                "-fx-background-radius: 9;" +
-                                                "-fx-border-color: " + BORDER + ";" +
-                                                "-fx-border-radius: 9;" +
+                                field.setStyle(
+                                        "-fx-background-color: white;" +
+                                                "-fx-background-radius: 9;"
+                                                +
+                                                "-fx-border-color: "
+                                                + GREEN + ";" +
+                                                "-fx-border-width: 1.5;"
+                                                +
+                                                "-fx-border-radius: 9;"
+                                                +
                                                 "-fx-padding: 0 12;" +
                                                 "-fx-font-size: 13px;" +
-                                                "-fx-text-fill: " + DARK + ";");
+                                                "-fx-text-fill: " + DARK
+                                                + ";");
 
-                field.focusedProperty()
-                                .addListener(
-                                                (obs, oldValue, focused) -> {
+                            } else {
 
-                                                        if (focused) {
+                                field.setStyle(
+                                        "-fx-background-color: white;" +
+                                                "-fx-background-radius: 9;"
+                                                +
+                                                "-fx-border-color: "
+                                                + BORDER + ";" +
+                                                "-fx-border-radius: 9;"
+                                                +
+                                                "-fx-padding: 0 12;" +
+                                                "-fx-font-size: 13px;" +
+                                                "-fx-text-fill: " + DARK
+                                                + ";");
+                            }
+                        });
 
-                                                                field.setStyle(
-                                                                                "-fx-background-color: white;" +
-                                                                                                "-fx-background-radius: 9;"
-                                                                                                +
-                                                                                                "-fx-border-color: "
-                                                                                                + GREEN + ";" +
-                                                                                                "-fx-border-width: 1.5;"
-                                                                                                +
-                                                                                                "-fx-border-radius: 9;"
-                                                                                                +
-                                                                                                "-fx-padding: 0 12;" +
-                                                                                                "-fx-font-size: 13px;" +
-                                                                                                "-fx-text-fill: " + DARK
-                                                                                                + ";");
+        return field;
+    }
 
-                                                        } else {
+    private void styleTextArea(
+            TextArea area) {
 
-                                                                field.setStyle(
-                                                                                "-fx-background-color: white;" +
-                                                                                                "-fx-background-radius: 9;"
-                                                                                                +
-                                                                                                "-fx-border-color: "
-                                                                                                + BORDER + ";" +
-                                                                                                "-fx-border-radius: 9;"
-                                                                                                +
-                                                                                                "-fx-padding: 0 12;" +
-                                                                                                "-fx-font-size: 13px;" +
-                                                                                                "-fx-text-fill: " + DARK
-                                                                                                + ";");
-                                                        }
-                                                });
+        area.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-padding: 8;" +
+                        "-fx-font-size: 13px;");
+    }
 
-                return field;
+    private VBox fieldBox(
+            String title,
+            Control control) {
+
+        Label titleLabel = label(
+                title,
+                12,
+                MUTED,
+                false);
+
+        return new VBox(
+                6,
+                titleLabel,
+                control);
+    }
+
+    private void addField(
+            GridPane grid,
+            String title,
+            Control control,
+            int column,
+            int row) {
+
+        grid.add(
+                fieldBox(
+                        title,
+                        control),
+                column,
+                row);
+    }
+
+    // =========================================================
+    // BUTTONS
+    // =========================================================
+
+    private Button greenButton(
+            String text) {
+
+        Button button = new Button(text);
+
+        button.setPrefHeight(40);
+
+        button.setPadding(
+                new Insets(0, 18, 0, 18));
+
+        String normal = "-fx-background-color: " + GREEN + ";" +
+                "-fx-text-fill: white;" +
+                "-fx-background-radius: 9;" +
+                "-fx-font-size: 13px;" +
+                "-fx-font-weight: bold;";
+
+        String hover = "-fx-background-color: " + GREEN_HOVER + ";" +
+                "-fx-text-fill: white;" +
+                "-fx-background-radius: 9;" +
+                "-fx-font-size: 13px;" +
+                "-fx-font-weight: bold;";
+
+        button.setStyle(normal);
+        button.setCursor(Cursor.HAND);
+
+        button.setOnMouseEntered(
+                e -> button.setStyle(hover));
+
+        button.setOnMouseExited(
+                e -> button.setStyle(normal));
+
+        return button;
+    }
+
+    private Button normalButton(
+            String text) {
+
+        Button button = new Button(text);
+
+        button.setPrefHeight(40);
+
+        String normal = "-fx-background-color: #F1F3F1;" +
+                "-fx-text-fill: " + DARK + ";" +
+                "-fx-background-radius: 9;" +
+                "-fx-font-size: 13px;";
+
+        String hover = "-fx-background-color: #E2E7E3;" +
+                "-fx-text-fill: " + DARK + ";" +
+                "-fx-background-radius: 9;" +
+                "-fx-font-size: 13px;";
+
+        button.setStyle(normal);
+        button.setCursor(Cursor.HAND);
+
+        button.setOnMouseEntered(
+                e -> button.setStyle(hover));
+
+        button.setOnMouseExited(
+                e -> button.setStyle(normal));
+
+        return button;
+    }
+
+    private Button outlineButton(
+            String text) {
+
+        Button button = new Button(text);
+
+        button.setPrefHeight(40);
+
+        String normal = "-fx-background-color: white;" +
+                "-fx-text-fill: " + GREEN + ";" +
+                "-fx-border-color: " + GREEN + ";" +
+                "-fx-border-radius: 9;" +
+                "-fx-background-radius: 9;" +
+                "-fx-font-size: 13px;" +
+                "-fx-font-weight: bold;";
+
+        String hover = "-fx-background-color: " + LIGHT_GREEN + ";" +
+                "-fx-text-fill: " + GREEN + ";" +
+                "-fx-border-color: " + GREEN + ";" +
+                "-fx-border-radius: 9;" +
+                "-fx-background-radius: 9;" +
+                "-fx-font-size: 13px;" +
+                "-fx-font-weight: bold;";
+
+        button.setStyle(normal);
+        button.setCursor(Cursor.HAND);
+
+        button.setOnMouseEntered(
+                e -> button.setStyle(hover));
+
+        button.setOnMouseExited(
+                e -> button.setStyle(normal));
+
+        return button;
+    }
+
+    private Button smallButton(
+            String text) {
+
+        Button button = new Button(text);
+
+        button.setPrefHeight(30);
+
+        String normal = "-fx-background-color: " + LIGHT_GREEN + ";" +
+                "-fx-text-fill: " + GREEN + ";" +
+                "-fx-background-radius: 7;" +
+                "-fx-font-size: 11px;";
+
+        String hover = "-fx-background-color: " + GREEN + ";" +
+                "-fx-text-fill: white;" +
+                "-fx-background-radius: 7;" +
+                "-fx-font-size: 11px;";
+
+        button.setStyle(normal);
+        button.setCursor(Cursor.HAND);
+
+        button.setOnMouseEntered(
+                e -> button.setStyle(hover));
+
+        button.setOnMouseExited(
+                e -> button.setStyle(normal));
+
+        return button;
+    }
+
+    private Button dangerButton(
+            String text) {
+
+        Button button = new Button(text);
+
+        button.setPrefHeight(38);
+
+        String normal = "-fx-background-color: " + RED + ";" +
+                "-fx-text-fill: white;" +
+                "-fx-background-radius: 8;" +
+                "-fx-font-weight: bold;";
+
+        String hover = "-fx-background-color: #A91F1F;" +
+                "-fx-text-fill: white;" +
+                "-fx-background-radius: 8;" +
+                "-fx-font-weight: bold;";
+
+        button.setStyle(normal);
+        button.setCursor(Cursor.HAND);
+
+        button.setOnMouseEntered(
+                e -> button.setStyle(hover));
+
+        button.setOnMouseExited(
+                e -> button.setStyle(normal));
+
+        return button;
+    }
+
+    private Button dangerOutlineButton(
+            String text) {
+
+        Button button = new Button(text);
+
+        button.setPrefHeight(38);
+
+        String normal = "-fx-background-color: white;" +
+                "-fx-text-fill: " + RED + ";" +
+                "-fx-border-color: #E1A1A1;" +
+                "-fx-border-radius: 8;" +
+                "-fx-background-radius: 8;";
+
+        String hover = "-fx-background-color: #FFE8E8;" +
+                "-fx-text-fill: " + RED + ";" +
+                "-fx-border-color: " + RED + ";" +
+                "-fx-border-radius: 8;" +
+                "-fx-background-radius: 8;";
+
+        button.setStyle(normal);
+        button.setCursor(Cursor.HAND);
+
+        button.setOnMouseEntered(
+                e -> button.setStyle(hover));
+
+        button.setOnMouseExited(
+                e -> button.setStyle(normal));
+
+        return button;
+    }
+
+    // =========================================================
+    // ALERTS
+    // =========================================================
+
+    private void showInfo(
+            String title,
+            String message) {
+
+        Alert alert = new Alert(
+                Alert.AlertType.INFORMATION);
+
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+    private void showError(
+            String title,
+            String message) {
+
+        Alert alert = new Alert(
+                Alert.AlertType.ERROR);
+
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+    // =========================================================
+    // DOCUMENT MODEL
+    // =========================================================
+
+    private static class DocumentData {
+
+        String name;
+        String status;
+        String validity;
+
+        DocumentData(
+                String name,
+                String status,
+                String validity) {
+
+            this.name = name;
+            this.status = status;
+            this.validity = validity;
         }
-
-        private void styleTextArea(
-                        TextArea area) {
-
-                area.setStyle(
-                                "-fx-background-color: white;" +
-                                                "-fx-background-radius: 9;" +
-                                                "-fx-border-color: " + BORDER + ";" +
-                                                "-fx-border-radius: 9;" +
-                                                "-fx-padding: 8;" +
-                                                "-fx-font-size: 13px;");
-        }
-
-        private VBox fieldBox(
-                        String title,
-                        Control control) {
-
-                Label titleLabel = label(
-                                title,
-                                12,
-                                MUTED,
-                                false);
-
-                return new VBox(
-                                6,
-                                titleLabel,
-                                control);
-        }
-
-        private void addField(
-                        GridPane grid,
-                        String title,
-                        Control control,
-                        int column,
-                        int row) {
-
-                grid.add(
-                                fieldBox(
-                                                title,
-                                                control),
-                                column,
-                                row);
-        }
-
-        // =========================================================
-        // BUTTONS
-        // =========================================================
-
-        private Button greenButton(
-                        String text) {
-
-                Button button = new Button(text);
-
-                button.setPrefHeight(40);
-
-                button.setPadding(
-                                new Insets(0, 18, 0, 18));
-
-                String normal = "-fx-background-color: " + GREEN + ";" +
-                                "-fx-text-fill: white;" +
-                                "-fx-background-radius: 9;" +
-                                "-fx-font-size: 13px;" +
-                                "-fx-font-weight: bold;";
-
-                String hover = "-fx-background-color: " + GREEN_HOVER + ";" +
-                                "-fx-text-fill: white;" +
-                                "-fx-background-radius: 9;" +
-                                "-fx-font-size: 13px;" +
-                                "-fx-font-weight: bold;";
-
-                button.setStyle(normal);
-                button.setCursor(Cursor.HAND);
-
-                button.setOnMouseEntered(
-                                e -> button.setStyle(hover));
-
-                button.setOnMouseExited(
-                                e -> button.setStyle(normal));
-
-                return button;
-        }
-
-        private Button normalButton(
-                        String text) {
-
-                Button button = new Button(text);
-
-                button.setPrefHeight(40);
-
-                String normal = "-fx-background-color: #F1F3F1;" +
-                                "-fx-text-fill: " + DARK + ";" +
-                                "-fx-background-radius: 9;" +
-                                "-fx-font-size: 13px;";
-
-                String hover = "-fx-background-color: #E2E7E3;" +
-                                "-fx-text-fill: " + DARK + ";" +
-                                "-fx-background-radius: 9;" +
-                                "-fx-font-size: 13px;";
-
-                button.setStyle(normal);
-                button.setCursor(Cursor.HAND);
-
-                button.setOnMouseEntered(
-                                e -> button.setStyle(hover));
-
-                button.setOnMouseExited(
-                                e -> button.setStyle(normal));
-
-                return button;
-        }
-
-        private Button outlineButton(
-                        String text) {
-
-                Button button = new Button(text);
-
-                button.setPrefHeight(40);
-
-                String normal = "-fx-background-color: white;" +
-                                "-fx-text-fill: " + GREEN + ";" +
-                                "-fx-border-color: " + GREEN + ";" +
-                                "-fx-border-radius: 9;" +
-                                "-fx-background-radius: 9;" +
-                                "-fx-font-size: 13px;" +
-                                "-fx-font-weight: bold;";
-
-                String hover = "-fx-background-color: " + LIGHT_GREEN + ";" +
-                                "-fx-text-fill: " + GREEN + ";" +
-                                "-fx-border-color: " + GREEN + ";" +
-                                "-fx-border-radius: 9;" +
-                                "-fx-background-radius: 9;" +
-                                "-fx-font-size: 13px;" +
-                                "-fx-font-weight: bold;";
-
-                button.setStyle(normal);
-                button.setCursor(Cursor.HAND);
-
-                button.setOnMouseEntered(
-                                e -> button.setStyle(hover));
-
-                button.setOnMouseExited(
-                                e -> button.setStyle(normal));
-
-                return button;
-        }
-
-        private Button smallButton(
-                        String text) {
-
-                Button button = new Button(text);
-
-                button.setPrefHeight(30);
-
-                String normal = "-fx-background-color: " + LIGHT_GREEN + ";" +
-                                "-fx-text-fill: " + GREEN + ";" +
-                                "-fx-background-radius: 7;" +
-                                "-fx-font-size: 11px;";
-
-                String hover = "-fx-background-color: " + GREEN + ";" +
-                                "-fx-text-fill: white;" +
-                                "-fx-background-radius: 7;" +
-                                "-fx-font-size: 11px;";
-
-                button.setStyle(normal);
-                button.setCursor(Cursor.HAND);
-
-                button.setOnMouseEntered(
-                                e -> button.setStyle(hover));
-
-                button.setOnMouseExited(
-                                e -> button.setStyle(normal));
-
-                return button;
-        }
-
-        private Button dangerButton(
-                        String text) {
-
-                Button button = new Button(text);
-
-                button.setPrefHeight(38);
-
-                String normal = "-fx-background-color: " + RED + ";" +
-                                "-fx-text-fill: white;" +
-                                "-fx-background-radius: 8;" +
-                                "-fx-font-weight: bold;";
-
-                String hover = "-fx-background-color: #A91F1F;" +
-                                "-fx-text-fill: white;" +
-                                "-fx-background-radius: 8;" +
-                                "-fx-font-weight: bold;";
-
-                button.setStyle(normal);
-                button.setCursor(Cursor.HAND);
-
-                button.setOnMouseEntered(
-                                e -> button.setStyle(hover));
-
-                button.setOnMouseExited(
-                                e -> button.setStyle(normal));
-
-                return button;
-        }
-
-        private Button dangerOutlineButton(
-                        String text) {
-
-                Button button = new Button(text);
-
-                button.setPrefHeight(38);
-
-                String normal = "-fx-background-color: white;" +
-                                "-fx-text-fill: " + RED + ";" +
-                                "-fx-border-color: #E1A1A1;" +
-                                "-fx-border-radius: 8;" +
-                                "-fx-background-radius: 8;";
-
-                String hover = "-fx-background-color: #FFE8E8;" +
-                                "-fx-text-fill: " + RED + ";" +
-                                "-fx-border-color: " + RED + ";" +
-                                "-fx-border-radius: 8;" +
-                                "-fx-background-radius: 8;";
-
-                button.setStyle(normal);
-                button.setCursor(Cursor.HAND);
-
-                button.setOnMouseEntered(
-                                e -> button.setStyle(hover));
-
-                button.setOnMouseExited(
-                                e -> button.setStyle(normal));
-
-                return button;
-        }
-
-        // =========================================================
-        // ALERTS
-        // =========================================================
-
-        private void showInfo(
-                        String title,
-                        String message) {
-
-                Alert alert = new Alert(
-                                Alert.AlertType.INFORMATION);
-
-                alert.setTitle(title);
-                alert.setHeaderText(null);
-                alert.setContentText(message);
-
-                alert.showAndWait();
-        }
-
-        private void showError(
-                        String title,
-                        String message) {
-
-                Alert alert = new Alert(
-                                Alert.AlertType.ERROR);
-
-                alert.setTitle(title);
-                alert.setHeaderText(null);
-                alert.setContentText(message);
-
-                alert.showAndWait();
-        }
-
-        // =========================================================
-        // DOCUMENT MODEL
-        // =========================================================
-
-        private static class DocumentData {
-
-                String name;
-                String status;
-                String validity;
-
-                DocumentData(
-                                String name,
-                                String status,
-                                String validity) {
-
-                        this.name = name;
-                        this.status = status;
-                        this.validity = validity;
-                }
-        }
+    }
 }

@@ -24,8 +24,7 @@ public class MapView {
             double pickupLat,
             double pickupLng,
             double destinationLat,
-            double destinationLng
-    ) {
+            double destinationLng) {
 
         // =====================================================
         // CREATE MAP WINDOW
@@ -34,8 +33,7 @@ public class MapView {
         Stage mapStage = new Stage();
 
         mapStage.setTitle(
-                "EcoLoad - Trip Route"
-        );
+                "EcoLoad - Trip Route");
 
         /*
          * Make this window belong to your
@@ -48,9 +46,7 @@ public class MapView {
          * interacting with TripHistory.
          */
         mapStage.initModality(
-                Modality.WINDOW_MODAL
-        );
-
+                Modality.WINDOW_MODAL);
 
         // =====================================================
         // WEBVIEW
@@ -62,46 +58,34 @@ public class MapView {
 
         webView.setPrefSize(
                 1000,
-                600
-        );
+                600);
 
-        webEngine =
-                webView.getEngine();
+        webEngine = webView.getEngine();
 
         webEngine.setJavaScriptEnabled(true);
-
 
         // =====================================================
         // LOAD MAP.HTML
         // =====================================================
 
-        URL mapUrl =
-                getClass()
-                        .getResource(
-                                "/map/map.html"
-                        );
-
+        URL mapUrl = getClass()
+                .getResource(
+                        "/map/map.html");
 
         if (mapUrl == null) {
 
             System.err.println(
-                    "ERROR: map.html not found!"
-            );
+                    "ERROR: map.html not found!");
 
             return;
         }
 
-
         System.out.println(
                 "Loading map: " +
-                mapUrl
-        );
-
+                        mapUrl);
 
         webEngine.load(
-                mapUrl.toExternalForm()
-        );
-
+                mapUrl.toExternalForm());
 
         // =====================================================
         // WAIT FOR MAP.HTML
@@ -112,18 +96,13 @@ public class MapView {
                 .stateProperty()
                 .addListener(
                         (observable,
-                         oldState,
-                         newState) -> {
+                                oldState,
+                                newState) -> {
 
-                            if (
-                                    newState ==
-                                    javafx.concurrent.Worker.State.SUCCEEDED
-                            ) {
+                            if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
 
                                 System.out.println(
-                                        "Map HTML loaded successfully."
-                                );
-
+                                        "Map HTML loaded successfully.");
 
                                 Platform.runLater(() -> {
 
@@ -131,37 +110,29 @@ public class MapView {
                                             pickupLat,
                                             pickupLng,
                                             destinationLat,
-                                            destinationLng
-                                    );
+                                            destinationLng);
 
                                 });
 
                             }
 
-                        }
-                );
-
+                        });
 
         // =====================================================
         // BACK BUTTON
         // =====================================================
 
-        Button backButton =
-                new Button(
-                        "← Back"
-                );
-
+        Button backButton = new Button(
+                "← Back");
 
         backButton.setStyle(
                 "-fx-background-color: #17233c;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-size: 14px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-padding: 10 18 10 18;" +
-                "-fx-background-radius: 8;" +
-                "-fx-cursor: hand;"
-        );
-
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-padding: 10 18 10 18;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-cursor: hand;");
 
         /*
          * Back simply closes the map window.
@@ -169,106 +140,78 @@ public class MapView {
          * TripHistory is still open underneath.
          */
         backButton.setOnAction(
-                e -> mapStage.close()
-        );
-
+                e -> mapStage.close());
 
         // =====================================================
         // TITLE
         // =====================================================
 
-        Label title =
-                new Label(
-                        "Trip Route Map"
-                );
-
+        Label title = new Label(
+                "Trip Route Map");
 
         title.setStyle(
                 "-fx-font-size: 20px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #17233c;"
-        );
-
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #17233c;");
 
         // =====================================================
         // SPACER
         // =====================================================
 
-        Region spacer =
-                new Region();
-
+        Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         // =====================================================
         // HEADER
         // =====================================================
 
-        HBox header =
-                new HBox(
-                        15,
-                        backButton,
-                        title,
-                        spacer
-                );
-
+        HBox header = new HBox(
+                15,
+                backButton,
+                title,
+                spacer);
 
         header.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-padding: 15;" +
-                "-fx-border-color: #eeeeee;" +
-                "-fx-border-width: 0 0 1 0;"
-        );
-
+                        "-fx-padding: 15;" +
+                        "-fx-border-color: #eeeeee;" +
+                        "-fx-border-width: 0 0 1 0;");
 
         // =====================================================
         // ROOT
         // =====================================================
 
-        BorderPane root =
-                new BorderPane();
-
+        BorderPane root = new BorderPane();
 
         root.setTop(header);
 
         root.setCenter(
-                webView
-        );
-
+                webView);
 
         // =====================================================
         // SCENE
         // =====================================================
 
-        Scene scene =
-                new Scene(
-                        root,
-                        1000,
-                        600
-                );
-
+        Scene scene = new Scene(
+                root,
+                1000,
+                600);
 
         mapStage.setScene(
-                scene
-        );
-
+                scene);
 
         // =====================================================
         // WINDOW SIZE
         // =====================================================
 
         mapStage.setWidth(
-                1000
-        );
+                1000);
 
         mapStage.setHeight(
-                600
-        );
-
+                600);
 
         // =====================================================
         // CENTER MAP WINDOW OVER ECLOAD
@@ -278,25 +221,21 @@ public class MapView {
 
             mapStage.setX(
                     owner.getX()
-                    +
-                    (owner.getWidth() - 1000) / 2
-            );
+                            +
+                            (owner.getWidth() - 1000) / 2);
 
             mapStage.setY(
                     owner.getY()
-                    +
-                    (owner.getHeight() - 600) / 2
-            );
+                            +
+                            (owner.getHeight() - 600) / 2);
 
         }
-
 
         // =====================================================
         // SHOW
         // =====================================================
 
         mapStage.show();
-
 
         /*
          * Make sure the map receives its final
@@ -310,15 +249,13 @@ public class MapView {
 
                     webEngine.executeScript(
                             "if (typeof refreshMap === 'function') {" +
-                            "refreshMap();" +
-                            "}"
-                    );
+                                    "refreshMap();" +
+                                    "}");
 
                 } catch (Exception ex) {
 
                     System.out.println(
-                            "Map refresh skipped."
-                    );
+                            "Map refresh skipped.");
 
                 }
 
@@ -328,7 +265,6 @@ public class MapView {
 
     }
 
-
     // =========================================================
     // LOAD ROUTE
     // =========================================================
@@ -337,43 +273,34 @@ public class MapView {
             double pickupLat,
             double pickupLng,
             double destinationLat,
-            double destinationLng
-    ) {
+            double destinationLng) {
 
         if (webEngine == null) {
             return;
         }
 
+        String javascript = String.format(
+                "showRoute(%f,%f,%f,%f);",
 
-        String javascript =
-                String.format(
-                        "showRoute(%f,%f,%f,%f);",
+                pickupLat,
+                pickupLng,
 
-                        pickupLat,
-                        pickupLng,
-
-                        destinationLat,
-                        destinationLng
-                );
-
+                destinationLat,
+                destinationLng);
 
         System.out.println(
                 "Executing: " +
-                javascript
-        );
-
+                        javascript);
 
         try {
 
             webEngine.executeScript(
-                    javascript
-            );
+                    javascript);
 
         } catch (Exception e) {
 
             System.err.println(
-                    "Unable to execute route JavaScript."
-            );
+                    "Unable to execute route JavaScript.");
 
             e.printStackTrace();
 

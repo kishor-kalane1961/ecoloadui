@@ -23,13 +23,11 @@ public class UserPlaceholder {
         // =====================================================
 
         root.setLeft(
-                UserNavigation.createSidebar(pageName)
-        );
+                UserNavigation.createSidebar(pageName));
 
         // =====================================================
         // NAVBAR
         // =====================================================
-
 
         BorderPane mainContent = new BorderPane();
         mainContent.setTop(UserNavigation.createNavbar());
@@ -42,32 +40,26 @@ public class UserPlaceholder {
         mainContent.setCenter(content);
 
         content.setAlignment(
-                Pos.CENTER
-        );
+                Pos.CENTER);
 
         Label title = new Label(
-                pageName
-        );
+                pageName);
 
         title.setStyle(
                 "-fx-font-size: 32px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #014B3A;"
-        );
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #014B3A;");
 
         Label message = new Label(
-                "This is the " + pageName + " page."
-        );
+                "This is the " + pageName + " page.");
 
         message.setStyle(
                 "-fx-font-size: 16px;" +
-                "-fx-text-fill: #64748B;"
-        );
+                        "-fx-text-fill: #64748B;");
 
         content.getChildren().addAll(
                 title,
-                message
-        );
+                message);
 
         root.setCenter(mainContent);
         // =====================================================
@@ -77,7 +69,6 @@ public class UserPlaceholder {
         return new Scene(
                 root,
                 1536,
-                750
-        );
+                750);
     }
 }

@@ -51,9 +51,8 @@ public final class UserNavigation {
 
         sidebar.setStyle(
                 "-fx-background-color: " + GREEN + ";" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-width: 0 1 0 0;"
-        );
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-width: 0 1 0 0;");
 
         // =====================================================
         // ECOLOAD LOGO
@@ -62,10 +61,7 @@ public final class UserNavigation {
         ImageView logo = new ImageView(
                 new Image(
                         UserNavigation.class.getResourceAsStream(
-                                "/assets/icons/transportericon.png"
-                        )
-                )
-        );
+                                "/assets/icons/transportericon.png")));
 
         logo.setFitWidth(225);
         logo.setFitHeight(200);
@@ -98,8 +94,7 @@ public final class UserNavigation {
 
                 menuButton("↶", "Review", activePage),
 
-                menuButton("☆", "Support", activePage)
-        );
+                menuButton("☆", "Support", activePage));
 
         // =====================================================
         // SPACER
@@ -109,8 +104,7 @@ public final class UserNavigation {
 
         VBox.setVgrow(
                 spacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         // =====================================================
         // LOGOUT
@@ -125,46 +119,38 @@ public final class UserNavigation {
 
         logout.setStyle(
                 "-fx-background-color: rgb(234, 63, 63);" +
-                "-fx-text-fill: #ffffff;" +
-                "-fx-font-size: 14px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-alignment: CENTER_LEFT;" +
-                "-fx-padding: 12px 18px;" +
-                "-fx-background-radius: 8px;" +
-                "-fx-cursor: hand;"
-        );
-
-        logout.setOnMouseEntered(e ->
-                logout.setStyle(
-                        "-fx-background-color: #ff0000;" +
                         "-fx-text-fill: #ffffff;" +
                         "-fx-font-size: 14px;" +
                         "-fx-font-weight: bold;" +
                         "-fx-alignment: CENTER_LEFT;" +
                         "-fx-padding: 12px 18px;" +
                         "-fx-background-radius: 8px;" +
-                        "-fx-cursor: hand;"
-                )
-        );
+                        "-fx-cursor: hand;");
 
-        logout.setOnMouseExited(e ->
-                logout.setStyle(
-                        "-fx-background-color: rgb(234, 64, 64);" +
+        logout.setOnMouseEntered(e -> logout.setStyle(
+                "-fx-background-color: #ff0000;" +
                         "-fx-text-fill: #ffffff;" +
                         "-fx-font-size: 14px;" +
                         "-fx-font-weight: bold;" +
                         "-fx-alignment: CENTER_LEFT;" +
                         "-fx-padding: 12px 18px;" +
                         "-fx-background-radius: 8px;" +
-                        "-fx-cursor: hand;"
-                )
-        );
+                        "-fx-cursor: hand;"));
+
+        logout.setOnMouseExited(e -> logout.setStyle(
+                "-fx-background-color: rgb(234, 64, 64);" +
+                        "-fx-text-fill: #ffffff;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-alignment: CENTER_LEFT;" +
+                        "-fx-padding: 12px 18px;" +
+                        "-fx-background-radius: 8px;" +
+                        "-fx-cursor: hand;"));
 
         logout.setOnAction(event -> {
             // Keep this if RolePage already exists
             HomePage.homeStage.setScene(
-                    new RolePage().getRolePageScene()
-            );
+                    new RolePage().getRolePageScene());
         });
 
         // =====================================================
@@ -175,12 +161,10 @@ public final class UserNavigation {
                 logoBox,
                 menu,
                 spacer,
-                logout
-        );
+                logout);
 
         return sidebar;
     }
-
 
     // =========================================================
     // NAVBAR
@@ -194,38 +178,33 @@ public final class UserNavigation {
         header.setAlignment(Pos.CENTER_LEFT);
 
         header.setPadding(
-                new Insets(0, 30, 0, 30)
-        );
+                new Insets(0, 30, 0, 30));
 
         header.setPrefHeight(66);
         header.setMinHeight(66);
         header.setMaxHeight(66);
 
         header.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         header.setSpacing(20);
 
         header.setStyle(
                 "-fx-background-color: #F8FAFC;" +
-                "-fx-border-color: #E2E8F0;" +
-                "-fx-border-width: 0 0 1 0;"
-        );
+                        "-fx-border-color: #E2E8F0;" +
+                        "-fx-border-width: 0 0 1 0;");
 
         // =====================================================
         // WELCOME TEXT
         // =====================================================
 
         Label welcome = new Label(
-                "Welcome Back, Transport"
-        );
+                "Welcome Back, UserName");
 
         welcome.setStyle(
                 "-fx-font-size: 22px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #014B3A;"
-        );
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #014B3A;");
 
         // =====================================================
         // SPACER
@@ -235,8 +214,7 @@ public final class UserNavigation {
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         // =====================================================
         // PROFILE
@@ -244,43 +222,33 @@ public final class UserNavigation {
 
         Circle profile = new Circle(
                 21,
-                Color.web("#D8F5DA")
-        );
+                Color.web("#D8F5DA"));
 
         Label initials = new Label("TR");
 
         initials.setStyle(
                 "-fx-font-size: 12px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: " + GREEN + ";"
-        );
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: " + GREEN + ";");
 
         StackPane profileBox = new StackPane(
                 profile,
-                initials
-        );
+                initials);
 
         profileBox.setPrefSize(42, 42);
         profileBox.setMinSize(42, 42);
         profileBox.setMaxSize(42, 42);
 
         profileBox.setCursor(
-                Cursor.HAND
-        );
+                Cursor.HAND);
 
         // Hover
 
-        profileBox.setOnMouseEntered(event ->
-                profile.setFill(
-                        Color.web("#B9EDBD")
-                )
-        );
+        profileBox.setOnMouseEntered(event -> profile.setFill(
+                Color.web("#B9EDBD")));
 
-        profileBox.setOnMouseExited(event ->
-                profile.setFill(
-                        Color.web("#D8F5DA")
-                )
-        );
+        profileBox.setOnMouseExited(event -> profile.setFill(
+                Color.web("#D8F5DA")));
 
         // =====================================================
         // PROFILE CLICK
@@ -302,12 +270,10 @@ public final class UserNavigation {
                 welcome,
                 spacer,
                 new Separator(Orientation.VERTICAL),
-                profileBox
-        );
+                profileBox);
 
         return header;
     }
-
 
     // =========================================================
     // MENU BUTTON
@@ -316,8 +282,7 @@ public final class UserNavigation {
     private static Button menuButton(
             String icon,
             String text,
-            String activePage
-    ) {
+            String activePage) {
 
         boolean selected = text.equals(activePage);
 
@@ -327,37 +292,30 @@ public final class UserNavigation {
                 menuGraphic(
                         icon,
                         text,
-                        selected
-                )
-        );
+                        selected));
 
         button.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         button.setPadding(
-                new Insets(8, 14, 8, 16)
-        );
+                new Insets(8, 14, 8, 16));
 
         button.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         button.setCursor(
-                Cursor.HAND
-        );
+                Cursor.HAND);
 
         String normalStyle = selected
 
                 ? "-fx-background-color: #075F49;" +
-                  "-fx-background-radius: 10;"
+                        "-fx-background-radius: 10;"
 
                 : "-fx-background-color: transparent;" +
-                  "-fx-background-radius: 12;";
+                        "-fx-background-radius: 12;";
 
         button.setStyle(
-                normalStyle
-        );
+                normalStyle);
 
         // =====================================================
         // HOVER
@@ -367,17 +325,15 @@ public final class UserNavigation {
 
             button.setStyle(
                     "-fx-background-color: " + LIGHT_GREEN + ";" +
-                    "-fx-text-fill: white;" +
-                    "-fx-background-radius: 12;"
-            );
+                            "-fx-text-fill: white;" +
+                            "-fx-background-radius: 12;");
 
         });
 
         button.setOnMouseExited(event -> {
 
             button.setStyle(
-                    normalStyle
-            );
+                    normalStyle);
 
         });
 
@@ -385,13 +341,10 @@ public final class UserNavigation {
         // CLICK
         // =====================================================
 
-        button.setOnAction(event ->
-                navigate(text)
-        );
+        button.setOnAction(event -> navigate(text));
 
         return button;
     }
-
 
     // =========================================================
     // MENU GRAPHIC
@@ -400,87 +353,80 @@ public final class UserNavigation {
     private static HBox menuGraphic(
             String icon,
             String text,
-            boolean selected
-    ) {
+            boolean selected) {
 
         Label iconLabel = new Label(
-                icon
-        );
+                icon);
 
         iconLabel.setStyle(
                 "-fx-font-size: 16px;" +
-                "-fx-text-fill: #FFFFFF;"
-        );
+                        "-fx-text-fill: #FFFFFF;");
 
         Label textLabel = new Label(
-                text
-        );
+                text);
 
         textLabel.setStyle(
                 "-fx-font-size: 16px;" +
-                "-fx-font-weight: " +
-                (selected ? "bold" : "normal") + ";" +
-                "-fx-text-fill: #FFFFFF;"
-        );
+                        "-fx-font-weight: " +
+                        (selected ? "bold" : "normal") + ";" +
+                        "-fx-text-fill: #FFFFFF;");
 
         return new HBox(
                 10,
                 iconLabel,
-                textLabel
-        );
+                textLabel);
     }
-
 
     // =========================================================
     // NAVIGATION
     // =========================================================
 
-        private static void navigate(String page) {
+    private static void navigate(String page) {
 
-                System.out.println("Transport Navigation: " + page);
+        System.out.println("Transport Navigation: " + page);
 
         Scene scene;
 
         switch (page) {
 
-                case "Dashboard":
+            case "Dashboard":
                 scene = new UserDashboard().getTransporterDashboardScene();
                 break;
 
-                case "My Loads":
+            case "My Loads":
                 scene = new MyLoads().getMyLoadsScene();
                 break;
 
-                case "Post Load":
+            case "Post Load":
                 scene = new PostLoad().getpostloadScene();
                 break;
 
-                case "Matched Drivers":
+            case "Matched Drivers":
                 scene = new MatchedDrivers().getMatchedDriversScene();
                 break;
 
-                case "Trip Tracking":
+            case "Trip Tracking":
                 scene = new UserPlaceholder(page).getScene();
                 break;
 
-                case "Analytics":
+            case "Analytics":
                 scene = new Analytics().getAnalyticsScene();
                 break;
 
-                case "Review":
+            case "Review":
                 scene = new Ratings().getRatingsPageScene();
                 break;
 
-                case "Support":
+            case "Support":
                 scene = new Support().getSupportPageScene();
                 break;
 
-                default:
+            default:
                 scene = new UserPlaceholder(page).getScene();
                 break;
         }
 
         HomePage.homeStage.setScene(scene);
         HomePage.homeStage.show();
-        }
+    }
 }

@@ -68,11 +68,9 @@ public class PostLoad {
     // CSV PATHS
     // =========================================================
 
-    private final Path loadsFile =
-            Paths.get("data", "loads.csv");
+    private final Path loadsFile = Paths.get("data", "loads.csv");
 
-    private final Path driversFile =
-            Paths.get("data", "drivers.csv");
+    private final Path driversFile = Paths.get("data", "drivers.csv");
 
     // =========================================================
     // FORM CONTROLS
@@ -130,19 +128,15 @@ public class PostLoad {
     // DATE TIME FORMAT
     // =========================================================
 
-    private static final DateTimeFormatter TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern(
-                    "MM/dd/yyyy HH:mm"
-            );
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
+            "MM/dd/yyyy HH:mm");
 
     // =========================================================
     // CONSTRUCTOR
     // =========================================================
 
-    
     // =========================================================
     // GET SCENE
     // IMPORTANT:
@@ -154,31 +148,24 @@ public class PostLoad {
         BorderPane root = new BorderPane();
 
         root.setStyle(
-                "-fx-background-color: " + PAGE_BG + ";"
-        );
+                "-fx-background-color: " + PAGE_BG + ";");
 
         // Main content
-        VBox mainContent =
-                createMainContent();
+        VBox mainContent = createMainContent();
 
-        ScrollPane scrollPane =
-                new ScrollPane(mainContent);
+        ScrollPane scrollPane = new ScrollPane(mainContent);
 
         scrollPane.setFitToWidth(true);
 
         scrollPane.setHbarPolicy(
-                ScrollPane.ScrollBarPolicy.NEVER
-        );
+                ScrollPane.ScrollBarPolicy.NEVER);
 
         scrollPane.setVbarPolicy(
-                ScrollPane.ScrollBarPolicy.AS_NEEDED
-        );
+                ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         scrollPane.setStyle(
                 "-fx-background-color: transparent;"
-                + "-fx-background: transparent;"
-        );
-
+                        + "-fx-background: transparent;");
 
         root.setTop(UserNavigation.createNavbar());
 
@@ -188,9 +175,7 @@ public class PostLoad {
         mainroot.setCenter(root);
         mainroot.setLeft(UserNavigation.createSidebar("PostLoad"));
 
-
-        postloadScene = new Scene(mainroot,1536,750);
-        
+        postloadScene = new Scene(mainroot, 1536, 750);
 
         return postloadScene;
     }
@@ -200,44 +185,34 @@ public class PostLoad {
 
     private VBox createMainContent() {
 
-        VBox main =
-                new VBox(22);
+        VBox main = new VBox(22);
 
         main.setPadding(
                 new Insets(
                         28,
                         38,
                         30,
-                        38
-                )
-        );
+                        38));
 
-        HBox columns =
-                new HBox(22);
+        HBox columns = new HBox(22);
 
         columns.setAlignment(
-                Pos.TOP_CENTER
-        );
+                Pos.TOP_CENTER);
 
-        VBox leftCard =
-                createLoadDetailsCard();
+        VBox leftCard = createLoadDetailsCard();
 
         HBox.setHgrow(
                 leftCard,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
-        VBox rightSide =
-                createRightSide();
+        VBox rightSide = createRightSide();
 
         columns.getChildren().addAll(
                 leftCard,
-                rightSide
-        );
+                rightSide);
 
         main.getChildren().add(
-                columns
-        );
+                columns);
 
         return main;
     }
@@ -248,22 +223,17 @@ public class PostLoad {
 
     private VBox createLoadDetailsCard() {
 
-        VBox card =
-                new VBox(20);
+        VBox card = new VBox(20);
 
         card.setPadding(
-                new Insets(28)
-        );
+                new Insets(28));
 
         card.setPrefWidth(
-                700
-        );
+                700);
 
         card.setStyle(
-                cardStyle()
-        );
+                cardStyle());
 
-        
         Label plus = new Label("+");
 
         plus.setAlignment(Pos.CENTER);
@@ -272,13 +242,12 @@ public class PostLoad {
 
         plus.setStyle(
                 "-fx-border-color: #0B6B22;"
-                + "-fx-border-width: 2;"
-                + "-fx-border-radius: 50;"
-                + "-fx-background-radius: 50;"
-                + "-fx-text-fill: #0B6B22;"
-                + "-fx-font-size: 22px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-border-width: 2;"
+                        + "-fx-border-radius: 50;"
+                        + "-fx-background-radius: 50;"
+                        + "-fx-text-fill: #0B6B22;"
+                        + "-fx-font-size: 22px;"
+                        + "-fx-font-weight: bold;");
 
         Label heading = new Label("Post New Shipment");
 
@@ -296,9 +265,7 @@ public class PostLoad {
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        21
-                )
-        );
+                        21));
 
         heading.setStyle("-fx-text-fill:#0B6B22");
 
@@ -307,119 +274,92 @@ public class PostLoad {
         titleRow.setSpacing(12);
 
         titleRow.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         titleRow.getChildren().addAll(
                 plus,
-                heading
-        );
-
+                heading);
 
         // -----------------------------------------------------
         // GRID
         // -----------------------------------------------------
 
-        GridPane grid =
-                new GridPane();
+        GridPane grid = new GridPane();
 
         grid.setHgap(16
 
         );
         grid.setVgap(13);
 
-        ColumnConstraints first =
-                new ColumnConstraints();
+        ColumnConstraints first = new ColumnConstraints();
 
         first.setPercentWidth(50);
 
-        ColumnConstraints second =
-                new ColumnConstraints();
+        ColumnConstraints second = new ColumnConstraints();
 
         second.setPercentWidth(50);
 
         grid.getColumnConstraints().addAll(
                 first,
-                second
-        );
+                second);
 
         // -----------------------------------------------------
         // PICKUP
         // -----------------------------------------------------
 
-        VBox pickupBox =
-                createFieldBox(
-                        "Pickup Location"
-                );
+        VBox pickupBox = createFieldBox(
+                "Pickup Location");
 
-        pickupField =
-                createTextField(
-                        "City, State or Warehouse"
-                );
+        pickupField = createTextField(
+                "City, State or Warehouse");
 
         pickupBox.getChildren().add(
-                pickupField
-        );
+                pickupField);
 
-        pickupError =
-                createErrorLabel();
+        pickupError = createErrorLabel();
 
         pickupBox.getChildren().add(
-                pickupError
-        );
+                pickupError);
 
         // -----------------------------------------------------
         // DROP
         // -----------------------------------------------------
 
-        VBox dropBox =
-                createFieldBox(
-                        "Drop Location"
-                );
+        VBox dropBox = createFieldBox(
+                "Drop Location");
 
-        dropField =
-                createTextField(
-                        "Destination Address"
-                );
+        dropField = createTextField(
+                "Destination Address");
 
         dropBox.getChildren().add(
-                dropField
-        );
+                dropField);
 
-        dropError =
-                createErrorLabel();
+        dropError = createErrorLabel();
 
         dropBox.getChildren().add(
-                dropError
-        );
+                dropError);
 
         grid.add(
                 pickupBox,
                 0,
-                0
-        );
+                0);
 
         grid.add(
                 dropBox,
                 1,
-                0
-        );
+                0);
 
         // -----------------------------------------------------
         // LOAD TYPE
         // -----------------------------------------------------
 
-        VBox loadTypeBox =
-                createFieldBox(
-                        "Load Type"
-                );
+        VBox loadTypeBox = createFieldBox(
+                "Load Type");
 
-        loadTypeCombo =
-                new ComboBox<>();
+        loadTypeCombo = new ComboBox<>();
 
         loadTypeCombo.setPromptText(
-                "Select Type"
-        );
+                "Select Type");
 
         loadTypeCombo.getItems().addAll(
                 "General",
@@ -427,343 +367,261 @@ public class PostLoad {
                 "Fragile",
                 "Container",
                 "Liquid",
-                "Heavy Goods"
-        );
+                "Heavy Goods");
 
         loadTypeCombo.setPrefHeight(
-                46
-        );
+                46);
 
         loadTypeCombo.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         applyComboStyle(
-                loadTypeCombo
-        );
+                loadTypeCombo);
 
-        loadTypeError =
-                createErrorLabel();
+        loadTypeError = createErrorLabel();
 
         loadTypeBox.getChildren().addAll(
                 loadTypeCombo,
-                loadTypeError
-        );
+                loadTypeError);
 
         // -----------------------------------------------------
         // WEIGHT
         // -----------------------------------------------------
 
-        VBox weightBox =
-                createFieldBox(
-                        "Weight"
-                );
+        VBox weightBox = createFieldBox(
+                "Weight");
 
-        weightField =
-                createTextField(
-                        "0.00"
-                );
+        weightField = createTextField(
+                "0.00");
 
         weightField.setText(
-                "0.00"
-        );
+                "0.00");
 
         weightBox.getChildren().add(
-                weightField
-        );
+                weightField);
 
-        weightError =
-                createErrorLabel();
+        weightError = createErrorLabel();
 
         weightBox.getChildren().add(
-                weightError
-        );
+                weightError);
 
         // -----------------------------------------------------
         // UNIT
         // -----------------------------------------------------
 
-        VBox unitBox =
-                createFieldBox(
-                        "Unit"
-                );
+        VBox unitBox = createFieldBox(
+                "Unit");
 
-        unitCombo =
-                new ComboBox<>();
+        unitCombo = new ComboBox<>();
 
         unitCombo.getItems().addAll(
                 "Ton",
-                "Kg"
-        );
+                "Kg");
 
         unitCombo.setValue(
-                "Ton"
-        );
+                "Ton");
 
         unitCombo.setPrefHeight(
-                46
-        );
+                46);
 
         unitCombo.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         applyComboStyle(
-                unitCombo
-        );
+                unitCombo);
 
         unitBox.getChildren().add(
-                unitCombo
-        );
+                unitCombo);
 
-        HBox weightUnit =
-                new HBox(10);
+        HBox weightUnit = new HBox(10);
 
         HBox.setHgrow(
                 weightBox,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 unitBox,
-                Priority.NEVER
-        );
+                Priority.NEVER);
 
         weightUnit.getChildren().addAll(
                 weightBox,
-                unitBox
-        );
+                unitBox);
 
         grid.add(
                 loadTypeBox,
                 0,
-                1
-        );
+                1);
 
         grid.add(
                 weightUnit,
                 1,
-                1
-        );
+                1);
 
         // -----------------------------------------------------
         // TRUCK TYPE
         // -----------------------------------------------------
 
-        VBox truckBox =
-                createFieldBox(
-                        "Required Truck Type"
-                );
+        VBox truckBox = createFieldBox(
+                "Required Truck Type");
 
-        truckTypeCombo =
-                new ComboBox<>();
+        truckTypeCombo = new ComboBox<>();
 
         truckTypeCombo.setPromptText(
-                "Select Truck Type"
-        );
+                "Select Truck Type");
 
         truckTypeCombo.setPrefHeight(
-                46
-        );
+                46);
 
         truckTypeCombo.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         loadTruckTypes();
 
         applyComboStyle(
-                truckTypeCombo
-        );
+                truckTypeCombo);
 
-        truckTypeError =
-                createErrorLabel();
+        truckTypeError = createErrorLabel();
 
         truckBox.getChildren().addAll(
                 truckTypeCombo,
-                truckTypeError
-        );
+                truckTypeError);
 
         // -----------------------------------------------------
         // OFFER PRICE
         // -----------------------------------------------------
 
-        VBox priceBox =
-                createFieldBox(
-                        "Offer Price (₹)"
-                );
+        VBox priceBox = createFieldBox(
+                "Offer Price (₹)");
 
-        HBox priceContainer =
-                new HBox();
+        HBox priceContainer = new HBox();
 
         priceContainer.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         priceContainer.setPadding(
                 new Insets(
                         0,
                         12,
                         0,
-                        12
-                )
-        );
+                        12));
 
         priceContainer.setPrefHeight(
-                46
-        );
+                46);
 
         priceContainer.setStyle(
                 "-fx-background-color: #F7F5F5;"
-                + "-fx-border-color: "
-                + BORDER + ";"
-                + "-fx-border-radius: 8;"
-                + "-fx-background-radius: 8;"
-        );
+                        + "-fx-border-color: "
+                        + BORDER + ";"
+                        + "-fx-border-radius: 8;"
+                        + "-fx-background-radius: 8;");
 
-        Label rupee =
-                new Label("₹");
+        Label rupee = new Label("₹");
 
         rupee.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        16
-                )
-        );
+                        16));
 
         rupee.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
-        offerPriceField =
-                createTextField(
-                        "Enter amount"
-                );
+        offerPriceField = createTextField(
+                "Enter amount");
 
         offerPriceField.setStyle(
                 "-fx-background-color: transparent;"
-                + "-fx-border-color: transparent;"
-                + "-fx-padding: 0;"
-                + "-fx-font-size: 13px;"
-                + "-fx-text-fill: " + TEXT + ";"
-                + "-fx-prompt-text-fill: #858985;"
-        );
+                        + "-fx-border-color: transparent;"
+                        + "-fx-padding: 0;"
+                        + "-fx-font-size: 13px;"
+                        + "-fx-text-fill: " + TEXT + ";"
+                        + "-fx-prompt-text-fill: #858985;");
 
         HBox.setHgrow(
                 offerPriceField,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         priceContainer.getChildren().addAll(
                 rupee,
-                offerPriceField
-        );
+                offerPriceField);
 
         priceBox.getChildren().add(
-                priceContainer
-        );
+                priceContainer);
 
-        offerPriceError =
-                createErrorLabel();
+        offerPriceError = createErrorLabel();
 
         priceBox.getChildren().add(
-                offerPriceError
-        );
+                offerPriceError);
 
         grid.add(
                 truckBox,
                 0,
-                2
-        );
+                2);
 
         grid.add(
                 priceBox,
                 1,
-                2
-        );
+                2);
 
         // -----------------------------------------------------
         // PICKUP DATE
         // -----------------------------------------------------
 
-        VBox pickupDateBox =
-                createFieldBox(
-                        "Pickup Date & Time"
-                );
+        VBox pickupDateBox = createFieldBox(
+                "Pickup Date & Time");
 
-        HBox pickupDateTime =
-                createDateTimeInput();
+        HBox pickupDateTime = createDateTimeInput();
 
-        pickupDatePicker =
-                (DatePicker)
-                        pickupDateTime
-                                .getChildren()
-                                .get(0);
+        pickupDatePicker = (DatePicker) pickupDateTime
+                .getChildren()
+                .get(0);
 
-        pickupTimeField =
-                (TextField)
-                        pickupDateTime
-                                .getChildren()
-                                .get(1);
+        pickupTimeField = (TextField) pickupDateTime
+                .getChildren()
+                .get(1);
 
         pickupDateBox.getChildren().add(
-                pickupDateTime
-        );
+                pickupDateTime);
 
-        pickupDateError =
-                createErrorLabel();
+        pickupDateError = createErrorLabel();
 
         pickupDateBox.getChildren().add(
-                pickupDateError
-        );
+                pickupDateError);
 
         // -----------------------------------------------------
         // DELIVERY DATE
         // -----------------------------------------------------
 
-        VBox deliveryDateBox =
-                createFieldBox(
-                        "Delivery Date & Time"
-                );
+        VBox deliveryDateBox = createFieldBox(
+                "Delivery Date & Time");
 
-        HBox deliveryDateTime =
-                createDateTimeInput();
+        HBox deliveryDateTime = createDateTimeInput();
 
-        deliveryDatePicker =
-                (DatePicker)
-                        deliveryDateTime
-                                .getChildren()
-                                .get(0);
+        deliveryDatePicker = (DatePicker) deliveryDateTime
+                .getChildren()
+                .get(0);
 
-        deliveryTimeField =
-                (TextField)
-                        deliveryDateTime
-                                .getChildren()
-                                .get(1);
+        deliveryTimeField = (TextField) deliveryDateTime
+                .getChildren()
+                .get(1);
 
         deliveryDateBox.getChildren().add(
-                deliveryDateTime
-        );
+                deliveryDateTime);
 
-        deliveryDateError =
-                createErrorLabel();
+        deliveryDateError = createErrorLabel();
 
         deliveryDateBox.getChildren().add(
-                deliveryDateError
-        );
+                deliveryDateError);
 
         grid.add(
                 pickupDateBox,
                 0,
-                3
-        );
+                3);
 
         grid.add(
                 deliveryDateBox,
                 1,
-                3
-        );
+                3);
 
         // -----------------------------------------------------
         // ADD
@@ -771,26 +629,21 @@ public class PostLoad {
 
         card.getChildren().addAll(
                 titleRow,
-                grid
-        );
+                grid);
 
         // -----------------------------------------------------
         // ROUTE LISTENER
         // -----------------------------------------------------
 
-        ChangeListener<String> routeListener =
-                (observable, oldValue, newValue) ->
-                        updateRouteOverview();
+        ChangeListener<String> routeListener = (observable, oldValue, newValue) -> updateRouteOverview();
 
         pickupField.textProperty()
                 .addListener(
-                        routeListener
-                );
+                        routeListener);
 
         dropField.textProperty()
                 .addListener(
-                        routeListener
-                );
+                        routeListener);
 
         return card;
     }
@@ -800,16 +653,14 @@ public class PostLoad {
     // =========================================================
 
     private VBox createFieldBox(
-            String text
-    ) {
+            String text) {
 
-        VBox box =
-                new VBox(7);
+        VBox box = new VBox(7);
 
         // Label label =
-        //         new Label(text);
+        // new Label(text);
 
-        Text t1=new Text(text);
+        Text t1 = new Text(text);
         t1.setVisible(true);
         t1.setManaged(true);
 
@@ -817,27 +668,21 @@ public class PostLoad {
                 Font.font(
                         "System",
                         FontWeight.NORMAL,
-                        12
-                )
-        );
+                        12));
 
         // label.setTextFill(
-        //         Color.web("#353935")
+        // Color.web("#353935")
         // );
         t1.setFill(
-                Color.BLACK
-        );
+                Color.BLACK);
         t1.setStyle(
                 "-fx-font-size: 15px;"
-                + "-fx-font-weight: bold;"
-        );
-         box.setAlignment(
-            Pos.TOP_LEFT
-        );
+                        + "-fx-font-weight: bold;");
+        box.setAlignment(
+                Pos.TOP_LEFT);
 
         box.getChildren().add(
-                t1
-        );
+                t1);
 
         return box;
     }
@@ -847,36 +692,29 @@ public class PostLoad {
     // =========================================================
 
     private TextField createTextField(
-            String prompt
-    ) {
+            String prompt) {
 
-        TextField field =
-                new TextField();
+        TextField field = new TextField();
 
         field.setPromptText(
-                prompt
-        );
+                prompt);
 
         field.setPrefHeight(
-                46
-        );
+                46);
 
         field.setFont(
                 Font.font(
                         "System",
-                        13
-                )
-        );
+                        13));
 
         field.setStyle(
                 "-fx-background-color: #F7F5F5;"
-                + "-fx-border-color: " + BORDER + ";"
-                + "-fx-border-radius: 8;"
-                + "-fx-background-radius: 8;"
-                + "-fx-padding: 0 13 0 13;"
-                + "-fx-text-fill: " + TEXT + ";"
-                + "-fx-prompt-text-fill: #858985;"
-        );
+                        + "-fx-border-color: " + BORDER + ";"
+                        + "-fx-border-radius: 8;"
+                        + "-fx-background-radius: 8;"
+                        + "-fx-padding: 0 13 0 13;"
+                        + "-fx-text-fill: " + TEXT + ";"
+                        + "-fx-prompt-text-fill: #858985;");
 
         field.focusedProperty()
                 .addListener(
@@ -886,35 +724,32 @@ public class PostLoad {
 
                                 field.setStyle(
                                         "-fx-background-color: white;"
-                                        + "-fx-border-color: "
-                                        + GREEN + ";"
-                                        + "-fx-border-width: 1.5;"
-                                        + "-fx-border-radius: 8;"
-                                        + "-fx-background-radius: 8;"
-                                        + "-fx-padding: 0 13 0 13;"
-                                        + "-fx-text-fill: "
-                                        + TEXT + ";"
-                                        + "-fx-prompt-text-fill: "
-                                        + "#858985;"
-                                );
+                                                + "-fx-border-color: "
+                                                + GREEN + ";"
+                                                + "-fx-border-width: 1.5;"
+                                                + "-fx-border-radius: 8;"
+                                                + "-fx-background-radius: 8;"
+                                                + "-fx-padding: 0 13 0 13;"
+                                                + "-fx-text-fill: "
+                                                + TEXT + ";"
+                                                + "-fx-prompt-text-fill: "
+                                                + "#858985;");
 
                             } else {
 
                                 field.setStyle(
                                         "-fx-background-color: #F7F5F5;"
-                                        + "-fx-border-color: "
-                                        + BORDER + ";"
-                                        + "-fx-border-radius: 8;"
-                                        + "-fx-background-radius: 8;"
-                                        + "-fx-padding: 0 13 0 13;"
-                                        + "-fx-text-fill: "
-                                        + TEXT + ";"
-                                        + "-fx-prompt-text-fill: "
-                                        + "#858985;"
-                                );
+                                                + "-fx-border-color: "
+                                                + BORDER + ";"
+                                                + "-fx-border-radius: 8;"
+                                                + "-fx-background-radius: 8;"
+                                                + "-fx-padding: 0 13 0 13;"
+                                                + "-fx-text-fill: "
+                                                + TEXT + ";"
+                                                + "-fx-prompt-text-fill: "
+                                                + "#858985;");
                             }
-                        }
-                );
+                        });
 
         return field;
     }
@@ -925,50 +760,38 @@ public class PostLoad {
 
     private HBox createDateTimeInput() {
 
-        DatePicker datePicker =
-                new DatePicker();
+        DatePicker datePicker = new DatePicker();
 
         datePicker.setPrefHeight(
-                46
-        );
+                46);
 
         datePicker.setPromptText(
-                "mm/dd/yyyy"
-        );
+                "mm/dd/yyyy");
 
         datePicker.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         HBox.setHgrow(
                 datePicker,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
-        TextField timeField =
-                createTextField(
-                        "--:--"
-                );
+        TextField timeField = createTextField(
+                "--:--");
 
         timeField.setPrefWidth(
-                95
-        );
+                95);
 
         timeField.setPromptText(
-                "--:--"
-        );
+                "--:--");
 
-        HBox box =
-                new HBox(8);
+        HBox box = new HBox(8);
 
         box.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         box.getChildren().addAll(
                 datePicker,
-                timeField
-        );
+                timeField);
 
         return box;
     }
@@ -978,17 +801,15 @@ public class PostLoad {
     // =========================================================
 
     private void applyComboStyle(
-            ComboBox<String> combo
-    ) {
+            ComboBox<String> combo) {
 
         combo.setStyle(
                 "-fx-background-color: #F7F5F5;"
-                + "-fx-border-color: " + BORDER + ";"
-                + "-fx-border-radius: 8;"
-                + "-fx-background-radius: 8;"
-                + "-fx-font-size: 13px;"
-                + "-fx-text-fill: " + TEXT + ";"
-        );
+                        + "-fx-border-color: " + BORDER + ";"
+                        + "-fx-border-radius: 8;"
+                        + "-fx-background-radius: 8;"
+                        + "-fx-font-size: 13px;"
+                        + "-fx-text-fill: " + TEXT + ";");
     }
 
     // =========================================================
@@ -997,23 +818,18 @@ public class PostLoad {
 
     private Label createErrorLabel() {
 
-        Label label =
-                new Label();
+        Label label = new Label();
 
         label.setTextFill(
-                Color.web(RED)
-        );
+                Color.web(RED));
 
         label.setFont(
                 Font.font(
                         "System",
-                        10
-                )
-        );
+                        10));
 
         label.setWrapText(
-                true
-        );
+                true);
 
         return label;
     }
@@ -1024,127 +840,97 @@ public class PostLoad {
 
     private VBox createRightSide() {
 
-        VBox right =
-                new VBox(20);
+        VBox right = new VBox(20);
 
         right.setPrefWidth(
-                380
-        );
+                380);
 
-        VBox routeCard =
-                createRouteOverview();
+        VBox routeCard = createRouteOverview();
 
         // -----------------------------------------------------
         // POST LOAD
         // -----------------------------------------------------
 
-        postLoadButton =
-                new Button(
-                        "Post Load  🚀"
-                );
+        postLoadButton = new Button(
+                "Post Load  🚀");
 
         postLoadButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         postLoadButton.setPrefHeight(
-                58
-        );
+                58);
 
         postLoadButton.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        18
-                )
-        );
+                        18));
 
         setPrimaryButtonStyle(
-                postLoadButton
-        );
+                postLoadButton);
 
         postLoadButton.setOnAction(
-                event ->
-                        handlePostLoad()
-        );
+                event -> handlePostLoad());
 
         // -----------------------------------------------------
         // DRAFT
         // -----------------------------------------------------
 
-        draftButton =
-                new Button(
-                        "Save as Draft"
-                );
+        draftButton = new Button(
+                "Save as Draft");
 
         // -----------------------------------------------------
         // CANCEL
         // -----------------------------------------------------
 
-        cancelButton =
-                new Button(
-                        "Cancel"
-                );
+        cancelButton = new Button(
+                "Cancel");
 
         draftButton.setPrefHeight(
-                38
-        );
+                38);
 
         cancelButton.setPrefHeight(
-                38
-        );
+                38);
 
         HBox.setHgrow(
                 draftButton,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 cancelButton,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         setSecondaryButtonStyle(
                 draftButton,
-                false
-        );
+                false);
 
         setSecondaryButtonStyle(
                 cancelButton,
-                true
-        );
+                true);
 
         draftButton.setOnAction(
-                event ->
-                        handleSaveDraft()
-        );
+                event -> handleSaveDraft());
 
         cancelButton.setOnAction(
-                event ->
-                        handleCancel()
-        );
+                event -> handleCancel());
 
-        HBox actions =
-                new HBox(12);
+        HBox actions = new HBox(12);
 
         actions.getChildren().addAll(
                 draftButton,
-                cancelButton
-        );
+                cancelButton);
 
         // -----------------------------------------------------
         // GUARANTEE
         // -----------------------------------------------------
 
-        VBox guarantee =
-                createGuaranteeCard();
+        VBox guarantee = createGuaranteeCard();
 
         right.getChildren().addAll(
                 routeCard,
                 postLoadButton,
                 actions,
-                guarantee
-        );
+                guarantee);
 
         return right;
     }
@@ -1155,299 +941,247 @@ public class PostLoad {
 
     private VBox createRouteOverview() {
 
-    VBox card = new VBox();
+        VBox card = new VBox();
 
-    card.setPrefWidth(380);
-    card.setMinWidth(380);
+        card.setPrefWidth(380);
+        card.setMinWidth(380);
 
-    card.setStyle(
-            "-fx-background-color: white;"
-            + "-fx-background-radius: 16;"
-            + "-fx-border-radius: 16;"
-            + "-fx-border-color: #E5E8E5;"
-    );
+        card.setStyle(
+                "-fx-background-color: white;"
+                        + "-fx-background-radius: 16;"
+                        + "-fx-border-radius: 16;"
+                        + "-fx-border-color: #E5E8E5;");
 
-    // =====================================================
-    // GREEN TOP
-    // =====================================================
+        // =====================================================
+        // GREEN TOP
+        // =====================================================
 
-    VBox top = new VBox(10);
+        VBox top = new VBox(10);
 
-    top.setPadding(
-            new Insets(24, 22, 24, 22)
-    );
+        top.setPadding(
+                new Insets(24, 22, 24, 22));
 
-    top.setPrefHeight(140);
+        top.setPrefHeight(140);
 
-    top.setStyle(
-            "-fx-background-color: linear-gradient("
-            + "to right, #8BB29A, #0A3718"
-            + ");"
-            + "-fx-background-radius: 16 16 0 0;"
-    );
+        top.setStyle(
+                "-fx-background-color: linear-gradient("
+                        + "to right, #8BB29A, #0A3718"
+                        + ");"
+                        + "-fx-background-radius: 16 16 0 0;");
 
-    Label routeTitle = new Label(
-            "ROUTE OVERVIEW"
-    );
+        Label routeTitle = new Label(
+                "ROUTE OVERVIEW");
 
-    routeTitle.setStyle(
-            "-fx-text-fill: white;"
-            + "-fx-font-size: 11px;"
-            + "-fx-font-weight: bold;"
-    );
+        routeTitle.setStyle(
+                "-fx-text-fill: white;"
+                        + "-fx-font-size: 11px;"
+                        + "-fx-font-weight: bold;");
 
-    routeLabel = new Label(
-            "Pickup → Destination"
-    );
+        routeLabel = new Label(
+                "Pickup → Destination");
 
-    routeLabel.setStyle(
-            "-fx-text-fill: white;"
-            + "-fx-font-size: 17px;"
-            + "-fx-font-weight: bold;"
-    );
+        routeLabel.setStyle(
+                "-fx-text-fill: white;"
+                        + "-fx-font-size: 17px;"
+                        + "-fx-font-weight: bold;");
 
-    top.getChildren().addAll(
-            routeTitle,
-            routeLabel
-    );
+        top.getChildren().addAll(
+                routeTitle,
+                routeLabel);
 
-    // =====================================================
-    // DISTANCE
-    // =====================================================
+        // =====================================================
+        // DISTANCE
+        // =====================================================
 
-    HBox distanceRow = new HBox();
+        HBox distanceRow = new HBox();
 
-    distanceRow.setAlignment(
-            Pos.CENTER_LEFT
-    );
+        distanceRow.setAlignment(
+                Pos.CENTER_LEFT);
 
-    distanceRow.setPadding(
-            new Insets(14, 22, 14, 22)
-    );
+        distanceRow.setPadding(
+                new Insets(14, 22, 14, 22));
 
-    distanceRow.setPrefHeight(55);
+        distanceRow.setPrefHeight(55);
 
-    distanceRow.setMinHeight(55);
+        distanceRow.setMinHeight(55);
 
-    Label distanceIcon = new Label(
-            "⌁"
-    );
+        Label distanceIcon = new Label(
+                "⌁");
 
-    distanceIcon.setStyle(
-            "-fx-text-fill: #0B6B22;"
-            + "-fx-font-size: 22px;"
-            + "-fx-font-weight: bold;"
-    );
+        distanceIcon.setStyle(
+                "-fx-text-fill: #0B6B22;"
+                        + "-fx-font-size: 22px;"
+                        + "-fx-font-weight: bold;");
 
-    Label distanceText = new Label(
-            "Distance"
-    );
+        Label distanceText = new Label(
+                "Distance");
 
-    distanceText.setStyle(
-            "-fx-text-fill: #333333;"
-            + "-fx-font-size: 13px;"
-    );
+        distanceText.setStyle(
+                "-fx-text-fill: #333333;"
+                        + "-fx-font-size: 13px;");
 
-    distanceLabel = new Label(
-            "1,422 KM"
-    );
+        distanceLabel = new Label(
+                "1,422 KM");
 
-    distanceLabel.setStyle(
-            "-fx-text-fill: #333333;"
-            + "-fx-font-size: 13px;"
-    );
+        distanceLabel.setStyle(
+                "-fx-text-fill: #333333;"
+                        + "-fx-font-size: 13px;");
 
-    Region distanceSpace = new Region();
+        Region distanceSpace = new Region();
 
-    HBox.setHgrow(
-            distanceSpace,
-            Priority.ALWAYS
-    );
+        HBox.setHgrow(
+                distanceSpace,
+                Priority.ALWAYS);
 
-    distanceRow.getChildren().addAll(
-            distanceIcon,
-            distanceText,
-            distanceSpace,
-            distanceLabel
-    );
+        distanceRow.getChildren().addAll(
+                distanceIcon,
+                distanceText,
+                distanceSpace,
+                distanceLabel);
 
-    // =====================================================
-    // DIVIDER
-    // =====================================================
+        // =====================================================
+        // DIVIDER
+        // =====================================================
 
-    Region divider = new Region();
+        Region divider = new Region();
 
-    divider.setPrefHeight(1);
+        divider.setPrefHeight(1);
 
-    divider.setMinHeight(1);
+        divider.setMinHeight(1);
 
-    divider.setStyle(
-            "-fx-background-color: #EEEEEE;"
-    );
+        divider.setStyle(
+                "-fx-background-color: #EEEEEE;");
 
-    // =====================================================
-    // TRAVEL TIME
-    // =====================================================
+        // =====================================================
+        // TRAVEL TIME
+        // =====================================================
 
-    HBox timeRow = new HBox();
+        HBox timeRow = new HBox();
 
-    timeRow.setAlignment(
-            Pos.CENTER_LEFT
-    );
+        timeRow.setAlignment(
+                Pos.CENTER_LEFT);
 
-    timeRow.setPadding(
-            new Insets(14, 22, 14, 22)
-    );
+        timeRow.setPadding(
+                new Insets(14, 22, 14, 22));
 
-    timeRow.setPrefHeight(55);
+        timeRow.setPrefHeight(55);
 
-    timeRow.setMinHeight(55);
+        timeRow.setMinHeight(55);
 
-    Label timeIcon = new Label(
-            "◷"
-    );
+        Label timeIcon = new Label(
+                "◷");
 
-    timeIcon.setStyle(
-            "-fx-text-fill: #0B6B22;"
-            + "-fx-font-size: 22px;"
-            + "-fx-font-weight: bold;"
-    );
+        timeIcon.setStyle(
+                "-fx-text-fill: #0B6B22;"
+                        + "-fx-font-size: 22px;"
+                        + "-fx-font-weight: bold;");
 
-    Label timeText = new Label(
-            "Est. Travel Time"
-    );
+        Label timeText = new Label(
+                "Est. Travel Time");
 
-    timeText.setStyle(
-            "-fx-text-fill: #333333;"
-            + "-fx-font-size: 13px;"
-    );
+        timeText.setStyle(
+                "-fx-text-fill: #333333;"
+                        + "-fx-font-size: 13px;");
 
-    travelTimeLabel = new Label(
-            "~28 HRS"
-    );
+        travelTimeLabel = new Label(
+                "~28 HRS");
 
-    travelTimeLabel.setStyle(
-            "-fx-text-fill: #333333;"
-            + "-fx-font-size: 13px;"
-    );
+        travelTimeLabel.setStyle(
+                "-fx-text-fill: #333333;"
+                        + "-fx-font-size: 13px;");
 
-    Region timeSpace = new Region();
+        Region timeSpace = new Region();
 
-    HBox.setHgrow(
-            timeSpace,
-            Priority.ALWAYS
-    );
+        HBox.setHgrow(
+                timeSpace,
+                Priority.ALWAYS);
 
-    timeRow.getChildren().addAll(
-            timeIcon,
-            timeText,
-            timeSpace,
-            travelTimeLabel
-    );
+        timeRow.getChildren().addAll(
+                timeIcon,
+                timeText,
+                timeSpace,
+                travelTimeLabel);
 
-    // =====================================================
-    // ADD ALL TO CARD
-    // =====================================================
+        // =====================================================
+        // ADD ALL TO CARD
+        // =====================================================
 
-    card.getChildren().addAll(
-            top,
-            distanceRow,
-            divider,
-            timeRow
-    );
+        card.getChildren().addAll(
+                top,
+                distanceRow,
+                divider,
+                timeRow);
 
-    return card;
-}
+        return card;
+    }
     // =========================================================
     // ECO SAFE CARD
     // =========================================================
 
     private VBox createGuaranteeCard() {
 
-        VBox card =
-                new VBox();
+        VBox card = new VBox();
 
         card.setPadding(
-                new Insets(16)
-        );
+                new Insets(16));
 
         card.setStyle(
                 "-fx-background-color: #0B6B22;"
-                + "-fx-background-radius: 15;"
-                + "-fx-border-radius: 15;"
-        );
+                        + "-fx-background-radius: 15;"
+                        + "-fx-border-radius: 15;");
 
-        Label icon =
-                new Label("♢");
+        Label icon = new Label("♢");
 
         icon.setAlignment(
-                Pos.CENTER
-        );
+                Pos.CENTER);
 
         icon.setPrefSize(
                 38,
-                38
-        );
+                38);
 
         icon.setStyle(
-            "-fx-background-color: #E1F0E4;"
-            + "-fx-background-radius: 10;"
-            + "-fx-text-fill: #0B6B22;"
-            + "-fx-font-size: 20px;"
-            + "-fx-font-weight: bold;"
-        );
+                "-fx-background-color: #E1F0E4;"
+                        + "-fx-background-radius: 10;"
+                        + "-fx-text-fill: #0B6B22;"
+                        + "-fx-font-size: 20px;"
+                        + "-fx-font-weight: bold;");
 
-        Label title =
-                new Label(
-                        "EcoSafe Guarantee"
-                );
+        Label title = new Label(
+                "EcoSafe Guarantee");
 
         title.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
-        Label description =
-                new Label(
-                        "Your transaction is protected. Payments are only\n"
-                                + "released upon successful delivery verification."
-                );
+        Label description = new Label(
+                "Your transaction is protected. Payments are only\n"
+                        + "released upon successful delivery verification.");
 
         description.setFont(
                 Font.font(
                         "System",
-                        10
-                )
-        );
+                        10));
 
         description.setTextFill(
-                Color.web("#777B77")
-        );
+                Color.web("#777B77"));
 
-        VBox text =
-                new VBox(
-                        4,
-                        title,
-                        description
-                );
+        VBox text = new VBox(
+                4,
+                title,
+                description);
 
-        HBox row =
-                new HBox(
-                        14,
-                        icon,
-                        text
-                );
+        HBox row = new HBox(
+                14,
+                icon,
+                text);
 
         row.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         card.getChildren().add(
-                row
-        );
+                row);
 
         return card;
     }
@@ -1457,40 +1191,32 @@ public class PostLoad {
     // =========================================================
 
     private void setPrimaryButtonStyle(
-            Button button
-    ) {
+            Button button) {
 
         button.setStyle(
                 "-fx-background-color: " + GREEN + ";"
-                + "-fx-background-radius: 12;"
-                + "-fx-border-radius: 12;"
-                + "-fx-text-fill: white;"
-                + "-fx-cursor: hand;"
-        );
+                        + "-fx-background-radius: 12;"
+                        + "-fx-border-radius: 12;"
+                        + "-fx-text-fill: white;"
+                        + "-fx-cursor: hand;");
 
         button.setOnMouseEntered(
-                event ->
-                        button.setStyle(
-                                "-fx-background-color: "
-                                        + DARK_GREEN + ";"
-                                        + "-fx-background-radius: 12;"
-                                        + "-fx-border-radius: 12;"
-                                        + "-fx-text-fill: white;"
-                                        + "-fx-cursor: hand;"
-                        )
-        );
+                event -> button.setStyle(
+                        "-fx-background-color: "
+                                + DARK_GREEN + ";"
+                                + "-fx-background-radius: 12;"
+                                + "-fx-border-radius: 12;"
+                                + "-fx-text-fill: white;"
+                                + "-fx-cursor: hand;"));
 
         button.setOnMouseExited(
-                event ->
-                        button.setStyle(
-                                "-fx-background-color: "
-                                        + GREEN + ";"
-                                        + "-fx-background-radius: 12;"
-                                        + "-fx-border-radius: 12;"
-                                        + "-fx-text-fill: white;"
-                                        + "-fx-cursor: hand;"
-                        )
-        );
+                event -> button.setStyle(
+                        "-fx-background-color: "
+                                + GREEN + ";"
+                                + "-fx-background-radius: 12;"
+                                + "-fx-border-radius: 12;"
+                                + "-fx-text-fill: white;"
+                                + "-fx-cursor: hand;"));
     }
 
     // =========================================================
@@ -1499,66 +1225,55 @@ public class PostLoad {
 
     private void setSecondaryButtonStyle(
             Button button,
-            boolean danger
-    ) {
+            boolean danger) {
 
-        String color =
-                danger
-                        ? RED
-                        : "#404440";
+        String color = danger
+                ? RED
+                : "#404440";
 
-        String hover =
-                danger
-                        ? "#FFF0F0"
-                        : "#F0F3F0";
+        String hover = danger
+                ? "#FFF0F0"
+                : "#F0F3F0";
 
         button.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         button.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-border-color: " + color + ";"
-                + "-fx-border-width: 1;"
-                + "-fx-border-radius: 20;"
-                + "-fx-background-radius: 20;"
-                + "-fx-text-fill: " + color + ";"
-                + "-fx-font-size: 12px;"
-                + "-fx-cursor: hand;"
-        );
+                        + "-fx-border-color: " + color + ";"
+                        + "-fx-border-width: 1;"
+                        + "-fx-border-radius: 20;"
+                        + "-fx-background-radius: 20;"
+                        + "-fx-text-fill: " + color + ";"
+                        + "-fx-font-size: 12px;"
+                        + "-fx-cursor: hand;");
 
         button.setOnMouseEntered(
-                event ->
-                        button.setStyle(
-                                "-fx-background-color: "
-                                        + hover + ";"
-                                        + "-fx-border-color: "
-                                        + color + ";"
-                                        + "-fx-border-width: 1;"
-                                        + "-fx-border-radius: 20;"
-                                        + "-fx-background-radius: 20;"
-                                        + "-fx-text-fill: "
-                                        + color + ";"
-                                        + "-fx-font-size: 12px;"
-                                        + "-fx-cursor: hand;"
-                        )
-        );
+                event -> button.setStyle(
+                        "-fx-background-color: "
+                                + hover + ";"
+                                + "-fx-border-color: "
+                                + color + ";"
+                                + "-fx-border-width: 1;"
+                                + "-fx-border-radius: 20;"
+                                + "-fx-background-radius: 20;"
+                                + "-fx-text-fill: "
+                                + color + ";"
+                                + "-fx-font-size: 12px;"
+                                + "-fx-cursor: hand;"));
 
         button.setOnMouseExited(
-                event ->
-                        button.setStyle(
-                                "-fx-background-color: white;"
-                                        + "-fx-border-color: "
-                                        + color + ";"
-                                        + "-fx-border-width: 1;"
-                                        + "-fx-border-radius: 20;"
-                                        + "-fx-background-radius: 20;"
-                                        + "-fx-text-fill: "
-                                        + color + ";"
-                                        + "-fx-font-size: 12px;"
-                                        + "-fx-cursor: hand;"
-                        )
-        );
+                event -> button.setStyle(
+                        "-fx-background-color: white;"
+                                + "-fx-border-color: "
+                                + color + ";"
+                                + "-fx-border-width: 1;"
+                                + "-fx-border-radius: 20;"
+                                + "-fx-background-radius: 20;"
+                                + "-fx-text-fill: "
+                                + color + ";"
+                                + "-fx-font-size: 12px;"
+                                + "-fx-cursor: hand;"));
     }
 
     // =========================================================
@@ -1571,45 +1286,36 @@ public class PostLoad {
             return;
         }
 
-        String pickup =
-                pickupField
-                        .getText()
-                        .trim();
+        String pickup = pickupField
+                .getText()
+                .trim();
 
-        String destination =
-                dropField
-                        .getText()
-                        .trim();
+        String destination = dropField
+                .getText()
+                .trim();
 
-        String pickupText =
-                pickup.isEmpty()
-                        ? "Pickup"
-                        : pickup;
+        String pickupText = pickup.isEmpty()
+                ? "Pickup"
+                : pickup;
 
-        String destinationText =
-                destination.isEmpty()
-                        ? "Destination"
-                        : destination;
+        String destinationText = destination.isEmpty()
+                ? "Destination"
+                : destination;
 
         routeLabel.setText(
                 pickupText
                         + "  →  "
-                        + destinationText
-        );
+                        + destinationText);
 
-        if (
-                pickup.isEmpty()
-                        ||
-                destination.isEmpty()
-        ) {
+        if (pickup.isEmpty()
+                ||
+                destination.isEmpty()) {
 
             distanceLabel.setText(
-                    "—"
-            );
+                    "—");
 
             travelTimeLabel.setText(
-                    "—"
-            );
+                    "—");
 
             return;
         }
@@ -1622,22 +1328,18 @@ public class PostLoad {
          * replace this method with the real service.
          */
 
-        RouteEstimate estimate =
-                getRouteEstimate(
-                        pickup,
-                        destination
-                );
+        RouteEstimate estimate = getRouteEstimate(
+                pickup,
+                destination);
 
         distanceLabel.setText(
                 estimate.distance
-                        + " KM"
-        );
+                        + " KM");
 
         travelTimeLabel.setText(
                 "~"
                         + estimate.hours
-                        + " HRS"
-        );
+                        + " HRS");
     }
 
     // =========================================================
@@ -1646,56 +1348,42 @@ public class PostLoad {
 
     private RouteEstimate getRouteEstimate(
             String pickup,
-            String destination
-    ) {
+            String destination) {
 
-        String p =
-                pickup.toLowerCase(
-                        Locale.ROOT
-                );
+        String p = pickup.toLowerCase(
+                Locale.ROOT);
 
-        String d =
-                destination.toLowerCase(
-                        Locale.ROOT
-                );
+        String d = destination.toLowerCase(
+                Locale.ROOT);
 
         // Screenshot example
-        if (
-                p.contains("delhi")
-                        &&
-                d.contains("mumbai")
-        ) {
+        if (p.contains("delhi")
+                &&
+                d.contains("mumbai")) {
 
             return new RouteEstimate(
                     1422,
-                    28
-            );
+                    28);
         }
 
         // Pune - Nashik
-        if (
-                p.contains("pune")
-                        &&
-                d.contains("nashik")
-        ) {
+        if (p.contains("pune")
+                &&
+                d.contains("nashik")) {
 
             return new RouteEstimate(
                     210,
-                    5
-            );
+                    5);
         }
 
         // Mumbai - Pune
-        if (
-                p.contains("mumbai")
-                        &&
-                d.contains("pune")
-        ) {
+        if (p.contains("mumbai")
+                &&
+                d.contains("pune")) {
 
             return new RouteEstimate(
                     150,
-                    4
-            );
+                    4);
         }
 
         /*
@@ -1703,30 +1391,21 @@ public class PostLoad {
          * NOT a real distance calculation.
          */
 
-        int hash =
-                Math.abs(
-                        (
-                                pickup
-                                        + "|"
-                                        + destination
-                        ).hashCode()
-                );
+        int hash = Math.abs(
+                (pickup
+                        + "|"
+                        + destination).hashCode());
 
-        int distance =
-                100 + (hash % 1400);
+        int distance = 100 + (hash % 1400);
 
-        int hours =
-                Math.max(
-                        2,
-                        (int) Math.ceil(
-                                distance / 55.0
-                        )
-                );
+        int hours = Math.max(
+                2,
+                (int) Math.ceil(
+                        distance / 55.0));
 
         return new RouteEstimate(
                 distance,
-                hours
-        );
+                hours);
     }
 
     // =========================================================
@@ -1742,26 +1421,22 @@ public class PostLoad {
             showAlert(
                     Alert.AlertType.WARNING,
                     "Validation Error",
-                    "Please correct the highlighted fields."
-            );
+                    "Please correct the highlighted fields.");
 
             return;
         }
 
         try {
 
-            String loadId =
-                    saveLoadToCsv(
-                            "Available"
-                    );
+            String loadId = saveLoadToCsv(
+                    "Available");
 
             showAlert(
                     Alert.AlertType.INFORMATION,
                     "Load Posted",
                     "Load posted successfully.\n\n"
                             + "Load ID : "
-                            + loadId
-            );
+                            + loadId);
 
             clearForm();
 
@@ -1771,8 +1446,7 @@ public class PostLoad {
                     Alert.AlertType.ERROR,
                     "Save Error",
                     "Unable to save the load.\n\n"
-                            + e.getMessage()
-            );
+                            + e.getMessage());
         }
     }
 
@@ -1789,26 +1463,22 @@ public class PostLoad {
             showAlert(
                     Alert.AlertType.WARNING,
                     "Draft Validation",
-                    "Enter at least pickup and destination."
-            );
+                    "Enter at least pickup and destination.");
 
             return;
         }
 
         try {
 
-            String loadId =
-                    saveLoadToCsv(
-                            "Draft"
-                    );
+            String loadId = saveLoadToCsv(
+                    "Draft");
 
             showAlert(
                     Alert.AlertType.INFORMATION,
                     "Draft Saved",
                     "Load saved as draft.\n\n"
                             + "Load ID : "
-                            + loadId
-            );
+                            + loadId);
 
             clearForm();
 
@@ -1818,8 +1488,7 @@ public class PostLoad {
                     Alert.AlertType.ERROR,
                     "Draft Error",
                     "Unable to save draft.\n\n"
-                            + e.getMessage()
-            );
+                            + e.getMessage());
         }
     }
 
@@ -1836,37 +1505,29 @@ public class PostLoad {
             return;
         }
 
-        Alert alert =
-                new Alert(
-                        Alert.AlertType.CONFIRMATION
-                );
+        Alert alert = new Alert(
+                Alert.AlertType.CONFIRMATION);
 
         alert.setTitle(
-                "Cancel Shipment"
-        );
+                "Cancel Shipment");
 
         alert.setHeaderText(
-                "Cancel this shipment?"
-        );
+                "Cancel this shipment?");
 
         alert.setContentText(
                 "Entered information will be cleared.\n"
-                        + "No data will be written."
-        );
+                        + "No data will be written.");
 
         alert.showAndWait()
                 .ifPresent(
                         result -> {
 
-                            if (
-                                    result.getButtonData()
-                                            .isDefaultButton()
-                            ) {
+                            if (result.getButtonData()
+                                    .isDefaultButton()) {
 
                                 clearForm();
                             }
-                        }
-                );
+                        });
     }
 
     // =========================================================
@@ -1875,170 +1536,138 @@ public class PostLoad {
 
     private boolean validateFullForm() {
 
-        boolean valid =
-                true;
+        boolean valid = true;
 
         // Pickup
-        if (
-                pickupField
-                        .getText()
-                        .trim()
-                        .isEmpty()
-        ) {
+        if (pickupField
+                .getText()
+                .trim()
+                .isEmpty()) {
 
             pickupError.setText(
-                    "Pickup location is required."
-            );
+                    "Pickup location is required.");
 
             valid = false;
         }
 
         // Destination
-        if (
-                dropField
-                        .getText()
-                        .trim()
-                        .isEmpty()
-        ) {
+        if (dropField
+                .getText()
+                .trim()
+                .isEmpty()) {
 
             dropError.setText(
-                    "Destination is required."
-            );
+                    "Destination is required.");
 
             valid = false;
         }
 
         // Same location
-        if (
-                !pickupField
-                        .getText()
-                        .trim()
-                        .isEmpty()
-                        &&
+        if (!pickupField
+                .getText()
+                .trim()
+                .isEmpty()
+                &&
                 !dropField
                         .getText()
                         .trim()
                         .isEmpty()
-                        &&
+                &&
                 pickupField
                         .getText()
                         .trim()
                         .equalsIgnoreCase(
                                 dropField
                                         .getText()
-                                        .trim()
-                        )
-        ) {
+                                        .trim())) {
 
             dropError.setText(
-                    "Pickup and destination must be different."
-            );
+                    "Pickup and destination must be different.");
 
             valid = false;
         }
 
         // Load Type
-        if (
-                loadTypeCombo
-                        .getValue() == null
-        ) {
+        if (loadTypeCombo
+                .getValue() == null) {
 
             loadTypeError.setText(
-                    "Please select load type."
-            );
+                    "Please select load type.");
 
             valid = false;
         }
 
         // Weight
-        Double weight =
-                parsePositiveNumber(
-                        weightField
-                                .getText()
-                );
+        Double weight = parsePositiveNumber(
+                weightField
+                        .getText());
 
         if (weight == null) {
 
             weightError.setText(
-                    "Weight must be greater than 0."
-            );
+                    "Weight must be greater than 0.");
 
             valid = false;
         }
 
         // Truck
-        if (
-                truckTypeCombo
-                        .getValue() == null
-        ) {
+        if (truckTypeCombo
+                .getValue() == null) {
 
             truckTypeError.setText(
-                    "Please select truck type."
-            );
+                    "Please select truck type.");
 
             valid = false;
         }
 
         // Price
-        Double price =
-                parsePositiveNumber(
-                        offerPriceField
-                                .getText()
-                );
+        Double price = parsePositiveNumber(
+                offerPriceField
+                        .getText());
 
         if (price == null) {
 
             offerPriceError.setText(
-                    "Offer price must be greater than 0."
-            );
+                    "Offer price must be greater than 0.");
 
             valid = false;
         }
 
         // Pickup date
-        LocalDateTime pickup =
-                parseDateTime(
-                        pickupDatePicker,
-                        pickupTimeField
-                );
+        LocalDateTime pickup = parseDateTime(
+                pickupDatePicker,
+                pickupTimeField);
 
         if (pickup == null) {
 
             pickupDateError.setText(
-                    "Enter valid pickup date and time."
-            );
+                    "Enter valid pickup date and time.");
 
             valid = false;
         }
 
         // Delivery date
-        LocalDateTime delivery =
-                parseDateTime(
-                        deliveryDatePicker,
-                        deliveryTimeField
-                );
+        LocalDateTime delivery = parseDateTime(
+                deliveryDatePicker,
+                deliveryTimeField);
 
         if (delivery == null) {
 
             deliveryDateError.setText(
-                    "Enter valid delivery date and time."
-            );
+                    "Enter valid delivery date and time.");
 
             valid = false;
         }
 
         // Delivery after pickup
-        if (
-                pickup != null
-                        &&
+        if (pickup != null
+                &&
                 delivery != null
-                        &&
-                !delivery.isAfter(pickup)
-        ) {
+                &&
+                !delivery.isAfter(pickup)) {
 
             deliveryDateError.setText(
-                    "Delivery must be after pickup."
-            );
+                    "Delivery must be after pickup.");
 
             valid = false;
         }
@@ -2052,24 +1681,20 @@ public class PostLoad {
 
     private boolean validateDraftForm() {
 
-        boolean valid =
-                true;
+        boolean valid = true;
 
-        String pickup =
-                pickupField
-                        .getText()
-                        .trim();
+        String pickup = pickupField
+                .getText()
+                .trim();
 
-        String drop =
-                dropField
-                        .getText()
-                        .trim();
+        String drop = dropField
+                .getText()
+                .trim();
 
         if (pickup.isEmpty()) {
 
             pickupError.setText(
-                    "Pickup location is required."
-            );
+                    "Pickup location is required.");
 
             valid = false;
         }
@@ -2077,25 +1702,20 @@ public class PostLoad {
         if (drop.isEmpty()) {
 
             dropError.setText(
-                    "Destination is required."
-            );
+                    "Destination is required.");
 
             valid = false;
         }
 
-        if (
-                !pickup.isEmpty()
-                        &&
+        if (!pickup.isEmpty()
+                &&
                 !drop.isEmpty()
-                        &&
+                &&
                 pickup.equalsIgnoreCase(
-                        drop
-                )
-        ) {
+                        drop)) {
 
             dropError.setText(
-                    "Pickup and destination must be different."
-            );
+                    "Pickup and destination must be different.");
 
             valid = false;
         }
@@ -2108,32 +1728,25 @@ public class PostLoad {
     // =========================================================
 
     private Double parsePositiveNumber(
-            String value
-    ) {
+            String value) {
 
-        if (
-                value == null
-                        ||
-                value.trim().isEmpty()
-        ) {
+        if (value == null
+                ||
+                value.trim().isEmpty()) {
 
             return null;
         }
 
         try {
 
-            double number =
-                    Double.parseDouble(
-                            value.trim()
-                    );
+            double number = Double.parseDouble(
+                    value.trim());
 
-            if (
-                    number <= 0
-                            ||
+            if (number <= 0
+                    ||
                     Double.isNaN(number)
-                            ||
-                    Double.isInfinite(number)
-            ) {
+                    ||
+                    Double.isInfinite(number)) {
 
                 return null;
             }
@@ -2152,22 +1765,18 @@ public class PostLoad {
 
     private LocalDateTime parseDateTime(
             DatePicker datePicker,
-            TextField timeField
-    ) {
+            TextField timeField) {
 
-        if (
-                datePicker == null
-                        ||
-                datePicker.getValue() == null
-        ) {
+        if (datePicker == null
+                ||
+                datePicker.getValue() == null) {
 
             return null;
         }
 
-        String time =
-                timeField
-                        .getText()
-                        .trim();
+        String time = timeField
+                .getText()
+                .trim();
 
         if (time.isEmpty()) {
 
@@ -2176,16 +1785,13 @@ public class PostLoad {
 
         try {
 
-            LocalTime localTime =
-                    LocalTime.parse(
-                            time,
-                            TIME_FORMATTER
-                    );
+            LocalTime localTime = LocalTime.parse(
+                    time,
+                    TIME_FORMATTER);
 
             return LocalDateTime.of(
                     datePicker.getValue(),
-                    localTime
-            );
+                    localTime);
 
         } catch (DateTimeParseException e) {
 
@@ -2198,102 +1804,75 @@ public class PostLoad {
     // =========================================================
 
     private String saveLoadToCsv(
-            String status
-    ) throws IOException {
+            String status) throws IOException {
 
-        if (
-                !Files.exists(loadsFile)
-        ) {
+        if (!Files.exists(loadsFile)) {
 
             throw new IOException(
-                    "data/loads.csv not found."
-            );
+                    "data/loads.csv not found.");
         }
 
-        List<String> lines =
-                Files.readAllLines(
-                        loadsFile,
-                        StandardCharsets.UTF_8
-                );
+        List<String> lines = Files.readAllLines(
+                loadsFile,
+                StandardCharsets.UTF_8);
 
         if (lines.isEmpty()) {
 
             throw new IOException(
-                    "loads.csv is empty."
-            );
+                    "loads.csv is empty.");
         }
 
-        String headerLine =
-                lines.get(0);
+        String headerLine = lines.get(0);
 
-        List<String> headers =
-                parseCsvLine(
-                        headerLine
-                );
+        List<String> headers = parseCsvLine(
+                headerLine);
 
         if (headers.isEmpty()) {
 
             throw new IOException(
-                    "Invalid loads.csv header."
-            );
+                    "Invalid loads.csv header.");
         }
 
-        int loadIdIndex =
-                findHeaderIndex(
-                        headers,
-                        "loadid",
-                        "load_id",
-                        "loadno",
-                        "loadnumber"
-                );
+        int loadIdIndex = findHeaderIndex(
+                headers,
+                "loadid",
+                "load_id",
+                "loadno",
+                "loadnumber");
 
         if (loadIdIndex < 0) {
 
             throw new IOException(
-                    "LoadID column not found in loads.csv."
-            );
+                    "LoadID column not found in loads.csv.");
         }
 
-        String loadId =
-                generateNextLoadId(
-                        lines,
-                        loadIdIndex
-                );
+        String loadId = generateNextLoadId(
+                lines,
+                loadIdIndex);
 
-        double enteredWeight =
-                Double.parseDouble(
-                        weightField
-                                .getText()
-                                .trim()
-                );
+        double enteredWeight = Double.parseDouble(
+                weightField
+                        .getText()
+                        .trim());
 
-        double weightTon =
-                convertToTon(
-                        enteredWeight,
-                        unitCombo.getValue()
-                );
+        double weightTon = convertToTon(
+                enteredWeight,
+                unitCombo.getValue());
 
-        double price =
-                Double.parseDouble(
-                        offerPriceField
-                                .getText()
-                                .trim()
-                );
+        double price = Double.parseDouble(
+                offerPriceField
+                        .getText()
+                        .trim());
 
-        LocalDateTime pickupDateTime =
-                parseDateTime(
-                        pickupDatePicker,
-                        pickupTimeField
-                );
+        LocalDateTime pickupDateTime = parseDateTime(
+                pickupDatePicker,
+                pickupTimeField);
 
-        LocalDateTime deliveryDateTime =
-                parseDateTime(
-                        deliveryDatePicker,
-                        deliveryTimeField
-                );
+        LocalDateTime deliveryDateTime = parseDateTime(
+                deliveryDatePicker,
+                deliveryTimeField);
 
-        List<String> row =
-                new ArrayList<>();
+        List<String> row = new ArrayList<>();
 
         for (String header : headers) {
 
@@ -2305,25 +1884,19 @@ public class PostLoad {
                             price,
                             pickupDateTime,
                             deliveryDateTime,
-                            status
-                    )
-            );
+                            status));
         }
 
         try (
-                BufferedWriter writer =
-                        Files.newBufferedWriter(
-                                loadsFile,
-                                StandardCharsets.UTF_8,
-                                StandardOpenOption.APPEND
-                        )
-        ) {
+                BufferedWriter writer = Files.newBufferedWriter(
+                        loadsFile,
+                        StandardCharsets.UTF_8,
+                        StandardOpenOption.APPEND)) {
 
             writer.newLine();
 
             writer.write(
-                    buildCsvLine(row)
-            );
+                    buildCsvLine(row));
         }
 
         return loadId;
@@ -2340,26 +1913,21 @@ public class PostLoad {
             double price,
             LocalDateTime pickupDateTime,
             LocalDateTime deliveryDateTime,
-            String status
-    ) {
+            String status) {
 
-        String pickup =
-                pickupField
-                        .getText()
-                        .trim();
+        String pickup = pickupField
+                .getText()
+                .trim();
 
-        String destination =
-                dropField
-                        .getText()
-                        .trim();
+        String destination = dropField
+                .getText()
+                .trim();
 
-        String loadType =
-                loadTypeCombo
-                        .getValue();
+        String loadType = loadTypeCombo
+                .getValue();
 
-        String truckType =
-                truckTypeCombo
-                        .getValue();
+        String truckType = truckTypeCombo
+                .getValue();
 
         switch (header) {
 
@@ -2397,17 +1965,14 @@ public class PostLoad {
                 return String.format(
                         Locale.US,
                         "%.2f",
-                        weightTon
-                );
+                        weightTon);
 
             case "weight":
             case "weightkg":
 
-                if (
-                        unitCombo
-                                .getValue()
-                                .equalsIgnoreCase("Kg")
-                ) {
+                if (unitCombo
+                        .getValue()
+                        .equalsIgnoreCase("Kg")) {
 
                     return String.format(
                             Locale.US,
@@ -2415,16 +1980,13 @@ public class PostLoad {
                             Double.parseDouble(
                                     weightField
                                             .getText()
-                                            .trim()
-                            )
-                    );
+                                            .trim()));
                 }
 
                 return String.format(
                         Locale.US,
                         "%.2f",
-                        weightTon
-                );
+                        weightTon);
 
             case "unit":
             case "weightunit":
@@ -2449,8 +2011,7 @@ public class PostLoad {
                 return String.format(
                         Locale.US,
                         "%.2f",
-                        price
-                );
+                        price);
 
             case "status":
 
@@ -2462,8 +2023,8 @@ public class PostLoad {
                 return pickupDateTime == null
                         ? ""
                         : pickupDateTime
-                        .toLocalDate()
-                        .toString();
+                                .toLocalDate()
+                                .toString();
 
             case "pickuptime":
             case "pickup_time":
@@ -2471,10 +2032,9 @@ public class PostLoad {
                 return pickupDateTime == null
                         ? ""
                         : pickupDateTime
-                        .toLocalTime()
-                        .format(
-                                TIME_FORMATTER
-                        );
+                                .toLocalTime()
+                                .format(
+                                        TIME_FORMATTER);
 
             case "deliverydate":
             case "delivery_date":
@@ -2482,8 +2042,8 @@ public class PostLoad {
                 return deliveryDateTime == null
                         ? ""
                         : deliveryDateTime
-                        .toLocalDate()
-                        .toString();
+                                .toLocalDate()
+                                .toString();
 
             case "deliverytime":
             case "delivery_time":
@@ -2491,10 +2051,9 @@ public class PostLoad {
                 return deliveryDateTime == null
                         ? ""
                         : deliveryDateTime
-                        .toLocalTime()
-                        .format(
-                                TIME_FORMATTER
-                        );
+                                .toLocalTime()
+                                .format(
+                                        TIME_FORMATTER);
 
             case "pickupdateandtime":
             case "pickup_datetime":
@@ -2502,9 +2061,8 @@ public class PostLoad {
                 return pickupDateTime == null
                         ? ""
                         : pickupDateTime
-                        .format(
-                                DATE_TIME_FORMATTER
-                        );
+                                .format(
+                                        DATE_TIME_FORMATTER);
 
             case "deliverydateandtime":
             case "delivery_datetime":
@@ -2512,9 +2070,8 @@ public class PostLoad {
                 return deliveryDateTime == null
                         ? ""
                         : deliveryDateTime
-                        .format(
-                                DATE_TIME_FORMATTER
-                        );
+                                .format(
+                                        DATE_TIME_FORMATTER);
 
             default:
 
@@ -2529,101 +2086,73 @@ public class PostLoad {
 
     private String generateNextLoadId(
             List<String> lines,
-            int loadIdIndex
-    ) {
+            int loadIdIndex) {
 
-        int highest =
-                0;
+        int highest = 0;
 
-        Pattern pattern =
-                Pattern.compile(
-                        "^L(\\d+)$",
-                        Pattern.CASE_INSENSITIVE
-                );
+        Pattern pattern = Pattern.compile(
+                "^L(\\d+)$",
+                Pattern.CASE_INSENSITIVE);
 
         for (int i = 1; i < lines.size(); i++) {
 
-            if (
-                    lines.get(i) == null
-                            ||
+            if (lines.get(i) == null
+                    ||
                     lines.get(i)
                             .trim()
-                            .isEmpty()
-            ) {
+                            .isEmpty()) {
 
                 continue;
             }
 
-            List<String> values =
-                    parseCsvLine(
-                            lines.get(i)
-                    );
+            List<String> values = parseCsvLine(
+                    lines.get(i));
 
-            if (
-                    loadIdIndex >=
-                    values.size()
-            ) {
+            if (loadIdIndex >= values.size()) {
 
                 continue;
             }
 
-            String id =
-                    values
-                            .get(loadIdIndex)
-                            .trim();
+            String id = values
+                    .get(loadIdIndex)
+                    .trim();
 
-            Matcher matcher =
-                    pattern.matcher(id);
+            Matcher matcher = pattern.matcher(id);
 
-            if (
-                    matcher.matches()
-            ) {
+            if (matcher.matches()) {
 
                 try {
 
-                    int number =
-                            Integer.parseInt(
-                                    matcher.group(1)
-                            );
+                    int number = Integer.parseInt(
+                            matcher.group(1));
 
-                    if (
-                            number > highest
-                    ) {
+                    if (number > highest) {
 
-                        highest =
-                                number;
+                        highest = number;
                     }
 
-                } catch (
-                        NumberFormatException ignored
-                ) {
+                } catch (NumberFormatException ignored) {
                 }
             }
         }
 
-        int next =
-                highest + 1;
+        int next = highest + 1;
 
         String id;
 
         do {
 
-            id =
-                    String.format(
-                            Locale.US,
-                            "L%03d",
-                            next
-                    );
+            id = String.format(
+                    Locale.US,
+                    "L%03d",
+                    next);
 
             next++;
 
-        } while (
-                loadIdExists(
-                        lines,
-                        loadIdIndex,
-                        id
-                )
-        );
+        } while (loadIdExists(
+                lines,
+                loadIdIndex,
+                id));
 
         return id;
     }
@@ -2635,25 +2164,19 @@ public class PostLoad {
     private boolean loadIdExists(
             List<String> lines,
             int index,
-            String loadId
-    ) {
+            String loadId) {
 
         for (int i = 1; i < lines.size(); i++) {
 
-            List<String> values =
-                    parseCsvLine(
-                            lines.get(i)
-                    );
+            List<String> values = parseCsvLine(
+                    lines.get(i));
 
-            if (
-                    index < values.size()
-                            &&
+            if (index < values.size()
+                    &&
                     values.get(index)
                             .trim()
                             .equalsIgnoreCase(
-                                    loadId
-                            )
-            ) {
+                                    loadId)) {
 
                 return true;
             }
@@ -2668,89 +2191,57 @@ public class PostLoad {
 
     private void loadTruckTypes() {
 
-        Set<String> truckTypes =
-                new LinkedHashSet<>();
+        Set<String> truckTypes = new LinkedHashSet<>();
 
-        if (
-                Files.exists(
-                        driversFile
-                )
-        ) {
+        if (Files.exists(
+                driversFile)) {
 
             try (
-                    BufferedReader reader =
-                            Files.newBufferedReader(
-                                    driversFile,
-                                    StandardCharsets.UTF_8
-                            )
-            ) {
+                    BufferedReader reader = Files.newBufferedReader(
+                            driversFile,
+                            StandardCharsets.UTF_8)) {
 
-                String headerLine =
-                        reader.readLine();
+                String headerLine = reader.readLine();
 
-                if (
-                        headerLine != null
-                ) {
+                if (headerLine != null) {
 
-                    List<String> headers =
-                            parseCsvLine(
-                                    headerLine
-                            );
+                    List<String> headers = parseCsvLine(
+                            headerLine);
 
-                    int truckIndex =
-                            findHeaderIndex(
-                                    headers,
-                                    "trucktype",
-                                    "truck_type",
-                                    "vehicletype",
-                                    "vehicle_type",
-                                    "vehicle"
-                            );
+                    int truckIndex = findHeaderIndex(
+                            headers,
+                            "trucktype",
+                            "truck_type",
+                            "vehicletype",
+                            "vehicle_type",
+                            "vehicle");
 
-                    if (
-                            truckIndex >= 0
-                    ) {
+                    if (truckIndex >= 0) {
 
                         String line;
 
-                        while (
-                                (line =
-                                        reader.readLine())
-                                        != null
-                        ) {
+                        while ((line = reader.readLine()) != null) {
 
-                            if (
-                                    line.trim()
-                                            .isEmpty()
-                            ) {
+                            if (line.trim()
+                                    .isEmpty()) {
 
                                 continue;
                             }
 
-                            List<String> values =
-                                    parseCsvLine(
-                                            line
-                                    );
+                            List<String> values = parseCsvLine(
+                                    line);
 
-                            if (
-                                    truckIndex <
-                                    values.size()
-                            ) {
+                            if (truckIndex < values.size()) {
 
-                                String type =
-                                        values
-                                                .get(
-                                                        truckIndex
-                                                )
-                                                .trim();
+                                String type = values
+                                        .get(
+                                                truckIndex)
+                                        .trim();
 
-                                if (
-                                        !type.isEmpty()
-                                ) {
+                                if (!type.isEmpty()) {
 
                                     truckTypes.add(
-                                            type
-                                    );
+                                            type);
                                 }
                             }
                         }
@@ -2762,9 +2253,7 @@ public class PostLoad {
         }
 
         // Fallback
-        if (
-                truckTypes.isEmpty()
-        ) {
+        if (truckTypes.isEmpty()) {
 
             truckTypes.addAll(
                     Arrays.asList(
@@ -2773,16 +2262,13 @@ public class PostLoad {
                             "Container Truck",
                             "Tanker",
                             "Refrigerated Truck",
-                            "Mini Truck"
-                    )
-            );
+                            "Mini Truck"));
         }
 
         truckTypeCombo
                 .getItems()
                 .setAll(
-                        truckTypes
-                );
+                        truckTypes);
     }
 
     // =========================================================
@@ -2791,25 +2277,17 @@ public class PostLoad {
 
     private int findHeaderIndex(
             List<String> headers,
-            String... names
-    ) {
+            String... names) {
 
-        for (int i = 0;
-             i < headers.size();
-             i++) {
+        for (int i = 0; i < headers.size(); i++) {
 
-            String current =
-                    normalizeHeader(
-                            headers.get(i)
-                    );
+            String current = normalizeHeader(
+                    headers.get(i));
 
             for (String name : names) {
 
-                if (
-                        current.equals(
-                                normalizeHeader(name)
-                        )
-                ) {
+                if (current.equals(
+                        normalizeHeader(name))) {
 
                     return i;
                 }
@@ -2824,12 +2302,9 @@ public class PostLoad {
     // =========================================================
 
     private String normalizeHeader(
-            String header
-    ) {
+            String header) {
 
-        if (
-                header == null
-        ) {
+        if (header == null) {
 
             return "";
         }
@@ -2837,24 +2312,19 @@ public class PostLoad {
         return header
                 .replace(
                         "\uFEFF",
-                        ""
-                )
+                        "")
                 .trim()
                 .toLowerCase(
-                        Locale.ROOT
-                )
+                        Locale.ROOT)
                 .replace(
                         " ",
-                        ""
-                )
+                        "")
                 .replace(
                         "-",
-                        ""
-                )
+                        "")
                 .replace(
                         ".",
-                        ""
-                );
+                        "");
     }
 
     // =========================================================
@@ -2862,85 +2332,60 @@ public class PostLoad {
     // =========================================================
 
     private List<String> parseCsvLine(
-            String line
-    ) {
+            String line) {
 
-        List<String> result =
-                new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
-        if (
-                line == null
-        ) {
+        if (line == null) {
 
             return result;
         }
 
-        StringBuilder current =
-                new StringBuilder();
+        StringBuilder current = new StringBuilder();
 
-        boolean quotes =
-                false;
+        boolean quotes = false;
 
-        for (
-                int i = 0;
-                i < line.length();
-                i++
-        ) {
+        for (int i = 0; i < line.length(); i++) {
 
-            char c =
-                    line.charAt(i);
+            char c = line.charAt(i);
 
-            if (
-                    c == '"'
-            ) {
+            if (c == '"') {
 
-                if (
-                        quotes
-                                &&
-                        i + 1 <
-                                line.length()
-                                &&
-                        line.charAt(i + 1)
-                                == '"'
-                ) {
+                if (quotes
+                        &&
+                        i + 1 < line.length()
+                        &&
+                        line.charAt(i + 1) == '"') {
 
                     current.append(
-                            '"'
-                    );
+                            '"');
 
                     i++;
 
                 } else {
 
-                    quotes =
-                            !quotes;
+                    quotes = !quotes;
                 }
 
-            } else if (
-                    c == ','
-                            &&
-                    !quotes
-            ) {
+            } else if (c == ','
+                    &&
+                    !quotes) {
 
                 result.add(
-                        current.toString()
-                );
+                        current.toString());
 
                 current.setLength(
-                        0
-                );
+                        0);
 
             } else {
 
                 current.append(
-                        c
-                );
+                        c);
             }
         }
 
         result.add(
-                current.toString()
-        );
+                current.toString());
 
         return result;
     }
@@ -2950,61 +2395,45 @@ public class PostLoad {
     // =========================================================
 
     private String buildCsvLine(
-            List<String> values
-    ) {
+            List<String> values) {
 
-        StringBuilder result =
-                new StringBuilder();
+        StringBuilder result = new StringBuilder();
 
-        for (
-                int i = 0;
-                i < values.size();
-                i++
-        ) {
+        for (int i = 0; i < values.size(); i++) {
 
-            if (
-                    i > 0
-            ) {
+            if (i > 0) {
 
                 result.append(",");
             }
 
-            String value =
-                    values.get(i);
+            String value = values.get(i);
 
-            if (
-                    value == null
-            ) {
+            if (value == null) {
 
                 value = "";
             }
 
-            if (
-                    value.contains(",")
-                            ||
+            if (value.contains(",")
+                    ||
                     value.contains("\"")
-                            ||
+                    ||
                     value.contains("\n")
-                            ||
-                    value.contains("\r")
-            ) {
+                    ||
+                    value.contains("\r")) {
 
                 result.append("\"");
 
                 result.append(
                         value.replace(
                                 "\"",
-                                "\"\""
-                        )
-                );
+                                "\"\""));
 
                 result.append("\"");
 
             } else {
 
                 result.append(
-                        value
-                );
+                        value);
             }
         }
 
@@ -3017,16 +2446,12 @@ public class PostLoad {
 
     private double convertToTon(
             double value,
-            String unit
-    ) {
+            String unit) {
 
-        if (
-                unit != null
-                        &&
+        if (unit != null
+                &&
                 unit.equalsIgnoreCase(
-                        "Kg"
-                )
-        ) {
+                        "Kg")) {
 
             return value / 1000.0;
         }
@@ -3056,11 +2481,10 @@ public class PostLoad {
 
     private boolean hasEnteredData() {
 
-        return
-                !pickupField
-                        .getText()
-                        .trim()
-                        .isEmpty()
+        return !pickupField
+                .getText()
+                .trim()
+                .isEmpty()
 
                 ||
 
@@ -3133,12 +2557,10 @@ public class PostLoad {
                 .clearSelection();
 
         weightField.setText(
-                "0.00"
-        );
+                "0.00");
 
         unitCombo.setValue(
-                "Ton"
-        );
+                "Ton");
 
         truckTypeCombo
                 .getSelectionModel()
@@ -3147,12 +2569,10 @@ public class PostLoad {
         offerPriceField.clear();
 
         pickupDatePicker.setValue(
-                null
-        );
+                null);
 
         deliveryDatePicker.setValue(
-                null
-        );
+                null);
 
         pickupTimeField.clear();
 
@@ -3170,23 +2590,18 @@ public class PostLoad {
     private void showAlert(
             Alert.AlertType type,
             String title,
-            String message
-    ) {
+            String message) {
 
-        Alert alert =
-                new Alert(type);
+        Alert alert = new Alert(type);
 
         alert.setTitle(
-                title
-        );
+                title);
 
         alert.setHeaderText(
-                null
-        );
+                null);
 
         alert.setContentText(
-                message
-        );
+                message);
 
         alert.showAndWait();
     }
@@ -3197,16 +2612,15 @@ public class PostLoad {
 
     private String cardStyle() {
 
-        return
-                "-fx-background-color: "
-                        + CARD_BG + ";"
-                        + "-fx-background-radius: 16;"
-                        + "-fx-border-radius: 16;"
-                        + "-fx-border-color: #ECEFEC;"
-                        + "-fx-effect: dropshadow("
-                        + "gaussian,"
-                        + "rgba(0,0,0,0.07),"
-                        + "14,0,0,4);";
+        return "-fx-background-color: "
+                + CARD_BG + ";"
+                + "-fx-background-radius: 16;"
+                + "-fx-border-radius: 16;"
+                + "-fx-border-color: #ECEFEC;"
+                + "-fx-effect: dropshadow("
+                + "gaussian,"
+                + "rgba(0,0,0,0.07),"
+                + "14,0,0,4);";
     }
 
     // =========================================================
@@ -3220,14 +2634,11 @@ public class PostLoad {
 
         private RouteEstimate(
                 int distance,
-                int hours
-        ) {
+                int hours) {
 
-            this.distance =
-                    distance;
+            this.distance = distance;
 
-            this.hours =
-                    hours;
+            this.hours = hours;
         }
     }
 }

@@ -7,7 +7,6 @@ public class Main{
     public static Stage myStage;
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        System.out.println("Ecoload Ai");
         Application.launch(HomePage.class,args);
     }
 }

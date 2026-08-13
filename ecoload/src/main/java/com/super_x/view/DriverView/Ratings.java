@@ -23,7 +23,6 @@ public class Ratings {
     // =========================================================
 
     private static final String GREEN = "#0B6B2A";
-    private static final String DARK_GREEN = "#075C48";
     private static final String LIGHT_GREEN = "#E9F8EC";
     private static final String BG = "#F4FAF6";
     private static final String BORDER = "#E3EAE5";

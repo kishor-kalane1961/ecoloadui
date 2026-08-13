@@ -16,66 +16,61 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.awt.Desktop;
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-
 import com.super_x.view.HomePage;
-
 
 public class DriverDashoard {
 
-        public Scene dashBoardScene;
+    public Scene dashBoardScene;
 
-        private final String GREEN = "#0B6B2A";
-        private final String DARK_GREEN = "#075A24";
-        private final String LIGHT_GREEN = "#85b788";
-        private final String BG = "#e6f1e8";
-        private final String TEXT = "#202820";
-        private final String BORDER = "#E3EAE5";
+    private final String GREEN = "#0B6B2A";
+    private final String DARK_GREEN = "#075A24";
+    private final String LIGHT_GREEN = "#85b788";
+    private final String BG = "#e6f1e8";
+    private final String TEXT = "#202820";
+    private final String BORDER = "#E3EAE5";
 
-        public Scene getDashBoardScene(){
+    public Scene getDashBoardScene() {
 
-                BorderPane root = new BorderPane();
-                root.setStyle("-fx-background-color: " + BG + ";");
+        BorderPane root = new BorderPane();
+        root.setStyle("-fx-background-color: " + BG + ";");
 
-                // ============================================
-                // LEFT SIDEBAR
-                // ============================================
-                VBox sidebar = DriverNavigation.createSidebar("Dashboard");
-                root.setLeft(sidebar);
+        // ============================================
+        // LEFT SIDEBAR
+        // ============================================
+        VBox sidebar = DriverNavigation.createSidebar("Dashboard");
+        root.setLeft(sidebar);
 
-                // ============================================
-                // MAIN CONTENT
-                // ============================================
-                VBox mainContent = createMainContent();
-
-                // ============================================
-                // BOTTOM STATUS BAR
-                // ============================================
-                HBox bottomBar = createBottomBar();
-                StackPane dashboardArea = new StackPane(mainContent, bottomBar);
-                StackPane.setAlignment(mainContent, Pos.TOP_CENTER);
-                StackPane.setAlignment(bottomBar, Pos.BOTTOM_CENTER);
-                root.setCenter(dashboardArea);
-
-                // ============================================
-                // SCENE
-                // ============================================
-                Scene scene = new Scene(root, 1536, 750);
-
-                dashBoardScene = scene;
-                return dashBoardScene;
-        }
-
-        // =========================================================
+        // ============================================
         // MAIN CONTENT
-        // =========================================================
-        private VBox createMainContent() {
+        // ============================================
+        VBox mainContent = createMainContent();
+
+        // ============================================
+        // BOTTOM STATUS BAR
+        // ============================================
+        HBox bottomBar = createBottomBar();
+        StackPane dashboardArea = new StackPane(mainContent, bottomBar);
+        StackPane.setAlignment(mainContent, Pos.TOP_CENTER);
+        StackPane.setAlignment(bottomBar, Pos.BOTTOM_CENTER);
+        root.setCenter(dashboardArea);
+
+        // ============================================
+        // SCENE
+        // ============================================
+        Scene scene = new Scene(root, 1536, 750);
+
+        dashBoardScene = scene;
+        return dashBoardScene;
+    }
+
+    // =========================================================
+    // MAIN CONTENT
+    // =========================================================
+    private VBox createMainContent() {
 
         VBox content = new VBox(12);
         content.setPadding(Insets.EMPTY);
@@ -98,21 +93,17 @@ public class DriverDashoard {
                 statCard(
                         "/assets/images/availiableLoadsicon.png",
                         "Available Loads",
-                        "14"
-                ),
+                        "14"),
 
                 statCard(
                         "/assets/images/earningicon.png",
                         "Today's Earnings",
-                        "₹2,450"
-                ),
+                        "₹2,450"),
 
                 statCard(
                         "/assets/images/currentStatus.png",
                         "Current Status",
-                        "Available"
-                )
-        );
+                        "Available"));
 
         // =========================================================
         // ACTIVE TRIP
@@ -122,8 +113,7 @@ public class DriverDashoard {
 
         VBox.setMargin(
                 activeTrip,
-                new Insets(0, 30, 0, 30)
-        );
+                new Insets(0, 30, 0, 30));
 
         // =========================================================
         // BOTTOM SECTION
@@ -133,12 +123,10 @@ public class DriverDashoard {
         HBox bottomSection = new HBox(15);
 
         bottomSection.setPadding(
-                new Insets(0, 30, 0, 30)
-        );
+                new Insets(0, 30, 0, 30));
 
         bottomSection.setAlignment(
-                Pos.TOP_LEFT
-        );
+                Pos.TOP_LEFT);
 
         // =========================================================
         // LEFT - TRIP RECORDS
@@ -154,8 +142,7 @@ public class DriverDashoard {
         // MIDDLE - DRIVER PERFORMANCE
         // =========================================================
 
-        VBox performanceCard =
-                createPerformanceCard();
+        VBox performanceCard = createPerformanceCard();
 
         performanceCard.setPrefWidth(300);
         performanceCard.setMinWidth(280);
@@ -165,8 +152,7 @@ public class DriverDashoard {
         // RIGHT - QUICK ACTIONS
         // =========================================================
 
-        VBox quickActionsCard =
-                createQuickActions();
+        VBox quickActionsCard = createQuickActions();
 
         quickActionsCard.setPrefWidth(300);
         quickActionsCard.setMinWidth(280);
@@ -179,8 +165,7 @@ public class DriverDashoard {
         bottomSection.getChildren().addAll(
                 tripRecords,
                 performanceCard,
-                quickActionsCard
-        );
+                quickActionsCard);
 
         // =========================================================
         // ADD EVERYTHING TO MAIN CONTENT
@@ -190,404 +175,316 @@ public class DriverDashoard {
                 header,
                 stats,
                 activeTrip,
-                bottomSection
-        );
+                bottomSection);
 
         return content;
+    }
+
+    // =========================================================
+    // HEADER
+    // =========================================================
+
+    private HBox createHeader() {
+
+        return DriverNavigation.createNavbar();
+    }
+
+    // =========================================================
+    // STAT CARD
+    // =========================================================
+
+    private VBox statCard(
+            String imagePath,
+            String title,
+            String value) {
+
+        VBox card = new VBox(8);
+        card.setPadding(new Insets(15));
+        card.setPrefHeight(100);
+        card.setMinHeight(100);
+
+        HBox.setHgrow(card, Priority.ALWAYS);
+
+        addCardHoverEffect(card, 20);
+
+        HBox row = new HBox(20);
+        row.setAlignment(Pos.CENTER_LEFT);
+
+        StackPane iconBox = new StackPane();
+        iconBox.setMinSize(58, 58);
+        iconBox.setPrefSize(58, 58);
+        iconBox.setStyle(
+                "-fx-background-color: #99F29A;" +
+                        "-fx-background-radius: 20;");
+
+        ImageView iconImage = new ImageView();
+        iconImage.setFitWidth(42);
+        iconImage.setFitHeight(42);
+        iconImage.setPreserveRatio(true);
+        iconImage.setSmooth(true);
+
+        try {
+            iconImage.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+        } catch (Exception ex) {
+            Label iconLabel = new Label("?");
+            iconLabel.setStyle(
+                    "-fx-font-size: 28px;" +
+                            "-fx-text-fill: " + DARK_GREEN + ";");
+            iconBox.getChildren().add(iconLabel);
         }
 
-        // =========================================================
-        // HEADER
-        // =========================================================
+        iconBox.getChildren().add(iconImage);
 
-        private HBox createHeader() {
+        VBox text = new VBox(4);
 
-                return DriverNavigation.createNavbar();
-        }
+        Label titleLabel = new Label(title);
+        titleLabel.setStyle(
+                "-fx-font-size: 14px;" +
+                        "-fx-text-fill: " + TEXT + ";");
 
-        // =========================================================
-        // STAT CARD
-        // =========================================================
-
-        private VBox statCard(
-                String imagePath,
-                String title,
-                String value
-        ) {
-
-                VBox card = new VBox(8);
-                card.setPadding(new Insets(15));
-                card.setPrefHeight(100);
-                card.setMinHeight(100);
-
-                HBox.setHgrow(card, Priority.ALWAYS);
-
-                addCardHoverEffect(card, 20);
-
-                HBox row = new HBox(20);
-                row.setAlignment(Pos.CENTER_LEFT);
-
-                StackPane iconBox = new StackPane();
-                iconBox.setMinSize(58, 58);
-                iconBox.setPrefSize(58, 58);
-                iconBox.setStyle(
-                        "-fx-background-color: #99F29A;" +
-                        "-fx-background-radius: 20;"
-                );
-
-                ImageView iconImage = new ImageView();
-                iconImage.setFitWidth(42);
-                iconImage.setFitHeight(42);
-                iconImage.setPreserveRatio(true);
-                iconImage.setSmooth(true);
-
-                try {
-                    iconImage.setImage(new Image(getClass().getResourceAsStream(imagePath)));
-                } catch (Exception ex) {
-                    Label iconLabel = new Label("?");
-                    iconLabel.setStyle(
-                            "-fx-font-size: 28px;" +
-                            "-fx-text-fill: " + DARK_GREEN + ";"
-                    );
-                    iconBox.getChildren().add(iconLabel);
-                }
-
-                iconBox.getChildren().add(iconImage);
-
-                VBox text = new VBox(4);
-
-                Label titleLabel = new Label(title);
-                titleLabel.setStyle(
-                        "-fx-font-size: 14px;" +
-                        "-fx-text-fill: " + TEXT + ";"
-                );
-
-                Label valueLabel = new Label(value);
-                valueLabel.setStyle(
-                        "-fx-font-size: 17px;" +
+        Label valueLabel = new Label(value);
+        valueLabel.setStyle(
+                "-fx-font-size: 17px;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-text-fill: " + GREEN + ";"
-                );
+                        "-fx-text-fill: " + GREEN + ";");
 
-                text.getChildren().addAll(titleLabel, valueLabel);
+        text.getChildren().addAll(titleLabel, valueLabel);
 
-                row.getChildren().addAll(iconBox, text);
+        row.getChildren().addAll(iconBox, text);
 
-                card.getChildren().add(row);
+        card.getChildren().add(row);
 
-                return card;
-        }
+        return card;
+    }
 
-        // =========================================================
-        // REUSABLE CARD HOVER EFFECT
-        // =========================================================
+    // =========================================================
+    // REUSABLE CARD HOVER EFFECT
+    // =========================================================
 
-        private void addCardHoverEffect(Region card, int radius) {
+    private void addCardHoverEffect(Region card, int radius) {
 
-                String normalStyle =
-                        "-fx-background-color: white;" +
-                        "-fx-background-radius: " + radius + ";" +
-                        "-fx-border-color: " + BORDER + ";" +
-                        "-fx-border-width: 1;" +
-                        "-fx-border-radius: " + radius + ";" +
-                        "-fx-cursor: hand;";
+        String normalStyle = "-fx-background-color: white;" +
+                "-fx-background-radius: " + radius + ";" +
+                "-fx-border-color: " + BORDER + ";" +
+                "-fx-border-width: 1;" +
+                "-fx-border-radius: " + radius + ";" +
+                "-fx-cursor: hand;";
 
-                String hoverStyle =
-                        "-fx-background-color: white;" +
-                        "-fx-background-radius: " + radius + ";" +
-                        "-fx-border-color: " + GREEN + ";" +
-                        "-fx-border-width: 1.5;" +
-                        "-fx-border-radius: " + radius + ";" +
-                        "-fx-cursor: hand;";
+        String hoverStyle = "-fx-background-color: white;" +
+                "-fx-background-radius: " + radius + ";" +
+                "-fx-border-color: " + GREEN + ";" +
+                "-fx-border-width: 1.5;" +
+                "-fx-border-radius: " + radius + ";" +
+                "-fx-cursor: hand;";
 
-                card.setStyle(normalStyle);
+        card.setStyle(normalStyle);
 
-                card.setOnMouseEntered(event -> {
-                        card.setStyle(hoverStyle);
-                });
+        card.setOnMouseEntered(event -> {
+            card.setStyle(hoverStyle);
+        });
 
-                card.setOnMouseExited(event -> {
-                        card.setStyle(normalStyle);
-                });
-        }
+        card.setOnMouseExited(event -> {
+            card.setStyle(normalStyle);
+        });
+    }
 
-        // =========================================================
-        // ACTIVE TRIP
-        // =========================================================
+    // =========================================================
+    // ACTIVE TRIP
+    // =========================================================
 
-        public VBox createActiveTrip() {
+    public VBox createActiveTrip() {
 
-                VBox card = new VBox();
+        VBox card = new VBox();
 
-                //card.setMargin(card, new Insets(0, 15, 0, 15));
+        // card.setMargin(card, new Insets(0, 15, 0, 15));
 
-                addCardHoverEffect(card, 20);
+        addCardHoverEffect(card, 20);
 
-                // TOP
-                HBox top = new HBox();
-                top.setPadding(new Insets(6, 15, 5, 15));
-                top.setAlignment(Pos.CENTER_LEFT);
+        // TOP
+        HBox top = new HBox();
+        top.setPadding(new Insets(6, 15, 5, 15));
+        top.setAlignment(Pos.CENTER_LEFT);
 
-                VBox tripTitle = new VBox(5);
+        VBox tripTitle = new VBox(5);
 
-                Label active = new Label("●  ACTIVE TRIP");
+        Label active = new Label("●  ACTIVE TRIP");
 
-                active.setStyle(
-                        "-fx-background-color: " + GREEN + ";" +
+        active.setStyle(
+                "-fx-background-color: " + GREEN + ";" +
                         "-fx-background-radius: 20;" +
                         "-fx-padding: 4 10 4 10;" +
                         "-fx-font-size: 15px;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-text-fill: white;"
-                );
+                        "-fx-text-fill: white;");
 
-                Label order = new Label(
-                        "Order #TRK-88291 • Electronics Shipment"
-                );
+        Label order = new Label(
+                "Order #TRK-88291 • Electronics Shipment");
 
-                order.setStyle(
-                        "-fx-font-size: 13px;" +
+        order.setStyle(
+                "-fx-font-size: 13px;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-text-fill: #202520;"
-                );
+                        "-fx-text-fill: #202520;");
 
-                tripTitle.getChildren().addAll(active, order);
+        tripTitle.getChildren().addAll(active, order);
 
-                Region spacer = new Region();
-                HBox.setHgrow(spacer, Priority.ALWAYS);
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
 
-                Button mapButton = new Button("🗺️ View on Map");
+        Button mapButton = new Button("🗺️ View on Map");
 
-                mapButton.setStyle(
-                        "-fx-background-color: " + GREEN + ";" +
+        mapButton.setStyle(
+                "-fx-background-color: " + GREEN + ";" +
                         "-fx-text-fill: white;" +
                         "-fx-font-size: 12px;" +
                         "-fx-font-weight: bold;" +
                         "-fx-background-radius: 20;" +
-                        "-fx-padding: 9 15 9 15;"
-                );
-                mapButton.setOnMouseEntered(event -> mapButton.setStyle(
-                        "-fx-background-color: " + DARK_GREEN + ";" +
+                        "-fx-padding: 9 15 9 15;");
+        mapButton.setOnMouseEntered(event -> mapButton.setStyle(
+                "-fx-background-color: " + DARK_GREEN + ";" +
                         "-fx-text-fill: white;" +
                         "-fx-font-size: 16px;" +
                         "-fx-font-weight: bold;" +
                         "-fx-background-radius: 20;" +
                         "-fx-cursor: hand;" +
-                        "-fx-padding: 15 25 15 25;"
-                ));
-                mapButton.setOnMouseExited(event -> mapButton.setStyle(
-                        "-fx-background-color: " + GREEN + ";" +
+                        "-fx-padding: 12 18 12 18;"));
+        mapButton.setOnMouseExited(event -> mapButton.setStyle(
+                "-fx-background-color: " + GREEN + ";" +
                         "-fx-text-fill: white;" +
                         "-fx-font-size: 12px;" +
                         "-fx-font-weight: bold;" +
                         "-fx-background-radius: 20;" +
-                        "-fx-padding: 9 15 9 15;"
-                ));
-                // mapButton.setOnAction(event -> openMapPopup((Stage) mapButton.getScene().getWindow()));
-                mapButton.setOnAction(e -> {
-                    MapView mapView = new MapView(); 
-                    mapView.show(HomePage.homeStage,
+                        "-fx-padding: 9 15 9 15;"));
+        mapButton.setOnAction(e -> {
+            MapView mapView = new MapView();
+            mapView.show(HomePage.homeStage,
 
-            // Pune
-            18.5204,
-            73.8567,
+                    // Pune
+                    18.5204,
+                    73.8567,
 
-            // Nashik
-            19.9975,
-            73.7898);
+                    // Nashik
+                    19.9975,
+                    73.7898);
         });
 
-                top.getChildren().addAll(
-                        tripTitle,
-                        spacer,
-                        mapButton
-                );
+        top.getChildren().addAll(
+                tripTitle,
+                spacer,
+                mapButton);
 
-                // TIMELINE
-                VBox timelineArea = new VBox();
-                timelineArea.setPadding(new Insets(4, 10, 1, 10));
+        // TIMELINE
+        VBox timelineArea = new VBox();
+        timelineArea.setPadding(new Insets(4, 10, 1, 10));
 
-                HBox timeline = new HBox();
+        HBox timeline = new HBox();
 
-                TimelineStep pickup = new TimelineStep(
-                        "Pickup",
-                        "08:30 AM",
-                        "Navi Mumbai",
-                        "🚚",
-                        false,
-                        false
-                );
+        TimelineStep pickup = new TimelineStep(
+                "Pickup",
+                "08:30 AM",
+                "Navi Mumbai",
+                "🚚",
+                false,
+                false);
 
-                TimelineStep dispatch = new TimelineStep(
-                        "Dispatch",
-                        "10:15 AM",
-                        "Logistics Hub",
-                        "📦",
-                        false,
-                        false
-                );
+        TimelineStep dispatch = new TimelineStep(
+                "Dispatch",
+                "10:15 AM",
+                "Logistics Hub",
+                "📦",
+                false,
+                false);
 
-                TimelineStep transit = new TimelineStep(
-                        "In Transit",
-                        "Expected: 06:00 PM",
-                        "Satara Highway",
-                        "🚛",
-                        false,
-                        false
-                );
+        TimelineStep transit = new TimelineStep(
+                "In Transit",
+                "Expected: 06:00 PM",
+                "Satara Highway",
+                "🚛",
+                false,
+                false);
 
-                TimelineStep arrived = new TimelineStep(
-                        "Arrived",
-                        "TBD",
-                        "Pune East",
-                        "📍",
-                        false,
-                        false
-                );
+        TimelineStep arrived = new TimelineStep(
+                "Arrived",
+                "TBD",
+                "Pune East",
+                "📍",
+                false,
+                false);
 
-                TimelineStep delivered = new TimelineStep(
-                        "Delivered",
-                        "TBD",
-                        "Recipient Hub",
-                        "📦✓",
-                        false,
-                        false
-                );
+        TimelineStep delivered = new TimelineStep(
+                "Delivered",
+                "TBD",
+                "Recipient Hub",
+                "📦✓",
+                false,
+                false);
 
-                HBox.setHgrow(pickup, Priority.ALWAYS);
-                HBox.setHgrow(dispatch, Priority.ALWAYS);
-                HBox.setHgrow(transit, Priority.ALWAYS);
-                HBox.setHgrow(arrived, Priority.ALWAYS);
-                HBox.setHgrow(delivered, Priority.ALWAYS);
+        HBox.setHgrow(pickup, Priority.ALWAYS);
+        HBox.setHgrow(dispatch, Priority.ALWAYS);
+        HBox.setHgrow(transit, Priority.ALWAYS);
+        HBox.setHgrow(arrived, Priority.ALWAYS);
+        HBox.setHgrow(delivered, Priority.ALWAYS);
 
-                Label location = new Label(
-                        "⌖   You are away from the delivery location."
-                );
+        Label location = new Label(
+                "⌖   You are away from the delivery location.");
 
-                location.setStyle(
-                        "-fx-font-size: 10px;" +
+        location.setStyle(
+                "-fx-font-size: 10px;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-text-fill: " + GREEN + ";"
-                );
+                        "-fx-text-fill: " + GREEN + ";");
 
-                List<TimelineStep> timelineSteps = List.of(pickup, dispatch, transit, arrived, delivered);
-                for (int i = 0; i < timelineSteps.size(); i++) {
-                        int index = i;
-                        TimelineStep step = timelineSteps.get(i);
-                        step.setCursor(Cursor.HAND);
-                        step.setOnMouseClicked(event -> activateTimelineStep(timelineSteps, index, location));
-                }
-
-                timeline.getChildren().addAll(
-                        pickup,
-                        dispatch,
-                        transit,
-                        arrived,
-                        delivered
-                );
-
-                timelineArea.getChildren().add(timeline);
-
-                // DISTANCE BAR
-                HBox distanceBox = new HBox();
-                distanceBox.setAlignment(Pos.CENTER_LEFT);
-                distanceBox.setPadding(new Insets(7, 12, 7, 12));
-
-                distanceBox.setStyle(
-                        "-fx-background-color: #E3FBE3;" +
-                        "-fx-background-radius: 20;"
-                );
-
-                Region spacer1Region = new Region();
-                HBox.setHgrow(spacer1Region, Priority.ALWAYS);
-
-                distanceBox.getChildren().addAll(
-                        location,
-                        spacer1Region
-                );
-
-                VBox.setMargin(distanceBox, new Insets(2,15,2,15));
-
-                card.getChildren().addAll(
-                        top,
-                        new Separator(),
-                        timelineArea,
-                        distanceBox
-                );
-
-                return card;
+        List<TimelineStep> timelineSteps = List.of(pickup, dispatch, transit, arrived, delivered);
+        for (int i = 0; i < timelineSteps.size(); i++) {
+            int index = i;
+            TimelineStep step = timelineSteps.get(i);
+            step.setCursor(Cursor.HAND);
+            step.setOnMouseClicked(event -> activateTimelineStep(timelineSteps, index, location));
         }
 
-        private Object openMapPopup(Stage window) {
-                String routeUrl = "https://www.openstreetmap.org/directions?engine=fossgis_osrm_car"
-                        + "&route=19.0330%2C73.0297%3B18.5204%2C73.8567#map=9/18.78/73.45";
-                try {
-                        Desktop.getDesktop().browse(new URI(routeUrl));
-                } catch (Exception exception) {
-                        Alert error = new Alert(Alert.AlertType.ERROR,
-                                "Unable to open OpenStreetMap in your browser.", ButtonType.OK);
-                        error.initOwner(window);
-                        error.showAndWait();
-                }
-                return null;
-                /*
-                Stage mapPopup = new Stage();
-                mapPopup.initOwner(window);
-                mapPopup.setTitle("Trip Route");
+        timeline.getChildren().addAll(
+                pickup,
+                dispatch,
+                transit,
+                arrived,
+                delivered);
 
-                WebView map = new WebView();
-                map.getEngine().load("https://www.openstreetmap.org/#map=9/18.796/73.518");
-                map.setPrefHeight(560);
+        timelineArea.getChildren().add(timeline);
 
-                VBox content = new VBox(18);
-                content.setPadding(new Insets(28));
-                content.setStyle("-fx-background-color: " + BG + ";");
+        // DISTANCE BAR
+        HBox distanceBox = new HBox();
+        distanceBox.setAlignment(Pos.CENTER_LEFT);
+        distanceBox.setPadding(new Insets(7, 12, 7, 12));
 
-                Label title = new Label("Current Trip Route");
-                title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: " + TEXT + ";");
+        distanceBox.setStyle(
+                "-fx-background-color: #E3FBE3;" +
+                        "-fx-background-radius: 20;");
 
-                VBox route = new VBox(0);
-                route.setPadding(new Insets(20));
-                route.setStyle("-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: "
-                        + BORDER + "; -fx-border-radius: 14;");
-                String[] stops = {"Pickup location", "In transit", "Delivery location"};
-                for (int i = 0; i < stops.length; i++) {
-                        Label stop = new Label((i == 0 ? "●  " : i == stops.length - 1 ? "●  " : "○  ") + stops[i]);
-                        stop.setStyle("-fx-font-size: 16px; -fx-text-fill: "
-                                + (i == 1 ? LIGHT_GREEN : GREEN) + "; -fx-padding: 8 0 8 0;");
-                        route.getChildren().add(stop);
-                        if (i < stops.length - 1) {
-                                Label connector = new Label("│");
-                                connector.setStyle("-fx-font-size: 18px; -fx-text-fill: " + LIGHT_GREEN + "; -fx-padding: 0 0 0 8;");
-                                route.getChildren().add(connector);
-                        }
-                }
+        Region spacer1Region = new Region();
+        HBox.setHgrow(spacer1Region, Priority.ALWAYS);
 
-                Button close = new Button("Close");
-                close.setStyle("-fx-background-color: " + GREEN + "; -fx-text-fill: white; -fx-font-weight: bold;"
-                        + " -fx-background-radius: 18; -fx-padding: 9 24 9 24;");
-                close.setOnAction(event -> mapPopup.close());
+        distanceBox.getChildren().addAll(
+                location,
+                spacer1Region);
 
-                VBox.setVgrow(map, Priority.ALWAYS);
-                content.getChildren().addAll(title, map, route, close);
-                mapPopup.setScene(new Scene(content, 1000, 760));
-                mapPopup.setMinWidth(700);
-                mapPopup.setMinHeight(500);
-                mapPopup.show();
-                return mapPopup;
-                */
-        }
-        // =========================================================
-        // DRIVER PERFORMANCE
-        // =========================================================
+        VBox.setMargin(distanceBox, new Insets(2, 15, 2, 15));
 
-        private VBox createPerformanceCard() {
+        card.getChildren().addAll(
+                top,
+                new Separator(),
+                timelineArea,
+                distanceBox);
+
+        return card;
+    }
+    // =========================================================
+    // DRIVER PERFORMANCE
+    // =========================================================
+
+    private VBox createPerformanceCard() {
 
         VBox card = new VBox(10);
 
         card.setPadding(
-                new Insets(15)
-        );
+                new Insets(15));
 
         card.setPrefHeight(200);
 
@@ -597,107 +494,87 @@ public class DriverDashoard {
         // TITLE
         // ---------------------------------------------------------
 
-        Label title =
-                new Label("Driver Performance");
+        Label title = new Label("Driver Performance");
 
         title.setStyle(
                 "-fx-font-size: 17px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: " + TEXT + ";"
-        );
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: " + TEXT + ";");
 
         // ---------------------------------------------------------
         // PERFORMANCE VALUES
         // ---------------------------------------------------------
 
-        HBox trips =
-                performanceRow(
-                        "Completed Trips",
-                        "18"
-                );
+        HBox trips = performanceRow(
+                "Completed Trips",
+                "18");
 
-        HBox distance =
-                performanceRow(
-                        "Total Distance",
-                        "4,250 KM"
-                );
+        HBox distance = performanceRow(
+                "Total Distance",
+                "4,250 KM");
 
-        HBox earnings =
-                performanceRow(
-                        "Total Earnings",
-                        "₹1,42,500"
-                );
+        HBox earnings = performanceRow(
+                "Total Earnings",
+                "₹1,42,500");
 
-        HBox rating =
-                performanceRow(
-                        "Driver Rating",
-                        "★ 4.8"
-                );
+        HBox rating = performanceRow(
+                "Driver Rating",
+                "★ 4.8");
 
         card.getChildren().addAll(
                 title,
                 trips,
                 distance,
                 earnings,
-                rating
-        );
+                rating);
 
         return card;
-        }
+    }
 
-        private HBox performanceRow(String title,String value) {
+    private HBox performanceRow(String title, String value) {
 
-                HBox row = new HBox();
+        HBox row = new HBox();
 
-                row.setAlignment(
-                        Pos.CENTER_LEFT
-                );
+        row.setAlignment(
+                Pos.CENTER_LEFT);
 
-                Label titleLabel =
-                        new Label(title);
+        Label titleLabel = new Label(title);
 
-                titleLabel.setStyle(
-                        "-fx-font-size: 12px;" +
-                        "-fx-text-fill: " + TEXT + ";"
-                );
+        titleLabel.setStyle(
+                "-fx-font-size: 12px;" +
+                        "-fx-text-fill: " + TEXT + ";");
 
-                Region spacer =
-                        new Region();
+        Region spacer = new Region();
 
-                HBox.setHgrow(
-                        spacer,
-                        Priority.ALWAYS
-                );
+        HBox.setHgrow(
+                spacer,
+                Priority.ALWAYS);
 
-                Label valueLabel =
-                        new Label(value);
+        Label valueLabel = new Label(value);
 
-                valueLabel.setStyle(
-                        "-fx-font-size: 12px;" +
+        valueLabel.setStyle(
+                "-fx-font-size: 12px;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-text-fill: " + GREEN + ";"
-                );
+                        "-fx-text-fill: " + GREEN + ";");
 
-                row.getChildren().addAll(
-                        titleLabel,
-                        spacer,
-                        valueLabel
-                );
+        row.getChildren().addAll(
+                titleLabel,
+                spacer,
+                valueLabel);
 
-                return row;
-        }
+        return row;
+    }
 
-        // =========================================================
-        // QUICK ACTIONS
-        // =========================================================
+    // =========================================================
+    // QUICK ACTIONS
+    // =========================================================
 
-        private VBox createQuickActions() {
+    private VBox createQuickActions() {
 
         VBox card = new VBox(8);
 
         card.setPadding(
-                new Insets(15)
-        );
+                new Insets(15));
 
         card.setPrefHeight(200);
 
@@ -707,90 +584,73 @@ public class DriverDashoard {
         // TITLE
         // ---------------------------------------------------------
 
-        Label title =
-                new Label("Quick Actions");
+        Label title = new Label("Quick Actions");
 
         title.setStyle(
                 "-fx-font-size: 17px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: " + TEXT + ";"
-        );
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: " + TEXT + ";");
 
         // ---------------------------------------------------------
         // BUTTONS
         // ---------------------------------------------------------
 
-        Button loads =
-                quickActionButton(
-                        "🚚  Available Loads"
-                );
+        Button loads = quickActionButton(
+                "🚚  Available Loads");
 
-        Button location =
-                quickActionButton(
-                        "📍  Update Location"
-                );
+        Button location = quickActionButton(
+                "📍  Update Location");
 
-        Button earnings =
-                quickActionButton(
-                        "💰  Earnings"
-                );
+        Button earnings = quickActionButton(
+                "💰  Earnings");
 
-        Button ratings =
-                quickActionButton(
-                        "⭐  My Ratings"
-                );
+        Button ratings = quickActionButton(
+                "⭐  My Ratings");
 
         card.getChildren().addAll(
                 title,
                 loads,
                 location,
                 earnings,
-                ratings
-        );
+                ratings);
 
         return card;
-        }
+    }
 
-        private Button quickActionButton(String text) {
+    private Button quickActionButton(String text) {
 
-        Button button =
-                new Button(text);
+        Button button = new Button(text);
 
         button.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         button.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         button.setCursor(
-                Cursor.HAND
-        );
+                Cursor.HAND);
 
         button.setStyle(
                 "-fx-background-color: #E8F6EE;" +
-                "-fx-text-fill: " + GREEN + ";" +
-                "-fx-font-size: 12px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-background-radius: 10;" +
-                "-fx-padding: 7 10 7 10;"
-        );
+                        "-fx-text-fill: " + GREEN + ";" +
+                        "-fx-font-size: 12px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-padding: 7 10 7 10;");
 
         return button;
-        }
+    }
 
-        // =========================================================
-        // TRIP RECORDS
-        // =========================================================
+    // =========================================================
+    // TRIP RECORDS
+    // =========================================================
 
-        private VBox createTripRecords() {
+    private VBox createTripRecords() {
 
         VBox card = new VBox(8);
 
         card.setPadding(
-                new Insets(10)
-        );
+                new Insets(10));
 
         addCardHoverEffect(card, 20);
 
@@ -801,132 +661,111 @@ public class DriverDashoard {
         HBox titleRow = new HBox();
 
         titleRow.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         Label title = new Label("Trip Records");
 
         title.setStyle(
                 "-fx-font-size: 18px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: " + TEXT + ";"
-        );
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: " + TEXT + ";");
 
         Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         Button viewAll = new Button("View All");
 
         viewAll.setCursor(
-                Cursor.HAND
-        );
+                Cursor.HAND);
 
         viewAll.setStyle(
                 "-fx-background-color: #E3FBE3;" +
-                "-fx-text-fill: " + GREEN + ";" +
-                "-fx-font-size: 12px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-background-radius: 10;" +
-                "-fx-padding: 7 14 7 14;"
-        );
+                        "-fx-text-fill: " + GREEN + ";" +
+                        "-fx-font-size: 12px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-padding: 7 14 7 14;");
 
         viewAll.setOnAction(event -> {
 
-                TripHistory tripHistory = new TripHistory();
+            TripHistory tripHistory = new TripHistory();
 
-                Stage stage =
-                        (Stage) viewAll.getScene().getWindow();
+            Stage stage = (Stage) viewAll.getScene().getWindow();
 
-                stage.setScene(
-                        tripHistory.getTripHistoryScene()
-                );
+            stage.setScene(
+                    tripHistory.getTripHistoryScene());
         });
 
         titleRow.getChildren().addAll(
                 title,
                 spacer,
-                viewAll
-        );
+                viewAll);
 
         // =========================================================
         // TABLE
         // =========================================================
 
-        TableView<TripHistory.Trip> table =
-                new TableView<>();
+        TableView<TripHistory.Trip> table = new TableView<>();
 
         table.setColumnResizePolicy(
-                TableView.CONSTRAINED_RESIZE_POLICY
-        );
+                TableView.CONSTRAINED_RESIZE_POLICY);
 
         table.setPrefHeight(200);
         table.setMinHeight(210);
 
         table.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-border-color: #D9E1DC;" +
-                "-fx-background-radius: 12;" +
-                "-fx-border-radius: 12;"
-        );
+                        "-fx-border-color: #D9E1DC;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-border-radius: 12;");
 
         // =========================================================
         // TRIP ID
         // =========================================================
 
-        TableColumn<TripHistory.Trip, String> idColumn =
-                new TableColumn<>("Trip ID");
+        TableColumn<TripHistory.Trip, String> idColumn = new TableColumn<>("Trip ID");
 
         idColumn.setCellValueFactory(
-                data -> data.getValue().tripIdProperty()
-        );
+                data -> data.getValue().tripIdProperty());
 
         // =========================================================
         // DATE
         // =========================================================
 
-        TableColumn<TripHistory.Trip, String> dateColumn =
-                new TableColumn<>("Date");
+        TableColumn<TripHistory.Trip, String> dateColumn = new TableColumn<>("Date");
 
         dateColumn.setCellValueFactory(
-                data -> data.getValue().dateProperty()
-        );
+                data -> data.getValue().dateProperty());
 
         // =========================================================
         // ROUTE
         // =========================================================
 
-        TableColumn<TripHistory.Trip, String> routeColumn =
-                new TableColumn<>("Route");
+        TableColumn<TripHistory.Trip, String> routeColumn = new TableColumn<>("Route");
 
         routeColumn.setCellValueFactory(
-                data -> data.getValue().routeProperty()
-        );
+                data -> data.getValue().routeProperty());
 
         // =========================================================
         // EARNINGS
         // =========================================================
 
-        TableColumn<TripHistory.Trip, String> earningsColumn =
-                new TableColumn<>("Earnings");
+        TableColumn<TripHistory.Trip, String> earningsColumn = new TableColumn<>("Earnings");
 
         earningsColumn.setCellValueFactory(
-                data -> data.getValue().earningsProperty()
-        );
+                data -> data.getValue().earningsProperty());
 
         // =========================================================
         // STATUS
         // =========================================================
 
-        TableColumn<TripHistory.Trip, String> statusColumn =
-                new TableColumn<>("Status");
+        TableColumn<TripHistory.Trip, String> statusColumn = new TableColumn<>("Status");
 
         statusColumn.setCellValueFactory(
-                data -> data.getValue().statusProperty()
-        );
+                data -> data.getValue().statusProperty());
 
         // =========================================================
         // STATUS STYLE
@@ -935,92 +774,81 @@ public class DriverDashoard {
         statusColumn.setCellFactory(
                 column -> new TableCell<TripHistory.Trip, String>() {
 
-                        @Override
-                        protected void updateItem(
-                                String item,
-                                boolean empty) {
+                    @Override
+                    protected void updateItem(
+                            String item,
+                            boolean empty) {
 
                         super.updateItem(
                                 item,
-                                empty
-                        );
+                                empty);
 
                         if (empty || item == null) {
 
-                                setText(null);
-                                setGraphic(null);
+                            setText(null);
+                            setGraphic(null);
 
-                                return;
+                            return;
                         }
 
-                        Label badge =
-                                new Label(item);
+                        Label badge = new Label(item);
 
                         String color;
 
                         if (item.equals("Completed")) {
 
-                                color = GREEN;
+                            color = GREEN;
 
                         } else if (item.equals("Cancelled")) {
 
-                                color = "#D32F2F";
+                            color = "#D32F2F";
 
                         } else {
 
-                                color = "#E58A00";
+                            color = "#E58A00";
                         }
 
                         badge.setStyle(
                                 "-fx-background-color: " +
-                                color + ";" +
-                                "-fx-text-fill: white;" +
-                                "-fx-font-size: 10px;" +
-                                "-fx-font-weight: bold;" +
-                                "-fx-background-radius: 10;" +
-                                "-fx-padding: 5 9 5 9;"
-                        );
+                                        color + ";" +
+                                        "-fx-text-fill: white;" +
+                                        "-fx-font-size: 10px;" +
+                                        "-fx-font-weight: bold;" +
+                                        "-fx-background-radius: 10;" +
+                                        "-fx-padding: 5 9 5 9;");
 
                         setGraphic(badge);
                         setText(null);
 
                         setAlignment(
-                                Pos.CENTER
-                        );
-                        }
-                }
-        );
+                                Pos.CENTER);
+                    }
+                });
 
         table.getColumns().addAll(
                 idColumn,
                 dateColumn,
                 routeColumn,
                 earningsColumn,
-                statusColumn
-        );
+                statusColumn);
 
         // =========================================================
         // GET DATA FROM TRIP HISTORY
         // =========================================================
 
-        TripHistory tripHistory =
-                new TripHistory();
+        TripHistory tripHistory = new TripHistory();
 
-        List<TripHistory.Trip> allTrips =
-                tripHistory.getAllTrips();
+        List<TripHistory.Trip> allTrips = tripHistory.getAllTrips();
 
         // Show latest 5 records
-        int numberOfTrips =
-                Math.min(5, allTrips.size());
+        int numberOfTrips = Math.min(5, allTrips.size());
 
         if (numberOfTrips > 0) {
 
-                table.getItems().addAll(
-                        allTrips.subList(
-                                0,
-                                numberOfTrips
-                        )
-                );
+            table.getItems().addAll(
+                    allTrips.subList(
+                            0,
+                            numberOfTrips));
         }
 
         // =========================================================
@@ -1029,278 +857,254 @@ public class DriverDashoard {
 
         card.getChildren().addAll(
                 titleRow,
-                table
-        );
+                table);
 
         return card;
+    }
+
+    private void activateTimelineStep(List<TimelineStep> steps, int clickedIndex, Label locationLabel) {
+        for (TimelineStep step : steps) {
+            step.updateState(false, false);
         }
 
-        private void activateTimelineStep(List<TimelineStep> steps, int clickedIndex, Label locationLabel) {
-                for (TimelineStep step : steps) {
-                        step.updateState(false, false);
+        SequentialTransition transition = new SequentialTransition();
+        for (int i = 0; i <= clickedIndex; i++) {
+            int index = i;
+            PauseTransition delay = new PauseTransition(Duration.millis(140));
+            delay.setOnFinished(event -> {
+                for (int j = 0; j < steps.size(); j++) {
+                    boolean completed = j < index;
+                    boolean current = j == index;
+                    steps.get(j).updateState(completed, current);
                 }
-
-                SequentialTransition transition = new SequentialTransition();
-                for (int i = 0; i <= clickedIndex; i++) {
-                        int index = i;
-                        PauseTransition delay = new PauseTransition(Duration.millis(140));
-                        delay.setOnFinished(event -> {
-                                for (int j = 0; j < steps.size(); j++) {
-                                        boolean completed = j < index;
-                                        boolean current = j == index;
-                                        steps.get(j).updateState(completed, current);
-                                }
-                        });
-                        transition.getChildren().add(delay);
-                }
-
-                transition.setOnFinished(event -> {
-                        if (clickedIndex == steps.size() - 1) {
-                                locationLabel.setText("✓ Delivered to Recipient Hub.");
-                        } else {
-                                locationLabel.setText("⌖   You are away from the delivery location.");
-                        }
-                });
-
-                transition.play();
+            });
+            transition.getChildren().add(delay);
         }
 
-        // =========================================================
-        // TIMELINE STEP
-        // =========================================================
+        transition.setOnFinished(event -> {
+            if (clickedIndex == steps.size() - 1) {
+                locationLabel.setText("✓ Delivered to Recipient Hub.");
+            } else {
+                locationLabel.setText("⌖   You are away from the delivery location.");
+            }
+        });
 
-        private class TimelineStep extends VBox {
+        transition.play();
+    }
 
-                private final Region leftLine;
-                private final Region rightLine;
-                private final Circle circle;
-                private final Label iconLabel;
+    // =========================================================
+    // TIMELINE STEP
+    // =========================================================
 
-                TimelineStep(
-                        String title,
-                        String time,
-                        String location,
-                        String icon,
-                        boolean completed,
-                        boolean current
-                ) {
+    private class TimelineStep extends VBox {
 
-                setAlignment(Pos.TOP_CENTER);
-                setSpacing(2);
+        private final Region leftLine;
+        private final Region rightLine;
+        private final Circle circle;
+        private final Label iconLabel;
 
-                // CONNECTING LINE
-                HBox iconRow = new HBox();
+        TimelineStep(
+                String title,
+                String time,
+                String location,
+                String icon,
+                boolean completed,
+                boolean current) {
 
-                leftLine = new Region();
-                rightLine = new Region();
-                circle = new Circle(20);
-                iconLabel = new Label(icon);
+            setAlignment(Pos.TOP_CENTER);
+            setSpacing(2);
 
-                HBox.setHgrow(leftLine, Priority.ALWAYS);
-                HBox.setHgrow(rightLine, Priority.ALWAYS);
+            // CONNECTING LINE
+            HBox iconRow = new HBox();
 
-                leftLine.setPrefHeight(8);
-                leftLine.setMinHeight(8);
-                leftLine.setMaxHeight(8);
-                rightLine.setPrefHeight(8);
-                rightLine.setMinHeight(8);
-                rightLine.setMaxHeight(8);
+            leftLine = new Region();
+            rightLine = new Region();
+            circle = new Circle(20);
+            iconLabel = new Label(icon);
 
-                leftLine.setStyle(
-                        "-fx-background-color: " +
-                        (completed ? GREEN : "#BEC8C0") + ";"
-                );
+            HBox.setHgrow(leftLine, Priority.ALWAYS);
+            HBox.setHgrow(rightLine, Priority.ALWAYS);
 
-                rightLine.setStyle(
-                        "-fx-background-color: " +
-                        (completed && !current ? GREEN : "#BEC8C0") + ";"
-                );
+            leftLine.setPrefHeight(8);
+            leftLine.setMinHeight(8);
+            leftLine.setMaxHeight(8);
+            rightLine.setPrefHeight(8);
+            rightLine.setMinHeight(8);
+            rightLine.setMaxHeight(8);
 
-                if (current) {
-                        circle.setFill(Color.WHITE);
-                        circle.setStroke(Color.web(GREEN));
-                        circle.setStrokeWidth(5);
-                } else if (completed) {
-                        circle.setFill(Color.web(GREEN));
-                        circle.setStroke(null);
-                } else {
-                        circle.setFill(Color.web("#C4CEC5"));
-                        circle.setStroke(null);
+            leftLine.setStyle(
+                    "-fx-background-color: " +
+                            (completed ? GREEN : "#BEC8C0") + ";");
+
+            rightLine.setStyle(
+                    "-fx-background-color: " +
+                            (completed && !current ? GREEN : "#BEC8C0") + ";");
+
+            if (current) {
+                circle.setFill(Color.WHITE);
+                circle.setStroke(Color.web(GREEN));
+                circle.setStrokeWidth(5);
+            } else if (completed) {
+                circle.setFill(Color.web(GREEN));
+                circle.setStroke(null);
+            } else {
+                circle.setFill(Color.web("#C4CEC5"));
+                circle.setStroke(null);
+            }
+
+            iconLabel.setStyle(
+                    "-fx-font-size: 21px;" +
+                            "-fx-font-weight: bold;" +
+                            "-fx-text-fill: " +
+                            (completed ? "white" : "#FFFFFF") + ";");
+
+            StackPane circleBox = new StackPane(
+                    circle,
+                    iconLabel);
+
+            circleBox.setMinWidth(45);
+            circleBox.setCursor(Cursor.HAND);
+            circleBox.setOnMouseClicked(event -> {
+                if (getParent() instanceof HBox timelineRow) {
+                    // the timeline icon click is handled on the parent timeline step
                 }
+            });
 
+            iconRow.setAlignment(Pos.CENTER);
+            iconRow.getChildren().addAll(
+                    leftLine,
+                    circleBox,
+                    rightLine);
+
+            Label titleLabel = new Label(title);
+
+            titleLabel.setStyle(
+                    "-fx-font-size: 16px;" +
+                            "-fx-font-weight: bold;" +
+                            "-fx-text-fill: " +
+                            (completed ? GREEN : "#333833") + ";");
+
+            Label timeLabel = new Label(time);
+
+            timeLabel.setStyle(
+                    "-fx-font-size: 9px;" +
+                            "-fx-text-fill: #404740;");
+
+            Label locationLabel = new Label(location);
+
+            locationLabel.setStyle(
+                    "-fx-font-size: 9px;" +
+                            "-fx-text-fill: #303630;");
+
+            getChildren().addAll(
+                    iconRow,
+                    titleLabel,
+                    timeLabel,
+                    locationLabel);
+        }
+
+        void updateState(boolean completed, boolean current) {
+            leftLine.setStyle(
+                    "-fx-background-color: " +
+                            ((completed || current) ? GREEN : "#BEC8C0") + ";");
+            rightLine.setStyle(
+                    "-fx-background-color: " +
+                            (completed ? GREEN : "#BEC8C0") + ";");
+
+            if (current) {
+                circle.setFill(Color.WHITE);
+                circle.setStroke(Color.web(GREEN));
+                circle.setStrokeWidth(5);
                 iconLabel.setStyle(
-                        "-fx-font-size: 21px;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-text-fill: " +
-                        (completed ? "white" : "#FFFFFF") + ";"
-                );
-
-                StackPane circleBox = new StackPane(
-                        circle,
-                        iconLabel
-                );
-
-                circleBox.setMinWidth(45);
-                circleBox.setCursor(Cursor.HAND);
-                circleBox.setOnMouseClicked(event -> {
-                        if (getParent() instanceof HBox timelineRow) {
-                                // the timeline icon click is handled on the parent timeline step
-                        }
-                });
-
-                iconRow.setAlignment(Pos.CENTER);
-                iconRow.getChildren().addAll(
-                        leftLine,
-                        circleBox,
-                        rightLine
-                );
-
-                Label titleLabel = new Label(title);
-
-                titleLabel.setStyle(
-                        "-fx-font-size: 16px;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-text-fill: " +
-                        (completed ? GREEN : "#333833") + ";"
-                );
-
-                Label timeLabel = new Label(time);
-
-                timeLabel.setStyle(
-                        "-fx-font-size: 9px;" +
-                        "-fx-text-fill: #404740;"
-                );
-
-                Label locationLabel = new Label(location);
-
-                locationLabel.setStyle(
-                        "-fx-font-size: 9px;" +
-                        "-fx-text-fill: #303630;"
-                );
-
-                getChildren().addAll(
-                        iconRow,
-                        titleLabel,
-                        timeLabel,
-                        locationLabel
-                );
-                }
-
-                void updateState(boolean completed, boolean current) {
-                        leftLine.setStyle(
-                                "-fx-background-color: " +
-                                        ((completed || current) ? GREEN : "#BEC8C0") + ";"
-                        );
-                        rightLine.setStyle(
-                                "-fx-background-color: " +
-                                        (completed ? GREEN : "#BEC8C0") + ";"
-                        );
-
-                        if (current) {
-                                circle.setFill(Color.WHITE);
-                                circle.setStroke(Color.web(GREEN));
-                                circle.setStrokeWidth(5);
-                                iconLabel.setStyle(
-                                        "-fx-font-size: 14px;" +
-                                                "-fx-font-weight: bold;" +
-                                                "-fx-text-fill: " + "#202520" + ";"
-                                );
-                        } else if (completed) {
-                                circle.setFill(Color.web(GREEN));
-                                circle.setStroke(null);
-                                iconLabel.setStyle(
-                                        "-fx-font-size: 14px;" +
-                                                "-fx-font-weight: bold;" +
-                                                "-fx-text-fill: white;"
-                                );
-                        } else {
-                                circle.setFill(Color.web("#C4CEC5"));
-                                circle.setStroke(null);
-                                iconLabel.setStyle(
-                                        "-fx-font-size: 14px;" +
-                                                "-fx-font-weight: bold;" +
-                                                "-fx-text-fill: white;"
-                                );
-                        }
-                }
+                        "-fx-font-size: 14px;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-text-fill: " + "#202520" + ";");
+            } else if (completed) {
+                circle.setFill(Color.web(GREEN));
+                circle.setStroke(null);
+                iconLabel.setStyle(
+                        "-fx-font-size: 14px;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-text-fill: white;");
+            } else {
+                circle.setFill(Color.web("#C4CEC5"));
+                circle.setStroke(null);
+                iconLabel.setStyle(
+                        "-fx-font-size: 14px;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-text-fill: white;");
+            }
         }
-        // =========================================================
-        // BOTTOM STATUS BAR
-        // =========================================================
+    }
+    // =========================================================
+    // BOTTOM STATUS BAR
+    // =========================================================
 
-        private HBox createBottomBar() {
+    private HBox createBottomBar() {
 
-                HBox bar = new HBox();
+        HBox bar = new HBox();
 
-                bar.setPrefHeight(45);
-                bar.setMinHeight(45);
-                bar.setMaxHeight(45);
-                bar.setPadding(new Insets(0, 30, 0, 30));
-                bar.setAlignment(Pos.CENTER_LEFT);
+        bar.setPrefHeight(45);
+        bar.setMinHeight(45);
+        bar.setMaxHeight(45);
+        bar.setPadding(new Insets(0, 30, 0, 30));
+        bar.setAlignment(Pos.CENTER_LEFT);
 
-                bar.setStyle(
-                        "-fx-background-color: " + LIGHT_GREEN + ";"
-                );
+        bar.setStyle(
+                "-fx-background-color: #eef2eb;");
 
-                Label online = new Label("●  System Online");
-                online.setStyle(
-                        "-fx-font-size: 14px;" +
-                        "-fx-text-fill: white;"
-                );
-
-                Label connection = new Label("⌁  Strong Connection");
-                connection.setStyle(
-                        "-fx-font-size: 14px;" +
-                        "-fx-text-fill: white;"
-                );
-
-                Region spacer = new Region();
-                HBox.setHgrow(spacer, Priority.ALWAYS);
-
-                Label gps = new Label("GPS Accuracy: 2.4m");
-                gps.setStyle(
-                        "-fx-font-size: 14px;" +
-                        "-fx-text-fill: white;"
-                );
-
-                // Label time = new Label("09:51 AM");
-                Label time = new Label();
-
-                time.setStyle(
+        Label online = new Label("●  System Online");
+        online.setStyle(
                 "-fx-font-size: 14px;" +
-                "-fx-text-fill: white;"
-                );
+                        "-fx-text-fill: Green;-fx-font-weight:bold");
 
-                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+        Label connection = new Label("⌁  Strong Connection");
+        connection.setStyle(
+                "-fx-font-size: 14px;" +
+                        "-fx-text-fill: Green;-fx-font-weight:bold");
 
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
 
-                Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        Label gps = new Label("GPS Accuracy: 2.4m");
+        gps.setStyle(
+                "-fx-font-size: 14px;" +
+                        "-fx-text-fill: Green;-fx-font-weight:bold");
 
-                        LocalDateTime now = LocalDateTime.now();
-                                time.setText(
-                                        now.format(timeFormatter)
-                                        + "  |  "
-                                        + now.format(dateFormatter)
-                                );
-                        }),
+        // Label time = new Label("09:51 AM");
+        Label time = new Label();
 
-                        new KeyFrame(Duration.seconds(1))
-                );
+        time.setStyle(
+                "-fx-font-size: 14px;" +
+                        "-fx-text-fill: Green;-fx-font-weight:bold");
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            LocalDateTime now = LocalDateTime.now();
+            time.setText(
+                    now.format(timeFormatter)
+                            + "  |  "
+                            + now.format(dateFormatter));
+        }),
+
+                new KeyFrame(Duration.seconds(1)));
 
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
 
-                bar.setSpacing(30);
+        bar.setSpacing(30);
 
-                bar.getChildren().addAll(
-                        online,
-                        connection,
-                        spacer,
-                        gps,
-                        time
-                );
+        bar.getChildren().addAll(
+                online,
+                connection,
+                spacer,
+                gps,
+                time);
 
-                return bar;
+        return bar;
     }
 }

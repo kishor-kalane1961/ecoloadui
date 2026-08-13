@@ -37,7 +37,6 @@ public class Analytics {
 
     private static final String BACKGROUND = "#F3FAF6";
 
-
     // =========================================================
     // MAIN SCENE
     // =========================================================
@@ -47,11 +46,10 @@ public class Analytics {
         BorderPane root = new BorderPane();
 
         root.setStyle(
-                "-fx-background-color: " + BACKGROUND + ";"
-        );
+                "-fx-background-color: " + BACKGROUND + ";");
 
         // Header
-       // root.setTop(createHeader());
+        // root.setTop(createHeader());
 
         // =====================================================
         // CONTENT
@@ -64,9 +62,7 @@ public class Analytics {
                         18,
                         18,
                         25,
-                        18
-                )
-        );
+                        18));
 
         content.setFillWidth(true);
 
@@ -75,8 +71,7 @@ public class Analytics {
                 createKpiSection(),
                 createMiddleSection(),
                 createRouteSection(),
-                createBottomSection()
-        );
+                createBottomSection());
 
         // =====================================================
         // IMPORTANT:
@@ -89,29 +84,24 @@ public class Analytics {
         // SCROLL
         // =====================================================
 
-        ScrollPane scrollPane =
-                new ScrollPane(content);
+        ScrollPane scrollPane = new ScrollPane(content);
 
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(false);
         scrollPane.setPannable(true);
 
         scrollPane.setHbarPolicy(
-                ScrollPane.ScrollBarPolicy.NEVER
-        );
+                ScrollPane.ScrollBarPolicy.NEVER);
 
         scrollPane.setVbarPolicy(
-                ScrollPane.ScrollBarPolicy.AS_NEEDED
-        );
+                ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         scrollPane.setStyle(
                 "-fx-background-color: transparent;"
                         + "-fx-background: transparent;"
-                        + "-fx-border-color: transparent;"
-        );
+                        + "-fx-border-color: transparent;");
 
         root.setCenter(scrollPane);
-
 
         BorderPane mainContent = new BorderPane();
         mainContent.setTop(UserNavigation.createNavbar());
@@ -126,33 +116,27 @@ public class Analytics {
         // SCENE
         // =====================================================
 
-        Scene scene =
-                new Scene(
-                        mainroot,
-                        1536,
-                        750
-                );
+        Scene scene = new Scene(
+                mainroot,
+                1536,
+                750);
 
         scene.setFill(
-                Color.web(BACKGROUND)
-        );
+                Color.web(BACKGROUND));
 
         return scene;
     }
-
 
     // =========================================================
     // FORCE LABEL COLORS
     // =========================================================
 
     private void forceLabelColors(
-            javafx.scene.Node node
-    ) {
+            javafx.scene.Node node) {
 
         if (node instanceof Label) {
 
-            Label label =
-                    (Label) node;
+            Label label = (Label) node;
 
             /*
              * IMPORTANT:
@@ -160,356 +144,29 @@ public class Analytics {
              * from making the dashboard text white.
              */
 
-            if (
-                    label.getText() != null
-                            && label.getText().equals("ADMIN PANEL")
-            ) {
+            if (label.getText() != null
+                    && label.getText().equals("ADMIN PANEL")) {
 
                 label.setStyle(
-                        "-fx-text-fill: " + GREEN + ";"
-                );
+                        "-fx-text-fill: " + GREEN + ";");
 
             } else {
 
                 label.setStyle(
-                        "-fx-text-fill: " + TEXT + ";"
-                );
+                        "-fx-text-fill: " + TEXT + ";");
             }
         }
 
         if (node instanceof Parent) {
 
-            Parent parent =
-                    (Parent) node;
+            Parent parent = (Parent) node;
 
-            for (
-                    javafx.scene.Node child :
-                    parent.getChildrenUnmodifiable()
-            ) {
+            for (javafx.scene.Node child : parent.getChildrenUnmodifiable()) {
 
                 forceLabelColors(child);
             }
         }
     }
-
-
-    // =========================================================
-    // HEADER
-    // =========================================================
-
-    private HBox createHeader() {
-
-        HBox header =
-                new HBox();
-
-        header.setPrefHeight(70);
-        header.setMinHeight(70);
-        header.setMaxHeight(70);
-
-        header.setPadding(
-                new Insets(
-                        10,
-                        20,
-                        10,
-                        20
-                )
-        );
-
-        header.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
-        header.setStyle(
-                "-fx-background-color: white;"
-                        + "-fx-border-color: transparent transparent "
-                        + BORDER + " transparent;"
-                        + "-fx-border-width: 0 0 1 0;"
-        );
-
-        // =====================================================
-        // LOGO
-        // =====================================================
-
-        Circle logoCircle =
-                new Circle(
-                        21,
-                        Color.web(GREEN)
-                );
-
-        Label logoText =
-                new Label("E");
-
-        logoText.setFont(
-                Font.font(
-                        "System",
-                        FontWeight.BOLD,
-                        16
-                )
-        );
-
-        logoText.setStyle(
-                "-fx-text-fill: white;"
-        );
-
-        StackPane logo =
-                new StackPane(
-                        logoCircle,
-                        logoText
-                );
-
-
-        // =====================================================
-        // BRAND
-        // =====================================================
-
-        Label brand =
-                new Label("EcoLoad");
-
-        brand.setFont(
-                Font.font(
-                        "System",
-                        FontWeight.BOLD,
-                        19
-                )
-        );
-
-        brand.setStyle(
-                "-fx-text-fill: " + TEXT_DARK + ";"
-        );
-
-
-        Label admin =
-                new Label("ADMIN PANEL");
-
-        admin.setFont(
-                Font.font(
-                        "System",
-                        FontWeight.BOLD,
-                        8
-                )
-        );
-
-        admin.setStyle(
-                "-fx-text-fill: " + GREEN + ";"
-        );
-
-
-        VBox brandBox =
-                new VBox(
-                        2,
-                        brand,
-                        admin
-                );
-
-        brandBox.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
-
-        HBox left =
-                new HBox(
-                        10,
-                        logo,
-                        brandBox
-                );
-
-        left.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
-
-        // =====================================================
-        // SPACER
-        // =====================================================
-
-        Region spacer =
-                new Region();
-
-        HBox.setHgrow(
-                spacer,
-                Priority.ALWAYS
-        );
-
-
-        // =====================================================
-        // RIGHT SIDE
-        // =====================================================
-
-        HBox dateBox =
-                createDateBox();
-
-
-        Label notification =
-                new Label("♧");
-
-        notification.setFont(
-                Font.font(
-                        "System",
-                        17
-                )
-        );
-
-        notification.setStyle(
-                "-fx-text-fill: " + TEXT_DARK + ";"
-        );
-
-
-        Label settings =
-                new Label("⚙");
-
-        settings.setFont(
-                Font.font(
-                        "System",
-                        17
-                )
-        );
-
-        settings.setStyle(
-                "-fx-text-fill: " + TEXT_DARK + ";"
-        );
-
-
-        Circle profileCircle =
-                new Circle(
-                        21,
-                        Color.web("#DCE9E2")
-                );
-
-
-        Label profileText =
-                new Label("A");
-
-        profileText.setFont(
-                Font.font(
-                        "System",
-                        FontWeight.BOLD,
-                        12
-                )
-        );
-
-        profileText.setStyle(
-                "-fx-text-fill: " + GREEN + ";"
-        );
-
-
-        StackPane profile =
-                new StackPane(
-                        profileCircle,
-                        profileText
-                );
-
-
-        HBox right =
-                new HBox(
-                        18,
-                        dateBox,
-                        notification,
-                        settings,
-                        profile
-                );
-
-        right.setAlignment(
-                Pos.CENTER_RIGHT
-        );
-
-
-        header.getChildren().addAll(
-                left,
-                spacer,
-                right
-        );
-
-
-        return header;
-    }
-
-
-    // =========================================================
-    // DATE BOX
-    // =========================================================
-
-    private HBox createDateBox() {
-
-        Label calendar =
-                new Label("▣");
-
-        calendar.setFont(
-                Font.font(
-                        "System",
-                        10
-                )
-        );
-
-        calendar.setStyle(
-                "-fx-text-fill: " + GREY + ";"
-        );
-
-
-        Label date =
-                new Label(
-                        "Jan 01 - Jan 31"
-                );
-
-        date.setFont(
-                Font.font(
-                        "System",
-                        FontWeight.NORMAL,
-                        10
-                )
-        );
-
-        date.setStyle(
-                "-fx-text-fill: " + GREY + ";"
-        );
-
-
-        Label arrow =
-                new Label("⌄");
-
-        arrow.setFont(
-                Font.font(
-                        "System",
-                        11
-                )
-        );
-
-        arrow.setStyle(
-                "-fx-text-fill: " + GREY + ";"
-        );
-
-
-        HBox box =
-                new HBox(
-                        8,
-                        calendar,
-                        date,
-                        arrow
-                );
-
-        box.setAlignment(
-                Pos.CENTER
-        );
-
-        box.setPadding(
-                new Insets(
-                        9,
-                        13,
-                        9,
-                        13
-                )
-        );
-
-        box.setStyle(
-                "-fx-background-color: #F7FAF8;"
-                        + "-fx-border-color: " + BORDER + ";"
-                        + "-fx-border-radius: 8;"
-                        + "-fx-background-radius: 8;"
-        );
-
-
-        return box;
-    }
-
 
     // =========================================================
     // PAGE TITLE
@@ -517,55 +174,38 @@ public class Analytics {
 
     private VBox createPageTitle() {
 
-        VBox box =
-                new VBox(4);
+        VBox box = new VBox(4);
 
-
-        Label title =
-                new Label(
-                        "Analytics Overview"
-                );
+        Label title = new Label(
+                "Analytics Overview");
 
         title.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        24
-                )
-        );
+                        24));
 
         title.setStyle(
-                "-fx-text-fill: " + TEXT_DARK + ";"
-        );
+                "-fx-text-fill: " + TEXT_DARK + ";");
 
-
-        Label subtitle =
-                new Label(
-                        "Monitor your business performance and transport insights."
-                );
+        Label subtitle = new Label(
+                "Monitor your business performance and transport insights.");
 
         subtitle.setFont(
                 Font.font(
                         "System",
                         FontWeight.NORMAL,
-                        11
-                )
-        );
+                        11));
 
         subtitle.setStyle(
-                "-fx-text-fill: " + GREY + ";"
-        );
-
+                "-fx-text-fill: " + GREY + ";");
 
         box.getChildren().addAll(
                 title,
-                subtitle
-        );
-
+                subtitle);
 
         return box;
     }
-
 
     // =========================================================
     // KPI SECTION
@@ -573,70 +213,51 @@ public class Analytics {
 
     private HBox createKpiSection() {
 
-        HBox row =
-                new HBox(12);
+        HBox row = new HBox(12);
 
         row.setAlignment(
-                Pos.TOP_LEFT
-        );
+                Pos.TOP_LEFT);
 
+        VBox total = createKpiCard(
+                "TOTAL LOADS",
+                "18",
+                "▣",
+                "All transport loads",
+                GREEN);
 
-        VBox total =
-                createKpiCard(
-                        "TOTAL LOADS",
-                        "18",
-                        "▣",
-                        "All transport loads",
-                        GREEN
-                );
+        VBox delivered = createKpiCard(
+                "DELIVERED",
+                "11",
+                "✓",
+                "↑ 12% vs last month",
+                GREEN);
 
-
-        VBox delivered =
-                createKpiCard(
-                        "DELIVERED",
-                        "11",
-                        "✓",
-                        "↑ 12% vs last month",
-                        GREEN
-                );
-
-
-        VBox cancelled =
-                createKpiCard(
-                        "CANCELLED",
-                        "1",
-                        "×",
-                        "↓ -5% vs last month",
-                        RED
-                );
-
+        VBox cancelled = createKpiCard(
+                "CANCELLED",
+                "1",
+                "×",
+                "↓ -5% vs last month",
+                RED);
 
         HBox.setHgrow(
                 total,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 delivered,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 cancelled,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         row.getChildren().addAll(
                 total,
                 delivered,
-                cancelled
-        );
-
+                cancelled);
 
         return row;
     }
-
 
     // =========================================================
     // KPI CARD
@@ -647,161 +268,109 @@ public class Analytics {
             String number,
             String iconText,
             String bottomText,
-            String color
-    ) {
+            String color) {
 
-        VBox card =
-                new VBox(5);
-
+        VBox card = new VBox(5);
 
         card.setPadding(
                 new Insets(
                         16,
                         18,
                         16,
-                        18
-                )
-        );
-
+                        18));
 
         card.setPrefHeight(125);
         card.setMinHeight(125);
         card.setMaxHeight(125);
 
-
         card.setStyle(
                 "-fx-background-color: white;"
                         + "-fx-border-color: " + BORDER + ";"
                         + "-fx-border-radius: 10;"
-                        + "-fx-background-radius: 10;"
-        );
+                        + "-fx-background-radius: 10;");
 
-
-        HBox top =
-                new HBox();
-
+        HBox top = new HBox();
 
         top.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
-
-        Label headingLabel =
-                new Label(
-                        heading
-                );
+        Label headingLabel = new Label(
+                heading);
 
         headingLabel.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        10
-                )
-        );
+                        10));
 
         headingLabel.setStyle(
-                "-fx-text-fill: " + GREY + ";"
-        );
+                "-fx-text-fill: " + GREY + ";");
 
-
-        Region spacer =
-                new Region();
+        Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
+        Circle iconCircle = new Circle(
+                14,
+                Color.web(
+                        color.equals(RED)
+                                ? RED_BG
+                                : GREEN_BG));
 
-        Circle iconCircle =
-                new Circle(
-                        14,
-                        Color.web(
-                                color.equals(RED)
-                                        ? RED_BG
-                                        : GREEN_BG
-                        )
-                );
-
-
-        Label icon =
-                new Label(
-                        iconText
-                );
+        Label icon = new Label(
+                iconText);
 
         icon.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        10
-                )
-        );
+                        10));
 
         icon.setStyle(
-                "-fx-text-fill: " + color + ";"
-        );
+                "-fx-text-fill: " + color + ";");
 
-
-        StackPane iconPane =
-                new StackPane(
-                        iconCircle,
-                        icon
-                );
-
+        StackPane iconPane = new StackPane(
+                iconCircle,
+                icon);
 
         top.getChildren().addAll(
                 headingLabel,
                 spacer,
-                iconPane
-        );
+                iconPane);
 
-
-        Label value =
-                new Label(
-                        number
-                );
+        Label value = new Label(
+                number);
 
         value.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        30
-                )
-        );
+                        30));
 
         value.setStyle(
-                "-fx-text-fill: " + TEXT_DARK + ";"
-        );
+                "-fx-text-fill: " + TEXT_DARK + ";");
 
-
-        Label bottom =
-                new Label(
-                        bottomText
-                );
+        Label bottom = new Label(
+                bottomText);
 
         bottom.setFont(
                 Font.font(
                         "System",
                         FontWeight.NORMAL,
-                        9
-                )
-        );
+                        9));
 
         bottom.setStyle(
-                "-fx-text-fill: " + color + ";"
-        );
-
+                "-fx-text-fill: " + color + ";");
 
         card.getChildren().addAll(
                 top,
                 value,
-                bottom
-        );
-
+                bottom);
 
         return card;
     }
-
 
     // =========================================================
     // MIDDLE SECTION
@@ -809,37 +378,25 @@ public class Analytics {
 
     private HBox createMiddleSection() {
 
-        HBox row =
-                new HBox(12);
+        HBox row = new HBox(12);
 
-
-        VBox status =
-                createStatusCard();
-
+        VBox status = createStatusCard();
 
         status.setPrefWidth(440);
         status.setMinWidth(400);
 
-
-        HBox insights =
-                createInsightColumn();
-
+        HBox insights = createInsightColumn();
 
         HBox.setHgrow(
                 insights,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         row.getChildren().addAll(
                 status,
-                insights
-        );
-
+                insights);
 
         return row;
     }
-
 
     // =========================================================
     // STATUS CARD
@@ -847,104 +404,70 @@ public class Analytics {
 
     private VBox createStatusCard() {
 
-        VBox card =
-                whiteCard();
-
+        VBox card = whiteCard();
 
         card.setPrefHeight(215);
         card.setMinHeight(215);
 
+        Label title = sectionTitle(
+                "Load Status Breakdown");
 
-        Label title =
-                sectionTitle(
-                        "Load Status Breakdown"
-                );
-
-
-        Label menu =
-                new Label("⋮");
+        Label menu = new Label("⋮");
 
         menu.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        16
-                )
-        );
+                        16));
 
         menu.setStyle(
-                "-fx-text-fill: " + GREY + ";"
-        );
+                "-fx-text-fill: " + GREY + ";");
 
+        HBox heading = new HBox();
 
-        HBox heading =
-                new HBox();
-
-
-        Region spacer =
-                new Region();
+        Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         heading.getChildren().addAll(
                 title,
                 spacer,
-                menu
-        );
+                menu);
 
-
-        Line line =
-                new Line(
-                        0,
-                        0,
-                        390,
-                        0
-                );
+        Line line = new Line(
+                0,
+                0,
+                390,
+                0);
 
         line.setStroke(
-                Color.web(LINE)
-        );
+                Color.web(LINE));
 
-
-        HBox chartArea =
-                new HBox(28);
-
+        HBox chartArea = new HBox(28);
 
         chartArea.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
+                Pos.CENTER_LEFT);
 
         chartArea.setPadding(
                 new Insets(
                         8,
                         10,
                         5,
-                        10
-                )
-        );
-
+                        10));
 
         chartArea.getChildren().addAll(
                 createDonut(),
-                createLegend()
-        );
-
+                createLegend());
 
         card.getChildren().addAll(
                 heading,
                 line,
-                chartArea
-        );
-
+                chartArea);
 
         return card;
     }
-
 
     // =========================================================
     // DONUT
@@ -952,189 +475,125 @@ public class Analytics {
 
     private StackPane createDonut() {
 
-        StackPane container =
-                new StackPane();
-
+        StackPane container = new StackPane();
 
         container.setPrefSize(
                 145,
-                145
-        );
+                145);
 
+        PieChart.Data delivered = new PieChart.Data(
+                "Delivered",
+                11);
 
-        PieChart.Data delivered =
-                new PieChart.Data(
-                        "Delivered",
-                        11
-                );
+        PieChart.Data inTransit = new PieChart.Data(
+                "In Transit",
+                6);
 
+        PieChart.Data open = new PieChart.Data(
+                "Open",
+                0);
 
-        PieChart.Data inTransit =
-                new PieChart.Data(
-                        "In Transit",
-                        6
-                );
+        PieChart.Data cancelled = new PieChart.Data(
+                "Cancelled",
+                1);
 
-
-        PieChart.Data open =
-                new PieChart.Data(
-                        "Open",
-                        0
-                );
-
-
-        PieChart.Data cancelled =
-                new PieChart.Data(
-                        "Cancelled",
-                        1
-                );
-
-
-        PieChart chart =
-                new PieChart();
-
+        PieChart chart = new PieChart();
 
         chart.getData().addAll(
                 delivered,
                 inTransit,
                 open,
-                cancelled
-        );
-
+                cancelled);
 
         chart.setPrefSize(
                 135,
-                135
-        );
-
+                135);
 
         chart.setMinSize(
                 135,
-                135
-        );
-
+                135);
 
         chart.setMaxSize(
                 135,
-                135
-        );
-
+                135);
 
         chart.setLegendVisible(false);
         chart.setLabelsVisible(false);
         chart.setAnimated(false);
         chart.setStartAngle(90);
 
-
         chart.setStyle(
-                "-fx-background-color: transparent;"
-        );
+                "-fx-background-color: transparent;");
 
+        Circle center = new Circle(
+                39,
+                Color.WHITE);
 
-        Circle center =
-                new Circle(
-                        39,
-                        Color.WHITE
-                );
-
-
-        Label number =
-                new Label("18");
-
+        Label number = new Label("18");
 
         number.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        26
-                )
-        );
-
+                        26));
 
         number.setStyle(
-                "-fx-text-fill: " + TEXT_DARK + ";"
-        );
+                "-fx-text-fill: " + TEXT_DARK + ";");
 
-
-        Label total =
-                new Label(
-                        "TOTAL LOADS"
-                );
-
+        Label total = new Label(
+                "TOTAL LOADS");
 
         total.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        6
-                )
-        );
-
+                        6));
 
         total.setStyle(
-                "-fx-text-fill: " + GREY + ";"
-        );
+                "-fx-text-fill: " + GREY + ";");
 
-
-        VBox centerContent =
-                new VBox(
-                        0,
-                        number,
-                        total
-                );
-
+        VBox centerContent = new VBox(
+                0,
+                number,
+                total);
 
         centerContent.setAlignment(
-                Pos.CENTER
-        );
-
+                Pos.CENTER);
 
         container.getChildren().addAll(
                 chart,
                 center,
-                centerContent
-        );
-
+                centerContent);
 
         chart.applyCss();
         chart.layout();
 
-
         if (delivered.getNode() != null) {
 
             delivered.getNode().setStyle(
-                    "-fx-pie-color: " + GREEN + ";"
-            );
+                    "-fx-pie-color: " + GREEN + ";");
         }
-
 
         if (inTransit.getNode() != null) {
 
             inTransit.getNode().setStyle(
-                    "-fx-pie-color: " + GREEN_LIGHT + ";"
-            );
+                    "-fx-pie-color: " + GREEN_LIGHT + ";");
         }
-
 
         if (open.getNode() != null) {
 
             open.getNode().setStyle(
-                    "-fx-pie-color: " + GREEN_PALE + ";"
-            );
+                    "-fx-pie-color: " + GREEN_PALE + ";");
         }
-
 
         if (cancelled.getNode() != null) {
 
             cancelled.getNode().setStyle(
-                    "-fx-pie-color: " + RED + ";"
-            );
+                    "-fx-pie-color: " + RED + ";");
         }
-
 
         return container;
     }
-
 
     // =========================================================
     // LEGEND
@@ -1142,121 +601,84 @@ public class Analytics {
 
     private VBox createLegend() {
 
-        VBox legend =
-                new VBox(12);
-
+        VBox legend = new VBox(12);
 
         legend.setPrefWidth(125);
-
 
         legend.getChildren().addAll(
 
                 legendRow(
                         GREEN,
                         "Delivered",
-                        "11"
-                ),
+                        "11"),
 
                 legendRow(
                         GREEN_LIGHT,
                         "In Transit",
-                        "6"
-                ),
+                        "6"),
 
                 legendRow(
                         GREEN_PALE,
                         "Open",
-                        "0"
-                ),
+                        "0"),
 
                 legendRow(
                         RED,
                         "Cancelled",
-                        "1"
-                )
-        );
-
+                        "1"));
 
         return legend;
     }
 
-
     private HBox legendRow(
             String color,
             String name,
-            String number
-    ) {
+            String number) {
 
-        Circle dot =
-                new Circle(
-                        4.5,
-                        Color.web(color)
-                );
+        Circle dot = new Circle(
+                4.5,
+                Color.web(color));
 
-
-        Label nameLabel =
-                new Label(name);
-
+        Label nameLabel = new Label(name);
 
         nameLabel.setFont(
                 Font.font(
                         "System",
                         FontWeight.NORMAL,
-                        13
-                )
-        );
-
+                        13));
 
         nameLabel.setStyle(
-                "-fx-text-fill: " + TEXT + ";"
-        );
+                "-fx-text-fill: " + TEXT + ";");
 
-
-        Region spacer =
-                new Region();
+        Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
-
-        Label value =
-                new Label(number);
-
+        Label value = new Label(number);
 
         value.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        9
-                )
-        );
-
+                        9));
 
         value.setStyle(
-                "-fx-text-fill: " + TEXT + ";"
-        );
+                "-fx-text-fill: " + TEXT + ";");
 
-
-        HBox row =
-                new HBox(
-                        8,
-                        dot,
-                        nameLabel,
-                        spacer,
-                        value
-                );
-
+        HBox row = new HBox(
+                8,
+                dot,
+                nameLabel,
+                spacer,
+                value);
 
         row.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
+                Pos.CENTER_LEFT);
 
         return row;
     }
-
 
     // =========================================================
     // INSIGHT CARDS
@@ -1264,74 +686,54 @@ public class Analytics {
 
     private HBox createInsightColumn() {
 
-        HBox row =
-                new HBox(12);
+        HBox row = new HBox(12);
 
+        VBox best = createInsight(
+                "BEST ROUTE",
+                "Pune → Nashik",
+                "Highest on-time delivery rate.",
+                "➜");
+        best.setPrefHeight(150);
+        best.setMinHeight(150);
+        best.setMaxHeight(150);
 
-        VBox best =
-                createInsight(
-                        "BEST ROUTE",
-                        "Pune → Nashik",
-                        "Highest on-time delivery rate.",
-                        "➜"
-                );
-                best.setPrefHeight(150);
-best.setMinHeight(150);
-best.setMaxHeight(150);
+        VBox average = createInsight(
+                "AVG DELIVERY TIME",
+                "4.2 Days",
+                "-0.3 days from average.",
+                "◷");
+        average.setPrefHeight(150);
+        average.setMinHeight(150);
+        average.setMaxHeight(150);
 
-
-        VBox average =
-                createInsight(
-                        "AVG DELIVERY TIME",
-                        "4.2 Days",
-                        "-0.3 days from average.",
-                        "◷"
-                );
-                average.setPrefHeight(150);
-                average.setMinHeight(150);
-                average.setMaxHeight(150);
-
-
-        VBox requested =
-                createInsight(
-                        "MOST REQUESTED",
-                        "12-Ton Truck",
-                        "Accounts for 65% of volume.",
-                        "▣"
-                );
-                requested.setPrefHeight(150);
-                requested.setMinHeight(150);
-                requested.setMaxHeight(150);
-
+        VBox requested = createInsight(
+                "MOST REQUESTED",
+                "12-Ton Truck",
+                "Accounts for 65% of volume.",
+                "▣");
+        requested.setPrefHeight(150);
+        requested.setMinHeight(150);
+        requested.setMaxHeight(150);
 
         HBox.setHgrow(
                 best,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 average,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 requested,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         row.getChildren().addAll(
                 best,
                 average,
-                requested
-        );
-
+                requested);
 
         return row;
     }
-
 
     // =========================================================
     // SINGLE INSIGHT
@@ -1341,431 +743,322 @@ best.setMaxHeight(150);
             String heading,
             String value,
             String subtitle,
-            String iconText
-    ) {
+            String iconText) {
 
-        VBox card =
-                new VBox(7);
-
+        VBox card = new VBox(7);
 
         card.setPadding(
                 new Insets(
                         13,
                         14,
                         12,
-                        14
-                )
-        );
-
+                        14));
 
         card.setPrefHeight(105);
         card.setMinHeight(105);
-
 
         card.setStyle(
                 "-fx-background-color: white;"
                         + "-fx-border-color: " + BORDER + ";"
                         + "-fx-border-radius: 10;"
-                        + "-fx-background-radius: 10;"
-        );
+                        + "-fx-background-radius: 10;");
 
-
-        HBox top =
-                new HBox(9);
-
+        HBox top = new HBox(9);
 
         top.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
+        Circle circle = new Circle(
+                13,
+                Color.web(GREEN_BG));
 
-        Circle circle =
-                new Circle(
-                        13,
-                        Color.web(GREEN_BG)
-                );
-
-
-        Label icon =
-                new Label(iconText);
-
+        Label icon = new Label(iconText);
 
         icon.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        9
-                )
-        );
-
+                        9));
 
         icon.setStyle(
-                "-fx-text-fill: " + GREEN + ";"
-        );
+                "-fx-text-fill: " + GREEN + ";");
 
+        StackPane iconPane = new StackPane(
+                circle,
+                icon);
 
-        StackPane iconPane =
-                new StackPane(
-                        circle,
-                        icon
-                );
-
-
-        Label headingLabel =
-                new Label(heading);
-
+        Label headingLabel = new Label(heading);
 
         headingLabel.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        9
-                )
-        );
-
+                        9));
 
         headingLabel.setStyle(
-                "-fx-text-fill: " + GREY + ";"
-        );
-
+                "-fx-text-fill: " + GREY + ";");
 
         top.getChildren().addAll(
                 iconPane,
-                headingLabel
-        );
+                headingLabel);
 
-
-        Label valueLabel =
-                new Label(value);
-
+        Label valueLabel = new Label(value);
 
         valueLabel.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        16
-                )
-        );
-
+                        16));
 
         valueLabel.setStyle(
-                "-fx-text-fill: " + TEXT_DARK + ";"
-        );
+                "-fx-text-fill: " + TEXT_DARK + ";");
 
-
-        Label subtitleLabel =
-                new Label(subtitle);
-
+        Label subtitleLabel = new Label(subtitle);
 
         subtitleLabel.setFont(
                 Font.font(
                         "System",
                         FontWeight.NORMAL,
-                        8
-                )
-        );
-
+                        8));
 
         subtitleLabel.setWrapText(true);
 
-
         subtitleLabel.setStyle(
-                "-fx-text-fill: " + GREY + ";"
-        );
-
+                "-fx-text-fill: " + GREY + ";");
 
         card.getChildren().addAll(
                 top,
                 valueLabel,
-                subtitleLabel
-        );
-
+                subtitleLabel);
 
         return card;
     }
-
 
     // =========================================================
     // ROUTE SECTION
     // =========================================================
 
-   private VBox createRouteSection() {
+    private VBox createRouteSection() {
 
-    VBox card =
-            whiteCard();
+        VBox card = whiteCard();
 
-    card.setPrefHeight(200);
-    card.setMinHeight(200);
-    card.setMaxHeight(200);
+        card.setPrefHeight(200);
+        card.setMinHeight(200);
+        card.setMaxHeight(200);
 
-    card.setPadding(
-            new Insets(
-                    14,
-                    18,
-                    14,
-                    18
-            )
-    );
+        card.setPadding(
+                new Insets(
+                        14,
+                        18,
+                        14,
+                        18));
 
+        // =====================================================
+        // TITLE
+        // =====================================================
 
-    // =====================================================
-    // TITLE
-    // =====================================================
+        Label title = new Label(
+                "Top Routes");
 
-    Label title =
-            new Label(
-                    "Top Routes"
-            );
+        title.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        14));
 
-    title.setFont(
-            Font.font(
-                    "System",
-                    FontWeight.BOLD,
-                    14
-            )
-    );
+        title.setStyle(
+                "-fx-text-fill: " + TEXT + ";");
 
-    title.setStyle(
-            "-fx-text-fill: " + TEXT + ";"
-    );
+        // =====================================================
+        // ROUTES
+        // =====================================================
 
+        VBox routes = new VBox(
+                10);
 
-    // =====================================================
-    // ROUTES
-    // =====================================================
+        routes.getChildren().addAll(
 
-    VBox routes =
-            new VBox(
-                    10
-            );
+                routeRow(
+                        "Pune → Nashik",
+                        "₹31,200",
+                        3.00,
+                        GREEN),
 
+                routeRow(
+                        "Mumbai → Bengaluru",
+                        "₹29,500",
+                        2.30,
+                        GREEN),
 
-    routes.getChildren().addAll(
+                routeRow(
+                        "Delhi → Jaipur",
+                        "₹18,000",
+                        1.38,
+                        GREEN));
 
-            routeRow(
-                    "Pune → Nashik",
-                    "₹31,200",
-                    3.00,
-                    GREEN
-            ),
+        card.getChildren().addAll(
+                title,
+                routes);
 
-            routeRow(
-                    "Mumbai → Bengaluru",
-                    "₹29,500",
-                    2.30,
-                     GREEN
-            ),
-
-            routeRow(
-                    "Delhi → Jaipur",
-                    "₹18,000",
-                    1.38,
-                     GREEN
-            )
-    );
-
-
-    card.getChildren().addAll(
-            title,
-            routes
-    );
-
-
-    return card;
-}
+        return card;
+    }
 
     // =========================================================
     // ROUTE ROW
     // =========================================================
 
-   private VBox routeRow(
-        String route,
-        String revenue,
-        double percentage,
-        String color
-) {
+    private VBox routeRow(
+            String route,
+            String revenue,
+            double percentage,
+            String color) {
 
-    VBox row =
-            new VBox(5);
+        VBox row = new VBox(5);
 
+        // =====================================================
+        // TOP LINE : ROUTE + REVENUE
+        // =====================================================
 
-    // =====================================================
-    // TOP LINE : ROUTE + REVENUE
-    // =====================================================
+        HBox topLine = new HBox(8);
 
-    HBox topLine =
-            new HBox(8);
+        Label routeLabel = new Label(
+                route);
 
-    Label routeLabel =
-            new Label(
-                    route
-            );
+        routeLabel.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        12));
 
-    routeLabel.setFont(
-            Font.font(
-                    "System",
-                    FontWeight.BOLD,
-                    12
-            )
-    );
+        routeLabel.setStyle(
+                "-fx-text-fill: " + TEXT + ";");
 
-    routeLabel.setStyle(
-            "-fx-text-fill: " + TEXT + ";"
-    );
+        Region spacer = new Region();
 
+        HBox.setHgrow(
+                spacer,
+                Priority.ALWAYS);
 
-    Region spacer =
-            new Region();
+        Label revenueLabel = new Label(
+                revenue);
 
-    HBox.setHgrow(
-            spacer,
-            Priority.ALWAYS
-    );
+        revenueLabel.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        12));
 
+        revenueLabel.setStyle(
+                "-fx-text-fill: " + TEXT + ";");
 
-    Label revenueLabel =
-            new Label(
-                    revenue
-            );
+        topLine.getChildren().addAll(
+                routeLabel,
+                spacer,
+                revenueLabel);
 
-    revenueLabel.setFont(
-            Font.font(
-                    "System",
-                    FontWeight.BOLD,
-                    12
-            )
-    );
+        topLine.setAlignment(
+                Pos.CENTER_LEFT);
 
-    revenueLabel.setStyle(
-            "-fx-text-fill: " + TEXT + ";"
-    );
+        // =====================================================
+        // FULL WIDTH BACKGROUND BAR
+        // =====================================================
 
+        // StackPane bar =
+        // new StackPane();
 
-    topLine.getChildren().addAll(
-            routeLabel,
-            spacer,
-            revenueLabel
-    );
+        // bar.setPrefHeight(6);
+        // bar.setMinHeight(6);
+        // bar.setMaxHeight(6);
 
-    topLine.setAlignment(
-            Pos.CENTER_LEFT
-    );
+        // bar.setMaxWidth(
+        // Double.MAX_VALUE
+        // );
 
+        // Region background =
+        // new Region();
 
-    // =====================================================
-    // FULL WIDTH BACKGROUND BAR
-    // =====================================================
+        // background.setMaxWidth(
+        // Double.MAX_VALUE
+        // );
 
-//     StackPane bar =
-//             new StackPane();
+        // background.setPrefHeight(6);
+        // background.setMaxHeight(6);
 
-//     bar.setPrefHeight(6);
-//     bar.setMinHeight(6);
-//     bar.setMaxHeight(6);
+        // background.setStyle(
+        // "-fx-background-color: #E2E7E4;"
+        // + "-fx-background-radius: 6;"
+        // );
 
-//     bar.setMaxWidth(
-//             Double.MAX_VALUE
-//     );
+        // // =====================================================
+        // // GREEN PROGRESS
+        // // =====================================================
 
+        // Region fill =
+        // new Region();
 
-//     Region background =
-//             new Region();
+        // fill.setPrefHeight(6);
+        // fill.setMaxHeight(6);
 
-//     background.setMaxWidth(
-//             Double.MAX_VALUE
-//     );
+        // fill.prefWidthProperty().bind(
+        // bar.widthProperty()
+        // .multiply(
+        // percentage
+        // )
+        // );
 
-//     background.setPrefHeight(6);
-//     background.setMaxHeight(6);
+        // fill.setStyle(
+        // "-fx-background-color: " + color + ";"
+        // + "-fx-background-radius: 6;"
+        // );
 
-//     background.setStyle(
-//             "-fx-background-color: #E2E7E4;"
-//                     + "-fx-background-radius: 6;"
-//     );
+        // StackPane.setAlignment(
+        // fill,
+        // Pos.CENTER_LEFT
+        // );
 
+        // bar.getChildren().addAll(
+        // background,
+        // fill
+        // );
 
-//     // =====================================================
-//     // GREEN PROGRESS
-//     // =====================================================
+        // // =====================================================
+        // // ROW
+        // // =====================================================
 
-//     Region fill =
-//             new Region();
+        StackPane bar = new StackPane();
 
-//     fill.setPrefHeight(6);
-//     fill.setMaxHeight(6);
+        double barWidth = 320 * percentage;
 
-//     fill.prefWidthProperty().bind(
-//             bar.widthProperty()
-//                     .multiply(
-//                             percentage
-//                     )
-//     );
+        bar.setPrefWidth(barWidth);
+        bar.setMinWidth(barWidth);
+        bar.setMaxWidth(barWidth);
 
-//     fill.setStyle(
-//             "-fx-background-color: " + color + ";"
-//                     + "-fx-background-radius: 6;"
-//     );
+        bar.setPrefHeight(6);
+        bar.setMinHeight(6);
+        bar.setMaxHeight(6);
 
+        Region fill = new Region();
 
-//     StackPane.setAlignment(
-//             fill,
-//             Pos.CENTER_LEFT
-//     );
+        fill.setPrefWidth(barWidth);
+        fill.setMinWidth(barWidth);
+        fill.setMaxWidth(barWidth);
 
+        fill.setPrefHeight(6);
+        fill.setMinHeight(6);
+        fill.setMaxHeight(6);
 
-//     bar.getChildren().addAll(
-//             background,
-//             fill
-//     );
+        fill.setStyle(
+                "-fx-background-color: " + color + ";"
+                        + "-fx-background-radius: 6;");
 
+        bar.getChildren().add(
+                fill);
+        row.getChildren().addAll(
+                topLine,
+                bar);
 
-//     // =====================================================
-//     // ROW
-//     // =====================================================
-
-    StackPane bar =
-        new StackPane();
-
-double barWidth =
-        320 * percentage;
-
-bar.setPrefWidth(barWidth);
-bar.setMinWidth(barWidth);
-bar.setMaxWidth(barWidth);
-
-bar.setPrefHeight(6);
-bar.setMinHeight(6);
-bar.setMaxHeight(6);
-
-
-Region fill =
-        new Region();
-
-fill.setPrefWidth(barWidth);
-fill.setMinWidth(barWidth);
-fill.setMaxWidth(barWidth);
-
-fill.setPrefHeight(6);
-fill.setMinHeight(6);
-fill.setMaxHeight(6);
-
-fill.setStyle(
-        "-fx-background-color: " + color + ";"
-                + "-fx-background-radius: 6;"
-);
-
-
-bar.getChildren().add(
-        fill
-);
-    row.getChildren().addAll(
-            topLine,
-            bar
-    );
-
-
-    return row;
-}
+        return row;
+    }
 
     // =========================================================
     // BOTTOM SECTION
@@ -1773,39 +1066,26 @@ bar.getChildren().add(
 
     private HBox createBottomSection() {
 
-        HBox row =
-                new HBox(12);
+        HBox row = new HBox(12);
 
+        VBox monthly = createMonthly();
 
-        VBox monthly =
-                createMonthly();
-
-
-        VBox recent =
-                createRecent();
-
+        VBox recent = createRecent();
 
         HBox.setHgrow(
                 monthly,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 recent,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         row.getChildren().addAll(
                 monthly,
-                recent
-        );
-
+                recent);
 
         return row;
     }
-
 
     // =========================================================
     // MONTHLY
@@ -1813,68 +1093,43 @@ bar.getChildren().add(
 
     private VBox createMonthly() {
 
-        VBox card =
-                whiteCard();
-
+        VBox card = whiteCard();
 
         card.setPrefHeight(210);
         card.setMinHeight(210);
 
+        HBox heading = new HBox();
 
-        HBox heading =
-                new HBox();
+        Label title = sectionTitle(
+                "Monthly Performance");
 
-
-        Label title =
-                sectionTitle(
-                        "Monthly Performance"
-                );
-
-
-        Region spacer =
-                new Region();
-
+        Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
-
-        Label report =
-                new Label(
-                        "View Report"
-                );
-
+        Label report = new Label(
+                "View Report");
 
         report.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        8
-                )
-        );
-
+                        8));
 
         report.setStyle(
-                "-fx-text-fill: " + GREEN + ";"
-        );
-
+                "-fx-text-fill: " + GREEN + ";");
 
         heading.getChildren().addAll(
                 title,
                 spacer,
-                report
-        );
+                report);
 
-
-        GridPane table =
-                new GridPane();
-
+        GridPane table = new GridPane();
 
         table.setHgap(35);
         table.setVgap(12);
-
 
         String[] headers = {
                 "MONTH",
@@ -1884,40 +1139,25 @@ bar.getChildren().add(
                 "GROWTH"
         };
 
+        for (int i = 0; i < headers.length; i++) {
 
-        for (
-                int i = 0;
-                i < headers.length;
-                i++
-        ) {
-
-            Label header =
-                    new Label(
-                            headers[i]
-                    );
-
+            Label header = new Label(
+                    headers[i]);
 
             header.setFont(
                     Font.font(
                             "System",
                             FontWeight.BOLD,
-                            7
-                    )
-            );
-
+                            7));
 
             header.setStyle(
-                    "-fx-text-fill: " + GREY + ";"
-            );
-
+                    "-fx-text-fill: " + GREY + ";");
 
             table.add(
                     header,
                     i,
-                    0
-            );
+                    0);
         }
-
 
         addMonthlyRow(
                 table,
@@ -1926,9 +1166,7 @@ bar.getChildren().add(
                 "18",
                 "11",
                 "1",
-                "+18.5%"
-        );
-
+                "+18.5%");
 
         addMonthlyRow(
                 table,
@@ -1937,9 +1175,7 @@ bar.getChildren().add(
                 "15",
                 "14",
                 "0",
-                "+5.2%"
-        );
-
+                "+5.2%");
 
         addMonthlyRow(
                 table,
@@ -1948,19 +1184,14 @@ bar.getChildren().add(
                 "14",
                 "12",
                 "2",
-                "-2.1%"
-        );
-
+                "-2.1%");
 
         card.getChildren().addAll(
                 heading,
-                table
-        );
-
+                table);
 
         return card;
     }
-
 
     // =========================================================
     // MONTHLY ROW
@@ -1973,8 +1204,7 @@ bar.getChildren().add(
             String loads,
             String delivered,
             String cancelled,
-            String growth
-    ) {
+            String growth) {
 
         String[] values = {
                 month,
@@ -1984,18 +1214,10 @@ bar.getChildren().add(
                 growth
         };
 
+        for (int i = 0; i < values.length; i++) {
 
-        for (
-                int i = 0;
-                i < values.length;
-                i++
-        ) {
-
-            Label label =
-                    new Label(
-                            values[i]
-                    );
-
+            Label label = new Label(
+                    values[i]);
 
             label.setFont(
                     Font.font(
@@ -2003,34 +1225,23 @@ bar.getChildren().add(
                             i == 0
                                     ? FontWeight.BOLD
                                     : FontWeight.NORMAL,
-                            12
-                    )
-            );
+                            12));
 
-
-            String color =
-                    i == 4
-                            ? (
-                            growth.startsWith("-")
-                                    ? RED
-                                    : GREEN
-                    )
-                            : TEXT;
-
+            String color = i == 4
+                    ? (growth.startsWith("-")
+                            ? RED
+                            : GREEN)
+                    : TEXT;
 
             label.setStyle(
-                    "-fx-text-fill: " + color + ";"
-            );
-
+                    "-fx-text-fill: " + color + ";");
 
             table.add(
                     label,
                     i,
-                    row
-            );
+                    row);
         }
     }
-
 
     // =========================================================
     // RECENT ACTIVITY
@@ -2038,201 +1249,152 @@ bar.getChildren().add(
 
     private VBox createRecent() {
 
-        VBox card =
-                whiteCard();
-
+        VBox card = whiteCard();
 
         card.setPrefHeight(260);
         card.setMinHeight(260);
         card.setMaxHeight(260);
 
+        Label title = sectionTitle(
+                "Recent Activity");
 
-        Label title =
-                sectionTitle(
-                        "Recent Activity"
-                );
-
-
-        VBox activities =
-                new VBox(12);
-
+        VBox activities = new VBox(12);
 
         activities.getChildren().addAll(
 
                 activityRow(
                         GREEN,
                         "Load #EL-9821 Delivered",
-                        "Pune → Nashik • 2 mins ago"
-                ),
+                        "Pune → Nashik • 2 mins ago"),
 
                 activityRow(
                         GREEN_LIGHT,
                         "Transport Request Accepted",
-                        "Driver: Rajesh • 30 mins ago"
-                ),
+                        "Driver: Rajesh • 30 mins ago"),
 
                 activityRow(
                         GREEN,
                         "Trip Started – Nashik Branch",
-                        "Driver: Harsh • 4 hours ago"
-                ),
+                        "Driver: Harsh • 4 hours ago"),
 
                 activityRow(
                         GREEN_PALE,
                         "Load Assigned to Driver",
-                        "Load #EL-9830 • 6 hours ago"
-                )
-        );
-
+                        "Load #EL-9830 • 6 hours ago"));
 
         card.getChildren().addAll(
                 title,
-                activities
-        );
-
+                activities);
 
         return card;
     }
-
 
     // =========================================================
     // ACTIVITY ROW
     // =========================================================
 
-   private HBox activityRow(
-        String color,
-        String title,
-        String subtitle
-) {
+    private HBox activityRow(
+            String color,
+            String title,
+            String subtitle) {
 
-    // =====================================================
-    // CIRCLE
-    // =====================================================
+        // =====================================================
+        // CIRCLE
+        // =====================================================
 
-    Circle dot =
-            new Circle(
-                    6,
-                    Color.web(color)
-            );
+        Circle dot = new Circle(
+                6,
+                Color.web(color));
 
+        // =====================================================
+        // VERTICAL LINE
+        // =====================================================
 
-    // =====================================================
-    // VERTICAL LINE
-    // =====================================================
+        Region line = new Region();
 
-    Region line =
-            new Region();
+        line.setPrefWidth(2);
+        line.setMinWidth(2);
+        line.setMaxWidth(2);
 
-    line.setPrefWidth(2);
-    line.setMinWidth(2);
-    line.setMaxWidth(2);
+        line.setPrefHeight(45);
 
-    line.setPrefHeight(45);
+        line.setStyle(
+                "-fx-background-color: #CDE8D9;");
 
-    line.setStyle(
-            "-fx-background-color: #CDE8D9;"
-    );
+        // =====================================================
+        // TIMELINE
+        // =====================================================
 
+        VBox timeline = new VBox();
 
-    // =====================================================
-    // TIMELINE
-    // =====================================================
+        timeline.setAlignment(
+                Pos.TOP_CENTER);
 
-    VBox timeline =
-            new VBox();
+        timeline.setPrefWidth(14);
+        timeline.setMinWidth(14);
+        timeline.setMaxWidth(14);
 
-    timeline.setAlignment(
-            Pos.TOP_CENTER
-    );
+        timeline.getChildren().addAll(
+                dot,
+                line);
 
-    timeline.setPrefWidth(14);
-    timeline.setMinWidth(14);
-    timeline.setMaxWidth(14);
+        // =====================================================
+        // TITLE
+        // =====================================================
 
-    timeline.getChildren().addAll(
-            dot,
-            line
-    );
+        Label titleLabel = new Label(
+                title);
 
+        titleLabel.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        12));
 
-    // =====================================================
-    // TITLE
-    // =====================================================
+        titleLabel.setStyle(
+                "-fx-text-fill: " + TEXT + ";");
 
-    Label titleLabel =
-            new Label(
-                    title
-            );
+        // =====================================================
+        // SUBTITLE
+        // =====================================================
 
-    titleLabel.setFont(
-            Font.font(
-                    "System",
-                    FontWeight.BOLD,
-                    12
-            )
-    );
+        Label subtitleLabel = new Label(
+                subtitle);
 
-    titleLabel.setStyle(
-            "-fx-text-fill: " + TEXT + ";"
-    );
+        subtitleLabel.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.NORMAL,
+                        10));
 
+        subtitleLabel.setStyle(
+                "-fx-text-fill: " + GREY + ";");
 
-    // =====================================================
-    // SUBTITLE
-    // =====================================================
+        // =====================================================
+        // TEXT
+        // =====================================================
 
-    Label subtitleLabel =
-            new Label(
-                    subtitle
-            );
+        VBox text = new VBox(
+                3);
 
-    subtitleLabel.setFont(
-            Font.font(
-                    "System",
-                    FontWeight.NORMAL,
-                    10
-            )
-    );
+        text.getChildren().addAll(
+                titleLabel,
+                subtitleLabel);
 
-    subtitleLabel.setStyle(
-            "-fx-text-fill: " + GREY + ";"
-    );
+        // =====================================================
+        // MAIN ROW
+        // =====================================================
 
+        HBox row = new HBox(
+                10,
+                timeline,
+                text);
 
-    // =====================================================
-    // TEXT
-    // =====================================================
+        row.setAlignment(
+                Pos.TOP_LEFT);
 
-    VBox text =
-            new VBox(
-                    3
-            );
-
-    text.getChildren().addAll(
-            titleLabel,
-            subtitleLabel
-    );
-
-
-    // =====================================================
-    // MAIN ROW
-    // =====================================================
-
-    HBox row =
-            new HBox(
-                    10,
-                    timeline,
-                    text
-            );
-
-    row.setAlignment(
-            Pos.TOP_LEFT
-    );
-
-
-    return row;
-}
-
+        return row;
+    }
 
     // =========================================================
     // WHITE CARD
@@ -2240,19 +1402,14 @@ bar.getChildren().add(
 
     private VBox whiteCard() {
 
-        VBox card =
-                new VBox(10);
-
+        VBox card = new VBox(10);
 
         card.setPadding(
                 new Insets(
                         14,
                         15,
                         14,
-                        15
-                )
-        );
-
+                        15));
 
         card.setStyle(
                 "-fx-background-color: white;"
@@ -2267,39 +1424,28 @@ bar.getChildren().add(
                         + "0,"
                         + "0,"
                         + "1"
-                        + ");"
-        );
-
+                        + ");");
 
         return card;
     }
-
 
     // =========================================================
     // SECTION TITLE
     // =========================================================
 
     private Label sectionTitle(
-            String text
-    ) {
+            String text) {
 
-        Label title =
-                new Label(text);
-
+        Label title = new Label(text);
 
         title.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        16
-                )
-        );
-
+                        16));
 
         title.setStyle(
-                "-fx-text-fill: " + TEXT_DARK + ";"
-        );
-
+                "-fx-text-fill: " + TEXT_DARK + ";");
 
         return title;
     }

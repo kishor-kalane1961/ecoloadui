@@ -26,7 +26,6 @@ public class MyLoads {
     // private static final String TEXT = "#222222";
     // private static final String SECONDARY = "#777777";
 
-
     // =========================================================
     // CONTROLS
     // =========================================================
@@ -42,75 +41,65 @@ public class MyLoads {
     private Label pendingCount;
     private Label revenueValue;
 
-
     // =========================================================
     // LOAD DATA
     // =========================================================
 
-    private final ObservableList<Load> allLoads =
-            FXCollections.observableArrayList(
+    private final ObservableList<Load> allLoads = FXCollections.observableArrayList(
 
-                    new Load(
-                            "Pune → Nashik",
-                            "Steel Coils (6 Ton)",
-                            "Container",
-                            "8 Active Bids",
-                            "₹9,200",
-                            "Oct 24, 2023",
-                            "Open"
-                    ),
+            new Load(
+                    "Pune → Nashik",
+                    "Steel Coils (6 Ton)",
+                    "Container",
+                    "8 Active Bids",
+                    "₹9,200",
+                    "Oct 24, 2023",
+                    "Open"),
 
-                    new Load(
-                            "Mumbai → Bengaluru",
-                            "Electronics (2.5 Ton)",
-                            "Reefer Truck",
-                            "Assigned to: K. Logistics",
-                            "₹42,000",
-                            "Oct 22, 2023",
-                            "In Progress"
-                    ),
+            new Load(
+                    "Mumbai → Bengaluru",
+                    "Electronics (2.5 Ton)",
+                    "Reefer Truck",
+                    "Assigned to: K. Logistics",
+                    "₹42,000",
+                    "Oct 22, 2023",
+                    "In Progress"),
 
-                    new Load(
-                            "Chennai → Hyderabad",
-                            "Auto Parts (4 Ton)",
-                            "Flatbed",
-                            "15 Active Bids",
-                            "₹18,500",
-                            "Oct 25, 2023",
-                            "Open"
-                    ),
+            new Load(
+                    "Chennai → Hyderabad",
+                    "Auto Parts (4 Ton)",
+                    "Flatbed",
+                    "15 Active Bids",
+                    "₹18,500",
+                    "Oct 25, 2023",
+                    "Open"),
 
-                    new Load(
-                            "Ahmedabad → Delhi",
-                            "Textiles (5.2 Ton)",
-                            "Close Body",
-                            "Completed by: J.K. Transport",
-                            "₹28,800",
-                            "Oct 15, 2023",
-                            "Completed"
-                    ),
+            new Load(
+                    "Ahmedabad → Delhi",
+                    "Textiles (5.2 Ton)",
+                    "Close Body",
+                    "Completed by: J.K. Transport",
+                    "₹28,800",
+                    "Oct 15, 2023",
+                    "Completed"),
 
-                    new Load(
-                            "Pune → Mumbai",
-                            "Machinery (8 Ton)",
-                            "Container",
-                            "6 Active Bids",
-                            "₹15,500",
-                            "Oct 27, 2023",
-                            "Open"
-                    ),
+            new Load(
+                    "Pune → Mumbai",
+                    "Machinery (8 Ton)",
+                    "Container",
+                    "6 Active Bids",
+                    "₹15,500",
+                    "Oct 27, 2023",
+                    "Open"),
 
-                    new Load(
-                            "Nashik → Pune",
-                            "Chemical Material (3 Ton)",
-                            "Close Body",
-                            "Assigned to: R.K. Transport",
-                            "₹12,800",
-                            "Oct 20, 2023",
-                            "In Progress"
-                    )
-            );
-
+            new Load(
+                    "Nashik → Pune",
+                    "Chemical Material (3 Ton)",
+                    "Close Body",
+                    "Assigned to: R.K. Transport",
+                    "₹12,800",
+                    "Oct 20, 2023",
+                    "In Progress"));
 
     // =========================================================
     // MAIN SCENE
@@ -131,13 +120,10 @@ public class MyLoads {
         mainContent.setCenter(root);
 
         root.setPadding(
-                new Insets(28, 35, 28, 35)
-        );
+                new Insets(28, 35, 28, 35));
 
         root.setStyle(
-                "-fx-background-color: " + BACKGROUND + ";"
-        );
-
+                "-fx-background-color: " + BACKGROUND + ";");
 
         // =====================================================
         // HEADER
@@ -151,33 +137,23 @@ public class MyLoads {
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        27
-                )
-        );
+                        27));
 
         title.setTextFill(
-                Color.web(DARK_GREEN)
-        );
-
+                Color.web(DARK_GREEN));
 
         Label subtitle = new Label(
-                "Manage all your posted loads and monitor their status."
-        );
+                "Manage all your posted loads and monitor their status.");
 
         subtitle.setFont(
-                Font.font("Arial", 14)
-        );
+                Font.font("Arial", 14));
 
         subtitle.setTextFill(
-                Color.web("#666666")
-        );
-
+                Color.web("#666666"));
 
         header.getChildren().addAll(
                 title,
-                subtitle
-        );
-
+                subtitle);
 
         // =====================================================
         // SUMMARY CARDS
@@ -190,41 +166,33 @@ public class MyLoads {
         pendingCount = new Label("12");
         revenueValue = new Label("₹4,52,000");
 
-
         summary.getChildren().addAll(
 
                 createSummaryCard(
                         "Active Loads",
                         activeCount,
-                        "🚚"
-                ),
+                        "🚚"),
 
                 createSummaryCard(
                         "Completed Loads",
                         completedCount,
-                        "✓"
-                ),
+                        "✓"),
 
                 createSummaryCard(
                         "Pending Bids",
                         pendingCount,
-                        "⚒"
-                ),
+                        "⚒"),
 
                 createSummaryCard(
                         "Total Revenue",
                         revenueValue,
-                        "₹"
-                )
-        );
-
+                        "₹"));
 
         // =====================================================
         // FILTER
         // =====================================================
 
         VBox filterBox = createFilterBox();
-
 
         // =====================================================
         // LOAD CONTAINER
@@ -236,34 +204,27 @@ public class MyLoads {
 
         refreshLoads(allLoads);
 
-
         // =====================================================
         // SCROLL PANE
         // =====================================================
 
-        ScrollPane scrollPane =
-                new ScrollPane(loadsContainer);
+        ScrollPane scrollPane = new ScrollPane(loadsContainer);
 
         scrollPane.setFitToWidth(true);
 
         scrollPane.setHbarPolicy(
-                ScrollPane.ScrollBarPolicy.NEVER
-        );
+                ScrollPane.ScrollBarPolicy.NEVER);
 
         scrollPane.setVbarPolicy(
-                ScrollPane.ScrollBarPolicy.AS_NEEDED
-        );
+                ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         scrollPane.setStyle(
                 "-fx-background-color: transparent;" +
-                "-fx-background: transparent;"
-        );
+                        "-fx-background: transparent;");
 
         VBox.setVgrow(
                 scrollPane,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         // =====================================================
         // ROOT
@@ -273,20 +234,15 @@ public class MyLoads {
                 header,
                 summary,
                 filterBox,
-                scrollPane
-        );
-
+                scrollPane);
 
         updateSummary();
-
 
         return new Scene(
                 mainroot,
                 1536,
-                750
-        );
+                750);
     }
-
 
     // =========================================================
     // SUMMARY CARD
@@ -295,14 +251,12 @@ public class MyLoads {
     private VBox createSummaryCard(
             String title,
             Label value,
-            String icon
-    ) {
+            String icon) {
 
         VBox card = new VBox(8);
 
         card.setPadding(
-                new Insets(17, 20, 17, 20)
-        );
+                new Insets(17, 20, 17, 20));
 
         card.setPrefHeight(120);
 
@@ -312,99 +266,72 @@ public class MyLoads {
 
         HBox.setHgrow(
                 card,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         card.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 18;" +
-                "-fx-border-color: #E5E9E5;" +
-                "-fx-border-radius: 18;" +
-                "-fx-border-width: 1;"
-        );
+                        "-fx-background-radius: 18;" +
+                        "-fx-border-color: #E5E9E5;" +
+                        "-fx-border-radius: 18;" +
+                        "-fx-border-width: 1;");
 
-
-        Label titleLabel =
-                new Label(title);
+        Label titleLabel = new Label(title);
 
         titleLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.NORMAL,
-                        14
-                )
-        );
+                        14));
 
         titleLabel.setTextFill(
-                Color.web("#666666")
-        );
-
+                Color.web("#666666"));
 
         HBox bottom = new HBox();
 
         bottom.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
+                Pos.CENTER_LEFT);
 
         value.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        27
-                )
-        );
+                        27));
 
         value.setTextFill(
-                Color.web(DARK_GREEN)
-        );
-
+                Color.web(DARK_GREEN));
 
         Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
-
-        Label iconLabel =
-                new Label(icon);
+        Label iconLabel = new Label(icon);
 
         iconLabel.setAlignment(
-                Pos.CENTER
-        );
+                Pos.CENTER);
 
         iconLabel.setPrefSize(
                 46,
-                46
-        );
+                46);
 
         iconLabel.setStyle(
                 "-fx-background-color: " +
-                LIGHT_GREEN + ";" +
-                "-fx-background-radius: 14;" +
-                "-fx-font-size: 19px;"
-        );
-
+                        LIGHT_GREEN + ";" +
+                        "-fx-background-radius: 14;" +
+                        "-fx-font-size: 19px;");
 
         bottom.getChildren().addAll(
                 value,
                 spacer,
-                iconLabel
-        );
-
+                iconLabel);
 
         card.getChildren().addAll(
                 titleLabel,
-                bottom
-        );
-
+                bottom);
 
         return card;
     }
-
 
     // =========================================================
     // FILTER BOX
@@ -415,70 +342,53 @@ public class MyLoads {
         VBox box = new VBox();
 
         box.setPadding(
-                new Insets(17, 20, 20, 20)
-        );
+                new Insets(17, 20, 20, 20));
 
         box.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 18;" +
-                "-fx-border-color: #E5E9E5;" +
-                "-fx-border-radius: 18;"
-        );
-
+                        "-fx-background-radius: 18;" +
+                        "-fx-border-color: #E5E9E5;" +
+                        "-fx-border-radius: 18;");
 
         HBox filters = new HBox(25);
 
         filters.setAlignment(
-                Pos.BOTTOM_LEFT
-        );
-
+                Pos.BOTTOM_LEFT);
 
         // SEARCH
         VBox searchBox = new VBox(6);
 
-        Label searchLabel =
-                new Label("Search Route or Type");
+        Label searchLabel = new Label("Search Route or Type");
 
         searchLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
-
+                        12));
 
         searchField = new TextField();
 
         searchField.setPromptText(
-                "e.g. Pune to Nashik..."
-        );
+                "e.g. Pune to Nashik...");
 
         searchField.setPrefWidth(300);
 
         searchField.setPrefHeight(42);
 
-
         searchBox.getChildren().addAll(
                 searchLabel,
-                searchField
-        );
-
+                searchField);
 
         // STATUS
         VBox statusBox = new VBox(6);
 
-        Label statusLabel =
-                new Label("Status");
+        Label statusLabel = new Label("Status");
 
         statusLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
-
+                        12));
 
         statusCombo = new ComboBox<>();
 
@@ -486,38 +396,29 @@ public class MyLoads {
                 "All Status",
                 "Open",
                 "In Progress",
-                "Completed"
-        );
+                "Completed");
 
         statusCombo.setValue(
-                "All Status"
-        );
+                "All Status");
 
         statusCombo.setPrefWidth(145);
 
         statusCombo.setPrefHeight(42);
 
-
         statusBox.getChildren().addAll(
                 statusLabel,
-                statusCombo
-        );
-
+                statusCombo);
 
         // VEHICLE
         VBox vehicleBox = new VBox(6);
 
-        Label vehicleLabel =
-                new Label("Vehicle");
+        Label vehicleLabel = new Label("Vehicle");
 
         vehicleLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
-
+                        12));
 
         vehicleCombo = new ComboBox<>();
 
@@ -526,27 +427,21 @@ public class MyLoads {
                 "Container",
                 "Reefer Truck",
                 "Flatbed",
-                "Close Body"
-        );
+                "Close Body");
 
         vehicleCombo.setValue(
-                "All Types"
-        );
+                "All Types");
 
         vehicleCombo.setPrefWidth(150);
 
         vehicleCombo.setPrefHeight(42);
 
-
         vehicleBox.getChildren().addAll(
                 vehicleLabel,
-                vehicleCombo
-        );
-
+                vehicleCombo);
 
         // SEARCH BUTTON
-        Button searchButton =
-                new Button("Search");
+        Button searchButton = new Button("Search");
 
         searchButton.setPrefWidth(140);
 
@@ -554,22 +449,17 @@ public class MyLoads {
 
         searchButton.setStyle(
                 "-fx-background-color: " + GREEN + ";" +
-                "-fx-text-fill: white;" +
-                "-fx-font-size: 14px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-background-radius: 8;" +
-                "-fx-cursor: hand;"
-        );
-
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-cursor: hand;");
 
         searchButton.setOnAction(
-                e -> applyFilters()
-        );
-
+                e -> applyFilters());
 
         // RESET BUTTON
-        Button resetButton =
-                new Button("Reset");
+        Button resetButton = new Button("Reset");
 
         resetButton.setPrefWidth(120);
 
@@ -577,46 +467,36 @@ public class MyLoads {
 
         resetButton.setStyle(
                 "-fx-background-color: #E8E8E8;" +
-                "-fx-text-fill: #333333;" +
-                "-fx-font-weight: bold;" +
-                "-fx-background-radius: 8;" +
-                "-fx-cursor: hand;"
-        );
-
+                        "-fx-text-fill: #333333;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-cursor: hand;");
 
         resetButton.setOnAction(e -> {
 
             searchField.clear();
 
             statusCombo.setValue(
-                    "All Status"
-            );
+                    "All Status");
 
             vehicleCombo.setValue(
-                    "All Types"
-            );
+                    "All Types");
 
             refreshLoads(allLoads);
         });
-
 
         filters.getChildren().addAll(
                 searchBox,
                 statusBox,
                 vehicleBox,
                 searchButton,
-                resetButton
-        );
-
+                resetButton);
 
         box.getChildren().add(
-                filters
-        );
-
+                filters);
 
         return box;
     }
-
 
     // =========================================================
     // SEARCH + FILTER
@@ -624,143 +504,110 @@ public class MyLoads {
 
     private void applyFilters() {
 
-        String search =
-                searchField.getText()
-                        .trim()
-                        .toLowerCase();
+        String search = searchField.getText()
+                .trim()
+                .toLowerCase();
 
+        String status = statusCombo.getValue();
 
-        String status =
-                statusCombo.getValue();
+        String vehicle = vehicleCombo.getValue();
 
+        ObservableList<Load> filtered = allLoads.stream()
 
-        String vehicle =
-                vehicleCombo.getValue();
+                .filter(load ->
 
+                search.isEmpty()
 
-        ObservableList<Load> filtered =
-                allLoads.stream()
+                        ||
 
-                        .filter(load ->
+                        load.route
+                                .toLowerCase()
+                                .contains(search)
 
-                                search.isEmpty()
+                        ||
 
-                                ||
+                        load.cargo
+                                .toLowerCase()
+                                .contains(search)
 
-                                load.route
-                                        .toLowerCase()
-                                        .contains(search)
+                        ||
 
-                                ||
+                        load.vehicle
+                                .toLowerCase()
+                                .contains(search))
 
-                                load.cargo
-                                        .toLowerCase()
-                                        .contains(search)
+                .filter(load ->
 
-                                ||
+                status.equals("All Status")
 
-                                load.vehicle
-                                        .toLowerCase()
-                                        .contains(search)
-                        )
+                        ||
 
-                        .filter(load ->
+                        load.status.equals(status))
 
-                                status.equals("All Status")
+                .filter(load ->
 
-                                ||
+                vehicle.equals("All Types")
 
-                                load.status.equals(status)
-                        )
+                        ||
 
-                        .filter(load ->
+                        load.vehicle.equals(vehicle))
 
-                                vehicle.equals("All Types")
-
-                                ||
-
-                                load.vehicle.equals(vehicle)
-                        )
-
-                        .collect(
-                                Collectors.toCollection(
-                                        FXCollections::observableArrayList
-                                )
-                        );
-
+                .collect(
+                        Collectors.toCollection(
+                                FXCollections::observableArrayList));
 
         refreshLoads(filtered);
     }
-
 
     // =========================================================
     // REFRESH LOADS
     // =========================================================
 
     private void refreshLoads(
-            ObservableList<Load> loads
-    ) {
+            ObservableList<Load> loads) {
 
         loadsContainer.getChildren().clear();
-
 
         if (loads.isEmpty()) {
 
             VBox emptyBox = new VBox(8);
 
             emptyBox.setAlignment(
-                    Pos.CENTER
-            );
+                    Pos.CENTER);
 
             emptyBox.setPadding(
-                    new Insets(50)
-            );
+                    new Insets(50));
 
-
-            Label message =
-                    new Label("No loads found");
+            Label message = new Label("No loads found");
 
             message.setFont(
                     Font.font(
                             "Arial",
                             FontWeight.BOLD,
-                            18
-                    )
-            );
+                            18));
 
-
-            Label hint =
-                    new Label(
-                            "Try changing your search or filters."
-                    );
+            Label hint = new Label(
+                    "Try changing your search or filters.");
 
             hint.setTextFill(
-                    Color.web("#777777")
-            );
-
+                    Color.web("#777777"));
 
             emptyBox.getChildren().addAll(
                     message,
-                    hint
-            );
-
+                    hint);
 
             loadsContainer.getChildren().add(
-                    emptyBox
-            );
+                    emptyBox);
 
             return;
         }
 
-
         for (Load load : loads) {
 
             loadsContainer.getChildren().add(
-                    createLoadCard(load)
-            );
+                    createLoadCard(load));
         }
     }
-
 
     // =========================================================
     // LOAD CARD
@@ -781,24 +628,20 @@ public class MyLoads {
         VBox card = new VBox(12);
 
         card.setPadding(
-                new Insets(18, 22, 18, 22)
-        );
+                new Insets(18, 22, 18, 22));
 
         card.setMinHeight(155);
         card.setPrefHeight(155);
 
         card.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         card.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 18;" +
-                "-fx-border-color: #E4E8E4;" +
-                "-fx-border-radius: 18;" +
-                "-fx-border-width: 1;"
-        );
-
+                        "-fx-background-radius: 18;" +
+                        "-fx-border-color: #E4E8E4;" +
+                        "-fx-border-radius: 18;" +
+                        "-fx-border-width: 1;");
 
         // =====================================================
         // TOP ROW
@@ -807,9 +650,7 @@ public class MyLoads {
         HBox topRow = new HBox();
 
         topRow.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
+                Pos.CENTER_LEFT);
 
         // -----------------------------------------------------
         // ROUTE
@@ -817,52 +658,40 @@ public class MyLoads {
 
         VBox routeBox = new VBox(4);
 
-        Label routeHeading =
-                new Label("ROUTE & CARGO");
+        Label routeHeading = new Label("ROUTE & CARGO");
 
         routeHeading.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 11px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #777777;"
-        );
+                        "-fx-font-size: 11px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #777777;");
 
-
-        Label routeLabel =
-                new Label(load.route);
+        Label routeLabel = new Label(load.route);
 
         routeLabel.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 18px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #222222;"
-        );
+                        "-fx-font-size: 18px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #222222;");
 
         routeLabel.setWrapText(true);
 
-
-        Label cargoLabel =
-                new Label(load.cargo);
+        Label cargoLabel = new Label(load.cargo);
 
         cargoLabel.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 13px;" +
-                "-fx-text-fill: #777777;"
-        );
+                        "-fx-font-size: 13px;" +
+                        "-fx-text-fill: #777777;");
 
         cargoLabel.setWrapText(true);
-
 
         routeBox.getChildren().addAll(
                 routeHeading,
                 routeLabel,
-                cargoLabel
-        );
-
+                cargoLabel);
 
         routeBox.setPrefWidth(300);
         routeBox.setMinWidth(260);
-
 
         // -----------------------------------------------------
         // VEHICLE
@@ -870,52 +699,40 @@ public class MyLoads {
 
         VBox vehicleBox = new VBox(4);
 
-        Label vehicleHeading =
-                new Label("VEHICLE & BIDS");
+        Label vehicleHeading = new Label("VEHICLE & BIDS");
 
         vehicleHeading.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 11px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #777777;"
-        );
+                        "-fx-font-size: 11px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #777777;");
 
-
-        Label vehicleLabel =
-                new Label(load.vehicle);
+        Label vehicleLabel = new Label(load.vehicle);
 
         vehicleLabel.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 18px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #222222;"
-        );
+                        "-fx-font-size: 18px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #222222;");
 
         vehicleLabel.setWrapText(true);
 
-
-        Label bidsLabel =
-                new Label(load.bids);
+        Label bidsLabel = new Label(load.bids);
 
         bidsLabel.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 13px;" +
-                "-fx-text-fill: #28733A;"
-        );
+                        "-fx-font-size: 13px;" +
+                        "-fx-text-fill: #28733A;");
 
         bidsLabel.setWrapText(true);
-
 
         vehicleBox.getChildren().addAll(
                 vehicleHeading,
                 vehicleLabel,
-                bidsLabel
-        );
-
+                bidsLabel);
 
         vehicleBox.setPrefWidth(260);
         vehicleBox.setMinWidth(220);
-
 
         // -----------------------------------------------------
         // PRICE
@@ -923,92 +740,69 @@ public class MyLoads {
 
         VBox priceBox = new VBox(4);
 
-        Label priceHeading =
-                new Label("PRICING & DATE");
+        Label priceHeading = new Label("PRICING & DATE");
 
         priceHeading.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 11px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #777777;"
-        );
+                        "-fx-font-size: 11px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #777777;");
 
-
-        Label priceLabel =
-                new Label(load.price);
+        Label priceLabel = new Label(load.price);
 
         priceLabel.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 18px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #222222;"
-        );
+                        "-fx-font-size: 18px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #222222;");
 
-
-        Label dateLabel =
-                new Label(load.date);
+        Label dateLabel = new Label(load.date);
 
         dateLabel.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 13px;" +
-                "-fx-text-fill: #777777;"
-        );
-
+                        "-fx-font-size: 13px;" +
+                        "-fx-text-fill: #777777;");
 
         priceBox.getChildren().addAll(
                 priceHeading,
                 priceLabel,
-                dateLabel
-        );
-
+                dateLabel);
 
         priceBox.setPrefWidth(180);
         priceBox.setMinWidth(160);
-
 
         // -----------------------------------------------------
         // STATUS
         // -----------------------------------------------------
 
-        Label status =
-                createStatusBadge(load.status);
-
+        Label status = createStatusBadge(load.status);
 
         // -----------------------------------------------------
         // ACTION BUTTON
         // -----------------------------------------------------
 
-        Button action =
-                new Button(
-                        getActionText(load.status)
-                );
+        Button action = new Button(
+                getActionText(load.status));
 
         action.setPrefWidth(125);
         action.setMinWidth(125);
         action.setPrefHeight(40);
 
         action.setStyle(
-                getActionStyle(load.status)
-        );
-
+                getActionStyle(load.status));
 
         action.setOnAction(
-                e -> handleAction(load)
-        );
-
+                e -> handleAction(load));
 
         // -----------------------------------------------------
         // SPACER
         // -----------------------------------------------------
 
-        Region spacer =
-                new Region();
+        Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
-
+                Priority.ALWAYS);
 
         // -----------------------------------------------------
         // TOP ROW CONTENT
@@ -1021,75 +815,55 @@ public class MyLoads {
                 spacer,
                 status,
                 new Region(),
-                action
-        );
-
+                action);
 
         // =====================================================
         // BOTTOM LINE
         // =====================================================
 
-        Separator separator =
-                new Separator();
+        Separator separator = new Separator();
 
         separator.setStyle(
-                "-fx-background-color: #EEEEEE;"
-        );
-
+                "-fx-background-color: #EEEEEE;");
 
         // =====================================================
         // BOTTOM INFORMATION
         // =====================================================
 
-        HBox bottomRow =
-                new HBox(12);
+        HBox bottomRow = new HBox(12);
 
         bottomRow.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
-
-        Label loadId =
-                new Label("Load ID: " + load.route);
+        Label loadId = new Label("Load ID: " + load.route);
 
         loadId.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 11px;" +
-                "-fx-text-fill: #999999;"
-        );
+                        "-fx-font-size: 11px;" +
+                        "-fx-text-fill: #999999;");
 
-
-        Region bottomSpacer =
-                new Region();
+        Region bottomSpacer = new Region();
 
         HBox.setHgrow(
                 bottomSpacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
-
-        Label info =
-                new Label(
-                        load.status.equals("Open")
-                                ? "Ready for driver bids"
-                                : load.status.equals("In Progress")
+        Label info = new Label(
+                load.status.equals("Open")
+                        ? "Ready for driver bids"
+                        : load.status.equals("In Progress")
                                 ? "Load is currently in transit"
-                                : "This load has been completed"
-                );
+                                : "This load has been completed");
 
         info.setStyle(
                 "-fx-font-family: Arial;" +
-                "-fx-font-size: 11px;" +
-                "-fx-text-fill: #777777;"
-        );
-
+                        "-fx-font-size: 11px;" +
+                        "-fx-text-fill: #777777;");
 
         bottomRow.getChildren().addAll(
                 loadId,
                 bottomSpacer,
-                info
-        );
-
+                info);
 
         // =====================================================
         // ADD TO CARD
@@ -1098,9 +872,7 @@ public class MyLoads {
         card.getChildren().addAll(
                 topRow,
                 separator,
-                bottomRow
-        );
-
+                bottomRow);
 
         // =====================================================
         // HOVER EFFECT
@@ -1110,27 +882,23 @@ public class MyLoads {
 
             card.setStyle(
                     "-fx-background-color: white;" +
-                    "-fx-background-radius: 18;" +
-                    "-fx-border-color: #72D47C;" +
-                    "-fx-border-radius: 18;" +
-                    "-fx-border-width: 1.5;" +
-                    "-fx-effect: dropshadow(" +
-                    "gaussian, rgba(0,0,0,0.10), 12, 0, 0, 3);"
-            );
+                            "-fx-background-radius: 18;" +
+                            "-fx-border-color: #72D47C;" +
+                            "-fx-border-radius: 18;" +
+                            "-fx-border-width: 1.5;" +
+                            "-fx-effect: dropshadow(" +
+                            "gaussian, rgba(0,0,0,0.10), 12, 0, 0, 3);");
         });
-
 
         card.setOnMouseExited(e -> {
 
             card.setStyle(
                     "-fx-background-color: white;" +
-                    "-fx-background-radius: 18;" +
-                    "-fx-border-color: #E4E8E4;" +
-                    "-fx-border-radius: 18;" +
-                    "-fx-border-width: 1;"
-            );
+                            "-fx-background-radius: 18;" +
+                            "-fx-border-color: #E4E8E4;" +
+                            "-fx-border-radius: 18;" +
+                            "-fx-border-width: 1;");
         });
-
 
         return card;
     }
@@ -1140,72 +908,57 @@ public class MyLoads {
     // =========================================================
 
     private Label createStatusBadge(
-            String status
-    ) {
+            String status) {
 
-        Label badge =
-                new Label("●  " + status);
+        Label badge = new Label("●  " + status);
 
         badge.setAlignment(
-                Pos.CENTER
-        );
+                Pos.CENTER);
 
         badge.setPrefHeight(32);
 
         badge.setMinWidth(92);
 
-
         badge.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        11
-                )
-        );
-
+                        11));
 
         if (status.equals("Open")) {
 
             badge.setStyle(
                     "-fx-background-color: #9AF29B;" +
-                    "-fx-text-fill: #087A20;" +
-                    "-fx-background-radius: 20;" +
-                    "-fx-padding: 0 10;"
-            );
+                            "-fx-text-fill: #087A20;" +
+                            "-fx-background-radius: 20;" +
+                            "-fx-padding: 0 10;");
 
-        } else if (
-                status.equals("In Progress")
-        ) {
+        } else if (status.equals("In Progress")) {
 
             badge.setStyle(
                     "-fx-background-color: #E4F0E6;" +
-                    "-fx-text-fill: #26733A;" +
-                    "-fx-background-radius: 20;" +
-                    "-fx-padding: 0 8;"
-            );
+                            "-fx-text-fill: #26733A;" +
+                            "-fx-background-radius: 20;" +
+                            "-fx-padding: 0 8;");
 
         } else {
 
             badge.setStyle(
                     "-fx-background-color: #E7E7E7;" +
-                    "-fx-text-fill: #777777;" +
-                    "-fx-background-radius: 20;" +
-                    "-fx-padding: 0 10;"
-            );
+                            "-fx-text-fill: #777777;" +
+                            "-fx-background-radius: 20;" +
+                            "-fx-padding: 0 10;");
         }
-
 
         return badge;
     }
-
 
     // =========================================================
     // ACTION TEXT
     // =========================================================
 
     private String getActionText(
-            String status
-    ) {
+            String status) {
 
         switch (status) {
 
@@ -1220,19 +973,16 @@ public class MyLoads {
         }
     }
 
-
     // =========================================================
     // ACTION STYLE
     // =========================================================
 
     private String getActionStyle(
-            String status
-    ) {
+            String status) {
 
         if (status.equals("Open")) {
 
-            return
-                    "-fx-background-color: #247C35;" +
+            return "-fx-background-color: #247C35;" +
                     "-fx-text-fill: white;" +
                     "-fx-font-weight: bold;" +
                     "-fx-font-size: 12px;" +
@@ -1240,9 +990,7 @@ public class MyLoads {
                     "-fx-cursor: hand;";
         }
 
-
-        return
-                "-fx-background-color: #E9E9E9;" +
+        return "-fx-background-color: #E9E9E9;" +
                 "-fx-text-fill: #444444;" +
                 "-fx-font-weight: bold;" +
                 "-fx-font-size: 12px;" +
@@ -1250,14 +998,12 @@ public class MyLoads {
                 "-fx-cursor: hand;";
     }
 
-
     // =========================================================
     // BUTTON ACTION
     // =========================================================
 
     private void handleAction(
-            Load load
-    ) {
+            Load load) {
 
         switch (load.status) {
 
@@ -1266,39 +1012,33 @@ public class MyLoads {
                 showAlert(
                         "Manage Bids",
                         "Viewing bids for:\n\n" +
-                        load.route +
-                        "\n\n" +
-                        load.bids
-                );
+                                load.route +
+                                "\n\n" +
+                                load.bids);
 
                 break;
-
 
             case "In Progress":
 
                 showAlert(
                         "Track Load",
                         "Tracking load:\n\n" +
-                        load.route
-                );
+                                load.route);
 
                 break;
-
 
             case "Completed":
 
                 showAlert(
                         "Invoice",
                         "Invoice for:\n\n" +
-                        load.route +
-                        "\n\nAmount: " +
-                        load.price
-                );
+                                load.route +
+                                "\n\nAmount: " +
+                                load.price);
 
                 break;
         }
     }
-
 
     // =========================================================
     // ALERT
@@ -1306,13 +1046,10 @@ public class MyLoads {
 
     private void showAlert(
             String title,
-            String message
-    ) {
+            String message) {
 
-        Alert alert =
-                new Alert(
-                        Alert.AlertType.INFORMATION
-                );
+        Alert alert = new Alert(
+                Alert.AlertType.INFORMATION);
 
         alert.setTitle(title);
 
@@ -1323,47 +1060,34 @@ public class MyLoads {
         alert.showAndWait();
     }
 
-
     // =========================================================
     // SUMMARY
     // =========================================================
 
     private void updateSummary() {
 
-        long active =
-                allLoads.stream()
-                        .filter(
-                                l -> l.status.equals("Open")
-                        )
-                        .count();
+        long active = allLoads.stream()
+                .filter(
+                        l -> l.status.equals("Open"))
+                .count();
 
-        long pending =
-                allLoads.stream()
-                        .filter(
-                                l -> l.status.equals("Open")
-                        )
-                        .count();
-
+        long pending = allLoads.stream()
+                .filter(
+                        l -> l.status.equals("Open"))
+                .count();
 
         activeCount.setText(
                 String.format(
                         "%02d",
-                        active
-                )
-        );
-
+                        active));
 
         // Keep your dashboard value
         completedCount.setText("142");
 
-
         pendingCount.setText(
                 String.valueOf(
-                        pending * 4
-                )
-        );
+                        pending * 4));
     }
-
 
     // =========================================================
     // LOAD MODEL
@@ -1379,7 +1103,6 @@ public class MyLoads {
         String date;
         String status;
 
-
         Load(
                 String route,
                 String cargo,
@@ -1387,8 +1110,7 @@ public class MyLoads {
                 String bids,
                 String price,
                 String date,
-                String status
-        ) {
+                String status) {
 
             this.route = route;
             this.cargo = cargo;
