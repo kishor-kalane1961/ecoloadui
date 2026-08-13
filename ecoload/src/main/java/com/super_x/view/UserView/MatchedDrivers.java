@@ -31,11 +31,9 @@ public class MatchedDrivers {
     // LOCAL DRIVER DATA
     // =====================================================
 
-    private final List<DriverData> allDrivers =
-            new ArrayList<>();
+    private final List<DriverData> allDrivers = new ArrayList<>();
 
-    private final List<DriverData> filteredDrivers =
-            new ArrayList<>();
+    private final List<DriverData> filteredDrivers = new ArrayList<>();
 
     private int currentPage = 1;
 
@@ -68,185 +66,139 @@ public class MatchedDrivers {
         filteredDrivers.clear();
 
         filteredDrivers.addAll(
-                allDrivers
-        );
+                allDrivers);
 
-        VBox main =
-                new VBox(25);
+        VBox main = new VBox(25);
 
         main.setPadding(
                 new Insets(
                         25,
                         30,
                         30,
-                        30
-                )
-        );
+                        30));
 
         main.setStyle(
-                "-fx-background-color: #F5FAF6;"
-        );
+                "-fx-background-color: #F5FAF6;");
 
         // =====================================================
         // HEADER
         // =====================================================
 
-        HBox header =
-                new HBox();
+        HBox header = new HBox();
 
         header.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         header.setPadding(
                 new Insets(
                         15,
                         20,
                         15,
-                        20
-                )
-        );
+                        20));
 
         header.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-background-radius: 14;"
-                + "-fx-border-color: #E0EAE3;"
-                + "-fx-border-radius: 14;"
-        );
+                        + "-fx-background-radius: 14;"
+                        + "-fx-border-color: #E0EAE3;"
+                        + "-fx-border-radius: 14;");
 
-        VBox titleBox =
-                new VBox(4);
+        VBox titleBox = new VBox(4);
 
-        Label title =
-                new Label(
-                        "Matched Drivers"
-                );
+        Label title = new Label(
+                "Matched Drivers");
 
         title.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        25
-                )
-        );
+                        25));
 
         title.setTextFill(
-                Color.web("#26332C")
-        );
+                Color.web("#26332C"));
 
-        Label subtitle =
-                new Label(
-                        "View AI-matched drivers for your posted loads"
-                );
+        Label subtitle = new Label(
+                "View AI-matched drivers for your posted loads");
 
         subtitle.setFont(
                 Font.font(
                         "System",
-                        12
-                )
-        );
+                        12));
 
         subtitle.setTextFill(
-                Color.web("#7B867F")
-        );
+                Color.web("#7B867F"));
 
         titleBox.getChildren().addAll(
                 title,
-                subtitle
-        );
+                subtitle);
 
-        Region headerSpacer =
-                new Region();
+        Region headerSpacer = new Region();
 
         HBox.setHgrow(
                 headerSpacer,
-                Priority.ALWAYS
-        );
-
-        
-
-        
+                Priority.ALWAYS);
 
         header.getChildren().addAll(
-                titleBox
-        );
+                titleBox);
 
         main.getChildren().add(
-                header
-        );
+                header);
 
         // =====================================================
         // ACTIVE LOAD CARD
         // =====================================================
 
-        HBox loadCard =
-                createActiveLoadCard();
+        HBox loadCard = createActiveLoadCard();
 
         main.getChildren().add(
-                loadCard
-        );
+                loadCard);
 
         // =====================================================
         // MATCHED DRIVER TITLE
         // =====================================================
 
-        Label matchedTitle =
-                new Label(
-                        "AI Matched Drivers"
-                );
+        Label matchedTitle = new Label(
+                "AI Matched Drivers");
 
         matchedTitle.setFont(
                 Font.font(
                         "System",
                         FontWeight.BOLD,
-                        18
-                )
-        );
+                        18));
 
         matchedTitle.setTextFill(
-                Color.web("#26332C")
-        );
+                Color.web("#26332C"));
 
         matchedTitle.setPadding(
                 new Insets(
                         0,
                         0,
                         0,
-                        18
-                )
-        );
+                        18));
 
         main.getChildren().add(
-                matchedTitle
-        );
+                matchedTitle);
 
         // =====================================================
         // SEARCH + FILTER BAR
         // =====================================================
 
-        HBox filterBar =
-                new HBox(35);
+        HBox filterBar = new HBox(35);
 
         filterBar.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         filterBar.setPadding(
                 new Insets(
                         5,
                         18,
                         5,
-                        18
-                )
-        );
+                        18));
 
         // Search
-        searchField =
-                new TextField();
+        searchField = new TextField();
 
         searchField.setPromptText(
-                "Search by Driver, Vehicle, or Route..."
-        );
+                "Search by Driver, Vehicle, or Route...");
 
         searchField.setPrefHeight(50);
 
@@ -254,27 +206,23 @@ public class MatchedDrivers {
 
         searchField.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-background-radius: 10;"
-                + "-fx-border-color: #DDE7E0;"
-                + "-fx-border-radius: 10;"
-                + "-fx-padding: 0 15 0 15;"
-                + "-fx-font-size: 13px;"
-        );
+                        + "-fx-background-radius: 10;"
+                        + "-fx-border-color: #DDE7E0;"
+                        + "-fx-border-radius: 10;"
+                        + "-fx-padding: 0 15 0 15;"
+                        + "-fx-font-size: 13px;");
 
         // Match Score
-        scoreFilter =
-                new ComboBox<>();
+        scoreFilter = new ComboBox<>();
 
         scoreFilter.getItems().addAll(
                 "Match Score",
                 "90% and above",
                 "80% and above",
-                "70% and above"
-        );
+                "70% and above");
 
         scoreFilter.setValue(
-                "Match Score"
-        );
+                "Match Score");
 
         scoreFilter.setPrefHeight(30);
 
@@ -282,27 +230,23 @@ public class MatchedDrivers {
 
         scoreFilter.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-background-radius: 10;"
-                + "-fx-border-color: #DDE7E0;"
-                + "-fx-border-radius: 10;"
-                + "-fx-font-size:13px"
-        );
+                        + "-fx-background-radius: 10;"
+                        + "-fx-border-color: #DDE7E0;"
+                        + "-fx-border-radius: 10;"
+                        + "-fx-font-size:13px");
 
         // Truck Type
-        truckFilter =
-                new ComboBox<>();
+        truckFilter = new ComboBox<>();
 
         truckFilter.getItems().addAll(
                 "Truck Type",
                 "LPT",
                 "Trailer",
                 "Container",
-                "Tanker"
-        );
+                "Tanker");
 
         truckFilter.setValue(
-                "Truck Type"
-        );
+                "Truck Type");
 
         truckFilter.setPrefHeight(40);
 
@@ -310,27 +254,23 @@ public class MatchedDrivers {
 
         truckFilter.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-background-radius: 10;"
-                + "-fx-border-color: #DDE7E0;"
-                + "-fx-border-radius: 10;"
-                + "-fx-font-size:13px"
-        );
+                        + "-fx-background-radius: 10;"
+                        + "-fx-border-color: #DDE7E0;"
+                        + "-fx-border-radius: 10;"
+                        + "-fx-font-size:13px");
 
         // Sort
-        sortFilter =
-                new ComboBox<>();
+        sortFilter = new ComboBox<>();
 
         sortFilter.getItems().addAll(
                 "Sort",
                 "Highest Match",
                 "Lowest Match",
                 "Highest Rating",
-                "Most Experience"
-        );
+                "Most Experience");
 
         sortFilter.setValue(
-                "Sort"
-        );
+                "Sort");
 
         sortFilter.setPrefHeight(40);
 
@@ -338,72 +278,58 @@ public class MatchedDrivers {
 
         sortFilter.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-background-radius: 10;"
-                + "-fx-border-color: #DDE7E0;"
-                + "-fx-border-radius: 10;"
-                + "-fx-font-size:13px"
-        );
+                        + "-fx-background-radius: 10;"
+                        + "-fx-border-color: #DDE7E0;"
+                        + "-fx-border-radius: 10;"
+                        + "-fx-font-size:13px");
 
         filterBar.getChildren().addAll(
                 searchField,
                 scoreFilter,
                 truckFilter,
-                sortFilter
-        );
+                sortFilter);
 
         main.getChildren().add(
-                filterBar
-        );
+                filterBar);
 
         // =====================================================
         // DRIVER CONTAINER
         // =====================================================
 
-        driverContainer =
-                new VBox(14);
+        driverContainer = new VBox(14);
 
         driverContainer.setPadding(
                 new Insets(
                         5,
                         0,
                         5,
-                        0
-                )
-        );
-        ScrollPane driverScrollPane =
-        new ScrollPane(
-                driverContainer
-        );
+                        0));
+        ScrollPane driverScrollPane = new ScrollPane(
+                driverContainer);
 
         driverScrollPane.setFitToWidth(true);
 
         driverScrollPane.setPrefHeight(400);
 
         driverScrollPane.setStyle(
-            "-fx-background-color: transparent;"
-            + "-fx-background: transparent;"
-        );
+                "-fx-background-color: transparent;"
+                        + "-fx-background: transparent;");
 
         VBox.setVgrow(
-        driverScrollPane,
-        Priority.ALWAYS
-        );
+                driverScrollPane,
+                Priority.ALWAYS);
 
         main.getChildren().add(
-        driverScrollPane
-        );
-     
+                driverScrollPane);
 
         // =====================================================
         // PAGINATION
         // =====================================================
 
-        HBox pagination =
-                createPagination();
+        HBox pagination = createPagination();
 
         main.getChildren().add(
-                pagination
-        );
+                pagination);
 
         // =====================================================
         // FILTER EVENTS
@@ -411,27 +337,19 @@ public class MatchedDrivers {
 
         searchField.textProperty()
                 .addListener(
-                        (obs, oldValue, newValue) ->
-                                applyFilters()
-                );
+                        (obs, oldValue, newValue) -> applyFilters());
 
         scoreFilter.valueProperty()
                 .addListener(
-                        (obs, oldValue, newValue) ->
-                                applyFilters()
-                );
+                        (obs, oldValue, newValue) -> applyFilters());
 
         truckFilter.valueProperty()
                 .addListener(
-                        (obs, oldValue, newValue) ->
-                                applyFilters()
-                );
+                        (obs, oldValue, newValue) -> applyFilters());
 
         sortFilter.valueProperty()
                 .addListener(
-                        (obs, oldValue, newValue) ->
-                                applyFilters()
-                );
+                        (obs, oldValue, newValue) -> applyFilters());
 
         refreshDriverCards();
 
@@ -443,7 +361,7 @@ public class MatchedDrivers {
         root.setCenter(mainContent);
         root.setLeft(UserNavigation.createSidebar(null));
 
-        matchedDriversScene = new Scene(root,1536,750);
+        matchedDriversScene = new Scene(root, 1536, 750);
 
         return matchedDriversScene;
     }
@@ -454,205 +372,157 @@ public class MatchedDrivers {
 
     private HBox createActiveLoadCard() {
 
-        HBox loadCard =
-                new HBox(60);
+        HBox loadCard = new HBox(60);
 
         loadCard.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         loadCard.setPadding(
                 new Insets(
                         14,
                         20,
                         14,
-                        20
-                )
-        );
+                        20));
 
         loadCard.setPrefHeight(68);
 
         loadCard.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-background-radius: 14;"
-        );
+                        + "-fx-background-radius: 14;");
 
         // Load icon
-        Label loadIcon =
-                new Label("▣");
+        Label loadIcon = new Label("▣");
 
         loadIcon.setStyle(
                 "-fx-background-color: #E8F5EA;"
-                + "-fx-background-radius: 8;"
-                + "-fx-text-fill: #087C2F;"
-                + "-fx-font-size: 15px;"
-        );
+                        + "-fx-background-radius: 8;"
+                        + "-fx-text-fill: #087C2F;"
+                        + "-fx-font-size: 15px;");
 
         loadIcon.setPadding(
-                new Insets(7)
-        );
+                new Insets(7));
 
         // Load ID
-        VBox loadIdBox =
-                new VBox(1);
+        VBox loadIdBox = new VBox(1);
 
-        Label activeLoad =
-                new Label(
-                        "ACTIVE LOAD SELECTION"
-                );
+        Label activeLoad = new Label(
+                "ACTIVE LOAD SELECTION");
 
         activeLoad.setStyle(
                 "-fx-text-fill: #7B867F;"
-                + "-fx-font-size: 10px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 10px;"
+                        + "-fx-font-weight: bold;");
 
-        Label loadId =
-                new Label("EL-9420");
+        Label loadId = new Label("EL-9420");
 
         loadId.setStyle(
                 "-fx-text-fill: #26332C;"
-                + "-fx-font-size: 15px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 15px;"
+                        + "-fx-font-weight: bold;");
 
         loadIdBox.getChildren().addAll(
                 activeLoad,
-                loadId
-        );
+                loadId);
 
         // Divider
-        Region divider =
-                new Region();
+        Region divider = new Region();
 
         divider.setPrefWidth(1);
 
         divider.setPrefHeight(25);
 
         divider.setStyle(
-                "-fx-background-color: #D8E5DC;"
-        );
+                "-fx-background-color: #D8E5DC;");
 
         // Route
-        VBox routeBox =
-                new VBox(1);
+        VBox routeBox = new VBox(1);
 
-        Label routeTitle =
-                new Label("Route");
+        Label routeTitle = new Label("Route");
 
         routeTitle.setStyle(
                 "-fx-text-fill: #7B867F;"
-                + "-fx-font-size: 10px;"
-        );
+                        + "-fx-font-size: 10px;");
 
-        Label route =
-                new Label(
-                        "Pune → Nashik"
-                );
+        Label route = new Label(
+                "Pune → Nashik");
 
         route.setStyle(
                 "-fx-text-fill: #26332C;"
-                + "-fx-font-size: 15px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 15px;"
+                        + "-fx-font-weight: bold;");
 
         routeBox.getChildren().addAll(
                 routeTitle,
-                route
-        );
+                route);
 
         // Pickup Date
-        VBox dateBox =
-                new VBox(1);
+        VBox dateBox = new VBox(1);
 
-        Label dateTitle =
-                new Label(
-                        "Pickup Date"
-                );
+        Label dateTitle = new Label(
+                "Pickup Date");
 
         dateTitle.setStyle(
                 "-fx-text-fill: #7B867F;"
-                + "-fx-font-size: 12px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 12px;"
+                        + "-fx-font-weight: bold;");
 
-        Label pickupDate =
-                new Label(
-                        "Oct 25, 2023"
-                );
+        Label pickupDate = new Label(
+                "Oct 25, 2023");
 
         pickupDate.setStyle(
                 "-fx-text-fill: #26332C;"
-                + "-fx-font-size: 10px;"
-        );
+                        + "-fx-font-size: 10px;");
 
         dateBox.getChildren().addAll(
                 dateTitle,
-                pickupDate
-        );
+                pickupDate);
 
         // Weight
-        VBox weightBox =
-                new VBox(1);
+        VBox weightBox = new VBox(1);
 
-        Label weightTitle =
-                new Label(
-                        "Total Weight"
-                );
+        Label weightTitle = new Label(
+                "Total Weight");
 
         weightTitle.setStyle(
                 "-fx-text-fill: #7B867F;"
-                + "-fx-font-size: 12px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 12px;"
+                        + "-fx-font-weight: bold;");
 
-        Label weight =
-                new Label("6 Ton");
+        Label weight = new Label("6 Ton");
 
         weight.setStyle(
                 "-fx-text-fill: #26332C;"
-                + "-fx-font-size: 10px;"
-        );
+                        + "-fx-font-size: 10px;");
 
         weightBox.getChildren().addAll(
                 weightTitle,
-                weight
-        );
+                weight);
 
         // Price
-        VBox priceBox =
-                new VBox(1);
+        VBox priceBox = new VBox(1);
 
-        Label priceTitle =
-                new Label(
-                        "Agreed Price"
-                );
+        Label priceTitle = new Label(
+                "Agreed Price");
 
         priceTitle.setStyle(
                 "-fx-text-fill: #7B867F;"
-                + "-fx-font-size: 12px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 12px;"
+                        + "-fx-font-weight: bold;");
 
-        Label price =
-                new Label("₹9,200");
+        Label price = new Label("₹9,200");
 
         price.setStyle(
                 "-fx-text-fill: #087C2F;"
-                + "-fx-font-size: 10px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 10px;"
+                        + "-fx-font-weight: bold;");
 
         priceBox.getChildren().addAll(
                 priceTitle,
-                price
-        );
+                price);
 
         // Modify
-        Button modifyLoad =
-                new Button(
-                        "✎  Modify Load"
-                );
+        Button modifyLoad = new Button(
+                "✎  Modify Load");
 
         modifyLoad.setPrefHeight(36);
 
@@ -661,21 +531,15 @@ public class MatchedDrivers {
                         8,
                         18,
                         8,
-                        18
-                )
-        );
+                        18));
 
         applyGreenButtonStyle(
-                modifyLoad
-        );
+                modifyLoad);
 
         modifyLoad.setOnAction(
-                event ->
-                        showInfo(
-                                "Modify Load",
-                                "Modify Load screen will be connected here."
-                        )
-        );
+                event -> showInfo(
+                        "Modify Load",
+                        "Modify Load screen will be connected here."));
 
         // Add
         loadCard.getChildren().addAll(
@@ -686,8 +550,7 @@ public class MatchedDrivers {
                 dateBox,
                 weightBox,
                 priceBox,
-                modifyLoad
-        );
+                modifyLoad);
 
         return loadCard;
     }
@@ -708,9 +571,7 @@ public class MatchedDrivers {
                         "7 Years",
                         "LPT 2518",
                         "Pune",
-                        "35 min"
-                )
-        );
+                        "35 min"));
 
         allDrivers.add(
                 new DriverData(
@@ -720,9 +581,7 @@ public class MatchedDrivers {
                         "6 Years",
                         "LPT 1618",
                         "Pimpri",
-                        "48 min"
-                )
-        );
+                        "48 min"));
 
         allDrivers.add(
                 new DriverData(
@@ -732,9 +591,7 @@ public class MatchedDrivers {
                         "5 Years",
                         "Trailer",
                         "Pune",
-                        "55 min"
-                )
-        );
+                        "55 min"));
 
         allDrivers.add(
                 new DriverData(
@@ -744,9 +601,7 @@ public class MatchedDrivers {
                         "4 Years",
                         "Container",
                         "Chakan",
-                        "1 hr 10 min"
-                )
-        );
+                        "1 hr 10 min"));
 
         allDrivers.add(
                 new DriverData(
@@ -756,9 +611,7 @@ public class MatchedDrivers {
                         "4 Years",
                         "Tanker",
                         "Nashik",
-                        "1 hr 25 min"
-                )
-        );
+                        "1 hr 25 min"));
 
         allDrivers.add(
                 new DriverData(
@@ -768,9 +621,7 @@ public class MatchedDrivers {
                         "3 Years",
                         "LPT 2518",
                         "Mumbai",
-                        "2 hr"
-                )
-        );
+                        "2 hr"));
     }
 
     // =====================================================
@@ -779,98 +630,78 @@ public class MatchedDrivers {
 
     private void applyFilters() {
 
-        String search =
-                searchField
-                        .getText()
-                        .trim()
-                        .toLowerCase();
+        String search = searchField
+                .getText()
+                .trim()
+                .toLowerCase();
 
-        String score =
-                scoreFilter.getValue();
+        String score = scoreFilter.getValue();
 
-        String truck =
-                truckFilter.getValue();
+        String truck = truckFilter.getValue();
 
-        String sort =
-                sortFilter.getValue();
+        String sort = sortFilter.getValue();
 
-        List<DriverData> result =
-                allDrivers
-                        .stream()
-                        .filter(
-                                driver -> {
+        List<DriverData> result = allDrivers
+                .stream()
+                .filter(
+                        driver -> {
 
-                                    if (search.isEmpty()) {
-                                        return true;
-                                    }
+                            if (search.isEmpty()) {
+                                return true;
+                            }
 
-                                    return driver.name
+                            return driver.name
+                                    .toLowerCase()
+                                    .contains(search)
+
+                                    || driver.truckType
                                             .toLowerCase()
                                             .contains(search)
 
-                                            || driver.truckType
+                                    || driver.location
                                             .toLowerCase()
                                             .contains(search)
 
-                                            || driver.location
-                                            .toLowerCase()
-                                            .contains(search)
-
-                                            || "pune"
+                                    || "pune"
                                             .contains(search);
-                                }
-                        )
-                        .filter(
-                                driver ->
-                                        matchScoreFilter(
-                                                driver,
-                                                score
-                                        )
-                        )
-                        .filter(
-                                driver ->
-                                        truckFilterMatch(
-                                                driver,
-                                                truck
-                                        )
-                        )
-                        .collect(
-                                Collectors.toList()
-                        );
+                        })
+                .filter(
+                        driver -> matchScoreFilter(
+                                driver,
+                                score))
+                .filter(
+                        driver -> truckFilterMatch(
+                                driver,
+                                truck))
+                .collect(
+                        Collectors.toList());
 
         // Sort
-//       // SORT
-if ("Highest Match".equals(sort)) {
+        // // SORT
+        if ("Highest Match".equals(sort)) {
 
-    result.sort(
-            Comparator.comparingInt(
-                    (DriverData d) -> d.matchScore
-            ).reversed()
-    );
+            result.sort(
+                    Comparator.comparingInt(
+                            (DriverData d) -> d.matchScore).reversed());
 
-} else if ("Lowest Match".equals(sort)) {
+        } else if ("Lowest Match".equals(sort)) {
 
-    result.sort(
-            Comparator.comparingInt(
-                    (DriverData d) -> d.matchScore
-            )
-    );
+            result.sort(
+                    Comparator.comparingInt(
+                            (DriverData d) -> d.matchScore));
 
-} else if ("Highest Rating".equals(sort)) {
+        } else if ("Highest Rating".equals(sort)) {
 
-    result.sort(
-            Comparator.comparingDouble(
-                    (DriverData d) -> d.rating
-            ).reversed()
-    );
+            result.sort(
+                    Comparator.comparingDouble(
+                            (DriverData d) -> d.rating).reversed());
 
-} 
+        }
 
         filteredDrivers.clear();
 
         filteredDrivers.addAll(
-                result
-        );
+                result);
 
         currentPage = 1;
 
@@ -879,8 +710,7 @@ if ("Highest Match".equals(sort)) {
 
     private boolean matchScoreFilter(
             DriverData driver,
-            String filter
-    ) {
+            String filter) {
 
         if ("90% and above".equals(filter)) {
             return driver.matchScore >= 90;
@@ -899,8 +729,7 @@ if ("Highest Match".equals(sort)) {
 
     private boolean truckFilterMatch(
             DriverData driver,
-            String filter
-    ) {
+            String filter) {
 
         if ("Truck Type".equals(filter)) {
             return true;
@@ -909,314 +738,239 @@ if ("Highest Match".equals(sort)) {
         return driver.truckType
                 .toLowerCase()
                 .contains(
-                        filter.toLowerCase()
-                );
+                        filter.toLowerCase());
     }
 
     // =====================================================
     // DRIVER CARDS
     // =====================================================
-private void refreshDriverCards() {
+    private void refreshDriverCards() {
 
-    driverContainer.getChildren().clear();
+        driverContainer.getChildren().clear();
 
-    int totalDrivers = filteredDrivers.size();
+        int totalDrivers = filteredDrivers.size();
 
-    int totalPages =
-            Math.max(
-                    1,
-                    (int) Math.ceil(
-                            (double) totalDrivers
-                            / driversPerPage
-                    )
-            );
+        int totalPages = Math.max(
+                1,
+                (int) Math.ceil(
+                        (double) totalDrivers
+                                / driversPerPage));
 
-    if (currentPage > totalPages) {
-        currentPage = totalPages;
-    }
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
 
-    int start =
-            (currentPage - 1)
-            * driversPerPage;
+        int start = (currentPage - 1)
+                * driversPerPage;
 
-    int end =
-            Math.min(
-                    start + driversPerPage,
-                    totalDrivers
-            );
+        int end = Math.min(
+                start + driversPerPage,
+                totalDrivers);
 
-    if (totalDrivers == 0) {
+        if (totalDrivers == 0) {
 
-        Label empty =
-                new Label(
-                        "No matching drivers found."
-                );
+            Label empty = new Label(
+                    "No matching drivers found.");
 
-        empty.setStyle(
-                "-fx-text-fill: #7B867F;"
-                + "-fx-font-size: 14px;"
-        );
-
-        driverContainer.getChildren().add(
-                empty
-        );
-
-    } else {
-
-        for (int i = start; i < end; i++) {
-
-            DriverData driver =
-                    filteredDrivers.get(i);
-
-            VBox card =
-                    createDriverCard(driver);
+            empty.setStyle(
+                    "-fx-text-fill: #7B867F;"
+                            + "-fx-font-size: 14px;");
 
             driverContainer.getChildren().add(
-                    card
-            );
+                    empty);
+
+        } else {
+
+            for (int i = start; i < end; i++) {
+
+                DriverData driver = filteredDrivers.get(i);
+
+                VBox card = createDriverCard(driver);
+
+                driverContainer.getChildren().add(
+                        card);
+            }
         }
+
+        pageLabel.setText(
+                "Page "
+                        + currentPage
+                        + " of "
+                        + totalPages);
+
+        previousButton.setDisable(
+                currentPage <= 1);
+
+        nextButton.setDisable(
+                currentPage >= totalPages);
     }
-
-    pageLabel.setText(
-            "Page "
-            + currentPage
-            + " of "
-            + totalPages
-    );
-
-    previousButton.setDisable(
-            currentPage <= 1
-    );
-
-    nextButton.setDisable(
-            currentPage >= totalPages
-    );
-}
 
     // =====================================================
     // DRIVER CARD
     // =====================================================
 
     private VBox createDriverCard(
-            DriverData driver
-    ) {
+            DriverData driver) {
 
-        VBox card =
-                new VBox(12);
+        VBox card = new VBox(12);
 
         card.setPadding(
-                new Insets(18)
-        );
+                new Insets(18));
 
         card.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-background-radius: 14;"
-                + "-fx-border-color: #E0EAE3;"
-                + "-fx-border-radius: 14;"
-        );
+                        + "-fx-background-radius: 14;"
+                        + "-fx-border-color: #E0EAE3;"
+                        + "-fx-border-radius: 14;");
 
         // Top row
-        HBox top =
-                new HBox();
+        HBox top = new HBox();
 
         top.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         // Avatar
-        Label avatar =
-                new Label(
-                        getInitials(
-                                driver.name
-                        )
-                );
+        Label avatar = new Label(
+                getInitials(
+                        driver.name));
 
         avatar.setMinSize(
                 48,
-                48
-        );
+                48);
 
         avatar.setPrefSize(
                 48,
-                48
-        );
+                48);
 
         avatar.setAlignment(
-                Pos.CENTER
-        );
+                Pos.CENTER);
 
         avatar.setStyle(
                 "-fx-background-color: #E8F5EA;"
-                + "-fx-background-radius: 24;"
-                + "-fx-text-fill: #087C2F;"
-                + "-fx-font-size: 14px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-background-radius: 24;"
+                        + "-fx-text-fill: #087C2F;"
+                        + "-fx-font-size: 14px;"
+                        + "-fx-font-weight: bold;");
 
-        VBox nameBox =
-                new VBox(4);
+        VBox nameBox = new VBox(4);
 
-        Label name =
-                new Label(
-                        driver.name
-                );
+        Label name = new Label(
+                driver.name);
 
         name.setStyle(
                 "-fx-text-fill: #26332C;"
-                + "-fx-font-size: 15px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 15px;"
+                        + "-fx-font-weight: bold;");
 
-        Label truck =
-                new Label(
-                        driver.truckType
-                );
+        Label truck = new Label(
+                driver.truckType);
 
         truck.setStyle(
                 "-fx-text-fill: #7B867F;"
-                + "-fx-font-size: 11px;"
-        );
+                        + "-fx-font-size: 11px;");
 
         nameBox.getChildren().addAll(
                 name,
-                truck
-        );
+                truck);
 
-        HBox driverIdentity =
-                new HBox(
-                        12,
-                        avatar,
-                        nameBox
-                );
+        HBox driverIdentity = new HBox(
+                12,
+                avatar,
+                nameBox);
 
         driverIdentity.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
-        Region topSpacer =
-                new Region();
+        Region topSpacer = new Region();
 
         HBox.setHgrow(
                 topSpacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
-        Label score =
-                new Label(
-                        driver.matchScore
-                        + "% Match"
-                );
+        Label score = new Label(
+                driver.matchScore
+                        + "% Match");
 
         score.setStyle(
                 "-fx-background-color: #E8F5EA;"
-                + "-fx-background-radius: 15;"
-                + "-fx-text-fill: #087C2F;"
-                + "-fx-padding: 7 12 7 12;"
-                + "-fx-font-size: 11px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-background-radius: 15;"
+                        + "-fx-text-fill: #087C2F;"
+                        + "-fx-padding: 7 12 7 12;"
+                        + "-fx-font-size: 11px;"
+                        + "-fx-font-weight: bold;");
 
         top.getChildren().addAll(
                 driverIdentity,
                 topSpacer,
-                score
-        );
+                score);
 
         card.getChildren().add(
-                top
-        );
+                top);
 
         // Details
-        HBox details =
-                new HBox(30);
+        HBox details = new HBox(30);
 
         details.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         details.getChildren().addAll(
                 createDetail(
                         "★ Rating",
                         String.valueOf(
-                                driver.rating
-                        )
-                ),
+                                driver.rating)),
                 createDetail(
                         "Experience",
-                        driver.experience
-                ),
+                        driver.experience),
                 createDetail(
                         "Vehicle",
-                        driver.truckType
-                ),
+                        driver.truckType),
                 createDetail(
                         "Current Location",
-                        driver.location
-                ),
+                        driver.location),
                 createDetail(
                         "ETA to Pickup",
-                        driver.eta
-                )
-        );
+                        driver.eta));
 
         card.getChildren().add(
-                details
-        );
+                details);
 
         // Buttons
-        HBox buttons =
-                new HBox(10);
+        HBox buttons = new HBox(10);
 
         buttons.setAlignment(
-                Pos.CENTER_RIGHT
-        );
+                Pos.CENTER_RIGHT);
 
-        Button viewProfile =
-                new Button(
-                        "View Profile"
-                );
+        Button viewProfile = new Button(
+                "View Profile");
 
         applyOutlineButtonStyle(
-                viewProfile
-        );
+                viewProfile);
 
-        Button assign =
-                new Button(
-                        "Assign Driver"
-                );
+        Button assign = new Button(
+                "Assign Driver");
 
         applyGreenButtonStyle(
-                assign
-        );
+                assign);
 
         viewProfile.setOnAction(
-                event ->
-                        showDriverProfile(
-                                driver
-                        )
-        );
+                event -> showDriverProfile(
+                        driver));
 
         assign.setOnAction(
-                event ->
-                        assignDriver(
-                                driver
-                        )
-        );
+                event -> assignDriver(
+                        driver));
 
         buttons.getChildren().addAll(
                 viewProfile,
-                assign
-        );
+                assign);
 
         card.getChildren().add(
-                buttons
-        );
+                buttons);
 
         // Hover
         card.setOnMouseEntered(
-                event ->
-                        card.setStyle(
-                                "-fx-background-color: white;"
+                event -> card.setStyle(
+                        "-fx-background-color: white;"
                                 + "-fx-background-radius: 14;"
                                 + "-fx-border-color: #087C2F;"
                                 + "-fx-border-radius: 14;"
@@ -1226,19 +980,14 @@ private void refreshDriverCards() {
                                 + "10, "
                                 + "0, "
                                 + "0, "
-                                + "4);"
-                        )
-        );
+                                + "4);"));
 
         card.setOnMouseExited(
-                event ->
-                        card.setStyle(
-                                "-fx-background-color: white;"
+                event -> card.setStyle(
+                        "-fx-background-color: white;"
                                 + "-fx-background-radius: 14;"
                                 + "-fx-border-color: #E0EAE3;"
-                                + "-fx-border-radius: 14;"
-                        )
-        );
+                                + "-fx-border-radius: 14;"));
 
         return card;
     }
@@ -1249,33 +998,26 @@ private void refreshDriverCards() {
 
     private VBox createDetail(
             String title,
-            String value
-    ) {
+            String value) {
 
-        VBox box =
-                new VBox(3);
+        VBox box = new VBox(3);
 
-        Label titleLabel =
-                new Label(title);
+        Label titleLabel = new Label(title);
 
         titleLabel.setStyle(
                 "-fx-text-fill: #7B867F;"
-                + "-fx-font-size: 10px;"
-        );
+                        + "-fx-font-size: 10px;");
 
-        Label valueLabel =
-                new Label(value);
+        Label valueLabel = new Label(value);
 
         valueLabel.setStyle(
                 "-fx-text-fill: #26332C;"
-                + "-fx-font-size: 11px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 11px;"
+                        + "-fx-font-weight: bold;");
 
         box.getChildren().addAll(
                 titleLabel,
-                valueLabel
-        );
+                valueLabel);
 
         return box;
     }
@@ -1286,45 +1028,34 @@ private void refreshDriverCards() {
 
     private HBox createPagination() {
 
-        HBox pagination =
-                new HBox(10);
+        HBox pagination = new HBox(10);
 
         pagination.setAlignment(
-                Pos.CENTER
-        );
+                Pos.CENTER);
 
-        previousButton =
-                new Button(
-                        "Previous"
-                );
+        previousButton = new Button(
+                "Previous");
 
-        nextButton =
-                new Button(
-                        "Next"
-                );
+        nextButton = new Button(
+                "Next");
 
-        pageLabel =
-                new Label(
-                        "Page 1"
-                );
+        pageLabel = new Label(
+                "Page 1");
 
         previousButton.setPrefHeight(35);
 
         nextButton.setPrefHeight(35);
 
         applyOutlineButtonStyle(
-                previousButton
-        );
+                previousButton);
 
         applyOutlineButtonStyle(
-                nextButton
-        );
+                nextButton);
 
         pageLabel.setStyle(
                 "-fx-text-fill: #26332C;"
-                + "-fx-font-size: 12px;"
-                + "-fx-font-weight: bold;"
-        );
+                        + "-fx-font-size: 12px;"
+                        + "-fx-font-weight: bold;");
 
         previousButton.setOnAction(
                 event -> {
@@ -1335,21 +1066,16 @@ private void refreshDriverCards() {
 
                         refreshDriverCards();
                     }
-                }
-        );
+                });
 
         nextButton.setOnAction(
                 event -> {
 
-                    int totalPages =
-                            Math.max(
-                                    1,
-                                    (int) Math.ceil(
-                                            (double)
-                                            filteredDrivers.size()
-                                            / driversPerPage
-                                    )
-                            );
+                    int totalPages = Math.max(
+                            1,
+                            (int) Math.ceil(
+                                    (double) filteredDrivers.size()
+                                            / driversPerPage));
 
                     if (currentPage < totalPages) {
 
@@ -1357,14 +1083,12 @@ private void refreshDriverCards() {
 
                         refreshDriverCards();
                     }
-                }
-        );
+                });
 
         pagination.getChildren().addAll(
                 previousButton,
                 pageLabel,
-                nextButton
-        );
+                nextButton);
 
         return pagination;
     }
@@ -1374,46 +1098,40 @@ private void refreshDriverCards() {
     // =====================================================
 
     private void showDriverProfile(
-            DriverData driver
-    ) {
+            DriverData driver) {
 
-        Alert alert =
-                new Alert(
-                        Alert.AlertType.INFORMATION
-                );
+        Alert alert = new Alert(
+                Alert.AlertType.INFORMATION);
 
         alert.setTitle(
-                "Driver Profile"
-        );
+                "Driver Profile");
 
         alert.setHeaderText(
-                driver.name
-        );
+                driver.name);
 
         alert.setContentText(
                 "AI Match Score : "
-                + driver.matchScore
-                + "%\n\n"
+                        + driver.matchScore
+                        + "%\n\n"
 
-                + "Rating : "
-                + driver.rating
-                + "\n\n"
+                        + "Rating : "
+                        + driver.rating
+                        + "\n\n"
 
-                + "Experience : "
-                + driver.experience
-                + "\n\n"
+                        + "Experience : "
+                        + driver.experience
+                        + "\n\n"
 
-                + "Vehicle : "
-                + driver.truckType
-                + "\n\n"
+                        + "Vehicle : "
+                        + driver.truckType
+                        + "\n\n"
 
-                + "Current Location : "
-                + driver.location
-                + "\n\n"
+                        + "Current Location : "
+                        + driver.location
+                        + "\n\n"
 
-                + "ETA to Pickup : "
-                + driver.eta
-        );
+                        + "ETA to Pickup : "
+                        + driver.eta);
 
         alert.showAndWait();
     }
@@ -1423,46 +1141,35 @@ private void refreshDriverCards() {
     // =====================================================
 
     private void assignDriver(
-            DriverData driver
-    ) {
+            DriverData driver) {
 
-        Alert confirmation =
-                new Alert(
-                        Alert.AlertType.CONFIRMATION
-                );
+        Alert confirmation = new Alert(
+                Alert.AlertType.CONFIRMATION);
 
         confirmation.setTitle(
-                "Assign Driver"
-        );
+                "Assign Driver");
 
         confirmation.setHeaderText(
-                "Assign Driver"
-        );
+                "Assign Driver");
 
         confirmation.setContentText(
                 "Assign "
-                + driver.name
-                + " to Load L026?"
-        );
+                        + driver.name
+                        + " to Load L026?");
 
         confirmation
                 .showAndWait()
                 .ifPresent(
                         result -> {
 
-                            if (
-                                    result ==
-                                    javafx.scene.control.ButtonType.OK
-                            ) {
+                            if (result == javafx.scene.control.ButtonType.OK) {
 
                                 showInfo(
                                         "Driver Assigned",
                                         driver.name
-                                        + " assigned to Load L026."
-                                );
+                                                + " assigned to Load L026.");
                             }
-                        }
-                );
+                        });
     }
 
     // =====================================================
@@ -1470,85 +1177,69 @@ private void refreshDriverCards() {
     // =====================================================
 
     private void applyGreenButtonStyle(
-            Button button
-    ) {
+            Button button) {
 
         button.setStyle(
                 "-fx-background-color: #087C2F;"
-                + "-fx-background-radius: 18;"
-                + "-fx-text-fill: white;"
-                + "-fx-font-size: 11px;"
-                + "-fx-font-weight: bold;"
-                + "-fx-padding: 8 16 8 16;"
-        );
+                        + "-fx-background-radius: 18;"
+                        + "-fx-text-fill: white;"
+                        + "-fx-font-size: 11px;"
+                        + "-fx-font-weight: bold;"
+                        + "-fx-padding: 8 16 8 16;");
 
         button.setOnMouseEntered(
-                event ->
-                        button.setStyle(
-                                "-fx-background-color: #075F24;"
+                event -> button.setStyle(
+                        "-fx-background-color: #075F24;"
                                 + "-fx-background-radius: 18;"
                                 + "-fx-text-fill: white;"
                                 + "-fx-font-size: 11px;"
                                 + "-fx-font-weight: bold;"
-                                + "-fx-padding: 8 16 8 16;"
-                        )
-        );
+                                + "-fx-padding: 8 16 8 16;"));
 
         button.setOnMouseExited(
-                event ->
-                        button.setStyle(
-                                "-fx-background-color: #087C2F;"
+                event -> button.setStyle(
+                        "-fx-background-color: #087C2F;"
                                 + "-fx-background-radius: 18;"
                                 + "-fx-text-fill: white;"
                                 + "-fx-font-size: 11px;"
                                 + "-fx-font-weight: bold;"
-                                + "-fx-padding: 8 16 8 16;"
-                        )
-        );
+                                + "-fx-padding: 8 16 8 16;"));
     }
 
     private void applyOutlineButtonStyle(
-            Button button
-    ) {
+            Button button) {
 
         button.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-background-radius: 18;"
-                + "-fx-border-color: #C9D9CE;"
-                + "-fx-border-radius: 18;"
-                + "-fx-text-fill: #26332C;"
-                + "-fx-font-size: 11px;"
-                + "-fx-font-weight: bold;"
-                + "-fx-padding: 8 16 8 16;"
-        );
+                        + "-fx-background-radius: 18;"
+                        + "-fx-border-color: #C9D9CE;"
+                        + "-fx-border-radius: 18;"
+                        + "-fx-text-fill: #26332C;"
+                        + "-fx-font-size: 11px;"
+                        + "-fx-font-weight: bold;"
+                        + "-fx-padding: 8 16 8 16;");
 
         button.setOnMouseEntered(
-                event ->
-                        button.setStyle(
-                                "-fx-background-color: #E8F5EA;"
+                event -> button.setStyle(
+                        "-fx-background-color: #E8F5EA;"
                                 + "-fx-background-radius: 18;"
                                 + "-fx-border-color: #087C2F;"
                                 + "-fx-border-radius: 18;"
                                 + "-fx-text-fill: #087C2F;"
                                 + "-fx-font-size: 11px;"
                                 + "-fx-font-weight: bold;"
-                                + "-fx-padding: 8 16 8 16;"
-                        )
-        );
+                                + "-fx-padding: 8 16 8 16;"));
 
         button.setOnMouseExited(
-                event ->
-                        button.setStyle(
-                                "-fx-background-color: white;"
+                event -> button.setStyle(
+                        "-fx-background-color: white;"
                                 + "-fx-background-radius: 18;"
                                 + "-fx-border-color: #C9D9CE;"
                                 + "-fx-border-radius: 18;"
                                 + "-fx-text-fill: #26332C;"
                                 + "-fx-font-size: 11px;"
                                 + "-fx-font-weight: bold;"
-                                + "-fx-padding: 8 16 8 16;"
-                        )
-        );
+                                + "-fx-padding: 8 16 8 16;"));
     }
 
     // =====================================================
@@ -1557,13 +1248,10 @@ private void refreshDriverCards() {
 
     private void showInfo(
             String title,
-            String message
-    ) {
+            String message) {
 
-        Alert alert =
-                new Alert(
-                        Alert.AlertType.INFORMATION
-                );
+        Alert alert = new Alert(
+                Alert.AlertType.INFORMATION);
 
         alert.setTitle(title);
 
@@ -1579,22 +1267,17 @@ private void refreshDriverCards() {
     // =====================================================
 
     private String getInitials(
-            String name
-    ) {
+            String name) {
 
-        String[] parts =
-                name.split(" ");
+        String[] parts = name.split(" ");
 
         if (parts.length >= 2) {
 
-            return
-                    String.valueOf(
-                            parts[0].charAt(0)
-                    )
+            return String.valueOf(
+                    parts[0].charAt(0))
                     +
                     String.valueOf(
-                            parts[1].charAt(0)
-                    );
+                            parts[1].charAt(0));
         }
 
         return name
@@ -1629,28 +1312,21 @@ private void refreshDriverCards() {
                 String experience,
                 String truckType,
                 String location,
-                String eta
-        ) {
+                String eta) {
 
             this.name = name;
 
-            this.matchScore =
-                    matchScore;
+            this.matchScore = matchScore;
 
-            this.rating =
-                    rating;
+            this.rating = rating;
 
-            this.experience =
-                    experience;
+            this.experience = experience;
 
-            this.truckType =
-                    truckType;
+            this.truckType = truckType;
 
-            this.location =
-                    location;
+            this.location = location;
 
-            this.eta =
-                    eta;
+            this.eta = eta;
         }
     }
 }

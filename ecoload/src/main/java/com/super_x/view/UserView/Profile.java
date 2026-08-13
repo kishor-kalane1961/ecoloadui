@@ -37,7 +37,6 @@ public class Profile {
         BorderPane mainroot = new BorderPane();
         mainroot.setLeft(UserNavigation.createSidebar("Profile"));
 
-
         BorderPane mainContent = new BorderPane();
         mainContent.setTop(UserNavigation.createNavbar());
 
@@ -49,10 +48,7 @@ public class Profile {
                         new BackgroundFill(
                                 Color.web(LIGHT_GREEN),
                                 CornerRadii.EMPTY,
-                                Insets.EMPTY
-                        )
-                )
-        );
+                                Insets.EMPTY)));
 
         // =========================================================
         // PAGE HEADER
@@ -68,8 +64,7 @@ public class Profile {
         title.setTextFill(Color.web(DARK_GREEN));
 
         Label subtitle = new Label(
-                "View and manage your personal transporter information."
-        );
+                "View and manage your personal transporter information.");
         subtitle.setFont(Font.font("Arial", 15));
         subtitle.setTextFill(Color.web("#53645B"));
 
@@ -91,8 +86,7 @@ public class Profile {
         header.getChildren().addAll(
                 titleBox,
                 headerSpacer,
-                actionButtons
-        );
+                actionButtons);
 
         // =========================================================
         // PERSONAL INFORMATION
@@ -137,8 +131,7 @@ public class Profile {
 
         personalCard.getChildren().addAll(
                 personalTitle,
-                personalGrid
-        );
+                personalGrid);
 
         // =========================================================
         // PROFILE SUMMARY CARD
@@ -163,10 +156,7 @@ public class Profile {
                         new BackgroundFill(
                                 Color.web("#DDF5E6"),
                                 new CornerRadii(20),
-                                Insets.EMPTY
-                        )
-                )
-        );
+                                Insets.EMPTY)));
 
         transporterType.setPadding(new Insets(7, 12, 7, 12));
 
@@ -188,8 +178,7 @@ public class Profile {
                 separator,
                 status,
                 memberSince,
-                updated
-        );
+                updated);
 
         // =========================================================
         // TOP CONTENT
@@ -202,8 +191,7 @@ public class Profile {
 
         topContent.getChildren().addAll(
                 profileCard,
-                personalCard
-        );
+                personalCard);
 
         // =========================================================
         // TRANSPORT SERVICES
@@ -224,8 +212,7 @@ public class Profile {
 
         transportGrid.getColumnConstraints().addAll(
                 transportCol1,
-                transportCol2
-        );
+                transportCol2);
 
         // ComboBox<String> transporterType = new ComboBox<String>();
         // transporterType.getItems().add("Personal / Individual");
@@ -239,26 +226,22 @@ public class Profile {
                 "House Shifting",
                 "Local Transport",
                 "Goods Transport",
-                "Commercial Transport"
-        );
+                "Commercial Transport");
         primaryService.setValue("House Shifting");
         primaryService.setMaxWidth(Double.MAX_VALUE);
         styleComboBox(primaryService);
 
         transportGrid.add(
                 fieldBox("Transporter Type", transporterType),
-                0, 0
-        );
+                0, 0);
 
         transportGrid.add(
                 fieldBox("Primary Service", primaryService),
-                1, 0
-        );
+                1, 0);
 
         transportCard.getChildren().addAll(
                 transportTitle,
-                transportGrid
-        );
+                transportGrid);
 
         // =========================================================
         // HOUSE-SHIFTING MATERIALS
@@ -269,8 +252,7 @@ public class Profile {
         Label materialsTitle = sectionTitle("House-Shifting Materials");
 
         Label materialsDescription = new Label(
-                "Select the types of materials you are equipped to handle."
-        );
+                "Select the types of materials you are equipped to handle.");
         materialsDescription.setFont(Font.font("Arial", 14));
         materialsDescription.setTextFill(Color.web("#64756C"));
 
@@ -290,14 +272,12 @@ public class Profile {
                 electronics,
                 boxes,
                 household,
-                other
-        );
+                other);
 
         materialsCard.getChildren().addAll(
                 materialsTitle,
                 materialsDescription,
-                materialButtons
-        );
+                materialButtons);
 
         // =========================================================
         // ACCOUNT SECURITY
@@ -318,8 +298,7 @@ public class Profile {
 
         securityGrid.getColumnConstraints().addAll(
                 securityCol1,
-                securityCol2
-        );
+                securityCol2);
 
         PasswordField newPassword = new PasswordField();
         newPassword.setPromptText("New Password");
@@ -331,18 +310,15 @@ public class Profile {
 
         securityGrid.add(
                 fieldBox("New Password", newPassword),
-                0, 0
-        );
+                0, 0);
 
         securityGrid.add(
                 fieldBox("Confirm Password", confirmPassword),
-                1, 0
-        );
+                1, 0);
 
         securityCard.getChildren().addAll(
                 securityTitle,
-                securityGrid
-        );
+                securityGrid);
 
         // =========================================================
         // IDENTITY VERIFICATION
@@ -363,30 +339,25 @@ public class Profile {
 
         Label documentName = new Label("Identity Verification");
         documentName.setFont(
-                Font.font("Arial", FontWeight.BOLD, 15)
-        );
+                Font.font("Arial", FontWeight.BOLD, 15));
 
         Label documentStatus = new Label(
-                "Verification completed"
-        );
+                "Verification completed");
         documentStatus.setFont(Font.font("Arial", 13));
         documentStatus.setTextFill(Color.web("#64756C"));
 
         documentInfo.getChildren().addAll(
                 documentName,
-                documentStatus
-        );
+                documentStatus);
 
         Region verificationSpacer = new Region();
         HBox.setHgrow(
                 verificationSpacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         Label verified = new Label("✓ Verified");
         verified.setFont(
-                Font.font("Arial", FontWeight.BOLD, 13)
-        );
+                Font.font("Arial", FontWeight.BOLD, 13));
         verified.setTextFill(Color.web(GREEN));
 
         verified.setBackground(
@@ -394,26 +365,20 @@ public class Profile {
                         new BackgroundFill(
                                 Color.web("#DDF5E6"),
                                 new CornerRadii(20),
-                                Insets.EMPTY
-                        )
-                )
-        );
+                                Insets.EMPTY)));
 
         verified.setPadding(
-                new Insets(8, 15, 8, 15)
-        );
+                new Insets(8, 15, 8, 15));
 
         verificationRow.getChildren().addAll(
                 documentIcon,
                 documentInfo,
                 verificationSpacer,
-                verified
-        );
+                verified);
 
         verificationCard.getChildren().addAll(
                 verificationTitle,
-                verificationRow
-        );
+                verificationRow);
 
         // =========================================================
         // BOTTOM CONTENT
@@ -426,8 +391,7 @@ public class Profile {
 
         bottomContent.getChildren().addAll(
                 securityCard,
-                verificationCard
-        );
+                verificationCard);
 
         // =========================================================
         // BUTTON ACTIONS
@@ -436,14 +400,12 @@ public class Profile {
         saveButton.setOnAction(event -> {
 
             Alert alert = new Alert(
-                    Alert.AlertType.INFORMATION
-            );
+                    Alert.AlertType.INFORMATION);
 
             alert.setTitle("EcoLoad");
             alert.setHeaderText("Profile Updated");
             alert.setContentText(
-                    "Your profile changes have been saved successfully."
-            );
+                    "Your profile changes have been saved successfully.");
 
             alert.showAndWait();
         });
@@ -473,10 +435,9 @@ public class Profile {
         root.getChildren().addAll(
                 header,
                 topContent,
-                //transportCard,
-                //materialsCard,
-                bottomContent
-        );
+                // transportCard,
+                // materialsCard,
+                bottomContent);
 
         // =========================================================
         // SCROLL VIEW
@@ -486,12 +447,10 @@ public class Profile {
         mainroot.setCenter(scrollPane);
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(
-                ScrollPane.ScrollBarPolicy.NEVER
-        );
+                ScrollPane.ScrollBarPolicy.NEVER);
 
         scrollPane.setStyle(
-                "-fx-background-color: " + LIGHT_GREEN + ";"
-        );
+                "-fx-background-color: " + LIGHT_GREEN + ";");
 
         // =========================================================
         // SCENE
@@ -500,12 +459,10 @@ public class Profile {
         profileScene = new Scene(
                 mainroot,
                 1536,
-                750
-        );
+                750);
 
         profileScene.setFill(
-                Color.web(LIGHT_GREEN)
-        );
+                Color.web(LIGHT_GREEN));
     }
 
     // =============================================================
@@ -523,10 +480,7 @@ public class Profile {
                         new BackgroundFill(
                                 Color.WHITE,
                                 new CornerRadii(18),
-                                Insets.EMPTY
-                        )
-                )
-        );
+                                Insets.EMPTY)));
 
         card.setBorder(
                 new Border(
@@ -534,10 +488,7 @@ public class Profile {
                                 Color.web(BORDER),
                                 BorderStrokeStyle.SOLID,
                                 new CornerRadii(18),
-                                new BorderWidths(1)
-                        )
-                )
-        );
+                                new BorderWidths(1))));
 
         return card;
     }
@@ -554,13 +505,10 @@ public class Profile {
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        22
-                )
-        );
+                        22));
 
         label.setTextFill(
-                Color.web("#101C16")
-        );
+                Color.web("#101C16"));
 
         return label;
     }
@@ -571,30 +519,25 @@ public class Profile {
 
     private VBox fieldBox(
             String labelText,
-            Control control
-    ) {
+            Control control) {
 
         VBox box = new VBox(7);
 
         Label label = new Label(labelText);
 
         label.setFont(
-                Font.font("Arial", 13)
-        );
+                Font.font("Arial", 13));
 
         label.setTextFill(
-                Color.web("#33443B")
-        );
+                Color.web("#33443B"));
 
         box.getChildren().addAll(
                 label,
-                control
-        );
+                control);
 
         VBox.setVgrow(
                 control,
-                Priority.NEVER
-        );
+                Priority.NEVER);
 
         return box;
     }
@@ -612,13 +555,12 @@ public class Profile {
 
         field.setStyle(
                 "-fx-background-color: #FAFCFB;" +
-                "-fx-border-color: #D8E8DE;" +
-                "-fx-border-width: 1;" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;" +
-                "-fx-padding: 0 14;" +
-                "-fx-font-size: 14px;"
-        );
+                        "-fx-border-color: #D8E8DE;" +
+                        "-fx-border-width: 1;" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-padding: 0 14;" +
+                        "-fx-font-size: 14px;");
 
         return field;
     }
@@ -634,12 +576,11 @@ public class Profile {
 
         area.setStyle(
                 "-fx-background-color: #FAFCFB;" +
-                "-fx-border-color: #D8E8DE;" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;" +
-                "-fx-padding: 8;" +
-                "-fx-font-size: 14px;"
-        );
+                        "-fx-border-color: #D8E8DE;" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-padding: 8;" +
+                        "-fx-font-size: 14px;");
     }
 
     // =============================================================
@@ -653,11 +594,10 @@ public class Profile {
 
         picker.setStyle(
                 "-fx-background-color: #FAFCFB;" +
-                "-fx-border-color: #D8E8DE;" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;" +
-                "-fx-font-size: 14px;"
-        );
+                        "-fx-border-color: #D8E8DE;" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-font-size: 14px;");
     }
 
     // =============================================================
@@ -665,18 +605,16 @@ public class Profile {
     // =============================================================
 
     private void styleComboBox(
-            ComboBox<String> combo
-    ) {
+            ComboBox<String> combo) {
 
         combo.setPrefHeight(48);
 
         combo.setStyle(
                 "-fx-background-color: #FAFCFB;" +
-                "-fx-border-color: #D8E8DE;" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;" +
-                "-fx-font-size: 14px;"
-        );
+                        "-fx-border-color: #D8E8DE;" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-font-size: 14px;");
     }
 
     // =============================================================
@@ -684,20 +622,18 @@ public class Profile {
     // =============================================================
 
     private void stylePasswordField(
-            PasswordField field
-    ) {
+            PasswordField field) {
 
         field.setPrefHeight(48);
         field.setMaxWidth(Double.MAX_VALUE);
 
         field.setStyle(
                 "-fx-background-color: #FAFCFB;" +
-                "-fx-border-color: #D8E8DE;" +
-                "-fx-border-radius: 9;" +
-                "-fx-background-radius: 9;" +
-                "-fx-padding: 0 14;" +
-                "-fx-font-size: 14px;"
-        );
+                        "-fx-border-color: #D8E8DE;" +
+                        "-fx-border-radius: 9;" +
+                        "-fx-background-radius: 9;" +
+                        "-fx-padding: 0 14;" +
+                        "-fx-font-size: 14px;");
     }
 
     // =============================================================
@@ -708,16 +644,13 @@ public class Profile {
 
         button.setPrefHeight(48);
         button.setPadding(
-                new Insets(0, 22, 0, 22)
-        );
+                new Insets(0, 22, 0, 22));
 
         button.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        14
-                )
-        );
+                        14));
 
         button.setTextFill(Color.WHITE);
 
@@ -726,10 +659,7 @@ public class Profile {
                         new BackgroundFill(
                                 Color.web(GREEN),
                                 new CornerRadii(24),
-                                Insets.EMPTY
-                        )
-                )
-        );
+                                Insets.EMPTY)));
     }
 
     // =============================================================
@@ -740,30 +670,23 @@ public class Profile {
 
         button.setPrefHeight(48);
         button.setPadding(
-                new Insets(0, 22, 0, 22)
-        );
+                new Insets(0, 22, 0, 22));
 
         button.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.NORMAL,
-                        14
-                )
-        );
+                        14));
 
         button.setTextFill(
-                Color.web(DARK_GREEN)
-        );
+                Color.web(DARK_GREEN));
 
         button.setBackground(
                 new Background(
                         new BackgroundFill(
                                 Color.WHITE,
                                 new CornerRadii(24),
-                                Insets.EMPTY
-                        )
-                )
-        );
+                                Insets.EMPTY)));
 
         button.setBorder(
                 new Border(
@@ -771,10 +694,7 @@ public class Profile {
                                 Color.web("#A7C4B4"),
                                 BorderStrokeStyle.SOLID,
                                 new CornerRadii(24),
-                                new BorderWidths(1)
-                        )
-                )
-        );
+                                new BorderWidths(1))));
     }
 
     // =============================================================
@@ -782,35 +702,27 @@ public class Profile {
     // =============================================================
 
     private ToggleButton materialButton(
-            String text
-    ) {
+            String text) {
 
-        ToggleButton button =
-                new ToggleButton(text);
+        ToggleButton button = new ToggleButton(text);
 
         button.setPrefHeight(42);
 
         button.setPadding(
-                new Insets(0, 17, 0, 17)
-        );
+                new Insets(0, 17, 0, 17));
 
         button.setFont(
-                Font.font("Arial", 13)
-        );
+                Font.font("Arial", 13));
 
         button.setTextFill(
-                Color.web("#52645A")
-        );
+                Color.web("#52645A"));
 
         button.setBackground(
                 new Background(
                         new BackgroundFill(
                                 Color.WHITE,
                                 new CornerRadii(22),
-                                Insets.EMPTY
-                        )
-                )
-        );
+                                Insets.EMPTY)));
 
         button.setBorder(
                 new Border(
@@ -818,10 +730,7 @@ public class Profile {
                                 Color.web("#D0DED6"),
                                 BorderStrokeStyle.SOLID,
                                 new CornerRadii(22),
-                                new BorderWidths(1)
-                        )
-                )
-        );
+                                new BorderWidths(1))));
 
         button.selectedProperty().addListener(
                 (obs, oldValue, selected) -> {
@@ -831,18 +740,14 @@ public class Profile {
                         button.setText("✓  " + text);
 
                         button.setTextFill(
-                                Color.web(GREEN)
-                        );
+                                Color.web(GREEN));
 
                         button.setBackground(
                                 new Background(
                                         new BackgroundFill(
                                                 Color.web("#DDF5E6"),
                                                 new CornerRadii(22),
-                                                Insets.EMPTY
-                                        )
-                                )
-                        );
+                                                Insets.EMPTY)));
 
                         button.setBorder(
                                 new Border(
@@ -850,31 +755,23 @@ public class Profile {
                                                 Color.web("#72C394"),
                                                 BorderStrokeStyle.SOLID,
                                                 new CornerRadii(22),
-                                                new BorderWidths(1)
-                                        )
-                                )
-                        );
+                                                new BorderWidths(1))));
 
                     } else {
 
                         button.setText(text);
 
                         button.setTextFill(
-                                Color.web("#52645A")
-                        );
+                                Color.web("#52645A"));
 
                         button.setBackground(
                                 new Background(
                                         new BackgroundFill(
                                                 Color.WHITE,
                                                 new CornerRadii(22),
-                                                Insets.EMPTY
-                                        )
-                                )
-                        );
+                                                Insets.EMPTY)));
                     }
-                }
-        );
+                });
 
         return button;
     }
@@ -885,26 +782,21 @@ public class Profile {
 
     private Label infoRow(
             String labelText,
-            String value
-    ) {
+            String value) {
 
         Label label = new Label(
-                labelText + "                         " + value
-        );
+                labelText + "                         " + value);
 
         label.setMaxWidth(Double.MAX_VALUE);
 
         label.setFont(
-                Font.font("Arial", 13)
-        );
+                Font.font("Arial", 13));
 
         label.setTextFill(
-                Color.web("#53645B")
-        );
+                Color.web("#53645B"));
 
         label.setPadding(
-                new Insets(8, 0, 8, 0)
-        );
+                new Insets(8, 0, 8, 0));
 
         return label;
     }
@@ -926,10 +818,7 @@ public class Profile {
                             new BackgroundFill(
                                     Color.web("#CDEFD9"),
                                     new CornerRadii(50),
-                                    Insets.EMPTY
-                            )
-                    )
-            );
+                                    Insets.EMPTY)));
 
             Label label = new Label(initials);
 
@@ -937,13 +826,10 @@ public class Profile {
                     Font.font(
                             "Arial",
                             FontWeight.BOLD,
-                            28
-                    )
-            );
+                            28));
 
             label.setTextFill(
-                    Color.web("#0F7A3D")
-            );
+                    Color.web("#0F7A3D"));
 
             getChildren().add(label);
         }

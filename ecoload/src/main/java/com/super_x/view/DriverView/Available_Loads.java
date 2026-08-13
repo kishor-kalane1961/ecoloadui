@@ -57,8 +57,8 @@ public class Available_Loads {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: " + BG + ";");
         root.setLeft(sidebar());
-        
-        VBox main = new VBox(topBar(),mainContent());
+
+        VBox main = new VBox(topBar(), mainContent());
         root.setCenter(main);
         refresh(allLoads);
         return new Scene(root, 1536, 750, Color.web(PAGE));
@@ -66,105 +66,10 @@ public class Available_Loads {
 
     private VBox sidebar() {
         return DriverNavigation.createSidebar("Available Loads");
-        /*
-        VBox sidebar = new VBox();
-        sidebar.setPrefWidth(260);
-        sidebar.setMinWidth(250);
-        sidebar.setMaxWidth(260);
-        sidebar.setPadding(new Insets(44, 40, 40, 40));
-
-        sidebar.setStyle(
-                "-fx-background-color: white; " +
-                        "-fx-border-color: transparent " + BORDER + " transparent transparent;");
-
-        sidebar.getChildren().add(fixedSpace(20));
-
-        String[][] navs = {
-                { "▦", "Dashboard" },
-                { "▣", "Available Trips" },
-                { "▤", "Trip Detail" },
-                { "♧", "Active Trip" },
-                { "↶", "Trip History" },
-                { "☆", "Rating" },
-                { "♧", "Support" }
-        };
-
-        for (String[] nav : navs) {
-
-            boolean selected = "Available Trips".equals(nav[1]);
-
-            HBox navRow = new HBox(
-                    22,
-                    label(nav[0], 25, "#2B392E", false),
-                    label(nav[1], 17, selected ? GREEN : DARK, false));
-
-            navRow.setAlignment(Pos.CENTER_LEFT);
-            navRow.setPadding(new Insets(17, 14, 17, 14));
-            navRow.setMaxWidth(Double.MAX_VALUE);
-            navRow.setStyle("");
-            navRow.setCursor(Cursor.HAND);
-
-            navRow.setOnMouseEntered(e -> {
-                navRow.setStyle(
-                        "-fx-background-color: #D9F9D9;" +
-                                "-fx-border-color: transparent transparent transparent " + GREEN + ";" +
-                                "-fx-border-width: 0 0 0 6;");
-            });
-            navRow.setOnMouseExited(e -> {
-                navRow.setStyle("");
-            });
-
-            sidebar.getChildren().add(navRow);
-        }
-
-        Region grow = new Region();
-        VBox.setVgrow(grow, Priority.ALWAYS);
-
-        HBox logout = new HBox(
-                22,
-                label("⇥", 26, "#2B392E", false),
-                label("Logout", 17, DARK, false));
-
-        logout.setAlignment(Pos.CENTER_LEFT);
-        logout.setMaxWidth(Double.MAX_VALUE);
-        logout.setStyle(
-                "-fx-background-color: #D32F2F;" +
-                        "-fx-background-radius: 10;");
-
-        logout.setCursor(Cursor.HAND);
-
-        sidebar.getChildren().addAll(
-                grow,
-                logout);
-
-        return sidebar; */
     }
 
     private HBox topBar() {
         return DriverNavigation.createNavbar();
-        /*
-        HBox bar = new HBox(28);
-        bar.setAlignment(Pos.CENTER_LEFT);
-        bar.setPadding(new Insets(16, 38, 16, 30));
-        bar.setStyle(
-                "-fx-background-color: white; -fx-border-color: transparent transparent " + BORDER + " transparent;");
-        Label pageTitle = label("Available Loads", 28, GREEN, true);
-        TextField search = new TextField();
-        search.setPromptText("⌕  Quick search...");
-        search.setPrefWidth(320);
-        search.setPrefHeight(46);
-        search.setStyle(
-                "-fx-background-color: #F6F3F3; -fx-background-radius: 26; -fx-padding: 0 20; -fx-font-size: 17px;");
-        Region grow = new Region();
-        HBox.setHgrow(grow, Priority.ALWAYS);
-        Label bell = label("♧", 27, "#68736B", false);
-        Label help = label("?", 22, "#68736B", true);
-        VBox user = new VBox(3, label("Ramesh Kadam", 16, "#111111", true), label("MH12 AB 1234", 11, MUTED, false));
-        user.setAlignment(Pos.CENTER_RIGHT);
-        Circle avatar = new Circle(22, Color.web("#DDE3DF"));
-        StackPane avatarBox = new StackPane(avatar, label("RK", 12, GREEN, true));
-        bar.getChildren().addAll(pageTitle, search, grow, bell, help, user, avatarBox);
-        return bar; */
     }
 
     private VBox mainContent() {
@@ -226,16 +131,14 @@ public class Available_Loads {
 
     private void addCardHoverEffect(Region card, int radius) {
 
-        String normalStyle =
-                "-fx-background-color: white;" +
+        String normalStyle = "-fx-background-color: white;" +
                 "-fx-background-radius: " + radius + ";" +
                 "-fx-border-color: " + BORDER + ";" +
                 "-fx-border-width: 1;" +
                 "-fx-border-radius: " + radius + ";" +
                 "-fx-cursor: hand;";
 
-        String hoverStyle =
-                "-fx-background-color: white;" +
+        String hoverStyle = "-fx-background-color: white;" +
                 "-fx-background-radius: " + radius + ";" +
                 "-fx-border-color: " + GREEN + ";" +
                 "-fx-border-width: 1.5;" +
@@ -289,7 +192,6 @@ public class Available_Loads {
         Region line = new Region();
         line.setPrefHeight(1);
         line.setStyle("-fx-background-color: #D6D8D5;");
-
 
         Label reset = label("Reset Filters", 16, DARK, false);
 
@@ -407,8 +309,7 @@ public class Available_Loads {
                 "-fx-background-color: " + FaintGreen + ";" +
                         "-fx-text-fill: white;" +
                         "-fx-background-radius: 10;" +
-                        "-fx-cursor: hand;"
-        );
+                        "-fx-cursor: hand;");
 
         accept.setOnMouseEntered(e -> {
             accept.setStyle(
@@ -417,13 +318,13 @@ public class Available_Loads {
                             "-fx-background-radius: 10;");
         });
         AcceptLoad acceptLoad = new AcceptLoad();
-        accept.setOnAction(e->{
-                acceptLoad.show(Main.myStage);
-                    if (acceptLoad.isLoadAccepted()) {
-                       System.out.println("Load accepted!");
-                } else {
-                        System.out.println("Load not accepted.");
-                }
+        accept.setOnAction(e -> {
+            acceptLoad.show(Main.myStage);
+            if (acceptLoad.isLoadAccepted()) {
+                System.out.println("Load accepted!");
+            } else {
+                System.out.println("Load not accepted.");
+            }
         });
 
         accept.setOnMouseExited(e -> {
@@ -433,7 +334,7 @@ public class Available_Loads {
                             "-fx-background-radius: 10;" +
                             "-fx-cursor: hand;");
         });
-        
+
         Button detailsButton = new Button("Details");
         detailsButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #1B261D; -fx-font-size: 16px;");
         detailsButton.setOnAction(
