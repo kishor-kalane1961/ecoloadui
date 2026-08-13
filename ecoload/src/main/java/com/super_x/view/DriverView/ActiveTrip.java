@@ -22,23 +22,20 @@ public class ActiveTrip {
     private final String BG = "#e6f1e8";
 
     private final String GREEN = "#0B6B2A";
-    private final String LIGHT_GREEN = "#EAF8EF";
 
     public Scene getTripDetailsScene() {
 
         BorderPane root = new BorderPane();
 
         root.setStyle(
-                "-fx-background-color:" + BG + ";"
-        );
+                "-fx-background-color:" + BG + ";");
 
         // =========================================================
         // SIDEBAR
         // =========================================================
 
         root.setLeft(
-                DriverNavigation.createSidebar("Active Trip")
-        );
+                DriverNavigation.createSidebar("Active Trip"));
 
         // =========================================================
         // CONTENT AREA
@@ -47,8 +44,7 @@ public class ActiveTrip {
         BorderPane contentArea = new BorderPane();
 
         contentArea.setTop(
-                DriverNavigation.createNavbar()
-        );
+                DriverNavigation.createNavbar());
 
         // =========================================================
         // MAIN CONTENT
@@ -57,8 +53,7 @@ public class ActiveTrip {
         VBox content = new VBox(10);
 
         content.setPadding(
-                new Insets(18, 28, 8, 28)
-        );
+                new Insets(18, 28, 8, 28));
 
         // =========================================================
         // HEADER
@@ -69,74 +64,57 @@ public class ActiveTrip {
         VBox headingLeft = new VBox(6);
 
         Label tripDetails = new Label(
-                "Trip Details"
-        );
+                "Trip Details");
 
         tripDetails.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        25
-                )
-        );
+                        25));
 
         tripDetails.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
         Label route = new Label(
-                "PUNE, MAHARASHTRA   →   NASHIK, MAHARASHTRA"
-        );
+                "PUNE, MAHARASHTRA   →   NASHIK, MAHARASHTRA");
 
         route.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.NORMAL,
-                        15
-                )
-        );
+                        15));
 
         route.setTextFill(
-                Color.web(MUTED)
-        );
+                Color.web(MUTED));
 
         headingLeft.getChildren().addAll(
                 tripDetails,
-                route
-        );
+                route);
 
         Label available = new Label(
-                "●  AVAILABLE"
-        );
+                "●  AVAILABLE");
 
         available.setPadding(
-                new Insets(7, 14, 7, 14)
-        );
+                new Insets(7, 14, 7, 14));
 
         available.setTextFill(
-                Color.web("#38945D")
-        );
+                Color.web("#38945D"));
 
         available.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         available.setStyle(
                 "-fx-background-color: #EAF8EF;" +
-                "-fx-background-radius: 20;"
-        );
+                        "-fx-background-radius: 20;");
 
         heading.setLeft(
-                headingLeft
-        );
+                headingLeft);
 
         heading.setRight(
-                available
-        );
+                available);
 
         // =========================================================
         // ROUTE PREVIEW
@@ -145,39 +123,31 @@ public class ActiveTrip {
         VBox routeContainer = new VBox();
 
         Label routeTitle = new Label(
-                "ROUTE PREVIEW"
-        );
+                "ROUTE PREVIEW");
 
         routeTitle.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        13
-                )
-        );
+                        13));
 
         routeTitle.setTextFill(
-                Color.web("#383C42")
-        );
+                Color.web("#383C42"));
 
         routeTitle.setPadding(
-                new Insets(10, 18, 10, 18)
-        );
+                new Insets(10, 18, 10, 18));
 
         HBox mapArea = createMapPreview();
 
         routeContainer.getChildren().addAll(
                 routeTitle,
-                mapArea
-        );
+                mapArea);
 
         routeContainer.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-border-color: " + BORDER + ";" +
-                "-fx-border-radius: 12;" +
-                "-fx-background-radius: 12;"
-        );
-
+                        "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-radius: 12;" +
+                        "-fx-background-radius: 12;");
 
         // =========================================================
         // SHIPMENT CARDS SECTION
@@ -192,16 +162,13 @@ public class ActiveTrip {
         content.getChildren().addAll(
                 heading,
                 routeContainer,
-                shipmentSection
-        );
+                shipmentSection);
 
         contentArea.setCenter(
-                content
-        );
+                content);
 
         root.setCenter(
-                contentArea
-        );
+                contentArea);
 
         // =========================================================
         // SCENE
@@ -210,8 +177,7 @@ public class ActiveTrip {
         Scene scene = new Scene(
                 root,
                 1536,
-                750
-        );
+                750);
 
         tripDetailScene = scene;
 
@@ -231,12 +197,10 @@ public class ActiveTrip {
         mainBox.setMaxHeight(250);
 
         mainBox.setPadding(
-                new Insets(10)
-        );
+                new Insets(10));
 
         mainBox.setStyle(
-                "-fx-background-color: #E8E7DC;"
-        );
+                "-fx-background-color: #E8E7DC;");
 
         // =========================================================
         // LEFT SIDE - LOCATION
@@ -249,83 +213,66 @@ public class ActiveTrip {
         popup.setMaxWidth(230);
 
         popup.setAlignment(
-                Pos.TOP_LEFT
-        );
+                Pos.TOP_LEFT);
 
         popup.setPadding(
-                new Insets(22)
-        );
+                new Insets(22));
 
         popup.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 10;" +
-                "-fx-border-color: #E5E5E5;" +
-                "-fx-border-radius: 10;"
-        );
+                        "-fx-background-radius: 10;" +
+                        "-fx-border-color: #E5E5E5;" +
+                        "-fx-border-radius: 10;");
 
         // =========================================================
         // PICKUP
         // =========================================================
 
         Label pickupTitle = new Label(
-                "PICKUP LOCATION"
-        );
+                "PICKUP LOCATION");
 
         pickupTitle.setTextFill(
-                Color.web("#9A9DA2")
-        );
+                Color.web("#9A9DA2"));
 
         pickupTitle.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        11
-                )
-        );
+                        11));
 
         Label pickupLocation = new Label(
-                "Pune, Maharashtra"
-        );
+                "Pune, Maharashtra");
 
         pickupLocation.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        16
-                )
-        );
+                        16));
 
         // =========================================================
         // DROP OFF
         // =========================================================
 
         Label dropTitle = new Label(
-                "DROP-OFF LOCATION"
-        );
+                "DROP-OFF LOCATION");
 
         dropTitle.setTextFill(
-                Color.web("#9A9DA2")
-        );
+                Color.web("#9A9DA2"));
 
         dropTitle.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        11
-                )
-        );
+                        11));
 
         Label dropLocation = new Label(
-                "Nashik, Maharashtra"
-        );
+                "Nashik, Maharashtra");
 
         dropLocation.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        16
-                )
-        );
+                        16));
 
         // =========================================================
         // DISTANCE
@@ -334,32 +281,25 @@ public class ActiveTrip {
         Separator separator = new Separator();
 
         Label distanceTitle = new Label(
-                "↗   APPROX. DISTANCE"
-        );
+                "↗   APPROX. DISTANCE");
 
         distanceTitle.setTextFill(
-                Color.web("#9A9DA2")
-        );
+                Color.web("#9A9DA2"));
 
         distanceTitle.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        11
-                )
-        );
+                        11));
 
         Label distance = new Label(
-                "213 km • 4 h 35 min"
-        );
+                "213 km • 4 h 35 min");
 
         distance.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        16
-                )
-        );
+                        16));
 
         popup.getChildren().addAll(
                 pickupTitle,
@@ -368,18 +308,15 @@ public class ActiveTrip {
                 dropLocation,
                 separator,
                 distanceTitle,
-                distance
-        );
+                distance);
 
         // =========================================================
         // RIGHT SIDE - ACTIVE TRIP
         // =========================================================
 
-        DriverDashoard driverDashoard =
-                new DriverDashoard();
+        DriverDashoard driverDashoard = new DriverDashoard();
 
-        VBox activeTripBlock =
-                driverDashoard.createActiveTrip();
+        VBox activeTripBlock = driverDashoard.createActiveTrip();
 
         activeTripBlock.setPrefWidth(910);
         activeTripBlock.setMinWidth(910);
@@ -391,18 +328,15 @@ public class ActiveTrip {
 
         HBox.setHgrow(
                 popup,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 activeTripBlock,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         mainBox.getChildren().addAll(
                 popup,
-                activeTripBlock
-        );
+                activeTripBlock);
 
         return mainBox;
     }
@@ -422,75 +356,59 @@ public class ActiveTrip {
         HBox header = new HBox();
 
         Label title = new Label(
-                "SHIPMENT CONTACTS"
-        );
+                "SHIPMENT CONTACTS");
 
         title.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        15
-                )
-        );
+                        15));
 
         title.setTextFill(
-                Color.web("#33383E")
-        );
+                Color.web("#33383E"));
 
         Label subtitle = new Label(
-                "Transporter and receiver details"
-        );
+                "Transporter and receiver details");
 
         subtitle.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.NORMAL,
-                        11
-                )
-        );
+                        11));
 
         subtitle.setTextFill(
-                Color.web("#858A91")
-        );
+                Color.web("#858A91"));
 
         VBox heading = new VBox(
                 2,
                 title,
-                subtitle
-        );
+                subtitle);
 
         Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         Label scrollHint = new Label(
-                "Scroll →"
-        );
+                "Scroll →");
 
         scrollHint.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        10
-                )
-        );
+                        10));
 
         scrollHint.setTextFill(
-                Color.web("#737780")
-        );
+                Color.web("#737780"));
 
         header.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         header.getChildren().addAll(
                 heading,
                 spacer,
-                scrollHint
-        );
+                scrollHint);
 
         // ---------------------------------------------------------
         // HORIZONTAL CARDS
@@ -499,12 +417,10 @@ public class ActiveTrip {
         HBox cards = new HBox(14);
 
         cards.setPadding(
-                new Insets(4, 4, 10, 4)
-        );
+                new Insets(4, 4, 10, 4));
 
         cards.setAlignment(
-                Pos.TOP_LEFT
-        );
+                Pos.TOP_LEFT);
 
         // =========================================================
         // CARD 1
@@ -518,9 +434,7 @@ public class ActiveTrip {
                         "Rajesh Garments Pvt. Ltd.",
                         "+91 ********75",
                         "Steel Coils",
-                        "6 Ton"
-                )
-        );
+                        "6 Ton"));
 
         // =========================================================
         // CARD 2
@@ -534,9 +448,7 @@ public class ActiveTrip {
                         "XYZ Industries",
                         "+91 ********19",
                         "Electronics",
-                        "4 Ton"
-                )
-        );
+                        "4 Ton"));
 
         // =========================================================
         // CARD 3
@@ -550,9 +462,7 @@ public class ActiveTrip {
                         "Pune Steel Ltd.",
                         "+91 ********61",
                         "Steel Material",
-                        "8 Ton"
-                )
-        );
+                        "8 Ton"));
 
         // =========================================================
         // CARD 4
@@ -566,9 +476,7 @@ public class ActiveTrip {
                         "Maharashtra Traders",
                         "+91 ********27",
                         "Machinery",
-                        "5 Ton"
-                )
-        );
+                        "5 Ton"));
 
         // =========================================================
         // CARD 5
@@ -582,27 +490,22 @@ public class ActiveTrip {
                         "Nashik Industries",
                         "+91 ********18",
                         "Auto Parts",
-                        "3 Ton"
-                )
-        );
+                        "3 Ton"));
 
         // ---------------------------------------------------------
         // SCROLL PANE
         // ---------------------------------------------------------
 
-        ScrollPane scrollPane =
-                new ScrollPane(cards);
+        ScrollPane scrollPane = new ScrollPane(cards);
 
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(false);
 
         scrollPane.setHbarPolicy(
-                ScrollPane.ScrollBarPolicy.NEVER
-        );
+                ScrollPane.ScrollBarPolicy.NEVER);
 
         scrollPane.setVbarPolicy(
-                ScrollPane.ScrollBarPolicy.NEVER
-        );
+                ScrollPane.ScrollBarPolicy.NEVER);
 
         scrollPane.setPannable(true);
 
@@ -612,14 +515,12 @@ public class ActiveTrip {
 
         scrollPane.setStyle(
                 "-fx-background-color: transparent;" +
-                "-fx-background: transparent;" +
-                "-fx-border-color: transparent;"
-        );
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;");
 
         section.getChildren().addAll(
                 header,
-                scrollPane
-        );
+                scrollPane);
 
         return section;
     }
@@ -635,8 +536,7 @@ public class ActiveTrip {
             String receiver,
             String receiverPhone,
             String goods,
-            String weight
-    ) {
+            String weight) {
 
         VBox card = new VBox(9);
 
@@ -649,15 +549,13 @@ public class ActiveTrip {
         card.setMaxHeight(220);
 
         card.setPadding(
-                new Insets(14)
-        );
+                new Insets(14));
 
         card.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-background-radius: 12;" +
-                "-fx-border-color: #DDE5DF;" +
-                "-fx-border-radius: 12;"
-        );
+                        "-fx-background-radius: 12;" +
+                        "-fx-border-color: #DDE5DF;" +
+                        "-fx-border-radius: 12;");
 
         // =========================================================
         // CARD HEADER
@@ -666,77 +564,64 @@ public class ActiveTrip {
         HBox orderHeader = new HBox();
 
         Label order = new Label(
-                orderId
-        );
+                orderId);
 
         order.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        11
-                )
-        );
+                        11));
 
         order.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
         Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         Label status = new Label(
-                "ACTIVE"
-        );
+                "ACTIVE");
 
         status.setPadding(
-                new Insets(4, 8, 4, 8)
-        );
+                new Insets(4, 8, 4, 8));
 
         status.setStyle(
                 "-fx-background-color: #EAF8EF;" +
-                "-fx-background-radius: 20;" +
-                "-fx-text-fill: #249A60;" +
-                "-fx-font-size: 9px;" +
-                "-fx-font-weight: bold;"
-        );
+                        "-fx-background-radius: 20;" +
+                        "-fx-text-fill: #249A60;" +
+                        "-fx-font-size: 9px;" +
+                        "-fx-font-weight: bold;");
 
         orderHeader.getChildren().addAll(
                 order,
                 spacer,
-                status
-        );
+                status);
 
         // =========================================================
         // TRANSPORTER
         // =========================================================
 
-        VBox transporterBox =
-                createContactBox(
-                        "TRANSPORTER",
-                        transporter,
-                        transporterPhone,
-                        "#EDF6FF",
-                        "#2574B9",
-                        "JL"
-                );
+        VBox transporterBox = createContactBox(
+                "TRANSPORTER",
+                transporter,
+                transporterPhone,
+                "#EDF6FF",
+                "#2574B9",
+                "JL");
 
         // =========================================================
         // RECEIVER
         // =========================================================
 
-        VBox receiverBox =
-                createContactBox(
-                        "RECEIVER",
-                        receiver,
-                        receiverPhone,
-                        "#FAF1FF",
-                        "#8A43B7",
-                        getInitials(receiver)
-                );
+        VBox receiverBox = createContactBox(
+                "RECEIVER",
+                receiver,
+                receiverPhone,
+                "#FAF1FF",
+                "#8A43B7",
+                getInitials(receiver));
 
         // =========================================================
         // CONTACTS GRID
@@ -746,8 +631,7 @@ public class ActiveTrip {
 
         contacts.getChildren().addAll(
                 transporterBox,
-                receiverBox
-        );
+                receiverBox);
 
         // =========================================================
         // GOODS
@@ -756,60 +640,50 @@ public class ActiveTrip {
         HBox goodsBox = new HBox();
 
         goodsBox.setAlignment(
-                Pos.CENTER_LEFT
-        );
+                Pos.CENTER_LEFT);
 
         Label goodsLabel = new Label(
-                "📦  " + goods + "  •  " + weight
-        );
+                "📦  " + goods + "  •  " + weight);
 
         goodsLabel.setPadding(
-                new Insets(6, 8, 6, 8)
-        );
+                new Insets(6, 8, 6, 8));
 
         goodsLabel.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         goodsLabel.setStyle(
                 "-fx-background-color: #F1F7F3;" +
-                "-fx-background-radius: 6;" +
-                "-fx-text-fill: #0B6B2A;" +
-                "-fx-font-size: 10px;" +
-                "-fx-font-weight: bold;"
-        );
+                        "-fx-background-radius: 6;" +
+                        "-fx-text-fill: #0B6B2A;" +
+                        "-fx-font-size: 10px;" +
+                        "-fx-font-weight: bold;");
 
         HBox.setHgrow(
                 goodsLabel,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         goodsBox.getChildren().add(
-                goodsLabel
-        );
+                goodsLabel);
 
         // =========================================================
         // VIEW DETAILS
         // =========================================================
 
         Button viewButton = new Button(
-                "View Goods Details  →"
-        );
+                "View Goods Details  →");
 
         viewButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
+                Double.MAX_VALUE);
 
         viewButton.setPrefHeight(34);
 
         viewButton.setStyle(
                 "-fx-background-color: #0B6B2A;" +
-                "-fx-text-fill: white;" +
-                "-fx-background-radius: 7;" +
-                "-fx-font-size: 10px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-cursor: hand;"
-        );
+                        "-fx-text-fill: white;" +
+                        "-fx-background-radius: 7;" +
+                        "-fx-font-size: 10px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-cursor: hand;");
 
         viewButton.setOnAction(
                 event -> showGoodsDetails(
@@ -819,9 +693,7 @@ public class ActiveTrip {
                         receiver,
                         receiverPhone,
                         goods,
-                        weight
-                )
-        );
+                        weight));
 
         // =========================================================
         // ADD CONTENT
@@ -831,8 +703,7 @@ public class ActiveTrip {
                 orderHeader,
                 contacts,
                 goodsBox,
-                viewButton
-        );
+                viewButton);
 
         return card;
     }
@@ -842,170 +713,141 @@ public class ActiveTrip {
     // =============================================================
 
     private VBox createContactBox(
-        String type,
-        String name,
-        String phone,
-        String background,
-        String textColor,
-        String initials
-) {
+            String type,
+            String name,
+            String phone,
+            String background,
+            String textColor,
+            String initials) {
 
-    VBox box = new VBox(3);
+        VBox box = new VBox(3);
 
-    box.setPadding(
-            new Insets(8, 10, 8, 10)
-    );
+        box.setPadding(
+                new Insets(8, 10, 8, 10));
 
-    box.setPrefHeight(57);
-    box.setMinHeight(57);
-    box.setMaxHeight(57);
+        box.setPrefHeight(57);
+        box.setMinHeight(57);
+        box.setMaxHeight(57);
 
-    box.setStyle(
-            "-fx-background-color: " + background + ";" +
-            "-fx-background-radius: 8;" +
-            "-fx-opacity: 1.0;"
-    );
+        box.setStyle(
+                "-fx-background-color: " + background + ";" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-opacity: 1.0;");
 
-    // =====================================================
-    // TOP ROW
-    // =====================================================
+        // =====================================================
+        // TOP ROW
+        // =====================================================
 
-    HBox top = new HBox(9);
+        HBox top = new HBox(9);
 
-    top.setAlignment(
-            Pos.CENTER_LEFT
-    );
+        top.setAlignment(
+                Pos.CENTER_LEFT);
 
-    // =====================================================
-    // AVATAR
-    // =====================================================
+        // =====================================================
+        // AVATAR
+        // =====================================================
 
-    Circle avatar = new Circle(18);
+        Circle avatar = new Circle(18);
 
-    avatar.setFill(
-            Color.WHITE
-    );
+        avatar.setFill(
+                Color.WHITE);
 
-    avatar.setStroke(
-            Color.web(textColor)
-    );
+        avatar.setStroke(
+                Color.web(textColor));
 
-    avatar.setStrokeWidth(1.3);
+        avatar.setStrokeWidth(1.3);
 
-    Label initialsLabel = new Label(
-            initials
-    );
+        Label initialsLabel = new Label(
+                initials);
 
-    initialsLabel.setTextFill(
-            Color.web(textColor)
-    );
+        initialsLabel.setTextFill(
+                Color.web(textColor));
 
-    initialsLabel.setFont(
-            Font.font(
-                    "Arial",
-                    FontWeight.BOLD,
-                    9
-            )
-    );
+        initialsLabel.setFont(
+                Font.font(
+                        "Arial",
+                        FontWeight.BOLD,
+                        9));
 
-    StackPane avatarBox = new StackPane(
-            avatar,
-            initialsLabel
-    );
+        StackPane avatarBox = new StackPane(
+                avatar,
+                initialsLabel);
 
-    avatarBox.setPrefSize(36, 36);
-    avatarBox.setMinSize(36, 36);
-    avatarBox.setMaxSize(36, 36);
+        avatarBox.setPrefSize(36, 36);
+        avatarBox.setMinSize(36, 36);
+        avatarBox.setMaxSize(36, 36);
 
-    // =====================================================
-    // TEXT
-    // =====================================================
+        // =====================================================
+        // TEXT
+        // =====================================================
 
-    VBox details = new VBox(1);
+        VBox details = new VBox(1);
 
-    // Type
-    Label typeLabel = new Label(
-            type
-    );
+        // Type
+        Label typeLabel = new Label(
+                type);
 
-    typeLabel.setFont(
-            Font.font(
-                    "Arial",
-                    FontWeight.BOLD,
-                    8
-            )
-    );
+        typeLabel.setFont(
+                Font.font(
+                        "Arial",
+                        FontWeight.BOLD,
+                        8));
 
-    typeLabel.setTextFill(
-            Color.web("#52605A")
-    );
+        typeLabel.setTextFill(
+                Color.web("#52605A"));
 
-    typeLabel.setStyle(
-            "-fx-text-fill: #52605A;"
-    );
+        typeLabel.setStyle(
+                "-fx-text-fill: #52605A;");
 
-    // Name
-    Label nameLabel = new Label(
-            name
-    );
+        // Name
+        Label nameLabel = new Label(
+                name);
 
-    nameLabel.setFont(
-            Font.font(
-                    "Arial",
-                    FontWeight.BOLD,
-                    11
-            )
-    );
+        nameLabel.setFont(
+                Font.font(
+                        "Arial",
+                        FontWeight.BOLD,
+                        11));
 
-    nameLabel.setTextFill(
-            Color.web("#18231D")
-    );
+        nameLabel.setTextFill(
+                Color.web("#18231D"));
 
-    nameLabel.setStyle(
-            "-fx-text-fill: #18231D;" +
-            "-fx-font-weight: bold;"
-    );
+        nameLabel.setStyle(
+                "-fx-text-fill: #18231D;" +
+                        "-fx-font-weight: bold;");
 
-    nameLabel.setWrapText(false);
+        nameLabel.setWrapText(false);
 
-    // Phone
-    Label phoneLabel = new Label(
-            "☎  " + phone
-    );
+        // Phone
+        Label phoneLabel = new Label(
+                "☎  " + phone);
 
-    phoneLabel.setFont(
-            Font.font(
-                    "Arial",
-                    FontWeight.NORMAL,
-                    9
-            )
-    );
+        phoneLabel.setFont(
+                Font.font(
+                        "Arial",
+                        FontWeight.NORMAL,
+                        9));
 
-    phoneLabel.setTextFill(
-            Color.web("#4F5B54")
-    );
+        phoneLabel.setTextFill(
+                Color.web("#4F5B54"));
 
-    phoneLabel.setStyle(
-            "-fx-text-fill: #4F5B54;"
-    );
+        phoneLabel.setStyle(
+                "-fx-text-fill: #4F5B54;");
 
-    details.getChildren().addAll(
-            typeLabel,
-            nameLabel,
-            phoneLabel
-    );
+        details.getChildren().addAll(
+                typeLabel,
+                nameLabel,
+                phoneLabel);
 
-    top.getChildren().addAll(
-            avatarBox,
-            details
-    );
+        top.getChildren().addAll(
+                avatarBox,
+                details);
 
-    box.getChildren().add(
-            top
-    );
+        box.getChildren().add(
+                top);
 
-    return box;
-}
+        return box;
+    }
 
     // =============================================================
     // VIEW GOODS DETAILS
@@ -1018,32 +860,26 @@ public class ActiveTrip {
             String receiver,
             String receiverPhone,
             String goods,
-            String weight
-    ) {
+            String weight) {
 
         Stage popup = new Stage();
 
         popup.setTitle(
-                "Load Details"
-        );
+                "Load Details");
 
         popup.setResizable(
-                false
-        );
+                false);
 
         popup.initModality(
-                Modality.APPLICATION_MODAL
-        );
+                Modality.APPLICATION_MODAL);
 
         VBox root = new VBox(15);
 
         root.setPadding(
-                new Insets(22)
-        );
+                new Insets(22));
 
         root.setStyle(
-                "-fx-background-color: white;"
-        );
+                "-fx-background-color: white;");
 
         // =========================================================
         // HEADER
@@ -1054,45 +890,35 @@ public class ActiveTrip {
         VBox titleBox = new VBox(3);
 
         Label title = new Label(
-                "Load Details"
-        );
+                "Load Details");
 
         title.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        22
-                )
-        );
+                        22));
 
         title.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
         Label orderLabel = new Label(
-                orderId
-        );
+                orderId);
 
         orderLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        11
-                )
-        );
+                        11));
 
         orderLabel.setTextFill(
-                Color.web("#7A847D")
-        );
+                Color.web("#7A847D"));
 
         titleBox.getChildren().addAll(
                 title,
-                orderLabel
-        );
+                orderLabel);
 
         header.getChildren().add(
-                titleBox
-        );
+                titleBox);
 
         // =========================================================
         // GOODS CARD
@@ -1101,69 +927,54 @@ public class ActiveTrip {
         VBox goodsCard = new VBox(8);
 
         goodsCard.setPadding(
-                new Insets(16)
-        );
+                new Insets(16));
 
         goodsCard.setStyle(
                 "-fx-background-color: #EAF8EF;" +
-                "-fx-background-radius: 10;" +
-                "-fx-border-color: #B7DFC1;" +
-                "-fx-border-radius: 10;"
-        );
+                        "-fx-background-radius: 10;" +
+                        "-fx-border-color: #B7DFC1;" +
+                        "-fx-border-radius: 10;");
 
         Label goodsTitle = new Label(
-                "GOODS INFORMATION"
-        );
+                "GOODS INFORMATION");
 
         goodsTitle.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        10
-                )
-        );
+                        10));
 
         goodsTitle.setTextFill(
-                Color.web(GREEN)
-        );
+                Color.web(GREEN));
 
         Label goodsName = new Label(
-                goods
-        );
+                goods);
 
         goodsName.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        18
-                )
-        );
+                        18));
 
         goodsName.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
         Label weightLabel = new Label(
-                "Weight: " + weight
-        );
+                "Weight: " + weight);
 
         weightLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.NORMAL,
-                        12
-                )
-        );
+                        12));
 
         weightLabel.setTextFill(
-                Color.web("#5D6860")
-        );
+                Color.web("#5D6860"));
 
         goodsCard.getChildren().addAll(
                 goodsTitle,
                 goodsName,
-                weightLabel
-        );
+                weightLabel);
 
         // =========================================================
         // TRANSPORTER + RECEIVER
@@ -1176,31 +987,26 @@ public class ActiveTrip {
                 transporter,
                 transporterPhone,
                 "#308de9",
-                "#2574B9"
-        );
+                "#2574B9");
 
         VBox receiverBox = createPopupPerson(
                 "RECEIVER",
                 receiver,
                 receiverPhone,
                 "#9e5ac3",
-                "#8A43B7"
-        );
+                "#8A43B7");
 
         HBox.setHgrow(
                 transporter1,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         HBox.setHgrow(
                 receiverBox,
-                Priority.ALWAYS
-        );
+                Priority.ALWAYS);
 
         people.getChildren().addAll(
                 transporter1,
-                receiverBox
-        );
+                receiverBox);
 
         // =========================================================
         // CLOSE
@@ -1209,55 +1015,45 @@ public class ActiveTrip {
         HBox bottom = new HBox();
 
         bottom.setAlignment(
-                Pos.CENTER_RIGHT
-        );
+                Pos.CENTER_RIGHT);
 
         Button close = new Button(
-                "Close"
-        );
+                "Close");
 
         close.setPrefWidth(
-                100
-        );
+                100);
 
         close.setPrefHeight(
-                36
-        );
+                36);
 
         close.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-text-fill: #202820;" +
-                "-fx-border-color: #C9D1CC;" +
-                "-fx-border-radius: 7;" +
-                "-fx-background-radius: 7;" +
-                "-fx-font-weight: bold;" +
-                "-fx-cursor: hand;"
-        );
+                        "-fx-text-fill: #202820;" +
+                        "-fx-border-color: #C9D1CC;" +
+                        "-fx-border-radius: 7;" +
+                        "-fx-background-radius: 7;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-cursor: hand;");
 
         close.setOnAction(
-                event -> popup.close()
-        );
+                event -> popup.close());
 
         bottom.getChildren().add(
-                close
-        );
+                close);
 
         root.getChildren().addAll(
                 header,
                 goodsCard,
                 people,
-                bottom
-        );
+                bottom);
 
         Scene scene = new Scene(
                 root,
                 600,
-                390
-        );
+                390);
 
         popup.setScene(
-                scene
-        );
+                scene);
 
         popup.showAndWait();
     }
@@ -1271,83 +1067,65 @@ public class ActiveTrip {
             String name,
             String phone,
             String background,
-            String textColor
-    ) {
+            String textColor) {
 
         VBox box = new VBox(5);
 
         box.setPadding(
-                new Insets(12)
-        );
+                new Insets(12));
 
         box.setPrefWidth(
-                280
-        );
+                280);
 
         box.setStyle(
                 "-fx-background-color: " + background + ";" +
-                "-fx-background-radius: 9;" +
-                "-fx-border-color: #E1E7E3;" +
-                "-fx-border-radius: 9;"
-        );
+                        "-fx-background-radius: 9;" +
+                        "-fx-border-color: #E1E7E3;" +
+                        "-fx-border-radius: 9;");
 
         Label titleLabel = new Label(
-                title
-        );
+                title);
 
         titleLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        9
-                )
-        );
+                        9));
 
         titleLabel.setTextFill(
-                Color.web("#7A847D")
-        );
+                Color.web("#7A847D"));
 
         Label nameLabel = new Label(
-                name
-        );
+                name);
 
         nameLabel.setWrapText(
-                true
-        );
+                true);
 
         nameLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        12
-                )
-        );
+                        12));
 
         nameLabel.setTextFill(
-                Color.web(TEXT)
-        );
+                Color.web(TEXT));
 
         Label phoneLabel = new Label(
-                "☎  " + phone
-        );
+                "☎  " + phone);
 
         phoneLabel.setFont(
                 Font.font(
                         "Arial",
                         FontWeight.NORMAL,
-                        10
-                )
-        );
+                        10));
 
         phoneLabel.setTextFill(
-                Color.web(textColor)
-        );
+                Color.web(textColor));
 
         box.getChildren().addAll(
                 titleLabel,
                 nameLabel,
-                phoneLabel
-        );
+                phoneLabel);
 
         return box;
     }
@@ -1357,11 +1135,9 @@ public class ActiveTrip {
     // =============================================================
 
     private String getInitials(
-            String name
-    ) {
+            String name) {
 
-        String[] words =
-                name.trim().split("\\s+");
+        String[] words = name.trim().split("\\s+");
 
         if (words.length == 1) {
 
@@ -1370,181 +1146,12 @@ public class ActiveTrip {
                             0,
                             Math.min(
                                     2,
-                                    words[0].length()
-                            )
-                    )
+                                    words[0].length()))
                     .toUpperCase();
         }
 
-        return (
-                words[0].charAt(0) +
+        return (words[0].charAt(0) +
                 "" +
-                words[words.length - 1].charAt(0)
-        ).toUpperCase();
-    }
-
-    // =============================================================
-    // COMMON CARD
-    // =============================================================
-
-    private VBox baseCard() {
-
-        VBox card = new VBox(12);
-
-        card.setPadding(
-                new Insets(14)
-        );
-
-        card.setPrefWidth(
-                350
-        );
-
-        card.setStyle(
-                "-fx-background-color: white;" +
-                "-fx-background-radius: 10;" +
-                "-fx-border-color: #E5E7EB;" +
-                "-fx-border-radius: 10;"
-        );
-
-        return card;
-    }
-
-    // =============================================================
-    // CARD HEADER
-    // =============================================================
-
-    private HBox cardHeader(
-            String icon,
-            String title
-    ) {
-
-        HBox header = new HBox(12);
-
-        header.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
-        Label iconLabel = new Label(
-                icon
-        );
-
-        iconLabel.setFont(
-                Font.font(18)
-        );
-
-        iconLabel.setTextFill(
-                Color.web("#56616A")
-        );
-
-        Label titleLabel = new Label(
-                title
-        );
-
-        titleLabel.setFont(
-                Font.font(
-                        "Arial",
-                        FontWeight.BOLD,
-                        13
-                )
-        );
-
-        titleLabel.setTextFill(
-                Color.web("#33383E")
-        );
-
-        header.getChildren().addAll(
-                iconLabel,
-                titleLabel
-        );
-
-        return header;
-    }
-
-    // =============================================================
-    // INFORMATION ROW
-    // =============================================================
-
-    private HBox infoRow(
-            String icon,
-            String title,
-            String value
-    ) {
-
-        HBox row = new HBox(15);
-
-        row.setAlignment(
-                Pos.CENTER_LEFT
-        );
-
-        row.setPadding(
-                new Insets(5, 0, 5, 0)
-        );
-
-        Label iconLabel = new Label(
-                icon
-        );
-
-        iconLabel.setFont(
-                Font.font(17)
-        );
-
-        iconLabel.setTextFill(
-                Color.web("#777E86")
-        );
-
-        Label titleLabel = new Label(
-                title
-        );
-
-        titleLabel.setTextFill(
-                Color.web("#777E86")
-        );
-
-        titleLabel.setFont(
-                Font.font(14)
-        );
-
-        Region spacer = new Region();
-
-        HBox.setHgrow(
-                spacer,
-                Priority.ALWAYS
-        );
-
-        Label valueLabel = new Label(
-                value
-        );
-
-        valueLabel.setFont(
-                Font.font(
-                        "Arial",
-                        FontWeight.BOLD,
-                        14
-                )
-        );
-
-        if (value.startsWith("₹")) {
-
-            valueLabel.setTextFill(
-                    Color.web("#168A48")
-            );
-
-            valueLabel.setFont(
-                    Font.font(
-                            "Arial",
-                            FontWeight.BOLD,
-                            18
-                    )
-            );
-        }
-
-        row.getChildren().addAll(
-                iconLabel,
-                titleLabel,
-                spacer,
-                valueLabel
-        );
-
-        return row;
+                words[words.length - 1].charAt(0)).toUpperCase();
     }
 }

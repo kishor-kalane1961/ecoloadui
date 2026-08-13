@@ -25,6 +25,7 @@ import javafx.stage.FileChooser;
 
 public class VehicleRegistration {
     private Scene vehicleRegistrationScene;
+
     public Scene getVehicleRegistrationScene() {
         StackPane root = new StackPane();
         root.setStyle("-fx-background-color: linear-gradient(to bottom right, #eef7ec 0%, #d9eddb 45%, #b3d9aa 100%);");
@@ -44,7 +45,8 @@ public class VehicleRegistration {
         VBox card = new VBox();
         card.setAlignment(Pos.TOP_LEFT);
         card.setPadding(new Insets(30));
-        card.setStyle("-fx-background-color: rgba(255,255,255,0.88); -fx-effect: dropshadow(gaussian, rgba(34, 197, 94, 0.18), 35, 0, 0, 18);");
+        card.setStyle(
+                "-fx-background-color: rgba(255,255,255,0.88); -fx-effect: dropshadow(gaussian, rgba(34, 197, 94, 0.18), 35, 0, 0, 18);");
 
         // Header with logo and user info
         HBox header = new HBox(20);
@@ -61,7 +63,6 @@ public class VehicleRegistration {
         headerLogo.setFitHeight(100);
         headerLogo.setPreserveRatio(true);
 
-
         HBox headerLeft = new HBox(headerLogo);
         headerLeft.setAlignment(Pos.CENTER_LEFT);
 
@@ -69,7 +70,7 @@ public class VehicleRegistration {
         HBox profileSection = new HBox(10);
         profileSection.setAlignment(Pos.CENTER);
         profileSection.setCursor(Cursor.HAND);
-        
+
         // Profile picture with circular clip
         ImageView profileImage = new ImageView();
         try {
@@ -81,14 +82,14 @@ public class VehicleRegistration {
         profileImage.setFitHeight(40);
         profileImage.setPreserveRatio(true);
         profileImage.setClip(new Circle(20, 20, 20));
-        
+
         Label userLabel = new Label("Johnathan Doe");
         userLabel.setStyle("-fx-font-weight:bold");
         userLabel.setFont(Font.font("Arial", 13));
         userLabel.setTextFill(Color.web("#475569"));
-        
-        profileSection.getChildren().addAll(userLabel,profileImage);
-        
+
+        profileSection.getChildren().addAll(userLabel, profileImage);
+
         // Click handler to open profile
         profileSection.setOnMouseClicked(event -> {
             System.out.println("Profile clicked - opening user profile");
@@ -116,7 +117,8 @@ public class VehicleRegistration {
         formTitle.setFont(Font.font("Arial", FontWeight.BOLD, 22));
         formTitle.setTextFill(Color.web("#14532d"));
 
-        Label formSubtitle = new Label("Complete your profile by adding your vehicle details. Once verified, you can start accepting transport requests across our sustainable network.");
+        Label formSubtitle = new Label(
+                "Complete your profile by adding your vehicle details. Once verified, you can start accepting transport requests across our sustainable network.");
         formSubtitle.setFont(Font.font("Arial", 13));
         formSubtitle.setTextFill(Color.web("#475569"));
         formSubtitle.setWrapText(true);
@@ -173,7 +175,8 @@ public class VehicleRegistration {
         securityBox.setStyle("-fx-background-color: rgba(16, 185, 129, 0.08); -fx-background-radius: 12;");
 
         Label lockIcon = new Label("🔒");
-        Label securityText = new Label("Your documents are securely stored and encrypted with enterprise-grade protection.");
+        Label securityText = new Label(
+                "Your documents are securely stored and encrypted with enterprise-grade protection.");
         securityText.setFont(Font.font("Arial", 12));
         securityText.setTextFill(Color.web("#475569"));
         securityText.setWrapText(true);
@@ -182,65 +185,42 @@ public class VehicleRegistration {
         HBox.setHgrow(securityText, Priority.ALWAYS);
 
         leftPanel.getChildren().addAll(
-            formTitle,
-            formSubtitle,
-            vehicleInfoLabel,
-            vehicleNameRow,
-            capacityTypeRow,
-            fuelColorRow,
-            yearField,
-            vehicleDocsLabel,
-            docsRow,
-            securityBox
-        );
+                formTitle,
+                formSubtitle,
+                vehicleInfoLabel,
+                vehicleNameRow,
+                capacityTypeRow,
+                fuelColorRow,
+                yearField,
+                vehicleDocsLabel,
+                docsRow,
+                securityBox);
 
         // Right Panel - Info
         VBox rightPanel = new VBox(5);
         rightPanel.setAlignment(Pos.TOP_CENTER);
-        rightPanel.setPrefWidth(380);
-        rightPanel.setStyle("-fx-background-color: rgba(16, 185, 129, 0.08); -fx-background-radius: 20; -fx-padding: 15;");
-
+        rightPanel.setPrefWidth(400);
+        rightPanel.setPrefHeight(600);
+        rightPanel.setStyle(
+                "-fx-background-color: rgba(16, 185, 129, 0.08); -fx-background-radius: 20; -fx-padding: 15;");
 
         ImageView sustainableImage = new ImageView();
         try {
-            sustainableImage.setImage(new Image(getClass().getResourceAsStream("/assets/images/vehicleregistration.png")));
+            sustainableImage
+                    .setImage(new Image(getClass().getResourceAsStream("/assets/images/vehicleregistration.png")));
         } catch (Exception ex) {
             sustainableImage.setImage(new Image("https://via.placeholder.com/240x200.png?text=Sustainable"));
         }
         sustainableImage.setFitWidth(350);
-        sustainableImage.setFitHeight(450);
+        sustainableImage.setFitHeight(580);
         sustainableImage.setPreserveRatio(false);
 
-        VBox helpBox = new VBox(12);
-        helpBox.setPadding(new Insets(16));
-        helpBox.setStyle("-fx-background-color: rgba(255,255,255,0.7); -fx-background-radius: 12;");
+        rightPanel.getChildren().add(
+                // sustainableTitle,
+                // sustainableDesc,
+                sustainableImage);
 
-        Label helpLabel = new Label("Need Help?");
-        helpLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        helpLabel.setTextFill(Color.web("#14532d"));
-
-        Label helpText = new Label("Our support team is available 24/7 for document verification assistance.");
-        helpText.setFont(Font.font("Arial", 12));
-        helpText.setTextFill(Color.web("#475569"));
-        helpText.setWrapText(true);
-
-        Button supportBtn = new Button("Contact Support");
-        supportBtn.setPrefWidth(Double.MAX_VALUE);
-        supportBtn.setPrefHeight(44);
-        supportBtn.setStyle("-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 12;");
-        supportBtn.setOnMouseEntered(e -> supportBtn.setStyle("-fx-background-color: #065f46; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 12;"));
-        supportBtn.setOnMouseExited(e -> supportBtn.setStyle("-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 12;"));
-
-        helpBox.getChildren().addAll(helpLabel, helpText, supportBtn);
-
-        rightPanel.getChildren().addAll(
-            // sustainableTitle,
-            // sustainableDesc,
-            sustainableImage,
-            helpBox
-        );
-
-        mainContent.getChildren().addAll(rightPanel,leftPanel);
+        mainContent.getChildren().addAll(rightPanel, leftPanel);
         HBox.setHgrow(leftPanel, Priority.ALWAYS);
 
         // Bottom buttons
@@ -251,19 +231,24 @@ public class VehicleRegistration {
         Button cancelBtn = new Button("Cancel");
         cancelBtn.setPrefWidth(120);
         cancelBtn.setPrefHeight(48);
-        cancelBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #475569; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 12; -fx-font-size: 14; -fx-font-weight: bold;");
+        cancelBtn.setStyle(
+                "-fx-background-color: transparent; -fx-text-fill: #475569; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 12; -fx-font-size: 14; -fx-font-weight: bold;-fx-cursor:hand");
 
         Button registerBtn = new Button("Register Vehicle  →");
         registerBtn.setPrefWidth(180);
         registerBtn.setPrefHeight(48);
-        registerBtn.setOnAction(e->{
+        registerBtn.setOnAction(e -> {
             DriverDashoard dashoard = new DriverDashoard();
             HomePage.homeStage.setScene(dashoard.getDashBoardScene());
         });
-        //registerBtn.setStyle("height: 48px;padding: 0 28px;border-radius: 10px;font-weight: 600;");
-        registerBtn.setStyle("-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 12;");
-        registerBtn.setOnMouseEntered(e -> registerBtn.setStyle("-fx-background-color: #065f46; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 12;"));
-        registerBtn.setOnMouseExited(e -> registerBtn.setStyle("-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 12;"));
+        // registerBtn.setStyle("height: 48px;padding: 0 28px;border-radius:
+        // 10px;font-weight: 600;");
+        registerBtn.setStyle(
+                "-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 12;-fx-cursor:hand");
+        registerBtn.setOnMouseEntered(e -> registerBtn.setStyle(
+                "-fx-background-color: #065f46; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 12;-fx-cursor:hand"));
+        registerBtn.setOnMouseExited(e -> registerBtn.setStyle(
+                "-fx-background-color: #047857; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 12;-fx-cursor:hand"));
 
         buttonBox.getChildren().addAll(cancelBtn, registerBtn);
 
@@ -285,7 +270,8 @@ public class VehicleRegistration {
         TextField field = new TextField();
         field.setPromptText(placeholder);
         field.setPrefHeight(44);
-        field.setStyle("-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
+        field.setStyle(
+                "-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
 
         VBox inputBox = new VBox(6, label, field);
         inputBox.setAlignment(Pos.TOP_LEFT);
@@ -300,7 +286,8 @@ public class VehicleRegistration {
         ComboBox<String> comboBox = new ComboBox<>();
         comboBox.setPromptText(prompt);
         comboBox.setPrefHeight(44);
-        comboBox.setStyle("-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
+        comboBox.setStyle(
+                "-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: rgba(16, 185, 129, 0.35); -fx-border-width: 1; -fx-background-color: white;");
 
         if (labelText.toLowerCase().contains("vehicle type")) {
             comboBox.getItems().addAll("Truck", "Van", "Pickup", "Sedan", "SUV");
@@ -321,7 +308,8 @@ public class VehicleRegistration {
         VBox uploadArea = new VBox(12);
         uploadArea.setPadding(new Insets(24));
         uploadArea.setAlignment(Pos.CENTER);
-        uploadArea.setStyle("-fx-border-color: rgba(16, 185, 129, 0.4); -fx-border-style: dashed; -fx-border-radius: 12; -fx-background-color: rgba(16, 185, 129, 0.06); -fx-background-radius: 12;");
+        uploadArea.setStyle(
+                "-fx-border-color: rgba(16, 185, 129, 0.4); -fx-border-style: dashed; -fx-border-radius: 12; -fx-background-color: rgba(16, 185, 129, 0.06); -fx-background-radius: 12;");
         uploadArea.setCursor(Cursor.HAND);
 
         Label uploadIcon = new Label("📄");
@@ -340,9 +328,8 @@ public class VehicleRegistration {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload " + labelText);
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Document Files", "*.pdf", "*.jpg", "*.jpeg", "*.png"),
-            new FileChooser.ExtensionFilter("All Files", "*.*")
-        );
+                new FileChooser.ExtensionFilter("Document Files", "*.pdf", "*.jpg", "*.jpeg", "*.png"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
 
         uploadArea.setOnMouseClicked(event -> {
             java.io.File selectedFile = fileChooser.showOpenDialog(null);
@@ -362,4 +349,3 @@ public class VehicleRegistration {
         System.out.println("User profile page - to be implemented");
     }
 }
-

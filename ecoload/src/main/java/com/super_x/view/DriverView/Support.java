@@ -90,8 +90,7 @@ public class Support {
         // FIXED SIDEBAR
         // =====================================================
 
-        VBox sidebar =
-                DriverNavigation.createSidebar("Support");
+        VBox sidebar = DriverNavigation.createSidebar("Support");
 
         root.setLeft(sidebar);
 
@@ -99,15 +98,13 @@ public class Support {
         // FIXED NAVBAR
         // =====================================================
 
-        HBox navbar =
-                DriverNavigation.createNavbar();
+        HBox navbar = DriverNavigation.createNavbar();
 
         // =====================================================
         // SUPPORT PAGE CONTENT
         // =====================================================
 
-        VBox supportContent =
-                new VBox(10);
+        VBox supportContent = new VBox(10);
 
         supportContent.setPadding(
                 new Insets(
@@ -127,8 +124,7 @@ public class Support {
         // PAGE HEADER
         // =====================================================
 
-        Label title =
-                new Label("Support Center");
+        Label title = new Label("Support Center");
 
         title.setFont(
                 Font.font(
@@ -139,9 +135,8 @@ public class Support {
         title.setTextFill(
                 Color.web(TEXT));
 
-        Label subtitle =
-                new Label(
-                        "Need help? Our support team is ready to assist you.");
+        Label subtitle = new Label(
+                "Need help? Our support team is ready to assist you.");
 
         subtitle.setFont(
                 Font.font(
@@ -151,18 +146,16 @@ public class Support {
         subtitle.setTextFill(
                 Color.web(MUTED));
 
-        VBox header =
-                new VBox(
-                        2,
-                        title,
-                        subtitle);
+        VBox header = new VBox(
+                2,
+                title,
+                subtitle);
 
         // =====================================================
         // TWO COLUMN CONTENT
         // =====================================================
 
-        HBox content =
-                new HBox(16);
+        HBox content = new HBox(16);
 
         content.setFillHeight(false);
 
@@ -170,14 +163,11 @@ public class Support {
         // LEFT COLUMN
         // =====================================================
 
-        VBox leftColumn =
-                new VBox(12);
+        VBox leftColumn = new VBox(12);
 
-        VBox createTicketCard =
-                createTicketCard();
+        VBox createTicketCard = createTicketCard();
 
-        VBox previousTicketsCard =
-                createPreviousTicketsCard();
+        VBox previousTicketsCard = createPreviousTicketsCard();
 
         leftColumn.getChildren().addAll(
                 createTicketCard,
@@ -187,14 +177,11 @@ public class Support {
         // RIGHT COLUMN
         // =====================================================
 
-        VBox rightColumn =
-                new VBox(10);
+        VBox rightColumn = new VBox(10);
 
-        VBox faqCard =
-                createFAQCard();
+        VBox faqCard = createFAQCard();
 
-        VBox contactCard =
-                createContactCard();
+        VBox contactCard = createContactCard();
 
         rightColumn.getChildren().addAll(
                 faqCard,
@@ -216,15 +203,13 @@ public class Support {
         // INFORMATION BAR
         // =====================================================
 
-        HBox informationBar =
-                createInformationBar();
+        HBox informationBar = createInformationBar();
 
         // =====================================================
         // SECURITY BAR
         // =====================================================
 
-        HBox securityBar =
-                createSecurityBar();
+        HBox securityBar = createSecurityBar();
 
         // =====================================================
         // ADD SUPPORT CONTENT
@@ -240,9 +225,8 @@ public class Support {
         // FULL SUPPORT CONTENT SCROLL
         // =====================================================
 
-        ScrollPane supportScroll =
-                new ScrollPane(
-                        supportContent);
+        ScrollPane supportScroll = new ScrollPane(
+                supportContent);
 
         supportScroll.setFitToWidth(true);
 
@@ -266,9 +250,8 @@ public class Support {
 
                     if (newSkin != null) {
 
-                        Node viewport =
-                                supportScroll.lookup(
-                                        ".viewport");
+                        Node viewport = supportScroll.lookup(
+                                ".viewport");
 
                         if (viewport != null) {
 
@@ -284,8 +267,7 @@ public class Support {
         // CENTER AREA
         // =====================================================
 
-        VBox center =
-                new VBox();
+        VBox center = new VBox();
 
         center.setFillWidth(true);
         center.setMinHeight(0);
@@ -674,22 +656,18 @@ public class Support {
 
     private VBox createPreviousTicketsCard() {
 
-        VBox card =
-                createCard();
+        VBox card = createCard();
 
         // =====================================================
         // HEADER
         // =====================================================
 
-        HBox header =
-                new HBox();
+        HBox header = new HBox();
 
-        VBox titleBox =
-                new VBox(2);
+        VBox titleBox = new VBox(2);
 
-        Label title =
-                new Label(
-                        "My Support Tickets");
+        Label title = new Label(
+                "My Support Tickets");
 
         title.setFont(
                 Font.font(
@@ -700,9 +678,8 @@ public class Support {
         title.setTextFill(
                 Color.web(TEXT));
 
-        Label subtitle =
-                new Label(
-                        "Track your previous requests and support actions");
+        Label subtitle = new Label(
+                "Track your previous requests and support actions");
 
         subtitle.setFont(
                 Font.font(
@@ -716,19 +693,17 @@ public class Support {
                 title,
                 subtitle);
 
-        Region spacer =
-                new Region();
+        Region spacer = new Region();
 
         HBox.setHgrow(
                 spacer,
                 Priority.ALWAYS);
 
-        ticketCountLabel =
-                new Label(
-                        tickets.size() +
-                                (tickets.size() == 1
-                                        ? " Ticket"
-                                        : " Tickets"));
+        ticketCountLabel = new Label(
+                tickets.size() +
+                        (tickets.size() == 1
+                                ? " Ticket"
+                                : " Tickets"));
 
         ticketCountLabel.setPadding(
                 new Insets(
@@ -761,8 +736,7 @@ public class Support {
         // TICKET LIST
         // =====================================================
 
-        ticketList =
-                new VBox(7);
+        ticketList = new VBox(7);
 
         refreshTicketList();
 

@@ -1,0 +1,82 @@
+# =========================
+# Java / Maven
+# =========================
+
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven generated files
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+.flattened-pom.xml
+
+
+# =========================
+# Java / JVM
+# =========================
+
+hs_err_pid*
+replay_pid*
+
+
+# =========================
+# VS Code
+# =========================
+
+.vscode/
+
+.vscode/*
+!.vscode/settings.json
+
+# If you don't want to upload VS Code settings either,
+# replace the above with:
+# .vscode/
+
+
+# =========================
+# IntelliJ IDEA
+# =========================
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+
+# =========================
+# Eclipse
+# =========================
+
+.classpath
+.project
+.settings/
+
+
+# =========================
+# OS Generated Files
+# =========================
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+
+# =========================
+# Logs
+# =========================
+
+*.log
+
+
+# =========================
+# Temporary Files
+# =========================
+
+*.tmp
+*.temp
+*.swp
+*.swo
