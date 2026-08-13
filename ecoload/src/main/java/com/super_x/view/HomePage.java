@@ -27,8 +27,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import com.super_x.Main;
-
 public class HomePage extends Application {
     public static Stage homeStage;
 
@@ -36,7 +34,6 @@ public class HomePage extends Application {
     public void start(Stage stage) {
 
         homeStage = stage;
-        Main.myStage = stage;
 
         SplashScreen splashScreen = new SplashScreen(stage);
 
