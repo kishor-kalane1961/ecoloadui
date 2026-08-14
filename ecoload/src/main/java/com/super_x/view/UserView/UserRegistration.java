@@ -2,15 +2,42 @@ package com.super_x.view.UserView;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.control.TextField;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+
 import javafx.scene.paint.Color;
+
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
 import javafx.stage.FileChooser;
+
 import java.io.File;
 
 import com.super_x.view.HomePage;
@@ -18,13 +45,23 @@ import com.super_x.view.Login;
 
 public class UserRegistration {
 
+    // =========================================================
+    // COLORS
+    // =========================================================
+
     private final String GREEN = "#16A34A";
 
     private final String BG = "#F0FDF4";
+
     private final String INPUT = "#F8FAF9";
-    private final String BORDER = "#28322b";
+
+    /*
+     * Common border color for ALL input fields.
+     */
+    private final String BORDER = "#CDE8D5";
 
     private final String TEXT = "#050505";
+
     private final String MUTED = "#718078";
 
     // =========================================================
@@ -51,10 +88,11 @@ public class UserRegistration {
                 "-fx-background-color: white;" +
                         "-fx-background-radius: 20;" +
                         "-fx-border-radius: 20;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 25, 0.15, 0, 5);");
+                        "-fx-effect: dropshadow(" +
+                        "gaussian, rgba(0,0,0,0.12), 25, 0.15, 0, 5);");
 
         // =====================================================
-        // LEFT SIDE
+        // LEFT PANEL
         // =====================================================
 
         VBox leftPanel = createLeftPanel();
@@ -62,7 +100,7 @@ public class UserRegistration {
         card.setLeft(leftPanel);
 
         // =====================================================
-        // RIGHT SIDE
+        // RIGHT PANEL
         // =====================================================
 
         BorderPane rightPanel = createRightPanel();
@@ -70,7 +108,7 @@ public class UserRegistration {
         card.setCenter(rightPanel);
 
         // =====================================================
-        // CENTER CARD
+        // WRAPPER
         // =====================================================
 
         StackPane wrapper = new StackPane(card);
@@ -79,6 +117,10 @@ public class UserRegistration {
                 new Insets(25));
 
         root.setCenter(wrapper);
+
+        // =====================================================
+        // SCENE
+        // =====================================================
 
         return new Scene(
                 root,
@@ -94,9 +136,9 @@ public class UserRegistration {
 
         VBox left = new VBox();
 
-        // -----------------------------------------------------
-        // ECLOAD TRANSPORT IMAGE
-        // -----------------------------------------------------
+        // =====================================================
+        // REGISTRATION IMAGE
+        // =====================================================
 
         Image image = new Image(
                 getClass().getResourceAsStream(
@@ -111,7 +153,10 @@ public class UserRegistration {
         imageView.setSmooth(true);
         imageView.setCache(true);
 
-        // Image container
+        // =====================================================
+        // IMAGE BOX
+        // =====================================================
+
         StackPane imageBox = new StackPane();
 
         imageBox.setPrefWidth(280);
@@ -123,9 +168,11 @@ public class UserRegistration {
         imageBox.setStyle(
                 "-fx-background-color: transparent;");
 
-        imageBox.getChildren().add(imageView);
+        imageBox.getChildren().add(
+                imageView);
 
-        left.getChildren().add(imageBox);
+        left.getChildren().add(
+                imageBox);
 
         return left;
     }
@@ -139,19 +186,24 @@ public class UserRegistration {
         BorderPane right = new BorderPane();
 
         right.setPadding(
-                new Insets(28, 35, 20, 35));
+                new Insets(
+                        28,
+                        35,
+                        20,
+                        35));
 
         right.setStyle(
                 "-fx-background-color: white;" +
                         "-fx-background-radius: 0 20 20 0;");
 
         // =====================================================
-        // TOP
+        // HEADER
         // =====================================================
 
         VBox header = new VBox(5);
 
-        Label title = new Label("Create your Account");
+        Label title = new Label(
+                "Create your Account");
 
         title.setFont(
                 Font.font(
@@ -163,11 +215,13 @@ public class UserRegistration {
                 Color.web("#151917"));
 
         Label subtitle = new Label(
-                "Create your business account with EcoLoad "
-                        + "and access our premium logistics network.");
+                "Create your business account with EcoLoad " +
+                        "and access our premium logistics network.");
 
         subtitle.setFont(
-                Font.font("System", 13));
+                Font.font(
+                        "System",
+                        13));
 
         subtitle.setTextFill(
                 Color.web(MUTED));
@@ -179,7 +233,7 @@ public class UserRegistration {
         right.setTop(header);
 
         // =====================================================
-        // CENTER FORM
+        // FORM
         // =====================================================
 
         GridPane form = createFormGrid();
@@ -191,7 +245,11 @@ public class UserRegistration {
                 Priority.ALWAYS);
 
         center.setPadding(
-                new Insets(16, 0, 5, 0));
+                new Insets(
+                        16,
+                        0,
+                        5,
+                        0));
 
         right.setCenter(center);
 
@@ -217,13 +275,23 @@ public class UserRegistration {
         grid.setHgap(25);
         grid.setVgap(9);
 
+        // =====================================================
+        // MAIN COLUMNS
+        // =====================================================
+
         ColumnConstraints col1 = new ColumnConstraints();
 
         col1.setPercentWidth(50);
 
+        col1.setHgrow(
+                Priority.ALWAYS);
+
         ColumnConstraints col2 = new ColumnConstraints();
 
         col2.setPercentWidth(50);
+
+        col2.setHgrow(
+                Priority.ALWAYS);
 
         grid.getColumnConstraints().addAll(
                 col1,
@@ -231,20 +299,27 @@ public class UserRegistration {
 
         // =====================================================
         // ROW 1
+        // USERNAME
         // =====================================================
 
         TextField company = createField(
                 "▦",
-                "e.g. Green Express Logistics");
+                "username");
+
+        company.setMaxWidth(
+                Double.MAX_VALUE);
 
         grid.add(
                 fieldGroup(
-                        "Company/Individual Name",
+                        "Username",
                         company),
                 0,
                 0);
 
+        // =====================================================
         // PHONE
+        // =====================================================
+
         TextField phone = createField(
                 "☎",
                 "98765 43210");
@@ -252,11 +327,22 @@ public class UserRegistration {
         TextField code = new TextField("+91");
 
         code.setPrefWidth(75);
+        code.setMinWidth(75);
+        code.setMaxWidth(75);
+
         code.setPrefHeight(44);
+        code.setMinHeight(44);
+        code.setMaxHeight(44);
 
         styleInput(code);
 
         HBox phoneBox = new HBox(8);
+
+        phoneBox.setMaxWidth(
+                Double.MAX_VALUE);
+
+        phone.setMaxWidth(
+                Double.MAX_VALUE);
 
         HBox.setHgrow(
                 phone,
@@ -275,11 +361,15 @@ public class UserRegistration {
 
         // =====================================================
         // ROW 2
+        // EMAIL
         // =====================================================
 
         TextField email = createField(
                 "✉",
                 "contact@company.com");
+
+        email.setMaxWidth(
+                Double.MAX_VALUE);
 
         grid.add(
                 fieldGroup(
@@ -288,9 +378,16 @@ public class UserRegistration {
                 0,
                 1);
 
+        // =====================================================
+        // GST
+        // =====================================================
+
         TextField gst = createField(
                 "▣",
                 "22AAAAA0000A1Z5");
+
+        gst.setMaxWidth(
+                Double.MAX_VALUE);
 
         grid.add(
                 fieldGroup(
@@ -301,6 +398,7 @@ public class UserRegistration {
 
         // =====================================================
         // ROW 3
+        // BUSINESS TYPE
         // =====================================================
 
         ComboBox<String> businessType = new ComboBox<>();
@@ -317,31 +415,44 @@ public class UserRegistration {
 
         businessType.setPrefHeight(44);
 
+        businessType.setMinHeight(44);
+
+        businessType.setMaxHeight(44);
+
         businessType.setMaxWidth(
                 Double.MAX_VALUE);
 
-        styleComboBox(businessType);
+        styleComboBox(
+                businessType);
 
         grid.add(
                 fieldGroup(
-                        "Business Type",
+                        "Business Type(Optional)",
                         businessType),
                 0,
                 2);
+
+        // =====================================================
+        // BUSINESS LICENSE
+        // =====================================================
 
         TextField license = createField(
                 "▣",
                 "LIC-99002233");
 
+        license.setMaxWidth(
+                Double.MAX_VALUE);
+
         grid.add(
                 fieldGroup(
-                        "Business License Number",
+                        "Business License Number(Optional)",
                         license),
                 1,
                 2);
 
         // =====================================================
         // ROW 4
+        // COMPANY ADDRESS
         // =====================================================
 
         TextArea address = new TextArea();
@@ -349,27 +460,138 @@ public class UserRegistration {
         address.setPromptText(
                 "Full business address");
 
-        address.setPrefHeight(70);
+        address.setPrefHeight(78);
+        address.setMinHeight(78);
+        address.setMaxHeight(78);
 
         address.setWrapText(true);
 
-        styleTextArea(address);
+        address.setMaxWidth(
+                Double.MAX_VALUE);
+
+        styleTextArea(
+                address);
 
         grid.add(
                 fieldGroup(
-                        "Company Address",
+                        "Address",
                         address),
                 0,
                 3);
 
-        // RIGHT CITY STATE
+        // =====================================================
+        // CITY + STATE
+        // =====================================================
+
+        VBox location = createCityStateSection();
+
+        grid.add(
+                location,
+                1,
+                3);
+
+        // =====================================================
+        // ROW 5
+        // UPLOAD
+        // =====================================================
+
+        VBox upload = createUploadBox();
+
+        grid.add(
+                fieldGroup(
+                        "Business License / GST Certificate(Optional)",
+                        upload),
+                0,
+                4);
+
+        // =====================================================
+        // PASSWORD + CONFIRM PASSWORD
+        // =====================================================
+
+        VBox passwordGroup = createPasswordSection();
+
+        grid.add(
+                passwordGroup,
+                1,
+                4);
+
+        return grid;
+    }
+
+    // =========================================================
+    // CITY + STATE SECTION
+    // =========================================================
+
+    private VBox createCityStateSection() {
+
         VBox location = new VBox(8);
+
+        // =====================================================
+        // LABEL GRID
+        // =====================================================
+
+        GridPane labelGrid = new GridPane();
+
+        labelGrid.setHgap(10);
+
+        ColumnConstraints cityLabelColumn = new ColumnConstraints();
+
+        cityLabelColumn.setPercentWidth(50);
+
+        cityLabelColumn.setHgrow(
+                Priority.ALWAYS);
+
+        ColumnConstraints stateLabelColumn = new ColumnConstraints();
+
+        stateLabelColumn.setPercentWidth(50);
+
+        stateLabelColumn.setHgrow(
+                Priority.ALWAYS);
+
+        labelGrid.getColumnConstraints().addAll(
+                cityLabelColumn,
+                stateLabelColumn);
+
+        Label cityLabel = new Label("City");
+
+        Label stateLabel = new Label("State");
+
+        styleFieldLabel(
+                cityLabel);
+
+        styleFieldLabel(
+                stateLabel);
+
+        labelGrid.add(
+                cityLabel,
+                0,
+                0);
+
+        labelGrid.add(
+                stateLabel,
+                1,
+                0);
+
+        // =====================================================
+        // CITY + STATE FIELDS
+        // =====================================================
+
+        TextField city = createSimpleField(
+                "City");
+
+        TextField state = createSimpleField(
+                "State");
+
+        city.setMaxWidth(
+                Double.MAX_VALUE);
+
+        state.setMaxWidth(
+                Double.MAX_VALUE);
 
         HBox cityState = new HBox(10);
 
-        TextField city = createSimpleField("City");
-
-        TextField state = createSimpleField("State");
+        cityState.setMaxWidth(
+                Double.MAX_VALUE);
 
         HBox.setHgrow(
                 city,
@@ -383,42 +605,108 @@ public class UserRegistration {
                 city,
                 state);
 
+        // =====================================================
+        // PIN
+        // =====================================================
+
         TextField pin = createField(
                 "⌖",
                 "110001");
 
+        pin.setMaxWidth(
+                Double.MAX_VALUE);
+
+        // =====================================================
+        // ADD
+        // =====================================================
+
         location.getChildren().addAll(
+                labelGrid,
                 cityState,
                 pin);
 
-        grid.add(
-                fieldGroup(
-                        "City                         State",
-                        location),
-                1,
-                3);
+        return location;
+    }
+
+    // =========================================================
+    // PASSWORD SECTION
+    // =========================================================
+
+    private VBox createPasswordSection() {
+
+        VBox passwordGroup = new VBox(4);
+
+        passwordGroup.setMaxWidth(
+                Double.MAX_VALUE);
 
         // =====================================================
-        // ROW 5
+        // LABEL GRID
         // =====================================================
 
-        VBox upload = createUploadBox();
+        GridPane labelGrid = new GridPane();
 
-        grid.add(
-                fieldGroup(
-                        "Business License / GST Certificate",
-                        upload),
+        labelGrid.setHgap(10);
+
+        ColumnConstraints passwordLabelColumn = new ColumnConstraints();
+
+        passwordLabelColumn.setPercentWidth(50);
+
+        passwordLabelColumn.setHgrow(
+                Priority.ALWAYS);
+
+        ColumnConstraints confirmLabelColumn = new ColumnConstraints();
+
+        confirmLabelColumn.setPercentWidth(50);
+
+        confirmLabelColumn.setHgrow(
+                Priority.ALWAYS);
+
+        labelGrid.getColumnConstraints().addAll(
+                passwordLabelColumn,
+                confirmLabelColumn);
+
+        Label passwordLabel = new Label(
+                "Password");
+
+        Label confirmLabel = new Label(
+                "Confirm Password");
+
+        styleFieldLabel(
+                passwordLabel);
+
+        styleFieldLabel(
+                confirmLabel);
+
+        labelGrid.add(
+                passwordLabel,
                 0,
-                4);
+                0);
 
-        // PASSWORD
-        HBox passwords = new HBox(10);
+        labelGrid.add(
+                confirmLabel,
+                1,
+                0);
+
+        // =====================================================
+        // PASSWORD FIELDS
+        // =====================================================
 
         PasswordField password = createPasswordField(
                 "Password");
 
         PasswordField confirm = createPasswordField(
                 "Confirm Password");
+
+        password.setMaxWidth(
+                Double.MAX_VALUE);
+
+        confirm.setMaxWidth(
+                Double.MAX_VALUE);
+
+        HBox passwords = new HBox(10);
+
+        passwords.setMaxWidth(
+                Double.MAX_VALUE);
 
         HBox.setHgrow(
                 password,
@@ -432,70 +720,194 @@ public class UserRegistration {
                 password,
                 confirm);
 
-        grid.add(
-                fieldGroup(
-                        "Password                  Confirm Password",
-                        passwords),
-                1,
-                4);
+        // =====================================================
+        // ADD
+        // =====================================================
 
-        return grid;
+        passwordGroup.getChildren().addAll(
+                labelGrid,
+                passwords);
+
+        return passwordGroup;
     }
 
     // =========================================================
-    // BOTTOM
+    // FIELD LABEL
+    // =========================================================
+
+    private void styleFieldLabel(
+            Label label) {
+
+        label.setFont(
+                Font.font(
+                        "System",
+                        12));
+
+        label.setTextFill(
+                Color.web(TEXT));
+    }
+
+    // =========================================================
+    // BOTTOM SECTION
     // =========================================================
 
     private VBox createBottomSection() {
 
-        VBox bottom = new VBox(8);
+        VBox bottom = new VBox(10);
 
         // =====================================================
-        // TERMS
+        // TERMS ROW
         // =====================================================
 
-        HBox terms = new HBox(8);
+        HBox terms = new HBox(6);
 
         terms.setAlignment(
                 Pos.CENTER_LEFT);
 
+        // =====================================================
+        // CHECKBOX
+        // =====================================================
+
         CheckBox check = new CheckBox();
 
-        Label termsText = new Label(
-                "I agree to the Terms & Conditions "
-                        + "and Privacy Policy of EcoLoad Logistics.");
+        // =====================================================
+        // AGREEMENT TEXT
+        // =====================================================
 
-        termsText.setFont(
-                Font.font("System", 12));
+        Label agreeLabel = new Label(
+                "I agree to the");
 
-        termsText.setTextFill(
+        agreeLabel.setFont(
+                Font.font(
+                        "System",
+                        12));
+
+        agreeLabel.setTextFill(
+                Color.web("#555D59"));
+
+        // =====================================================
+        // TERMS LINK
+        // =====================================================
+
+        Hyperlink termsLink = new Hyperlink(
+                "Terms & Conditions");
+
+        termsLink.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        12));
+
+        termsLink.setTextFill(
+                Color.web(GREEN));
+
+        termsLink.setPadding(
+                Insets.EMPTY);
+
+        termsLink.setBorder(
+                Border.EMPTY);
+
+        termsLink.setCursor(
+                javafx.scene.Cursor.HAND);
+
+        termsLink.setOnAction(
+                e -> showTermsAndConditions());
+
+        // =====================================================
+        // AND
+        // =====================================================
+
+        Label andLabel = new Label(
+                "and");
+
+        andLabel.setFont(
+                Font.font(
+                        "System",
+                        12));
+
+        andLabel.setTextFill(
+                Color.web("#555D59"));
+
+        // =====================================================
+        // PRIVACY
+        // =====================================================
+
+        Hyperlink privacyLink = new Hyperlink(
+                "Privacy Policy");
+
+        privacyLink.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        12));
+
+        privacyLink.setTextFill(
+                Color.web(GREEN));
+
+        privacyLink.setPadding(
+                Insets.EMPTY);
+
+        privacyLink.setBorder(
+                Border.EMPTY);
+
+        privacyLink.setCursor(
+                javafx.scene.Cursor.HAND);
+
+        privacyLink.setOnAction(
+                e -> showPrivacyPolicy());
+
+        // =====================================================
+        // COMPANY
+        // =====================================================
+
+        Label companyLabel = new Label(
+                "of EcoLoad Logistics.");
+
+        companyLabel.setFont(
+                Font.font(
+                        "System",
+                        12));
+
+        companyLabel.setTextFill(
                 Color.web("#555D59"));
 
         terms.getChildren().addAll(
                 check,
-                termsText);
+                agreeLabel,
+                termsLink,
+                andLabel,
+                privacyLink,
+                companyLabel);
 
         // =====================================================
-        // BUTTON
+        // CREATE ACCOUNT
         // =====================================================
 
-        Button create = new Button("Create Account     →");
+        Button create = new Button(
+                "Create Account     →");
 
         create.setPrefHeight(47);
 
         create.setMaxWidth(
                 Double.MAX_VALUE);
 
+        create.setCursor(
+                javafx.scene.Cursor.HAND);
+
         create.setStyle(
-                "-fx-background-color: linear-gradient(to right, #22C55E, #087A3E);" +
+                "-fx-background-color: linear-gradient(" +
+                        "to right, #22C55E, #087A3E);" +
                         "-fx-text-fill: white;" +
                         "-fx-font-size: 15px;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-background-radius: 11;" +
-                        "-fx-cursor: hand;");
+                        "-fx-background-radius: 11;");
+
+        // =====================================================
+        // CREATE ACCOUNT ACTION
+        // =====================================================
+
         create.setOnAction(e -> {
 
-            // Check Terms & Conditions
             if (!check.isSelected()) {
 
                 showAlert(
@@ -506,10 +918,16 @@ public class UserRegistration {
                 return;
             }
 
-            // Open next page
-            UserDashboard dashboard = new UserDashboard();
-            HomePage.homeStage.setScene(dashboard.getTransporterDashboardScene());
+            // -------------------------------------------------
+            // DASHBOARD
+            // -------------------------------------------------
 
+            UserDashboard dashboard = new UserDashboard();
+
+            HomePage.homeStage.setScene(
+                    dashboard.getTransporterDashboardScene());
+
+            HomePage.homeStage.show();
         });
 
         // =====================================================
@@ -525,15 +943,27 @@ public class UserRegistration {
                 "Already have an account?");
 
         already.setFont(
-                Font.font("System", 13));
+                Font.font(
+                        "System",
+                        13));
 
         already.setTextFill(
                 Color.web(MUTED));
 
-        Hyperlink loginLink = new Hyperlink("Login here");
+        Hyperlink loginLink = new Hyperlink(
+                "Login here");
+
+        loginLink.setCursor(
+                javafx.scene.Cursor.HAND);
+
         loginLink.setOnAction(e -> {
+
             Login login1 = new Login();
-            HomePage.homeStage.setScene(login1.getScene());
+
+            HomePage.homeStage.setScene(
+                    login1.getScene());
+
+            HomePage.homeStage.show();
         });
 
         loginLink.setFont(
@@ -558,6 +988,404 @@ public class UserRegistration {
     }
 
     // =========================================================
+    // TERMS & CONDITIONS
+    // =========================================================
+
+    private void showTermsAndConditions() {
+
+        Dialog<Void> dialog = new Dialog<>();
+
+        dialog.setTitle(
+                "Terms & Conditions");
+
+        DialogPane dialogPane = dialog.getDialogPane();
+
+        dialogPane.setPrefWidth(700);
+        dialogPane.setPrefHeight(550);
+
+        dialogPane.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-border-color: " + GREEN + ";" +
+                        "-fx-border-width: 1.5;" +
+                        "-fx-border-radius: 15;" +
+                        "-fx-background-radius: 15;");
+
+        // =====================================================
+        // HEADING
+        // =====================================================
+
+        Label title = new Label(
+                "EcoLoad Logistics");
+
+        title.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        22));
+
+        title.setTextFill(
+                Color.web(GREEN));
+
+        Label subtitle = new Label(
+                "Terms & Conditions");
+
+        subtitle.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        17));
+
+        subtitle.setTextFill(
+                Color.web(TEXT));
+
+        VBox heading = new VBox(3);
+
+        heading.getChildren().addAll(
+                title,
+                subtitle);
+
+        // =====================================================
+        // TERMS TEXT
+        // =====================================================
+
+        TextArea termsText = new TextArea();
+
+        termsText.setEditable(false);
+
+        termsText.setWrapText(true);
+
+        termsText.setFocusTraversable(false);
+
+        termsText.setStyle(
+                "-fx-control-inner-background: white;" +
+                        "-fx-background-color: white;" +
+                        "-fx-border-color: #D8E8DD;" +
+                        "-fx-border-radius: 10;" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-font-size: 13px;" +
+                        "-fx-text-fill: #26332C;" +
+                        "-fx-padding: 12;");
+
+        termsText.setText(
+
+                "1. ACCEPTANCE OF TERMS\n\n" +
+
+                        "By creating an EcoLoad Logistics account, " +
+                        "you acknowledge that you have read, understood, " +
+                        "and agreed to these Terms & Conditions.\n\n" +
+
+                        "2. ACCOUNT INFORMATION\n\n" +
+
+                        "You are responsible for providing accurate, " +
+                        "complete, and up-to-date information during " +
+                        "registration. You must not provide false or " +
+                        "misleading business information.\n\n" +
+
+                        "3. BUSINESS DOCUMENTS\n\n" +
+
+                        "Any business license, GST certificate, or other " +
+                        "document uploaded to EcoLoad must be genuine, " +
+                        "valid, and associated with the registered business.\n\n" +
+
+                        "4. LOAD INFORMATION\n\n" +
+
+                        "Users are responsible for ensuring that load, " +
+                        "vehicle, material, destination, pricing, and " +
+                        "other transportation information submitted " +
+                        "through EcoLoad is accurate.\n\n" +
+
+                        "5. TRANSPORTATION RESPONSIBILITY\n\n" +
+
+                        "EcoLoad provides a logistics platform for connecting " +
+                        "business users and transportation participants. " +
+                        "Users remain responsible for complying with applicable " +
+                        "transportation laws and regulations.\n\n" +
+
+                        "6. PROHIBITED ACTIVITIES\n\n" +
+
+                        "You must not use EcoLoad for illegal activities, " +
+                        "fraudulent transactions, unauthorized transportation, " +
+                        "misrepresentation, or any activity that violates " +
+                        "applicable laws.\n\n" +
+
+                        "7. ACCOUNT SECURITY\n\n" +
+
+                        "You are responsible for maintaining the confidentiality " +
+                        "of your account credentials and for activities performed " +
+                        "through your account.\n\n" +
+
+                        "8. ACCOUNT SUSPENSION\n\n" +
+
+                        "EcoLoad may restrict, suspend, or terminate an account " +
+                        "if there is evidence of misuse, fraudulent information, " +
+                        "violation of these terms, or unlawful activity.\n\n" +
+
+                        "9. PLATFORM USAGE\n\n" +
+
+                        "EcoLoad may update, modify, or improve platform features " +
+                        "from time to time in order to provide better services.\n\n" +
+
+                        "10. ACCEPTANCE\n\n" +
+
+                        "By selecting the agreement checkbox during registration, " +
+                        "you confirm that you have read and accepted these " +
+                        "Terms & Conditions.");
+
+        // =====================================================
+        // CONTENT
+        // =====================================================
+
+        VBox content = new VBox(15);
+
+        content.setPadding(
+                new Insets(20));
+
+        VBox.setVgrow(
+                termsText,
+                Priority.ALWAYS);
+
+        content.getChildren().addAll(
+                heading,
+                termsText);
+
+        dialogPane.setContent(
+                content);
+
+        // =====================================================
+        // CLOSE
+        // =====================================================
+
+        dialogPane.getButtonTypes().add(
+                ButtonType.CLOSE);
+
+        Button closeButton = (Button) dialogPane.lookupButton(
+                ButtonType.CLOSE);
+
+        styleDialogCloseButton(
+                closeButton);
+
+        dialog.showAndWait();
+    }
+
+    // =========================================================
+    // PRIVACY POLICY
+    // =========================================================
+
+    private void showPrivacyPolicy() {
+
+        Dialog<Void> dialog = new Dialog<>();
+
+        dialog.setTitle(
+                "Privacy Policy");
+
+        DialogPane dialogPane = dialog.getDialogPane();
+
+        dialogPane.setPrefWidth(700);
+        dialogPane.setPrefHeight(550);
+
+        dialogPane.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-border-color: " + GREEN + ";" +
+                        "-fx-border-width: 1.5;" +
+                        "-fx-border-radius: 15;" +
+                        "-fx-background-radius: 15;");
+
+        // =====================================================
+        // HEADING
+        // =====================================================
+
+        Label title = new Label(
+                "EcoLoad Logistics");
+
+        title.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        22));
+
+        title.setTextFill(
+                Color.web(GREEN));
+
+        Label subtitle = new Label(
+                "Privacy Policy");
+
+        subtitle.setFont(
+                Font.font(
+                        "System",
+                        FontWeight.BOLD,
+                        17));
+
+        subtitle.setTextFill(
+                Color.web(TEXT));
+
+        VBox heading = new VBox(3);
+
+        heading.getChildren().addAll(
+                title,
+                subtitle);
+
+        // =====================================================
+        // PRIVACY TEXT
+        // =====================================================
+
+        TextArea privacyText = new TextArea();
+
+        privacyText.setEditable(false);
+
+        privacyText.setWrapText(true);
+
+        privacyText.setFocusTraversable(false);
+
+        privacyText.setStyle(
+                "-fx-control-inner-background: white;" +
+                        "-fx-background-color: white;" +
+                        "-fx-border-color: #D8E8DD;" +
+                        "-fx-border-radius: 10;" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-font-size: 13px;" +
+                        "-fx-text-fill: #26332C;" +
+                        "-fx-padding: 12;");
+
+        privacyText.setText(
+
+                "1. INTRODUCTION\n\n" +
+
+                        "EcoLoad Logistics respects the privacy of its users " +
+                        "and is committed to protecting information provided " +
+                        "through the platform.\n\n" +
+
+                        "2. INFORMATION WE COLLECT\n\n" +
+
+                        "During registration, EcoLoad may collect information " +
+                        "such as username, phone number, email address, business " +
+                        "information, business address, GST information, license " +
+                        "information, and uploaded business documents.\n\n" +
+
+                        "3. USE OF INFORMATION\n\n" +
+
+                        "Information may be used to create and manage your account, " +
+                        "provide logistics services, communicate with you, verify " +
+                        "business information, and improve the platform.\n\n" +
+
+                        "4. BUSINESS DOCUMENTS\n\n" +
+
+                        "Documents uploaded by users may be used for business " +
+                        "verification and related platform services. Users should " +
+                        "only upload documents that they are authorized to provide.\n\n" +
+
+                        "5. ACCOUNT INFORMATION\n\n" +
+
+                        "You are responsible for keeping your account information " +
+                        "accurate and informing EcoLoad when important information " +
+                        "needs to be updated.\n\n" +
+
+                        "6. DATA SECURITY\n\n" +
+
+                        "Reasonable technical and organizational measures should " +
+                        "be used to protect user information against unauthorized " +
+                        "access, modification, disclosure, or destruction.\n\n" +
+
+                        "7. THIRD-PARTY SERVICES\n\n" +
+
+                        "EcoLoad may use third-party services for functionality " +
+                        "such as storage, authentication, communication, analytics, " +
+                        "or other platform requirements. Such services may process " +
+                        "information according to their applicable policies.\n\n" +
+
+                        "8. DATA SHARING\n\n" +
+
+                        "User information should only be shared where necessary " +
+                        "to provide platform services, comply with legal obligations, " +
+                        "protect the platform, or with appropriate authorization.\n\n" +
+
+                        "9. DATA RETENTION\n\n" +
+
+                        "Information may be retained for as long as reasonably " +
+                        "necessary to provide services, maintain records, resolve " +
+                        "disputes, meet legal requirements, or protect legitimate " +
+                        "business interests.\n\n" +
+
+                        "10. POLICY UPDATES\n\n" +
+
+                        "This Privacy Policy may be updated when platform features, " +
+                        "legal requirements, or data-processing practices change.\n\n" +
+
+                        "11. CONTACT\n\n" +
+
+                        "For questions regarding privacy or personal information, " +
+                        "users should contact the EcoLoad Logistics support team.");
+
+        // =====================================================
+        // CONTENT
+        // =====================================================
+
+        VBox content = new VBox(15);
+
+        content.setPadding(
+                new Insets(20));
+
+        VBox.setVgrow(
+                privacyText,
+                Priority.ALWAYS);
+
+        content.getChildren().addAll(
+                heading,
+                privacyText);
+
+        dialogPane.setContent(
+                content);
+
+        // =====================================================
+        // CLOSE
+        // =====================================================
+
+        dialogPane.getButtonTypes().add(
+                ButtonType.CLOSE);
+
+        Button closeButton = (Button) dialogPane.lookupButton(
+                ButtonType.CLOSE);
+
+        styleDialogCloseButton(
+                closeButton);
+
+        dialog.showAndWait();
+    }
+
+    // =========================================================
+    // DIALOG CLOSE BUTTON STYLE
+    // =========================================================
+
+    private void styleDialogCloseButton(
+            Button closeButton) {
+
+        closeButton.setCursor(
+                javafx.scene.Cursor.HAND);
+
+        closeButton.setStyle(
+                "-fx-background-color: " + GREEN + ";" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-padding: 8 25 8 25;");
+
+        closeButton.setOnMouseEntered(
+                event -> closeButton.setStyle(
+                        "-fx-background-color: #12813C;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 20;" +
+                                "-fx-padding: 8 25 8 25;"));
+
+        closeButton.setOnMouseExited(
+                event -> closeButton.setStyle(
+                        "-fx-background-color: " + GREEN + ";" +
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 20;" +
+                                "-fx-padding: 8 25 8 25;"));
+    }
+
+    // =========================================================
     // FIELD GROUP
     // =========================================================
 
@@ -567,13 +1395,8 @@ public class UserRegistration {
 
         Label label = new Label(labelText);
 
-        label.setFont(
-                Font.font(
-                        "System",
-                        12));
-
-        label.setTextFill(
-                Color.web(TEXT));
+        styleFieldLabel(
+                label);
 
         VBox box = new VBox(4);
 
@@ -599,13 +1422,21 @@ public class UserRegistration {
 
         field.setPrefHeight(44);
 
-        styleInput(field);
+        field.setMinHeight(44);
+
+        field.setMaxHeight(44);
+
+        field.setMaxWidth(
+                Double.MAX_VALUE);
+
+        styleInput(
+                field);
 
         return field;
     }
 
     // =========================================================
-    // SIMPLE FIELD
+    // SIMPLE TEXT FIELD
     // =========================================================
 
     private TextField createSimpleField(
@@ -613,17 +1444,26 @@ public class UserRegistration {
 
         TextField field = new TextField();
 
-        field.setPromptText(prompt);
+        field.setPromptText(
+                prompt);
 
         field.setPrefHeight(44);
 
-        styleInput(field);
+        field.setMinHeight(44);
+
+        field.setMaxHeight(44);
+
+        field.setMaxWidth(
+                Double.MAX_VALUE);
+
+        styleInput(
+                field);
 
         return field;
     }
 
     // =========================================================
-    // PASSWORD
+    // PASSWORD FIELD
     // =========================================================
 
     private PasswordField createPasswordField(
@@ -631,11 +1471,20 @@ public class UserRegistration {
 
         PasswordField field = new PasswordField();
 
-        field.setPromptText(prompt);
+        field.setPromptText(
+                prompt);
 
         field.setPrefHeight(44);
 
-        styleInput(field);
+        field.setMinHeight(44);
+
+        field.setMaxHeight(44);
+
+        field.setMaxWidth(
+                Double.MAX_VALUE);
+
+        styleInput(
+                field);
 
         return field;
     }
@@ -644,11 +1493,12 @@ public class UserRegistration {
     // INPUT STYLE
     // =========================================================
 
-    private void styleInput(TextInputControl field) {
+    private void styleInput(
+            TextInputControl field) {
 
         field.setStyle(
-                "-fx-background-color: #F8FAF9;" +
-                        "-fx-border-color: #CDE8D5;" +
+                "-fx-background-color: " + INPUT + ";" +
+                        "-fx-border-color: " + BORDER + ";" +
                         "-fx-border-width: 1;" +
                         "-fx-border-radius: 9;" +
                         "-fx-background-radius: 9;" +
@@ -658,7 +1508,7 @@ public class UserRegistration {
     }
 
     // =========================================================
-    // TEXT AREA
+    // TEXT AREA STYLE
     // =========================================================
 
     private void styleTextArea(
@@ -668,14 +1518,16 @@ public class UserRegistration {
                 "-fx-control-inner-background: " + INPUT + ";" +
                         "-fx-background-color: " + INPUT + ";" +
                         "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-width: 1;" +
                         "-fx-border-radius: 9;" +
                         "-fx-background-radius: 9;" +
                         "-fx-padding: 8;" +
-                        "-fx-font-size: 13px;");
+                        "-fx-font-size: 13px;" +
+                        "-fx-text-fill: #17251D;");
     }
 
     // =========================================================
-    // COMBOBOX
+    // COMBOBOX STYLE
     // =========================================================
 
     private void styleComboBox(
@@ -684,9 +1536,11 @@ public class UserRegistration {
         combo.setStyle(
                 "-fx-background-color: " + INPUT + ";" +
                         "-fx-border-color: " + BORDER + ";" +
+                        "-fx-border-width: 1;" +
                         "-fx-border-radius: 9;" +
                         "-fx-background-radius: 9;" +
-                        "-fx-font-size: 13px;");
+                        "-fx-font-size: 13px;" +
+                        "-fx-text-fill: #17251D;");
     }
 
     // =========================================================
@@ -702,6 +1556,13 @@ public class UserRegistration {
 
         box.setPrefHeight(70);
 
+        box.setMinHeight(70);
+
+        box.setMaxHeight(70);
+
+        box.setMaxWidth(
+                Double.MAX_VALUE);
+
         box.setStyle(
                 "-fx-background-color: #F0FDF4;" +
                         "-fx-border-color: #9AD8AE;" +
@@ -711,6 +1572,10 @@ public class UserRegistration {
                         "-fx-background-radius: 9;" +
                         "-fx-cursor: hand;");
 
+        // =====================================================
+        // ICON
+        // =====================================================
+
         Label icon = new Label("☁");
 
         icon.setFont(
@@ -718,6 +1583,10 @@ public class UserRegistration {
 
         icon.setTextFill(
                 Color.web(GREEN));
+
+        // =====================================================
+        // MAIN TEXT
+        // =====================================================
 
         Label text = new Label(
                 "Drag & drop or browse");
@@ -728,11 +1597,17 @@ public class UserRegistration {
                         FontWeight.BOLD,
                         12));
 
+        // =====================================================
+        // FORMATS
+        // =====================================================
+
         Label formats = new Label(
                 "PDF, PNG, JPG  •  MAX 5MB");
 
         formats.setFont(
-                Font.font("System", 9));
+                Font.font(
+                        "System",
+                        9));
 
         formats.setTextFill(
                 Color.web("#999F9B"));
@@ -741,6 +1616,10 @@ public class UserRegistration {
                 icon,
                 text,
                 formats);
+
+        // =====================================================
+        // FILE CHOOSER
+        // =====================================================
 
         box.setOnMouseClicked(e -> {
 
@@ -784,9 +1663,14 @@ public class UserRegistration {
 
         Alert alert = new Alert(type);
 
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
+        alert.setTitle(
+                title);
+
+        alert.setHeaderText(
+                null);
+
+        alert.setContentText(
+                message);
 
         alert.showAndWait();
     }

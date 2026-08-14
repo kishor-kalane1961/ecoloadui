@@ -179,7 +179,7 @@ public class PostLoad {
         BorderPane mainroot = new BorderPane();
 
         mainroot.setLeft(
-                UserNavigation.createSidebar("PostLoad"));
+                UserNavigation.createSidebar("Post Load"));
 
         mainroot.setCenter(root);
 
