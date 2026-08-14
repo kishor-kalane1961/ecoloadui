@@ -27,7 +27,6 @@ import javafx.scene.shape.Circle;
 public final class UserNavigation {
 
     private static final String GREEN = "#014B3A";
-    private static final String LIGHT_GREEN = "#075F49";
     private static final String BORDER = "#075F49";
 
     private UserNavigation() {
@@ -61,7 +60,7 @@ public final class UserNavigation {
         ImageView logo = new ImageView(
                 new Image(
                         UserNavigation.class.getResourceAsStream(
-                                "/assets/icons/transportericon.png")));
+                                "/assets/icons/EcoloadlogoUser.png")));
 
         logo.setFitWidth(225);
         logo.setFitHeight(200);
@@ -80,21 +79,21 @@ public final class UserNavigation {
 
         menu.getChildren().addAll(
 
-                menuButton("▦", "Dashboard", activePage),
+                menuButton("🏠", "Dashboard", activePage),
 
-                menuButton("＋", "Post Load", activePage),
+                menuButton("➕", "Post Load", activePage),
 
-                menuButton("▤", "My Loads", activePage),
+                menuButton("📦", "My Loads", activePage),
 
-                menuButton("♧", "Matched Drivers", activePage),
+                menuButton("👤", "Matched Drivers", activePage),
 
-                menuButton("◉", "Trip Tracking", activePage),
+                menuButton("📍", "Trip Tracking", activePage),
 
-                menuButton("↶", "Analytics", activePage),
+                menuButton("📊", "Analytics", activePage),
 
-                menuButton("↶", "Review", activePage),
+                menuButton("⭐", "Rating & Review", activePage),
 
-                menuButton("☆", "Support", activePage));
+                menuButton("❓", "Support", activePage));
 
         // =====================================================
         // SPACER
@@ -280,71 +279,86 @@ public final class UserNavigation {
     // =========================================================
 
     private static Button menuButton(
-            String icon,
-            String text,
-            String activePage) {
+        String icon,
+        String text,
+        String activePage) {
 
-        boolean selected = text.equals(activePage);
+    boolean selected = text.equals(activePage);
 
-        Button button = new Button();
+    Button button = new Button();
 
-        button.setGraphic(
-                menuGraphic(
-                        icon,
-                        text,
-                        selected));
+    button.setGraphic(
+            menuGraphic(
+                    icon,
+                    text,
+                    selected));
 
-        button.setAlignment(
-                Pos.CENTER_LEFT);
+    button.setAlignment(Pos.CENTER_LEFT);
+    button.setPadding(new Insets(8, 14, 8, 16));
+    button.setMaxWidth(Double.MAX_VALUE);
+    button.setCursor(Cursor.HAND);
 
-        button.setPadding(
-                new Insets(8, 14, 8, 16));
+    // ==============================
+    // NORMAL / SELECTED STYLE
+    // ==============================
 
-        button.setMaxWidth(
-                Double.MAX_VALUE);
+    String normalStyle;
 
-        button.setCursor(
-                Cursor.HAND);
+    if (selected) {
 
-        String normalStyle = selected
+        normalStyle =
+                "-fx-background-color: #075F49;" +
+                "-fx-background-radius: 10;" +
+                "-fx-text-fill: white;";
 
-                ? "-fx-background-color: #075F49;" +
-                        "-fx-background-radius: 10;"
+    } else {
 
-                : "-fx-background-color: transparent;" +
-                        "-fx-background-radius: 12;";
-
-        button.setStyle(
-                normalStyle);
-
-        // =====================================================
-        // HOVER
-        // =====================================================
-
-        button.setOnMouseEntered(event -> {
-
-            button.setStyle(
-                    "-fx-background-color: " + LIGHT_GREEN + ";" +
-                            "-fx-text-fill: white;" +
-                            "-fx-background-radius: 12;");
-
-        });
-
-        button.setOnMouseExited(event -> {
-
-            button.setStyle(
-                    normalStyle);
-
-        });
-
-        // =====================================================
-        // CLICK
-        // =====================================================
-
-        button.setOnAction(event -> navigate(text));
-
-        return button;
+        normalStyle =
+                "-fx-background-color: transparent;" +
+                "-fx-background-radius: 10;" +
+                "-fx-text-fill: white;";
     }
+
+    button.setStyle(normalStyle);
+
+    // ==============================
+    // HOVER
+    // ==============================
+
+    button.setOnMouseEntered(event -> {
+
+        if (selected) {
+
+            // Keep selected button color
+            button.setStyle(
+                    "-fx-background-color: #075F49;" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-text-fill: white;");
+
+        } else {
+
+            // Hover color for unselected button
+            button.setStyle(
+                    "-fx-background-color: #075F49;" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-text-fill: white;");
+        }
+    });
+
+    button.setOnMouseExited(event -> {
+
+        // Always restore the correct state
+        button.setStyle(normalStyle);
+    });
+
+    // ==============================
+    // CLICK
+    // ==============================
+
+    button.setOnAction(event -> navigate(text));
+
+    return button;
+}
 
     // =========================================================
     // MENU GRAPHIC
@@ -383,8 +397,6 @@ public final class UserNavigation {
 
     private static void navigate(String page) {
 
-        System.out.println("Transport Navigation: " + page);
-
         Scene scene;
 
         switch (page) {
@@ -406,14 +418,14 @@ public final class UserNavigation {
                 break;
 
             case "Trip Tracking":
-                scene = new UserPlaceholder(page).getScene();
+                scene = new TripTracking().getTripTrackingScene();
                 break;
 
             case "Analytics":
                 scene = new Analytics().getAnalyticsScene();
                 break;
 
-            case "Review":
+            case "Rating & Review":
                 scene = new Ratings().getRatingsPageScene();
                 break;
 

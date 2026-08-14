@@ -7,7 +7,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -22,7 +24,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polyline;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -31,6 +32,7 @@ public class UserDashboard {
     // =========================================================
     // COLORS
     // =========================================================
+
     private static final String GREEN = "#087C2F";
     private static final String LIGHT_GREEN = "#E8F5EA";
     private static final String VERY_LIGHT_GREEN = "#F5FAF6";
@@ -132,14 +134,14 @@ public class UserDashboard {
 
         GridPane stats = new GridPane();
 
-        stats.setHgap(16);
+        stats.setHgap(18);
         stats.setVgap(16);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
 
             ColumnConstraints column = new ColumnConstraints();
 
-            column.setPercentWidth(25);
+            column.setPercentWidth(33.33);
             column.setHgrow(Priority.ALWAYS);
 
             stats.getColumnConstraints().add(column);
@@ -208,8 +210,7 @@ public class UserDashboard {
 
         postLoad.setOnAction(event -> {
 
-            Scene scene = new UserPlaceholder(
-                    "Post Load").getScene();
+            Scene scene = new PostLoad().getpostloadScene();
 
             HomePage.homeStage.setScene(scene);
             HomePage.homeStage.show();
@@ -232,9 +233,20 @@ public class UserDashboard {
             HomePage.homeStage.show();
         });
 
-        actions.add(postLoad, 0, 0);
-        actions.add(myLoads, 1, 0);
-        actions.add(trackTrips, 2, 0);
+        actions.add(
+                postLoad,
+                0,
+                0);
+
+        actions.add(
+                myLoads,
+                1,
+                0);
+
+        actions.add(
+                trackTrips,
+                2,
+                0);
 
         // =====================================================
         // RECENT LOADS + QUICK INSIGHTS
@@ -353,12 +365,6 @@ public class UserDashboard {
                 0);
 
         // =====================================================
-        // EARNINGS
-        // =====================================================
-
-        VBox earnings = createEarningsCard();
-
-        // =====================================================
         // ADD EVERYTHING
         // =====================================================
 
@@ -367,8 +373,7 @@ public class UserDashboard {
                 actions,
                 middle,
                 activeTitle,
-                trips,
-                earnings);
+                trips);
 
         return content;
     }
@@ -400,22 +405,51 @@ public class UserDashboard {
     }
 
     // =========================================================
-    // STAT CARD
+    // CARD HOVER EFFECT
     // =========================================================
 
+    private void addCardHoverEffect(
+            Region card,
+            String normalBorder,
+            String radius) {
+
+        card.setOnMouseEntered(event -> {
+
+            card.setStyle(
+                    "-fx-background-color: white;" +
+                            "-fx-background-radius: " + radius + ";" +
+                            "-fx-border-color: " + GREEN + ";" +
+                            "-fx-border-radius: " + radius + ";" +
+                            "-fx-border-width: 1.5;");
+        });
+
+        card.setOnMouseExited(event -> {
+
+            card.setStyle(
+                    "-fx-background-color: white;" +
+                            "-fx-background-radius: " + radius + ";" +
+                            "-fx-border-color: " + normalBorder + ";" +
+                            "-fx-border-radius: " + radius + ";" +
+                            "-fx-border-width: 1;");
+        });
+    }
+
+    // =========================================================
+    // STAT CARD
+    // =========================================================
     private VBox createStatCard(
             String icon,
             String title,
             String value,
             boolean darkIcon) {
 
-        VBox card = new VBox(8);
+        VBox card = new VBox(10);
 
         card.setPadding(
-                new Insets(18));
+                new Insets(20));
 
-        card.setMinHeight(100);
-        card.setPrefHeight(100);
+        card.setMinHeight(120);
+        card.setPrefHeight(120);
 
         card.setMaxWidth(
                 Double.MAX_VALUE);
@@ -424,16 +458,25 @@ public class UserDashboard {
                 "-fx-background-color: white;" +
                         "-fx-background-radius: 18;" +
                         "-fx-border-color: " + CARD_BORDER + ";" +
-                        "-fx-border-radius: 18;");
+                        "-fx-border-radius: 18;" +
+                        "-fx-border-width: 1;");
 
-        HBox row = new HBox(14);
+        // =====================================================
+        // ROW
+        // =====================================================
+
+        HBox row = new HBox(18);
 
         row.setAlignment(
                 Pos.CENTER_LEFT);
 
+        // =====================================================
+        // ICON
+        // =====================================================
+
         StackPane iconBox = new StackPane();
 
-        Circle circle = new Circle(22);
+        Circle circle = new Circle(25);
 
         circle.setFill(
                 darkIcon
@@ -446,7 +489,7 @@ public class UserDashboard {
                 Font.font(
                         "Arial",
                         FontWeight.BOLD,
-                        17));
+                        19));
 
         iconLabel.setStyle(
                 "-fx-text-fill: " +
@@ -460,18 +503,22 @@ public class UserDashboard {
                 circle,
                 iconLabel);
 
-        VBox texts = new VBox(3);
+        // =====================================================
+        // TEXT
+        // =====================================================
+
+        VBox texts = new VBox(4);
 
         Label titleLabel = createLabel(
                 title,
                 TEXT,
-                13,
+                15,
                 false);
 
         Label valueLabel = createLabel(
                 value,
                 TEXT,
-                16,
+                21,
                 true);
 
         texts.getChildren().addAll(
@@ -482,11 +529,20 @@ public class UserDashboard {
                 iconBox,
                 texts);
 
-        card.getChildren().add(row);
+        card.getChildren().add(
+                row);
+
+        // =====================================================
+        // HOVER
+        // =====================================================
+
+        addCardHoverEffect(
+                card,
+                CARD_BORDER,
+                "18");
 
         return card;
     }
-
     // =========================================================
     // ACTION BUTTON
     // =========================================================
@@ -597,7 +653,7 @@ public class UserDashboard {
         Label title = createLabel(
                 "Recent Loads",
                 TEXT,
-                15,
+                18,
                 true);
 
         VBox load1 = createLoadCard(
@@ -606,7 +662,6 @@ public class UserDashboard {
                 "MH",
                 "7T Container",
                 "Steel Coils",
-                "8 Bids",
                 "₹9,200");
 
         VBox load2 = createLoadCard(
@@ -615,7 +670,6 @@ public class UserDashboard {
                 "MH",
                 "19ft Open",
                 "Pharma",
-                "5 Bids",
                 "₹12,500");
 
         box.getChildren().addAll(
@@ -636,13 +690,16 @@ public class UserDashboard {
             String state,
             String vehicle,
             String material,
-            String bids,
             String price) {
 
         VBox card = new VBox(12);
 
         card.setPadding(
-                new Insets(16, 18, 16, 18));
+                new Insets(
+                        16,
+                        18,
+                        16,
+                        18));
 
         card.setMaxWidth(
                 Double.MAX_VALUE);
@@ -668,13 +725,13 @@ public class UserDashboard {
         Label fromLabel = createLabel(
                 from,
                 TEXT,
-                14,
+                16,
                 true);
 
         Label fromState = createLabel(
                 state,
                 MUTED,
-                10,
+                12,
                 false);
 
         fromBox.getChildren().addAll(
@@ -684,7 +741,7 @@ public class UserDashboard {
         Label arrow = createLabel(
                 "→",
                 GREEN,
-                22,
+                24,
                 true);
 
         VBox toBox = new VBox(2);
@@ -692,13 +749,13 @@ public class UserDashboard {
         Label toLabel = createLabel(
                 to,
                 TEXT,
-                14,
+                16,
                 true);
 
         Label toState = createLabel(
                 state,
                 MUTED,
-                10,
+                12,
                 false);
 
         toBox.getChildren().addAll(
@@ -714,7 +771,11 @@ public class UserDashboard {
         Label open = new Label("Open");
 
         open.setPadding(
-                new Insets(7, 14, 7, 14));
+                new Insets(
+                        7,
+                        14,
+                        7,
+                        14));
 
         open.setStyle(
                 "-fx-background-color: #A7F2A7;" +
@@ -753,12 +814,6 @@ public class UserDashboard {
                 12,
                 false);
 
-        Label bidsLabel = createLabel(
-                "⌁  " + bids,
-                "#59655E",
-                12,
-                false);
-
         Region priceSpacer = new Region();
 
         HBox.setHgrow(
@@ -774,7 +829,6 @@ public class UserDashboard {
         details.getChildren().addAll(
                 vehicleLabel,
                 materialLabel,
-                bidsLabel,
                 priceSpacer,
                 priceLabel);
 
@@ -797,29 +851,65 @@ public class UserDashboard {
                 detailsButton,
                 Priority.ALWAYS);
 
+        detailsButton.setCursor(
+                Cursor.HAND);
+
         detailsButton.setStyle(
                 "-fx-background-color: #FAFCFA;" +
                         "-fx-background-radius: 20;" +
                         "-fx-text-fill: #344039;" +
                         "-fx-font-size: 13px;" +
                         "-fx-border-color: #E0E8E2;" +
-                        "-fx-border-radius: 20;");
+                        "-fx-border-radius: 20;" +
+                        "-fx-border-width: 1;");
 
         // =====================================================
-        // BUTTON ACTIONS
+        // VIEW DETAILS BUTTON HOVER
+        // =====================================================
+
+        detailsButton.setOnMouseEntered(event -> {
+
+            detailsButton.setStyle(
+                    "-fx-background-color: #F0F7F1;" +
+                            "-fx-background-radius: 20;" +
+                            "-fx-text-fill: " + GREEN + ";" +
+                            "-fx-font-size: 13px;" +
+                            "-fx-border-color: " + GREEN + ";" +
+                            "-fx-border-radius: 20;" +
+                            "-fx-border-width: 1.5;");
+        });
+
+        detailsButton.setOnMouseExited(event -> {
+
+            detailsButton.setStyle(
+                    "-fx-background-color: #FAFCFA;" +
+                            "-fx-background-radius: 20;" +
+                            "-fx-text-fill: #344039;" +
+                            "-fx-font-size: 13px;" +
+                            "-fx-border-color: #E0E8E2;" +
+                            "-fx-border-radius: 20;" +
+                            "-fx-border-width: 1;");
+        });
+
+        // =====================================================
+        // VIEW DETAILS ACTION
         // =====================================================
 
         detailsButton.setOnAction(event -> {
 
             System.out.println(
                     "Viewing load: " +
-                            from + " → " + to);
+                            from +
+                            " → " +
+                            to);
 
-            Scene scene = new UserPlaceholder(
-                    "Load Details").getScene();
-
-            HomePage.homeStage.setScene(scene);
-            HomePage.homeStage.show();
+            showLoadDetailsDialog(
+                    from,
+                    to,
+                    state,
+                    vehicle,
+                    material,
+                    price);
         });
 
         buttons.getChildren().add(
@@ -836,7 +926,350 @@ public class UserDashboard {
                 separator2,
                 buttons);
 
+        // Green border when hovering entire load card
+        addCardHoverEffect(
+                card,
+                "#B7D4BF",
+                "17");
+
         return card;
+    }
+
+    // =========================================================
+    // VIEW LOAD DETAILS DIALOG
+    // =========================================================
+
+    private void showLoadDetailsDialog(
+            String from,
+            String to,
+            String state,
+            String vehicle,
+            String material,
+            String price) {
+
+        Dialog<Void> dialog = new Dialog<>();
+
+        dialog.setTitle(
+                "View Load Details");
+
+        DialogPane dialogPane = dialog.getDialogPane();
+
+        dialogPane.setPrefWidth(560);
+        dialogPane.setPrefHeight(470);
+
+        dialogPane.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-border-color: " + GREEN + ";" +
+                        "-fx-border-width: 1.5;" +
+                        "-fx-border-radius: 18;" +
+                        "-fx-background-radius: 18;");
+
+        // =====================================================
+        // MAIN CONTENT
+        // =====================================================
+
+        VBox content = new VBox(18);
+
+        content.setPadding(
+                new Insets(24));
+
+        // =====================================================
+        // TITLE
+        // =====================================================
+
+        Label title = createLabel(
+                "View Load Details",
+                TEXT,
+                20,
+                true);
+
+        Label subtitle = createLabel(
+                "Complete information about this load",
+                MUTED,
+                12,
+                false);
+
+        VBox heading = new VBox(4);
+
+        heading.getChildren().addAll(
+                title,
+                subtitle);
+
+        // =====================================================
+        // ROUTE CARD
+        // =====================================================
+
+        VBox routeBox = new VBox(8);
+
+        routeBox.setPadding(
+                new Insets(16));
+
+        routeBox.setStyle(
+                "-fx-background-color: " +
+                        VERY_LIGHT_GREEN + ";" +
+                        "-fx-background-radius: 14;" +
+                        "-fx-border-color: " +
+                        CARD_BORDER + ";" +
+                        "-fx-border-radius: 14;" +
+                        "-fx-border-width: 1;");
+
+        Label routeTitle = createLabel(
+                "ROUTE",
+                MUTED,
+                10,
+                true);
+
+        Label routeLabel = createLabel(
+                from + "  →  " + to,
+                TEXT,
+                17,
+                true);
+
+        Label routeState = createLabel(
+                state,
+                GREEN,
+                11,
+                true);
+
+        routeBox.getChildren().addAll(
+                routeTitle,
+                routeLabel,
+                routeState);
+
+        // =====================================================
+        // ROUTE BOX HOVER
+        // =====================================================
+
+        routeBox.setOnMouseEntered(event -> {
+
+            routeBox.setStyle(
+                    "-fx-background-color: #EDF8EF;" +
+                            "-fx-background-radius: 14;" +
+                            "-fx-border-color: " + GREEN + ";" +
+                            "-fx-border-radius: 14;" +
+                            "-fx-border-width: 1.5;");
+        });
+
+        routeBox.setOnMouseExited(event -> {
+
+            routeBox.setStyle(
+                    "-fx-background-color: " +
+                            VERY_LIGHT_GREEN + ";" +
+                            "-fx-background-radius: 14;" +
+                            "-fx-border-color: " +
+                            CARD_BORDER + ";" +
+                            "-fx-border-radius: 14;" +
+                            "-fx-border-width: 1;");
+        });
+
+        // =====================================================
+        // DETAILS GRID
+        // =====================================================
+
+        GridPane detailsGrid = new GridPane();
+
+        detailsGrid.setHgap(14);
+        detailsGrid.setVgap(14);
+
+        detailsGrid.setPadding(
+                new Insets(4, 0, 4, 0));
+
+        addDetailRow(
+                detailsGrid,
+                "Vehicle",
+                vehicle,
+                0,
+                0);
+
+        addDetailRow(
+                detailsGrid,
+                "Material",
+                material,
+                1,
+                0);
+
+        addDetailRow(
+                detailsGrid,
+                "Load Status",
+                state,
+                0,
+                1);
+
+        addDetailRow(
+                detailsGrid,
+                "Freight Price",
+                price,
+                1,
+                1);
+
+        // =====================================================
+        // PRICE SECTION
+        // =====================================================
+
+        HBox priceBox = new HBox();
+
+        priceBox.setAlignment(
+                Pos.CENTER_RIGHT);
+
+        Label priceTitle = createLabel(
+                "TOTAL FREIGHT",
+                MUTED,
+                10,
+                true);
+
+        Label priceValue = createLabel(
+                price,
+                GREEN,
+                22,
+                true);
+
+        VBox priceContent = new VBox(2);
+
+        priceContent.setAlignment(
+                Pos.CENTER_RIGHT);
+
+        priceContent.getChildren().addAll(
+                priceTitle,
+                priceValue);
+
+        priceBox.getChildren().add(
+                priceContent);
+
+        // =====================================================
+        // ADD CONTENT
+        // =====================================================
+
+        content.getChildren().addAll(
+                heading,
+                routeBox,
+                detailsGrid,
+                priceBox);
+
+        dialogPane.setContent(
+                content);
+
+        // =====================================================
+        // CLOSE BUTTON
+        // =====================================================
+
+        dialogPane.getButtonTypes().add(
+                ButtonType.CLOSE);
+
+        Button closeButton = (Button) dialogPane.lookupButton(
+                ButtonType.CLOSE);
+
+        closeButton.setCursor(
+                Cursor.HAND);
+
+        closeButton.setStyle(
+                "-fx-background-color: " + GREEN + ";" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-padding: 8 24 8 24;");
+
+        // =====================================================
+        // CLOSE BUTTON HOVER
+        // =====================================================
+
+        closeButton.setOnMouseEntered(event -> {
+
+            closeButton.setStyle(
+                    "-fx-background-color: #096F2B;" +
+                            "-fx-text-fill: white;" +
+                            "-fx-font-weight: bold;" +
+                            "-fx-background-radius: 20;" +
+                            "-fx-padding: 8 24 8 24;");
+        });
+
+        closeButton.setOnMouseExited(event -> {
+
+            closeButton.setStyle(
+                    "-fx-background-color: " + GREEN + ";" +
+                            "-fx-text-fill: white;" +
+                            "-fx-font-weight: bold;" +
+                            "-fx-background-radius: 20;" +
+                            "-fx-padding: 8 24 8 24;");
+        });
+
+        // =====================================================
+        // SHOW DIALOG
+        // =====================================================
+
+        dialog.showAndWait();
+    }
+
+    // =========================================================
+    // DETAIL ROW
+    // =========================================================
+
+    private void addDetailRow(
+            GridPane grid,
+            String labelText,
+            String valueText,
+            int column,
+            int row) {
+
+        VBox box = new VBox(5);
+
+        box.setPadding(
+                new Insets(12));
+
+        box.setMinWidth(225);
+        box.setPrefWidth(225);
+
+        box.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-border-color: " + CARD_BORDER + ";" +
+                        "-fx-border-radius: 12;" +
+                        "-fx-border-width: 1;");
+
+        Label label = createLabel(
+                labelText.toUpperCase(),
+                MUTED,
+                10,
+                true);
+
+        Label value = createLabel(
+                valueText,
+                TEXT,
+                13,
+                true);
+
+        box.getChildren().addAll(
+                label,
+                value);
+
+        // =====================================================
+        // DETAIL BOX HOVER
+        // =====================================================
+
+        box.setOnMouseEntered(event -> {
+
+            box.setStyle(
+                    "-fx-background-color: " +
+                            VERY_LIGHT_GREEN + ";" +
+                            "-fx-background-radius: 12;" +
+                            "-fx-border-color: " + GREEN + ";" +
+                            "-fx-border-radius: 12;" +
+                            "-fx-border-width: 1.5;");
+        });
+
+        box.setOnMouseExited(event -> {
+
+            box.setStyle(
+                    "-fx-background-color: white;" +
+                            "-fx-background-radius: 12;" +
+                            "-fx-border-color: " + CARD_BORDER + ";" +
+                            "-fx-border-radius: 12;" +
+                            "-fx-border-width: 1;");
+        });
+
+        grid.add(
+                box,
+                column,
+                row);
     }
 
     // =========================================================
@@ -850,7 +1283,7 @@ public class UserDashboard {
         Label title = createLabel(
                 "Quick Insights",
                 TEXT,
-                15,
+                18,
                 true);
 
         // =====================================================
@@ -867,7 +1300,8 @@ public class UserDashboard {
                         "-fx-background-radius: 17;" +
                         "-fx-border-color: " +
                         CARD_BORDER + ";" +
-                        "-fx-border-radius: 17;");
+                        "-fx-border-radius: 17;" +
+                        "-fx-border-width: 1;");
 
         Label routeTitle = createLabel(
                 "TOP PERFORMING ROUTE",
@@ -904,6 +1338,12 @@ public class UserDashboard {
                 routeTitle,
                 routeRow);
 
+        // Green hover border
+        addCardHoverEffect(
+                routeCard,
+                CARD_BORDER,
+                "17");
+
         // =====================================================
         // BEST DRIVER
         // =====================================================
@@ -918,7 +1358,8 @@ public class UserDashboard {
                         "-fx-background-radius: 17;" +
                         "-fx-border-color: " +
                         CARD_BORDER + ";" +
-                        "-fx-border-radius: 17;");
+                        "-fx-border-radius: 17;" +
+                        "-fx-border-width: 1;");
 
         Label driverTitle = createLabel(
                 "BEST DRIVER",
@@ -961,6 +1402,12 @@ public class UserDashboard {
                 driverTitle,
                 driverRow);
 
+        // Green hover border
+        addCardHoverEffect(
+                driverCard,
+                CARD_BORDER,
+                "17");
+
         // =====================================================
         // RECENT ACTIVITY
         // =====================================================
@@ -978,11 +1425,6 @@ public class UserDashboard {
                 createActivity(
                         "Load Posted: Pune to Nashik",
                         "10 mins ago",
-                        true),
-
-                createActivity(
-                        "Bid Received: ₹8,900 from V. Travels",
-                        "45 mins ago",
                         true),
 
                 createActivity(
@@ -1012,7 +1454,25 @@ public class UserDashboard {
         HBox row = new HBox(10);
 
         row.setAlignment(
-                Pos.TOP_LEFT);
+                Pos.CENTER_LEFT);
+
+        row.setMaxWidth(
+                Double.MAX_VALUE);
+
+        row.setPadding(
+                new Insets(10, 12, 10, 12));
+
+        // Normal style
+        row.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-border-color: " + CARD_BORDER + ";" +
+                        "-fx-border-radius: 12;" +
+                        "-fx-border-width: 1;");
+
+        // =====================================================
+        // ACTIVITY DOT
+        // =====================================================
 
         Circle dot = new Circle(
                 5,
@@ -1020,6 +1480,10 @@ public class UserDashboard {
                         green
                                 ? GREEN
                                 : "#68736D"));
+
+        // =====================================================
+        // ACTIVITY TEXT
+        // =====================================================
 
         VBox texts = new VBox(3);
 
@@ -1045,6 +1509,30 @@ public class UserDashboard {
                 dot,
                 texts);
 
+        // =====================================================
+        // HOVER EFFECT
+        // =====================================================
+
+        row.setOnMouseEntered(event -> {
+
+            row.setStyle(
+                    "-fx-background-color: " + VERY_LIGHT_GREEN + ";" +
+                            "-fx-background-radius: 12;" +
+                            "-fx-border-color: " + GREEN + ";" +
+                            "-fx-border-radius: 12;" +
+                            "-fx-border-width: 1.5;");
+        });
+
+        row.setOnMouseExited(event -> {
+
+            row.setStyle(
+                    "-fx-background-color: white;" +
+                            "-fx-background-radius: 12;" +
+                            "-fx-border-color: " + CARD_BORDER + ";" +
+                            "-fx-border-radius: 12;" +
+                            "-fx-border-width: 1;");
+        });
+
         return row;
     }
 
@@ -1064,7 +1552,11 @@ public class UserDashboard {
         VBox card = new VBox(10);
 
         card.setPadding(
-                new Insets(18, 20, 18, 20));
+                new Insets(
+                        18,
+                        20,
+                        18,
+                        20));
 
         card.setMaxWidth(
                 Double.MAX_VALUE);
@@ -1074,7 +1566,8 @@ public class UserDashboard {
                         "-fx-background-radius: 18;" +
                         "-fx-border-color: " +
                         CARD_BORDER + ";" +
-                        "-fx-border-radius: 18;");
+                        "-fx-border-radius: 18;" +
+                        "-fx-border-width: 1;");
 
         // =====================================================
         // TOP
@@ -1141,7 +1634,7 @@ public class UserDashboard {
         progressBar.setMaxWidth(
                 Double.MAX_VALUE);
 
-        progressBar.setPrefHeight(8);
+        progressBar.setPrefHeight(10);
 
         progressBar.setStyle(
                 "-fx-accent: " + GREEN + ";");
@@ -1180,209 +1673,11 @@ public class UserDashboard {
                 progressBar,
                 bottom);
 
-        return card;
-    }
-
-    // =========================================================
-    // EARNINGS
-    // =========================================================
-
-    private VBox createEarningsCard() {
-
-        VBox card = new VBox(12);
-
-        card.setPadding(
-                new Insets(20));
-
-        card.setMinHeight(270);
-
-        card.setMaxWidth(
-                Double.MAX_VALUE);
-
-        card.setStyle(
-                "-fx-background-color: white;" +
-                        "-fx-background-radius: 20;" +
-                        "-fx-border-color: " +
-                        CARD_BORDER + ";" +
-                        "-fx-border-radius: 20;");
-
-        // =====================================================
-        // HEADER
-        // =====================================================
-
-        HBox header = new HBox();
-
-        VBox titleBox = new VBox(5);
-
-        Label title = createLabel(
-                "Earnings Overview",
-                TEXT,
-                14,
-                true);
-
-        Label subtitle = createLabel(
-                "Financial performance vs. logistics efficiency",
-                MUTED,
-                11,
-                false);
-
-        titleBox.getChildren().addAll(
-                title,
-                subtitle);
-
-        Region spacer = new Region();
-
-        HBox.setHgrow(
-                spacer,
-                Priority.ALWAYS);
-
-        HBox legend = new HBox(14);
-
-        legend.setAlignment(
-                Pos.CENTER_RIGHT);
-
-        Label completed = createLabel(
-                "● Completed",
-                GREEN,
-                12,
-                false);
-
-        Label cancelled = createLabel(
-                "● Cancelled",
-                "#B82C2C",
-                12,
-                false);
-
-        ComboBox<String> filter = new ComboBox<>();
-
-        filter.getItems().addAll(
-                "Last 6 Months",
-                "Last 12 Months",
-                "This Year");
-
-        filter.setValue(
-                "Last 6 Months");
-
-        filter.setPrefHeight(32);
-
-        legend.getChildren().addAll(
-                completed,
-                cancelled,
-                filter);
-
-        header.getChildren().addAll(
-                titleBox,
-                spacer,
-                legend);
-
-        // =====================================================
-        // CHART
-        // =====================================================
-
-        StackPane chartArea = new StackPane();
-
-        chartArea.setMinHeight(170);
-        chartArea.setPrefHeight(170);
-
-        VBox chartBox = new VBox();
-
-        chartBox.setSpacing(5);
-
-        // Grid lines
-
-        for (int i = 1; i <= 4; i++) {
-
-            Region line = new Region();
-
-            line.setPrefHeight(1);
-
-            line.setMaxWidth(
-                    Double.MAX_VALUE);
-
-            line.setStyle(
-                    "-fx-background-color: #E8EEE9;");
-
-            chartBox.getChildren().add(line);
-        }
-
-        // Simple responsive line
-
-        Polyline polyline = new Polyline();
-
-        polyline.setStroke(
-                Color.web(GREEN));
-
-        polyline.setStrokeWidth(3);
-
-        polyline.setFill(
-                Color.TRANSPARENT);
-
-        polyline.getPoints().addAll(
-
-                10.0, 125.0,
-
-                100.0, 100.0,
-
-                190.0, 115.0,
-
-                280.0, 75.0,
-
-                370.0, 95.0,
-
-                460.0, 45.0,
-
-                550.0, 65.0,
-
-                640.0, 30.0);
-
-        chartArea.getChildren().add(
-                polyline);
-
-        // =====================================================
-        // MONTHS
-        // =====================================================
-
-        HBox months = new HBox();
-
-        String[] monthNames = {
-
-                "JAN",
-                "FEB",
-                "MAR",
-                "APR",
-                "MAY",
-                "JUN"
-        };
-
-        for (String monthName : monthNames) {
-
-            Label monthLabel = createLabel(
-                    monthName,
-                    monthName.equals("MAY")
-                            ? GREEN
-                            : MUTED,
-                    11,
-                    monthName.equals("MAY"));
-
-            HBox.setHgrow(
-                    monthLabel,
-                    Priority.ALWAYS);
-
-            monthLabel.setAlignment(
-                    Pos.CENTER);
-
-            months.getChildren().add(
-                    monthLabel);
-        }
-
-        // =====================================================
-        // ADD
-        // =====================================================
-
-        card.getChildren().addAll(
-                header,
-                chartArea,
-                months);
+        // Green border on hover
+        addCardHoverEffect(
+                card,
+                CARD_BORDER,
+                "18");
 
         return card;
     }
