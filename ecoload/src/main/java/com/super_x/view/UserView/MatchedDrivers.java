@@ -359,7 +359,7 @@ public class MatchedDrivers {
 
         BorderPane root = new BorderPane();
         root.setCenter(mainContent);
-        root.setLeft(UserNavigation.createSidebar(null));
+        root.setLeft(UserNavigation.createSidebar("Matched Drivers"));
 
         matchedDriversScene = new Scene(root, 1536, 750);
 
