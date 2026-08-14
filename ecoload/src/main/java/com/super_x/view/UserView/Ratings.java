@@ -47,7 +47,7 @@ public class Ratings {
         // =====================================================
 
         root.setLeft(
-                UserNavigation.createSidebar("Ratings"));
+                UserNavigation.createSidebar("Rating & Review"));
 
         // =====================================================
         // MAIN PAGE
