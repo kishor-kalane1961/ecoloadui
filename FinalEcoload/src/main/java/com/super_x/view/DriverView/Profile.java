@@ -4,8 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.super_x.dao.driverdao.VehicleDAO;
+import com.super_x.model.drivermodel.CurrentDriver;
+import com.super_x.model.drivermodel.DriverModel;
+import com.super_x.model.drivermodel.VehicleModel;
+import com.super_x.config.FirebaseConfig;
 import com.super_x.view.HomePage;
-
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +24,12 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
 public class Profile {
+
+        private DriverModel getLoggedInDriver() {
+
+    return CurrentDriver.getInstance().getDriver();
+}
+DriverModel driver = getLoggedInDriver();
 
     private Scene MyPrfileScen;
 
@@ -48,6 +58,7 @@ public class Profile {
     private TextField registration;
     private TextField vehicleType;
     private TextField payload;
+    private VehicleModel currentVehicle;
 
     private RadioButton diesel;
     private RadioButton evHybrid;
@@ -73,6 +84,75 @@ public class Profile {
 
     private final List<DocumentData> documents = new ArrayList<>();
 
+
+    private void loadVehicle() {
+
+    DriverModel driver =
+            CurrentDriver.getInstance().getDriver();
+
+    if (driver == null) {
+        System.out.println("No logged-in driver.");
+        return;
+    }
+
+    String email = driver.getEmail();
+
+    if (email == null || email.isBlank()) {
+        System.out.println("Driver email is empty.");
+        return;
+    }
+
+    try {
+
+        VehicleDAO vehicleDAO =
+                new VehicleDAO(
+                        FirebaseConfig.getFireStore());
+
+        currentVehicle =
+                vehicleDAO.getVehicleByDriverEmail(email);
+
+        if (currentVehicle != null) {
+
+            System.out.println(
+                    "Vehicle loaded: "
+                            + currentVehicle.getVehicleName());
+
+            System.out.println(
+                    "Plate: "
+                            + currentVehicle.getVehiclePlateNumber());
+
+        } else {
+
+            System.out.println(
+                    "No vehicle found for: " + email);
+        }
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+    }
+}
+
+    private String getInitials(String name) {
+
+    if (name == null || name.trim().isEmpty()) {
+        return "DR";
+    }
+
+    String[] parts = name.trim().split("\\s+");
+
+    if (parts.length == 1) {
+        return parts[0]
+                .substring(0, 1)
+                .toUpperCase();
+    }
+
+    return (
+            parts[0].substring(0, 1) +
+            parts[parts.length - 1].substring(0, 1)
+    ).toUpperCase();
+}
+
     // =========================================================
     // PROFILE PAGE SCENE
     // =========================================================
@@ -82,7 +162,7 @@ public class Profile {
         // =========================================================
         // MAIN ROOT
         // =========================================================
-
+        loadVehicle();
         BorderPane root = new BorderPane();
 
         root.setStyle(
@@ -175,8 +255,7 @@ public class Profile {
                 createProfileSection(),
                 createStatistics(),
                 createInformationArea(),
-                createDocumentsSection(),
-                createAccountActions());
+                createDocumentsSection());
 
         return content;
     }
@@ -200,11 +279,18 @@ public class Profile {
 
         StackPane avatar = createLargeAvatar();
 
-        profileName = label(
-                "Kishor Kalane",
-                27,
-                DARK,
-                true);
+        DriverModel driver = getLoggedInDriver();
+
+String driverName =
+        driver != null && driver.getUsername() != null
+                ? driver.getUsername()
+                : "Driver";
+
+profileName = label(
+        driverName,
+        27,
+        DARK,
+        true);
 
         Label verified = label(
                 "✓  Verified Driver",
@@ -320,13 +406,18 @@ public class Profile {
         // =========================================================
         // INITIALS
         // =========================================================
+DriverModel driver = getLoggedInDriver();
 
-        Label initials = label(
-                "KK",
-                30,
-                GREEN,
-                true);
+String driverName =
+        driver != null
+                ? driver.getUsername()
+                : "Driver";
 
+Label initials = label(
+        getInitials(driverName),
+        30,
+        GREEN,
+        true);
         // =========================================================
         // PROFILE IMAGE
         // =========================================================
@@ -558,217 +649,312 @@ public class Profile {
 
     private VBox createPersonalCard() {
 
-        VBox card = createCard();
+    VBox card = createCard();
 
-        fullName = textField(
-                "Kishor Kalane");
+    DriverModel driver = getLoggedInDriver();
 
-        email = textField(
-                "kishor.k@ecoload.com");
+    if (driver == null) {
 
-        mobile = textField(
-                "+91 98765 43210");
-
-        dob = textField(
-                "12 May 1985");
-
-        address = new TextArea(
-                "Apt 402, Green Valley Towers, Outer Ring\n" +
-                        "Road, Bengaluru, Karnataka - 560064");
-
-        address.setWrapText(true);
-        address.setPrefRowCount(3);
-
-        styleTextArea(address);
-
-        GridPane grid = new GridPane();
-
-        grid.setHgap(15);
-        grid.setVgap(14);
-
-        addField(
-                grid,
-                "Full Name",
-                fullName,
-                0,
-                0);
-
-        addField(
-                grid,
-                "Email ID",
-                email,
-                1,
-                0);
-
-        addField(
-                grid,
-                "Mobile Number",
-                mobile,
-                0,
-                1);
-
-        addField(
-                grid,
-                "Date of Birth",
-                dob,
-                1,
-                1);
-
-        grid.add(
-                fieldBox(
-                        "Residential Address",
-                        address),
-                0,
-                2,
-                2,
-                1);
-
-        ColumnConstraints c1 = new ColumnConstraints();
-
-        ColumnConstraints c2 = new ColumnConstraints();
-
-        c1.setPercentWidth(50);
-        c2.setPercentWidth(50);
-
-        c1.setHgrow(Priority.ALWAYS);
-        c2.setHgrow(Priority.ALWAYS);
-
-        grid.getColumnConstraints().addAll(
-                c1,
-                c2);
-
-        card.getChildren().addAll(
-                sectionTitle(
-                        "Personal Information"),
-                grid);
-
-        saveOriginalPersonal();
+        showError(
+                "Profile Error",
+                "No logged-in driver found.");
 
         return card;
     }
 
-    private VBox createVehicleCard() {
+    fullName = textField(
+            driver.getUsername() != null
+                    ? driver.getUsername()
+                    : "");
 
-        VBox card = createCard();
+    email = textField(
+            driver.getEmail() != null
+                    ? driver.getEmail()
+                    : "");
 
-        vehicleModel = textField(
-                "Tata Ultra T.11");
+    mobile = textField(
+            driver.getPhone() != null
+                    ? driver.getPhone()
+                    : "");
 
-        registration = textField(
-                "KA-01-MG-4592");
+    /*
+     * DriverModel currently does not contain Date of Birth.
+     * So we leave this empty for now.
+     */
+    dob = textField("");
 
-        vehicleType = textField(
-                "Heavy Duty Truck");
+    address = new TextArea("");
 
-        payload = textField(
-                "7 Metric Tons");
+    address.setWrapText(true);
+    address.setPrefRowCount(3);
 
-        GridPane grid = new GridPane();
+    styleTextArea(address);
 
-        grid.setHgap(15);
-        grid.setVgap(14);
+    GridPane grid = new GridPane();
 
-        addField(
-                grid,
-                "Vehicle Model",
-                vehicleModel,
-                0,
-                0);
+    grid.setHgap(15);
+    grid.setVgap(14);
 
-        addField(
-                grid,
-                "Registration Number",
-                registration,
-                1,
-                0);
+    addField(
+            grid,
+            "Full Name",
+            fullName,
+            0,
+            0);
 
-        addField(
-                grid,
-                "Vehicle Type",
-                vehicleType,
-                0,
-                1);
+    addField(
+            grid,
+            "Email ID",
+            email,
+            1,
+            0);
 
-        addField(
-                grid,
-                "Payload Capacity",
-                payload,
-                1,
-                1);
+    addField(
+            grid,
+            "Mobile Number",
+            mobile,
+            0,
+            1);
 
-        diesel = new RadioButton(
-                "Diesel");
+    addField(
+            grid,
+            "Date of Birth",
+            dob,
+            1,
+            1);
 
-        evHybrid = new RadioButton(
-                "EV / Hybrid");
+        VBox accBox = createAccountActions();
 
-        ToggleGroup group = new ToggleGroup();
+        grid.add(accBox,0,2);
 
-        diesel.setToggleGroup(group);
-        evHybrid.setToggleGroup(group);
 
-        diesel.setSelected(true);
+//     grid.add(fieldBox("Residential Address", accBox),
+//             0,
+//             2,
+//             2,
+//             1);
 
-        VBox fuel = new VBox(
-                7,
+    ColumnConstraints c1 = new ColumnConstraints();
+    ColumnConstraints c2 = new ColumnConstraints();
+
+    c1.setPercentWidth(50);
+    c2.setPercentWidth(50);
+
+    c1.setHgrow(Priority.ALWAYS);
+    c2.setHgrow(Priority.ALWAYS);
+
+    grid.getColumnConstraints().addAll(
+            c1,
+            c2);
+
+    card.getChildren().addAll(
+            sectionTitle("Personal Information"),
+            grid);
+
+    saveOriginalPersonal();
+
+    return card;
+}
+
+   private VBox createVehicleCard() {
+
+    VBox card = createCard();
+
+    // -----------------------------------------
+    // NO VEHICLE
+    // -----------------------------------------
+
+    if (currentVehicle == null) {
+
+        card.getChildren().addAll(
+                sectionTitle("Vehicle Details"),
                 label(
-                        "Fuel Type",
-                        12,
-                        MUTED,
-                        false),
-                new HBox(
-                        20,
-                        diesel,
-                        evHybrid));
-
-        grid.add(
-                fuel,
-                0,
-                2,
-                2,
-                1);
-
-        VBox primary = new VBox(
-                5,
-                label(
-                        "Primary Vehicle",
-                        12,
-                        MUTED,
-                        false),
-                label(
-                        "🚚  Tata Ultra T.11",
+                        "No vehicle information found.",
                         14,
-                        DARK,
-                        true),
-                label(
-                        "✓ Fleet Linked - Verified",
-                        12,
-                        GREEN,
-                        true));
-
-        grid.add(
-                primary,
-                0,
-                3,
-                2,
-                1);
-
-        card.getChildren().addAll(
-                sectionTitle(
-                        "Vehicle Details"),
-                grid);
-
-        saveOriginalVehicle();
+                        MUTED,
+                        false));
 
         return card;
     }
+
+    // -----------------------------------------
+    // VEHICLE FIELDS
+    // -----------------------------------------
+
+    vehicleModel = textField(
+            currentVehicle.getVehicleName() != null
+                    ? currentVehicle.getVehicleName()
+                    : "");
+
+    registration = textField(
+            currentVehicle.getVehiclePlateNumber() != null
+                    ? currentVehicle.getVehiclePlateNumber()
+                    : "");
+
+    vehicleType = textField(
+            currentVehicle.getVehicleType() != null
+                    ? currentVehicle.getVehicleType()
+                    : "");
+
+    payload = textField(
+            String.valueOf(
+                    currentVehicle.getVehicleCapacity()));
+
+    // -----------------------------------------
+    // GRID
+    // -----------------------------------------
+
+    GridPane grid = new GridPane();
+
+    grid.setHgap(15);
+    grid.setVgap(14);
+
+    addField(
+            grid,
+            "Vehicle Model",
+            vehicleModel,
+            0,
+            0);
+
+    addField(
+            grid,
+            "Registration Number",
+            registration,
+            1,
+            0);
+
+    addField(
+            grid,
+            "Vehicle Type",
+            vehicleType,
+            0,
+            1);
+
+    addField(
+            grid,
+            "Payload Capacity",
+            payload,
+            1,
+            1);
+
+    // -----------------------------------------
+    // FUEL TYPE
+    // -----------------------------------------
+
+    diesel = new RadioButton("Diesel");
+
+    evHybrid = new RadioButton("EV / Hybrid");
+
+    ToggleGroup group = new ToggleGroup();
+
+    diesel.setToggleGroup(group);
+    evHybrid.setToggleGroup(group);
+
+    String fuelType =
+            currentVehicle.getFuelType();
+
+    if (fuelType != null) {
+
+        if (fuelType.equalsIgnoreCase("Diesel")) {
+
+            diesel.setSelected(true);
+
+        } else if (
+                fuelType.equalsIgnoreCase("EV")
+                        || fuelType.equalsIgnoreCase("Hybrid")
+                        || fuelType.equalsIgnoreCase("EV / Hybrid")) {
+
+            evHybrid.setSelected(true);
+        }
+    }
+
+    VBox fuel = new VBox(
+            7,
+            label(
+                    "Fuel Type",
+                    12,
+                    MUTED,
+                    false),
+            new HBox(
+                    20,
+                    diesel,
+                    evHybrid));
+
+    grid.add(
+            fuel,
+            0,
+            2,
+            2,
+            1);
+
+    // -----------------------------------------
+    // PRIMARY VEHICLE
+    // -----------------------------------------
+
+    VBox primary = new VBox(
+            5,
+            label(
+                    "Primary Vehicle",
+                    12,
+                    MUTED,
+                    false),
+            label(
+                    "🚚  "
+                            + currentVehicle.getVehicleName(),
+                    14,
+                    DARK,
+                    true),
+            label(
+                    "✓ Fleet Linked - Verified",
+                    12,
+                    GREEN,
+                    true));
+
+    grid.add(
+            primary,
+            0,
+            3,
+            2,
+            1);
+
+    // -----------------------------------------
+    // COLUMN WIDTHS
+    // -----------------------------------------
+
+    ColumnConstraints c1 =
+            new ColumnConstraints();
+
+    ColumnConstraints c2 =
+            new ColumnConstraints();
+
+    c1.setPercentWidth(50);
+    c2.setPercentWidth(50);
+
+    c1.setHgrow(Priority.ALWAYS);
+    c2.setHgrow(Priority.ALWAYS);
+
+    grid.getColumnConstraints()
+            .addAll(c1, c2);
+
+    // -----------------------------------------
+    // ADD TO CARD
+    // -----------------------------------------
+
+    card.getChildren().addAll(
+            sectionTitle("Vehicle Details"),
+            grid);
+
+    saveOriginalVehicle();
+
+    return card;
+}
 
     private VBox createDocumentsSection() {
 
         VBox section = new VBox(15);
 
         Label title = sectionTitle(
-                "Verified Documents");
+                "Upload Documents");
 
         Button upload = outlineButton(
                 "＋ Upload New");

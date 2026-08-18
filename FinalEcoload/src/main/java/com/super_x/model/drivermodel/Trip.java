@@ -1,16 +1,25 @@
 package com.super_x.model.drivermodel;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Trip {
 
     private String tripId;
+
+    // Existing single load ID - keep for compatibility
     private String loadId;
+
+    // Multiple loads in same trip
+    private List<String> loadIds = new ArrayList<>();
+
     private String userId;
     private String driverId;
     private String driverName;
+
     private double distanceKm;
     private String eta;
+
     private double totalCapacity;
     private double usedCapacity;
 
@@ -41,6 +50,14 @@ public class Trip {
         this.loadId = loadId;
     }
 
+    public List<String> getLoadIds() {
+        return loadIds;
+    }
+
+    public void setLoadIds(List<String> loadIds) {
+        this.loadIds = loadIds;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -63,6 +80,38 @@ public class Trip {
 
     public void setDriverName(String driverName) {
         this.driverName = driverName;
+    }
+
+    public double getDistanceKm() {
+        return distanceKm;
+    }
+
+    public void setDistanceKm(double distanceKm) {
+        this.distanceKm = distanceKm;
+    }
+
+    public String getEta() {
+        return eta;
+    }
+
+    public void setEta(String eta) {
+        this.eta = eta;
+    }
+
+    public double getTotalCapacity() {
+        return totalCapacity;
+    }
+
+    public void setTotalCapacity(double totalCapacity) {
+        this.totalCapacity = totalCapacity;
+    }
+
+    public double getUsedCapacity() {
+        return usedCapacity;
+    }
+
+    public void setUsedCapacity(double usedCapacity) {
+        this.usedCapacity = usedCapacity;
     }
 
     public String getPickupLocation() {
@@ -103,36 +152,5 @@ public class Trip {
 
     public void setCompletedTime(String completedTime) {
         this.completedTime = completedTime;
-    }
-    public double getDistanceKm() {
-    return distanceKm;
-    }
-
-    public void setDistanceKm(double distanceKm) {
-        this.distanceKm = distanceKm;
-    }
-
-    public String getEta() {
-        return eta;
-    }
-
-    public void setEta(String eta) {
-        this.eta = eta;
-    }
-
-    public double getTotalCapacity() {
-    return totalCapacity;
-    }
-
-    public void setTotalCapacity(double totalCapacity) {
-        this.totalCapacity = totalCapacity;
-    }
-
-    public double getUsedCapacity() {
-        return usedCapacity;
-    }
-
-    public void setUsedCapacity(double usedCapacity) {
-        this.usedCapacity = usedCapacity;
     }
 }

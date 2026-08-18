@@ -231,12 +231,12 @@ public class Login {
     private ImageView createTopLogo() {
 
         java.io.InputStream imageStream = getClass().getResourceAsStream(
-                "/assets/translogo.png");
+                "assets/images/welcomeback.jpeg");
 
         if (imageStream == null) {
 
             System.out.println(
-                    "/assets/translogo.png not found");
+                    "assets/images/welcomeback.jpeg");
 
             return new ImageView();
         }

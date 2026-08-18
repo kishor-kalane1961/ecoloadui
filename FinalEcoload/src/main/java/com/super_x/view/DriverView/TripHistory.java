@@ -1,7 +1,9 @@
 package com.super_x.view.DriverView;
 
 import java.time.LocalDate;
-// import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.super_x.config.FirebaseConfig;
+import com.super_x.model.drivermodel.CurrentDriver;
+import com.super_x.model.drivermodel.DriverModel;
+import com.super_x.dao.userdao.LoadDao;
 
 public class TripHistory {
 
@@ -146,11 +155,11 @@ public class TripHistory {
         int total = allTrips.size();
 
         long completed = allTrips.stream()
-                .filter(t -> t.status.equals("Completed"))
+                .filter(t -> "Completed".equalsIgnoreCase(t.status))
                 .count();
 
         long cancelled = allTrips.stream()
-                .filter(t -> t.status.equals("Cancelled"))
+                .filter(t -> "Cancelled".equalsIgnoreCase(t.status))
                 .count();
 
         int earnings = allTrips.stream()
@@ -1084,298 +1093,428 @@ public class TripHistory {
 
     private void loadTripData() {
 
-        if (!allTrips.isEmpty()) {
-            return;
+        // Always reload from Firebase so a newly completed trip
+        // appears immediately when this page is opened.
+        allTrips.clear();
+
+        try {
+
+            DriverModel driver =
+                    CurrentDriver.getInstance().getDriver();
+
+            if (driver == null
+                    || driver.getEmail() == null
+                    || driver.getEmail().trim().isEmpty()) {
+
+                System.out.println(
+                        "Trip History: current driver not found."
+                );
+
+                return;
+            }
+
+            Firestore db =
+                    FirebaseConfig.getFireStore();
+
+            String driverId =
+                    driver.getEmail().trim();
+
+            List<QueryDocumentSnapshot> documents =
+                    db.collection("trips")
+                            .whereEqualTo(
+                                    "driverId",
+                                    driverId
+                            )
+                            .get()
+                            .get()
+                            .getDocuments();
+
+            LoadDao loadDao =
+                    new LoadDao();
+
+            System.out.println(
+                    "========== TRIP HISTORY =========="
+            );
+
+            System.out.println(
+                    "Driver: "
+                            + driverId
+            );
+
+            System.out.println(
+                    "Trips found: "
+                            + documents.size()
+            );
+
+            for (QueryDocumentSnapshot document :
+                    documents) {
+
+                com.super_x.model.drivermodel.Trip trip =
+                        document.toObject(
+                                com.super_x.model.drivermodel.Trip.class
+                        );
+
+                if (trip == null) {
+                    continue;
+                }
+
+                String uiStatus =
+                        normalizeHistoryStatus(
+                                trip.getStatus()
+                        );
+
+                LocalDate tripDate =
+                        resolveTripDate(trip);
+
+                String origin =
+                        safeText(
+                                trip.getPickupLocation(),
+                                "Unknown"
+                        );
+
+                String destination =
+                        safeText(
+                                trip.getDestination(),
+                                "Unknown"
+                        );
+
+                String route =
+                        origin
+                                + " → "
+                                + destination;
+
+                // The current Trip model does not store vehicle,
+                // earnings, or cargo directly. Cargo/earnings are
+                // reconstructed from the loads belonging to the trip.
+                String cargo =
+                        buildCargoText(
+                                trip,
+                                loadDao
+                        );
+
+                int earnings =
+                        calculateTripEarnings(
+                                trip,
+                                loadDao
+                        );
+
+                String distance =
+                        formatDistance(
+                                trip.getDistanceKm()
+                        );
+
+                // Vehicle type is not stored in Trip.java.
+                // Keep the dashboard readable without inventing
+                // a historical vehicle field.
+                String vehicle =
+                        "Truck";
+
+                allTrips.add(
+                        new Trip(
+                                safeText(
+                                        trip.getTripId(),
+                                        document.getId()
+                                ),
+                                tripDate,
+                                origin,
+                                destination,
+                                route,
+                                vehicle,
+                                cargo,
+                                distance,
+                                earnings,
+                                uiStatus
+                        )
+                );
+
+                System.out.println(
+                        "History Trip: "
+                                + trip.getTripId()
+                                + " | "
+                                + uiStatus
+                );
+            }
+
+            System.out.println(
+                    "================================="
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            showMessage(
+                    "Trip History",
+                    "Failed to load trip history from Firebase."
+            );
+        }
+    }
+
+    // =========================================================
+    // NORMALIZE FIREBASE STATUS TO UI STATUS
+    // =========================================================
+
+    private String normalizeHistoryStatus(
+            String status) {
+
+        if (status == null
+                || status.trim().isEmpty()) {
+
+            return "In Progress";
         }
 
-        addTrip(
-                "TRP-001",
-                "2026-08-01",
-                "Pune",
-                "Mumbai",
-                "Pune → Mumbai",
-                "Heavy Truck",
-                "Electronics",
-                "150 KM",
-                18500,
-                "Completed");
+        String value =
+                status.trim()
+                        .toUpperCase();
 
-        addTrip(
-                "TRP-002",
-                "2026-07-30",
-                "Mumbai",
-                "Nashik",
-                "Mumbai → Nashik",
-                "Medium Truck",
-                "Fruits",
-                "165 KM",
-                14200,
-                "Completed");
+        switch (value) {
 
-        addTrip(
-                "TRP-003",
-                "2026-07-28",
-                "Pune",
-                "Kolhapur",
-                "Pune → Kolhapur",
-                "Heavy Truck",
-                "Steel",
-                "235 KM",
-                22100,
-                "Completed");
+            case "COMPLETED":
+                return "Completed";
 
-        addTrip(
-                "TRP-004",
-                "2026-07-26",
-                "Nashik",
-                "Pune",
-                "Nashik → Pune",
-                "Medium Truck",
-                "Vegetables",
-                "210 KM",
-                15600,
-                "Completed");
+            case "CANCELLED":
+            case "CANCELED":
+                return "Cancelled";
 
-        addTrip(
-                "TRP-005",
-                "2026-07-24",
-                "Pune",
-                "Nagpur",
-                "Pune → Nagpur",
-                "Heavy Truck",
-                "Machinery",
-                "720 KM",
-                48200,
-                "Completed");
+            case "ACTIVE":
+            case "IN_TRANSIT":
+            case "PICKUP_COMPLETED":
+            case "DELIVERY":
+                return "In Progress";
 
-        addTrip(
-                "TRP-006",
-                "2026-07-22",
-                "Mumbai",
-                "Pune",
-                "Mumbai → Pune",
-                "Light Commercial",
-                "Packages",
-                "150 KM",
-                11200,
-                "Completed");
-
-        addTrip(
-                "TRP-007",
-                "2026-07-20",
-                "Pune",
-                "Satara",
-                "Pune → Satara",
-                "Medium Truck",
-                "Cement",
-                "120 KM",
-                9800,
-                "Completed");
-
-        addTrip(
-                "TRP-008",
-                "2026-07-18",
-                "Satara",
-                "Kolhapur",
-                "Satara → Kolhapur",
-                "Heavy Truck",
-                "Steel",
-                "125 KM",
-                11800,
-                "Cancelled");
-
-        addTrip(
-                "TRP-009",
-                "2026-07-16",
-                "Pune",
-                "Ahmednagar",
-                "Pune → Ahmednagar",
-                "Medium Truck",
-                "Grains",
-                "125 KM",
-                10200,
-                "Completed");
-
-        addTrip(
-                "TRP-010",
-                "2026-07-14",
-                "Mumbai",
-                "Aurangabad",
-                "Mumbai → Aurangabad",
-                "Heavy Truck",
-                "Automobile Parts",
-                "335 KM",
-                28400,
-                "Completed");
-
-        addTrip(
-                "TRP-011",
-                "2026-07-12",
-                "Pune",
-                "Hyderabad",
-                "Pune → Hyderabad",
-                "Heavy Truck",
-                "Machinery",
-                "560 KM",
-                41600,
-                "Completed");
-
-        addTrip(
-                "TRP-012",
-                "2026-07-10",
-                "Nashik",
-                "Mumbai",
-                "Nashik → Mumbai",
-                "Medium Truck",
-                "Onions",
-                "170 KM",
-                13900,
-                "Cancelled");
-
-        addTrip(
-                "TRP-013",
-                "2026-07-08",
-                "Pune",
-                "Bengaluru",
-                "Pune → Bengaluru",
-                "Heavy Truck",
-                "Electronics",
-                "840 KM",
-                56200,
-                "Completed");
-
-        addTrip(
-                "TRP-014",
-                "2026-07-06",
-                "Kolhapur",
-                "Pune",
-                "Kolhapur → Pune",
-                "Medium Truck",
-                "Food Products",
-                "235 KM",
-                17100,
-                "Completed");
-
-        addTrip(
-                "TRP-015",
-                "2026-07-04",
-                "Ahmednagar",
-                "Pune",
-                "Ahmednagar → Pune",
-                "Light Commercial",
-                "Packages",
-                "125 KM",
-                9200,
-                "Completed");
-
-        addTrip(
-                "TRP-016",
-                "2026-07-02",
-                "Mumbai",
-                "Surat",
-                "Mumbai → Surat",
-                "Heavy Truck",
-                "Textiles",
-                "285 KM",
-                24500,
-                "Completed");
-
-        addTrip(
-                "TRP-017",
-                "2026-06-30",
-                "Pune",
-                "Nashik",
-                "Pune → Nashik",
-                "Medium Truck",
-                "Fruits",
-                "210 KM",
-                15400,
-                "In Progress");
-
-        addTrip(
-                "TRP-018",
-                "2026-06-28",
-                "Nagpur",
-                "Pune",
-                "Nagpur → Pune",
-                "Heavy Truck",
-                "Machinery",
-                "720 KM",
-                48500,
-                "Completed");
-
-        addTrip(
-                "TRP-019",
-                "2026-06-26",
-                "Pune",
-                "Solapur",
-                "Pune → Solapur",
-                "Medium Truck",
-                "Cement",
-                "250 KM",
-                18600,
-                "Completed");
-
-        addTrip(
-                "TRP-020",
-                "2026-06-24",
-                "Mumbai",
-                "Nashik",
-                "Mumbai → Nashik",
-                "Heavy Truck",
-                "Chemicals",
-                "165 KM",
-                16800,
-                "Cancelled");
-
-        addTrip(
-                "TRP-021",
-                "2026-06-22",
-                "Pune",
-                "Goa",
-                "Pune → Goa",
-                "Heavy Truck",
-                "Food Products",
-                "450 KM",
-                33800,
-                "Completed");
-
-        addTrip(
-                "TRP-022",
-                "2026-06-20",
-                "Nashik",
-                "Aurangabad",
-                "Nashik → Aurangabad",
-                "Medium Truck",
-                "Vegetables",
-                "190 KM",
-                14100,
-                "Completed");
-
-        addTrip(
-                "TRP-023",
-                "2026-06-18",
-                "Pune",
-                "Mumbai",
-                "Pune → Mumbai",
-                "Heavy Truck",
-                "Industrial Goods",
-                "150 KM",
-                19800,
-                "In Progress");
-
-        addTrip(
-                "TRP-024",
-                "2026-06-16",
-                "Bengaluru",
-                "Pune",
-                "Bengaluru → Pune",
-                "Heavy Truck",
-                "Electronics",
-                "840 KM",
-                57400,
-                "Completed");
+            default:
+                return "In Progress";
+        }
     }
+
+    // =========================================================
+    // RESOLVE TRIP DATE
+    // =========================================================
+
+    private LocalDate resolveTripDate(
+            com.super_x.model.drivermodel.Trip trip) {
+
+        String timestamp =
+                trip.getCompletedTime();
+
+        if (timestamp == null
+                || timestamp.trim().isEmpty()) {
+
+            timestamp =
+                    trip.getStartTime();
+        }
+
+        if (timestamp != null
+                && !timestamp.trim().isEmpty()) {
+
+            try {
+
+                return LocalDateTime
+                        .parse(
+                                timestamp.trim(),
+                                DateTimeFormatter.ofPattern(
+                                        "yyyy-MM-dd HH:mm:ss"
+                                )
+                        )
+                        .toLocalDate();
+
+            } catch (DateTimeParseException ignored) {
+
+                try {
+
+                    return LocalDate.parse(
+                            timestamp.trim()
+                    );
+
+                } catch (DateTimeParseException ignoredAgain) {
+                    // Use today's date as a safe fallback for
+                    // old/manual records without a valid timestamp.
+                }
+            }
+        }
+
+        return LocalDate.now();
+    }
+
+    // =========================================================
+    // BUILD CARGO TEXT FROM ALL LOADS
+    // =========================================================
+
+    private String buildCargoText(
+            com.super_x.model.drivermodel.Trip trip,
+            LoadDao loadDao) {
+
+        try {
+
+            List<String> loadIds =
+                    trip.getLoadIds();
+
+            if (loadIds == null
+                    || loadIds.isEmpty()) {
+
+                loadIds =
+                        new ArrayList<>();
+
+                if (trip.getLoadId() != null
+                        && !trip.getLoadId()
+                                .trim()
+                                .isEmpty()) {
+
+                    loadIds.add(
+                            trip.getLoadId()
+                    );
+                }
+            }
+
+            List<String> cargoNames =
+                    new ArrayList<>();
+
+            for (String loadId : loadIds) {
+
+                if (loadId == null
+                        || loadId.trim().isEmpty()) {
+
+                    continue;
+                }
+
+                com.super_x.model.usermodel.Load load =
+                        loadDao.getLoadById(
+                                loadId
+                        );
+
+                if (load == null) {
+                    continue;
+                }
+
+                String loadType =
+                        load.getLoadType();
+
+                if (loadType != null
+                        && !loadType.trim().isEmpty()
+                        && !cargoNames.contains(
+                                loadType.trim()
+                        )) {
+
+                    cargoNames.add(
+                            loadType.trim()
+                    );
+                }
+            }
+
+            if (cargoNames.isEmpty()) {
+                return "Unknown";
+            }
+
+            return String.join(
+                    " + ",
+                    cargoNames
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            return "Unknown";
+        }
+    }
+
+    // =========================================================
+    // SUM OFFER PRICE OF ALL LOADS
+    // =========================================================
+
+    private int calculateTripEarnings(
+            com.super_x.model.drivermodel.Trip trip,
+            LoadDao loadDao) {
+
+        try {
+
+            List<String> loadIds =
+                    trip.getLoadIds();
+
+            if (loadIds == null
+                    || loadIds.isEmpty()) {
+
+                loadIds =
+                        new ArrayList<>();
+
+                if (trip.getLoadId() != null
+                        && !trip.getLoadId()
+                                .trim()
+                                .isEmpty()) {
+
+                    loadIds.add(
+                            trip.getLoadId()
+                    );
+                }
+            }
+
+            double total =
+                    0.0;
+
+            for (String loadId : loadIds) {
+
+                if (loadId == null
+                        || loadId.trim().isEmpty()) {
+
+                    continue;
+                }
+
+                com.super_x.model.usermodel.Load load =
+                        loadDao.getLoadById(
+                                loadId
+                        );
+
+                if (load != null) {
+
+                    total +=
+                            load.getOfferPrice();
+                }
+            }
+
+            return (int) Math.round(total);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            return 0;
+        }
+    }
+
+    // =========================================================
+    // FORMAT DISTANCE
+    // =========================================================
+
+    private String formatDistance(
+            double distanceKm) {
+
+        if (distanceKm <= 0) {
+            return "Distance N/A";
+        }
+
+        return String.format(
+                "%.1f KM",
+                distanceKm
+        );
+    }
+
+    // =========================================================
+    // SAFE TEXT
+    // =========================================================
+
+    private String safeText(
+            String value,
+            String fallback) {
+
+        if (value == null
+                || value.trim().isEmpty()) {
+
+            return fallback;
+        }
+
+        return value;
+    }
+
     // =========================================================
     // GET TRIPS FOR DASHBOARD
     // =========================================================

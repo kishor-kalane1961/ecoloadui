@@ -1,10 +1,10 @@
 package com.super_x.dao.userdao;
 
-import com.super_x.dao.userdao.LoadDao;
-import com.super_x.model.usermodel.Load;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.super_x.config.FirebaseConfig;
+import com.super_x.model.usermodel.Load;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,27 +12,52 @@ import java.util.List;
 
 public class LoadDao {
 
-    private Firestore db = FirebaseConfig.getFireStore();
+    private final Firestore db =
+            FirebaseConfig.getFireStore();
 
-    // Add Load
+    // =========================================================
+    // ADD LOAD
+    // =========================================================
+
     public void addLoad(Load load) {
 
         try {
 
-            String date = new SimpleDateFormat("yyyyMMdd")
-                    .format(new Date());
+            String date =
+                    new SimpleDateFormat("yyyyMMdd")
+                            .format(new Date());
 
-            String loadId = "LD-" + date + "-" +
-                    System.currentTimeMillis();
+            String loadId =
+                    "LD-"
+                            + date
+                            + "-"
+                            + System.currentTimeMillis();
 
-            load.setLoadId(loadId);
+            load.setLoadId(
+                    loadId
+            );
+
+            if (load.getStatus() == null
+                    || load.getStatus().trim().isEmpty()) {
+
+                load.setStatus(
+                        "PENDING"
+                );
+            }
 
             db.collection("loads")
                     .document(loadId)
-                    .create(load);
+                    .create(load)
+                    .get();
 
-            System.out.println("Load Data Inserted");
-            System.out.println("Generated Load ID: " + loadId);
+            System.out.println(
+                    "Load Data Inserted"
+            );
+
+            System.out.println(
+                    "Generated Load ID: "
+                            + loadId
+            );
 
         } catch (Exception e) {
 
@@ -40,12 +65,16 @@ public class LoadDao {
         }
     }
 
-    // Fetch All Loads
+    // =========================================================
+    // FETCH ALL LOADS
+    // =========================================================
+
     public List<Load> fetchAllLoads() {
 
         try {
 
-            List<Load> loads = new ArrayList<>();
+            List<Load> loads =
+                    new ArrayList<>();
 
             for (QueryDocumentSnapshot document :
                     db.collection("loads")
@@ -54,7 +83,9 @@ public class LoadDao {
                             .getDocuments()) {
 
                 loads.add(
-                        document.toObject(Load.class)
+                        document.toObject(
+                                Load.class
+                        )
                 );
             }
 
@@ -68,12 +99,59 @@ public class LoadDao {
         }
     }
 
-    // Fetch Load By ID
-    public Load getLoadById(String loadId) {
+    // =========================================================
+// FETCH COMPLETED LOADS FOR USER
+// =========================================================
+
+public List<Load> getCompletedLoadsByUserId(
+        String userId
+) {
+
+    try {
+
+        List<Load> completedLoads =
+                new ArrayList<>();
+
+        for (QueryDocumentSnapshot document :
+                db.collection("loads")
+                        .whereEqualTo(
+                                "userId",
+                                userId
+                        )
+                        .whereEqualTo(
+                                "status",
+                                "COMPLETED"
+                        )
+                        .get()
+                        .get()
+                        .getDocuments()) {
+
+            completedLoads.add(
+                    document.toObject(
+                            Load.class
+                    )
+            );
+        }
+
+        return completedLoads;
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+        return new ArrayList<>();
+    }
+}
+
+    // =========================================================
+    // FETCH LOAD BY ID
+    // =========================================================
+
+    public Load getLoadById(
+            String loadId
+    ) {
 
         try {
-
-            QueryDocumentSnapshot document = null;
 
             var snapshot =
                     db.collection("loads")
@@ -82,10 +160,13 @@ public class LoadDao {
                             .get();
 
             if (!snapshot.exists()) {
+
                 return null;
             }
 
-            return snapshot.toObject(Load.class);
+            return snapshot.toObject(
+                    Load.class
+            );
 
         } catch (Exception e) {
 
@@ -93,5 +174,65 @@ public class LoadDao {
 
             return null;
         }
+    }
+
+    // =========================================================
+    // UPDATE LOAD STATUS + DRIVER
+    // =========================================================
+
+    public void updateLoadStatus(
+            String loadId,
+            String status,
+            String driverId,
+            String driverName,
+            String acceptedAt
+    ) throws Exception {
+
+        db.collection("loads")
+                .document(loadId)
+                .update(
+                        "status",
+                        status,
+                        "driverId",
+                        driverId,
+                        "driverName",
+                        driverName,
+                        "acceptedAt",
+                        acceptedAt
+                )
+                .get();
+
+        System.out.println(
+                "Load status updated: "
+                        + loadId
+                        + " -> "
+                        + status
+        );
+    }
+
+    // =========================================================
+    // UPDATE LOAD STATUS ONLY
+    // Used when completing the trip
+    // =========================================================
+
+    public void updateLoadStatusOnly(
+            String loadId,
+            String status
+    ) throws Exception {
+
+        db.collection("loads")
+                .document(loadId)
+                .update(
+                        "status",
+                        status
+                )
+                .get();
+
+        System.out.println(
+                "Load status updated: "
+                        + loadId
+                        + " -> "
+                        + status
+        );
     }
 }

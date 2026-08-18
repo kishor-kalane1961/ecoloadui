@@ -48,6 +48,8 @@ import com.super_x.view.HomePage;
 /** Available-loads screen for the EcoLoad driver application. */
 public class Available_Loads {
 
+
+    
    
     private VehicleDAO vehicleDAO;
     private VehicleModel currentVehicle;
@@ -291,31 +293,73 @@ private int calculateMatch(Load load) {
 }
     private List<RowData> convertFirebaseLoads() {
 
-    List<RowData> rows = new java.util.ArrayList<>();
+    List<RowData> rows =
+            new ArrayList<>();
 
     for (Load load : firebaseLoads) {
 
-        String status = load.getStatus();
+        // =====================================================
+        // HIDE ACCEPTED / COMPLETED LOADS
+        // =====================================================
 
-        if (status == null || status.isEmpty()) {
+        if ("ACCEPTED".equalsIgnoreCase(load.getStatus())
+                || "COMPLETED".equalsIgnoreCase(load.getStatus())) {
+
+            continue;
+        }
+
+        // =====================================================
+        // LOAD STATUS
+        // =====================================================
+
+        String status =
+                load.getStatus();
+
+        if (status == null ||
+                status.trim().isEmpty()) {
+
             status = "AVAILABLE";
         }
 
-        String source = load.getPickupLocation();
-        String destination = load.getDestination();
-        String userEmail = load.getUserId();
-        String receiverName = load.getReceiverName();
-        String transporterName = load.getTransporterName();
-        String truckType = load.getTruckType();
+        // =====================================================
+        // LOAD DETAILS
+        // =====================================================
 
-        String cargo = load.getLoadType();
+        String source =
+                load.getPickupLocation();
+
+        String destination =
+                load.getDestination();
+
+        String userEmail =
+                load.getUserId();
+
+        String receiverName =
+                load.getReceiverName();
+
+        String transporterName =
+                load.getTransporterName();
+
+        String truckType =
+                load.getTruckType();
+
+        String cargo =
+                load.getLoadType();
 
         String weight =
-                load.getWeight() + " " + load.getWeightUnit();
+                load.getWeight()
+                        + " "
+                        + load.getWeightUnit();
 
         int offer =
                 (int) load.getOfferPrice();
-        int match = calculateMatch(load);
+
+        int match =
+                calculateMatch(load);
+
+        // =====================================================
+        // ADD ROW
+        // =====================================================
 
         rows.add(
                 new RowData(
@@ -557,15 +601,43 @@ private int calculateMatch(Load load) {
                             "-fx-text-fill: white;" +
                             "-fx-background-radius: 10;");
         });
-        AcceptLoad acceptLoad = new AcceptLoad();
-        accept.setOnAction(e -> {
-            acceptLoad.show(HomePage.homeStage,row.load());
-            if (acceptLoad.isLoadAccepted()) {
-                System.out.println("Load accepted!");
-            } else {
-                System.out.println("Load not accepted.");
-            }
-        });
+       AcceptLoad acceptLoad = new AcceptLoad();
+
+accept.setOnAction(e -> {
+
+    acceptLoad.show(
+            HomePage.homeStage,
+            row.load()
+    );
+
+    if (acceptLoad.isLoadAccepted()) {
+
+        System.out.println(
+                "Load accepted!"
+        );
+
+        // =========================================
+        // REFRESH LOADS FROM FIREBASE
+        // =========================================
+
+        loadFirebaseLoads();
+
+        // =========================================
+        // REFRESH AVAILABLE LOAD LIST
+        // ACCEPTED LOAD WILL DISAPPEAR
+        // =========================================
+
+        refresh(
+                convertFirebaseLoads()
+        );
+
+    } else {
+
+        System.out.println(
+                "Load not accepted."
+        );
+    }
+});
 
         accept.setOnMouseExited(e -> {
             accept.setStyle(
