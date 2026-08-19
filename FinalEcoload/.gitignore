@@ -61,4 +61,5 @@ Desktop.ini
 *.temp
 *.swp
 *.swo
-*.json
+
+**/ecoload.json
